@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://brvsjhwye311q"]
+
+[ext_resource type="Script" path="res://HeadUp_Display/hud.gd" id="1_n00ko"]
+[ext_resource type="Texture2D" uid="uid://02t70kpuff6o" path="res://Stages/Ardits_Stage/Coin_alone.png" id="2_yfuy3"]
+[ext_resource type="FontFile" uid="uid://dlm30ebykk1sv" path="res://Ressources/Fonts/copyduck/Copyduck.ttf" id="3_6xw86"]
+[ext_resource type="Texture2D" uid="uid://dm67cqfufmwf" path="res://Ressources/hud_heartFull.png" id="4_i601r"]
+[ext_resource type="Texture2D" uid="uid://knayw820n7j" path="res://Ressources/hud_heartEmpty.png" id="5_eddrx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eh2a1"]
+bg_color = Color(0.6, 0.6, 0.6, 0.6)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+shadow_color = Color(0, 0, 0, 0.215686)
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_n00ko")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 944.0
+offset_right = 1263.0
+offset_bottom = 67.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_eh2a1")
+
+[node name="CoinSum" type="TextureRect" parent="."]
+anchors_preset = -1
+anchor_right = 0.031
+offset_left = 947.0
+offset_top = 9.0
+offset_right = 1084.32
+offset_bottom = 169.0
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_yfuy3")
+
+[node name="x" type="Label" parent="."]
+offset_left = 1000.0
+offset_top = 23.0
+offset_right = 1019.0
+offset_bottom = 47.0
+theme_override_colors/font_color = Color(1, 0.776471, 0, 1)
+theme_override_fonts/font = ExtResource("3_6xw86")
+theme_override_font_sizes/font_size = 22
+text = "x
+"
+
+[node name="LabelCoinSum" type="Label" parent="."]
+offset_left = 1018.0
+offset_top = 16.0
+offset_right = 1082.0
+offset_bottom = 93.0
+theme_override_colors/font_color = Color(1, 0.776471, 0, 1)
+theme_override_fonts/font = ExtResource("3_6xw86")
+theme_override_font_sizes/font_size = 33
+text = "##
+
+"
+
+[node name="HeartsEmpty" type="TextureRect" parent="."]
+offset_left = 1094.0
+offset_top = 11.0
+offset_right = 1253.0
+offset_bottom = 56.0
+texture = ExtResource("5_eddrx")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="HeartsFull" type="TextureRect" parent="."]
+offset_left = 1200.0
+offset_top = 11.0
+offset_right = 1253.0
+offset_bottom = 56.0
+texture = ExtResource("4_i601r")
+expand_mode = 1
+stretch_mode = 1

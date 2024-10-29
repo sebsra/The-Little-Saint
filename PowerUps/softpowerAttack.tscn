@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://biv236ny4gfgg"]
+
+[ext_resource type="Texture2D" uid="uid://cjujmbng36kxc" path="res://stages/Prince_Stage/Tiles/fourSeasonsPlatformer/objects_/items_.png" id="1_ajk25"]
+[ext_resource type="Script" path="res://PowerUps/softpowerAttack.gd" id="1_b1785"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rppnp"]
+height = 22.0
+
+[node name="SoftpowerAttack" type="Area2D"]
+script = ExtResource("1_b1785")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 9.53674e-07)
+scale = Vector2(3.4, 2.72727)
+texture = ExtResource("1_ajk25")
+region_enabled = true
+region_rect = Rect2(18.6332, 34.2014, 10.5537, 11.1483)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_rppnp")
+
+[connection signal="body_entered" from="." to="." method="_on_body_attack_entered"]

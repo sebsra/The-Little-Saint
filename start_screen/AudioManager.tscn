@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://beq5055wiexx"]
+
+[ext_resource type="AudioStream" uid="uid://22ho6xoxrxx8" path="res://Ressources/Audio/Tracks/the-epic-2-by-rafael-krux(chosic.com).mp3" id="1_dmep7"]
+[ext_resource type="Script" path="res://Start_Screen/AudioManager.gd" id="1_uwpxs"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_uwpxs")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_dmep7")
+autoplay = true

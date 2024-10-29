@@ -1,0 +1,147 @@
+[gd_scene load_steps=19 format=3 uid="uid://bq1h5147ej8ka"]
+
+[ext_resource type="Script" path="res://PowerUps/coins.gd" id="1_17fm3"]
+[ext_resource type="Texture2D" uid="uid://ke6swdrk1sb7" path="res://Stages/Ardits_Stage/GameItemsAnims-Sheet.png" id="2_6tilb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rqm4w"]
+radius = 18.0278
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ayu32"]
+atlas = ExtResource("2_6tilb")
+region = Rect2(32, 0, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbmfb"]
+atlas = ExtResource("2_6tilb")
+region = Rect2(32, 16, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4afsi"]
+atlas = ExtResource("2_6tilb")
+region = Rect2(32, 32, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5107"]
+atlas = ExtResource("2_6tilb")
+region = Rect2(32, 48, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxw1m"]
+atlas = ExtResource("2_6tilb")
+region = Rect2(32, 64, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dctc"]
+atlas = ExtResource("2_6tilb")
+region = Rect2(32, 80, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t704v"]
+atlas = ExtResource("2_6tilb")
+region = Rect2(32, 96, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hum43"]
+atlas = ExtResource("2_6tilb")
+region = Rect2(32, 112, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yj5sf"]
+atlas = ExtResource("2_6tilb")
+region = Rect2(32, 128, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f14u4"]
+atlas = ExtResource("2_6tilb")
+region = Rect2(32, 144, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mte2d"]
+atlas = ExtResource("2_6tilb")
+region = Rect2(32, 160, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_821ur"]
+atlas = ExtResource("2_6tilb")
+region = Rect2(32, 176, 16, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vu3d8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ayu32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbmfb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4afsi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5107")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxw1m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dctc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t704v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hum43")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yj5sf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f14u4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mte2d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_821ur")
+}],
+"loop": true,
+"name": &"spin",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_c04vi"]
+resource_name = "bounce"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, -1), Vector2(0, -74), Vector2(0, -13)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1wsg7"]
+_data = {
+"bounce": SubResource("Animation_c04vi")
+}
+
+[node name="coins" type="Area2D"]
+visibility_layer = 2
+scale = Vector2(0.7, 0.7)
+collision_layer = 0
+script = ExtResource("1_17fm3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visibility_layer = 2
+shape = SubResource("CircleShape2D_rqm4w")
+one_way_collision_margin = 0.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -1)
+scale = Vector2(2.5093, 2.5)
+sprite_frames = SubResource("SpriteFrames_vu3d8")
+animation = &"spin"
+autoplay = "spin"
+frame_progress = 0.972546
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1wsg7")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_coins_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

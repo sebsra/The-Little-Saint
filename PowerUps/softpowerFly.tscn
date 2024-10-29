@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://x3juxjynguey"]
+
+[ext_resource type="Script" path="res://PowerUps/softpowerFly.gd" id="1_gynu6"]
+[ext_resource type="Texture2D" uid="uid://cjujmbng36kxc" path="res://Stages/Prince_Stage/Tiles/fourSeasonsPlatformer/objects_/items_.png" id="2_7ejxt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r8h5j"]
+radius = 5.7384
+
+[node name="softpowerFly" type="Area2D"]
+scale = Vector2(1.5, 1.5)
+collision_mask = 2
+script = ExtResource("1_gynu6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(5.33333, 6)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_7ejxt")
+region_enabled = true
+region_rect = Rect2(51.0431, 2.71571, 10.1375, 10.4645)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5.33333, 6)
+scale = Vector2(0.929412, 0.935065)
+shape = SubResource("CircleShape2D_r8h5j")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
