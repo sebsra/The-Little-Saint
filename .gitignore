@@ -32,6 +32,9 @@ dist/
 # Log files
 *.log
 
+# Temporary files
+*.tmp
+
 # Package files
 *.jar
 
