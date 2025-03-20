@@ -1230,7 +1230,7 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\proj
   renderer/rendering_method="mobile"
   environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 
-[Skipped c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scenes\core\character\character_sprites.tscn: File too large (25611 KB)]
+[Skipped c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scenes\core\character\character_sprites.tscn: File too large (26535 KB)]
 
 ========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scenes\levels\prince_levels\Tiles\fourSeasonsPlatformer\- READ ME -.txt:
@@ -1524,7 +1524,6 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scri
   		current_animation = "idle"
   	elif x_input != 0 && y_input <= 0.4:
   		current_animation = "animation3"
-  		current_animation
   	elif y_input > 0.4 or y_input < - 0.4:
   		current_animation = "idle"
   
@@ -1565,18 +1564,18 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scri
   
   func _on_sebastian_portal_entered(_body):
   	mode = "normal"
-  	get_tree().change_scene_to_file("res://Stages/Sebastians_Stage/level_1.tscn")
+  	get_tree().change_scene_to_file("res://scenes/levels/sebastian_levels/level_1.tscn")
   	save_settings() # Replace with function body.
   
   func _on_prince_portal_entered(_body):
-  	get_tree().change_scene_to_file("res://Stages/Prince_Stage/game_prince.tscn")
+  	get_tree().change_scene_to_file("res://scenes/levels/prince_levels/platform.tscn")
   	save_settings()
   
   		#current_animation = "dead"
   		#current_animation = "hurt"
   
   func _on_fallzone_body_entered(_body):
-  	get_tree().change_scene_to_file("res://Stages/Ardits_Stage/Arrogance.tscn")
+  	get_tree().change_scene_to_file("res://scenes/levels/ardit_levels/arrogance.tscn")
   
   func _on_life_up_body_entered(_body):
   	get_parent().get_node("HUD").change_life(0.25)
@@ -1593,7 +1592,7 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scri
   
   
   func _on_test_portal_body_entered(_body):
-  	get_tree().change_scene_to_file("res://Stages/AdventureLevel.tscn")
+  	get_tree().change_scene_to_file("res://scenes/levels/adventure_mode/adventure_level.tscn")
 
 ========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\characters\player_camera.gd:
@@ -2052,7 +2051,7 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scri
   	AudioManager.play_track(boss_music)
   
   # Called every frame. 'delta' is the elapsed time since the previous frame.
-  func _process(delta):
+  func _process(_delta):
   	pass
 
 ========================================
