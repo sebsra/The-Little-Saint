@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvodoquin8gd6"]
+
+[ext_resource type="Script"  path="res://scripts/core/items/power_jump.gd" id="1_0ah4n"]
+[ext_resource type="Texture2D"  path="res://scenes/levels/prince_levels/Tiles/fourSeasonsPlatformer/objects_/items_.png" id="1_niubn"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nwa5q"]
+radius = 3.55556
+height = 7.11111
+
+[node name="softpowerJump" type="Area2D"]
+scale = Vector2(1.5, 1.5)
+collision_mask = 2
+script = ExtResource("1_0ah4n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(5.50001, 7.5)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_niubn")
+region_enabled = true
+region_rect = Rect2(2.7323, 2.74414, 10.4645, 10.301)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5.33333, 7.33333)
+scale = Vector2(1.5, 1.5)
+shape = SubResource("CapsuleShape2D_nwa5q")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

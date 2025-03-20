@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://cacipyxg6gu2d"]
+
+[ext_resource type="Script"  path="res://scripts/ui/main_menu/start_background.gd" id="1_p4p80"]
+[ext_resource type="Texture2D"  path="res://assets/sprites/environment/sunny-land-files/Sunny-land-files/Graphical Assets/environment/Background/back.png" id="2_yc0m6"]
+[ext_resource type="Texture2D"  path="res://assets/sprites/environment/craftpix-net-481981-free-summer-pixel-art-backgrounds/PNG/summer 2/3.png" id="3_wo0lf"]
+
+[node name="start_background" type="ParallaxBackground"]
+scroll_ignore_camera_zoom = true
+script = ExtResource("1_p4p80")
+
+[node name="Clouds" type="ParallaxLayer" parent="."]
+position = Vector2(-84, -3)
+scale = Vector2(1.86809, 2.13445)
+motion_mirroring = Vector2(1958.34, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Clouds"]
+position = Vector2(232.871, 193.527)
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("2_yc0m6")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Clouds"]
+position = Vector2(1538.47, 193.492)
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("2_yc0m6")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Clouds"]
+position = Vector2(885.553, 193.471)
+scale = Vector2(1.70172, 1.70049)
+texture = ExtResource("2_yc0m6")
+
+[node name="Grass" type="ParallaxLayer" parent="."]
+position = Vector2(-99, -231)
+scale = Vector2(1.16, 1.64)
+motion_scale = Vector2(0.7, 0.7)
+motion_mirroring = Vector2(2466.23, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Grass"]
+position = Vector2(229.6, 415.4)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_wo0lf")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Grass"]
+position = Vector2(638.6, 415.4)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_wo0lf")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Grass"]
+position = Vector2(1315, 415)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_wo0lf")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Grass"]
+position = Vector2(2004.31, 415.244)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_wo0lf")
+flip_h = true

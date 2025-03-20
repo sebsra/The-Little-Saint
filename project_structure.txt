@@ -4,259 +4,7 @@ PROJECT STRUCTURE FOR: c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little
 [DIR] .git (skipped)
 [DIR] .godot (skipped)
 [DIR] .vscode (skipped)
-[DIR] Character_Assets
-  - character_sprites.gd
-  - character_sprites.tscn
-[DIR] Character_Customizer
-  - Control.gd
-  - back.gd
-  - customizer.tscn
-  - outfit_showcase.gd
-  - outfit_showcase.tscn
-  - preview_helper.gd
-[DIR] Enemies
-  - Goblin_Archer.gd
-  - Goblin_Archer.tscn
-  - Goblin_Mage.gd
-  - Goblin_Mage.tscn
-  - Goblin_Melee.gd
-  - Goblin_Melee.tscn
-- Global.gd
-[DIR] HeadUp_Display
-  - hud.gd
-  - hud.tscn
-- MageBall.gd
-- MageBall.tscn
-[DIR] OnScreen_Control
-  - JoyStick.tscn
-  - attack.gd
-  - defend.gd
-  - gui.tscn
-[DIR] Player
-  - Player.gd
-  - Player.tscn
-  - PlayerCamera.gd
-[DIR] PowerUps
-  - coins.gd
-  - coins.tscn
-  - softpowerAttack.gd
-  - softpowerAttack.tscn
-  - softpowerFly.gd
-  - softpowerFly.tscn
-  - softpowerJump.gd
-  - softpowerJump.tscn
 - README.md
-[DIR] Ressources
-  [DIR] Audio
-    [DIR] Tracks
-  [DIR] Bushes
-  [DIR] Character v.2
-    [DIR] acc
-    [DIR] characters
-    [DIR] clothes
-    [DIR] eyes
-    [DIR] greyscale
-      [DIR] acc
-        [DIR] acc
-        [DIR] modular
-      [DIR] character
-        [DIR] without
-      [DIR] clothes
-        [DIR] clothes
-        [DIR] modular
-      [DIR] eyes
-      [DIR] hair
-      - info.txt
-      [DIR] tools
-    [DIR] hair
-    - info.txt
-    - list.txt
-    [DIR] separate
-      [DIR] axe
-        [DIR] acc
-        [DIR] clothes
-        [DIR] eyes
-        [DIR] hair
-        [DIR] tool
-        [DIR] without
-      [DIR] block
-        [DIR] acc
-        [DIR] clothes
-        [DIR] eyes
-        [DIR] hair
-        [DIR] tool
-        [DIR] without
-      [DIR] carry
-        [DIR] acc
-        [DIR] clothes
-        [DIR] eyes
-        [DIR] hair
-      [DIR] die
-        [DIR] acc
-        [DIR] clothes
-        [DIR] eyes
-        [DIR] hair
-      [DIR] fish
-        [DIR] acc
-        [DIR] clothes
-        [DIR] eyes
-        [DIR] hair
-        [DIR] tool
-        [DIR] without
-      [DIR] hoe
-        [DIR] acc
-        [DIR] clothes
-        [DIR] eyes
-        [DIR] hair
-        [DIR] tool
-        [DIR] without
-      [DIR] hurt
-        [DIR] acc
-        [DIR] clothes
-        [DIR] eyes
-        [DIR] hair
-      [DIR] jump
-        [DIR] acc
-        [DIR] clothes
-        [DIR] eyes
-        [DIR] hair
-      [DIR] pickaxe
-        [DIR] acc
-        [DIR] clothes
-        [DIR] eyes
-        [DIR] hair
-        [DIR] tool
-        [DIR] without
-      [DIR] pickup
-        [DIR] acc
-        [DIR] clothes
-        [DIR] eyes
-        [DIR] hair
-      [DIR] sword
-        [DIR] acc
-        [DIR] clothes
-        [DIR] eyes
-        [DIR] hair
-        [DIR] tool
-        [DIR] without
-      [DIR] walk
-        [DIR] acc
-        [DIR] clothes
-        [DIR] eyes
-        [DIR] hair
-      [DIR] water
-        [DIR] acc
-        [DIR] clothes
-        [DIR] eyes
-        [DIR] hair
-        [DIR] tool
-        [DIR] without
-  [DIR] Font
-  [DIR] Fonts
-    [DIR] copyduck
-      - More Info.txt
-  - License.txt
-  [DIR] Monsters
-    [DIR] 1 Bat
-    [DIR] 2 Goblin_Mage
-    [DIR] 3 Goblin_Melee
-    [DIR] 4 Goblin_Range
-    [DIR] 5 Small_Mushroom
-    [DIR] 6 Big_Mushroom
-    [DIR] PSD
-  [DIR] Peasant's_House
-    [DIR] Peasant's_House
-      [DIR] Door_Animation
-        [DIR] Door_Animation-FrameByFrame
-      [DIR] House_in_the_middle
-        [DIR] Door_Animation
-        [DIR] Window_Animation
-      [DIR] Peasant's_House-NoAnimation
-      - README.txt
-      [DIR] Window_Animation
-        [DIR] Window_Animation-FrameByFrame
-  [DIR] Sunny-land-files
-    [DIR] Sunny-land-files
-      [DIR] Graphical Assets
-        [DIR] Aseprite
-        [DIR] GIF Previews
-          [DIR] FX
-          [DIR] eagle
-          [DIR] frog
-          [DIR] items
-          [DIR] opossum
-          [DIR] player
-        [DIR] PSD
-          [DIR] MISC
-          [DIR] environment
-          [DIR] sprites
-            [DIR] FX
-            [DIR] eagle
-            [DIR] frog
-            [DIR] items
-            [DIR] opossum
-            [DIR] player
-        [DIR] environment
-          [DIR] Background
-          [DIR] Props
-        [DIR] sprites
-          [DIR] cherry
-          [DIR] eagle
-          [DIR] enemy-death
-          [DIR] frog
-            [DIR] idle
-            [DIR] jump
-          [DIR] gem
-          [DIR] item-feedback
-          [DIR] opossum
-          [DIR] player
-            [DIR] climb
-            [DIR] crouch
-            [DIR] hurt
-            [DIR] idle
-            [DIR] jump
-            [DIR] run
-        [DIR] spritesheets
-      - public-license.txt
-  [DIR] craftpix-896753-village-pixel-art-environment-assets-pack
-    - License.txt
-    [DIR] PNG
-      [DIR] Objects
-      [DIR] Tiles
-    [DIR] Village_PixelArt_Environment.unitypackage
-    - readme.txt
-  [DIR] craftpix-net-352322-nature-pixel-art-environment-free-assets-pack
-    - License.txt
-    [DIR] PNG
-      [DIR] Objects
-      [DIR] Tiles
-    - readme.txt
-  [DIR] craftpix-net-481981-free-summer-pixel-art-backgrounds
-    - License.txt
-    [DIR] PNG
-      [DIR] summer 1
-      [DIR] summer 2
-      [DIR] summer 3
-      [DIR] summer 4
-      [DIR] summer5
-      [DIR] summer6
-      [DIR] summer7
-      [DIR] summer8
-    [DIR] PSD
-    - readme.txt
-  [DIR] craftpix-net-965049-free-industrial-zone-tileset-pixel-art
-    [DIR] 1 Tiles
-    [DIR] 2 Background
-    [DIR] 3 Objects
-    [DIR] 4 Animated objects
-    - Font.txt
-    [DIR] PSD
-    - license.txt
-[DIR] UI
-  [DIR] Popups
-    - popup_dialog.gd
-    - popup_dialog.tscn
-    - popup_manager.gd
 [DIR] addons
   [DIR] virtual_joystick
     [DIR] previews
@@ -268,97 +16,1302 @@ PROJECT STRUCTURE FOR: c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little
     - virtual_joystick_instantiator.gd
     - virtual_joystick_plugin.gd
     - virtual_joystick_scene.tscn
-- base.gd
-- base.tscn
+[DIR] assets
+  [DIR] audio
+    [DIR] music
+      [DIR] Tracks
+    [DIR] sfx
+  [DIR] fonts
+    [DIR] general
+    [DIR] special
+      [DIR] copyduck
+        - More Info.txt
+  [DIR] sprites
+    [DIR] characters
+      [DIR] acc
+      [DIR] characters
+      [DIR] clothes
+      [DIR] eyes
+      [DIR] greyscale
+        [DIR] acc
+          [DIR] acc
+          [DIR] modular
+        [DIR] character
+          [DIR] without
+        [DIR] clothes
+          [DIR] clothes
+          [DIR] modular
+        [DIR] eyes
+        [DIR] hair
+        - info.txt
+        [DIR] tools
+      [DIR] hair
+      - info.txt
+      - list.txt
+      [DIR] separate
+        [DIR] axe
+          [DIR] acc
+          [DIR] clothes
+          [DIR] eyes
+          [DIR] hair
+          [DIR] tool
+          [DIR] without
+        [DIR] block
+          [DIR] acc
+          [DIR] clothes
+          [DIR] eyes
+          [DIR] hair
+          [DIR] tool
+          [DIR] without
+        [DIR] carry
+          [DIR] acc
+          [DIR] clothes
+          [DIR] eyes
+          [DIR] hair
+        [DIR] die
+          [DIR] acc
+          [DIR] clothes
+          [DIR] eyes
+          [DIR] hair
+        [DIR] fish
+          [DIR] acc
+          [DIR] clothes
+          [DIR] eyes
+          [DIR] hair
+          [DIR] tool
+          [DIR] without
+        [DIR] hoe
+          [DIR] acc
+          [DIR] clothes
+          [DIR] eyes
+          [DIR] hair
+          [DIR] tool
+          [DIR] without
+        [DIR] hurt
+          [DIR] acc
+          [DIR] clothes
+          [DIR] eyes
+          [DIR] hair
+        [DIR] jump
+          [DIR] acc
+          [DIR] clothes
+          [DIR] eyes
+          [DIR] hair
+        [DIR] pickaxe
+          [DIR] acc
+          [DIR] clothes
+          [DIR] eyes
+          [DIR] hair
+          [DIR] tool
+          [DIR] without
+        [DIR] pickup
+          [DIR] acc
+          [DIR] clothes
+          [DIR] eyes
+          [DIR] hair
+        [DIR] sword
+          [DIR] acc
+          [DIR] clothes
+          [DIR] eyes
+          [DIR] hair
+          [DIR] tool
+          [DIR] without
+        [DIR] walk
+          [DIR] acc
+          [DIR] clothes
+          [DIR] eyes
+          [DIR] hair
+        [DIR] water
+          [DIR] acc
+          [DIR] clothes
+          [DIR] eyes
+          [DIR] hair
+          [DIR] tool
+          [DIR] without
+    [DIR] enemies
+      [DIR] 1 Bat
+      [DIR] 2 Goblin_Mage
+      [DIR] 3 Goblin_Melee
+      [DIR] 4 Goblin_Range
+      [DIR] 5 Small_Mushroom
+      [DIR] 6 Big_Mushroom
+    [DIR] environment
+      [DIR] craftpix-896753-village-pixel-art-environment-assets-pack
+        - License.txt
+        [DIR] PNG
+          [DIR] Objects
+          [DIR] Tiles
+        - readme.txt
+      [DIR] craftpix-net-352322-nature-pixel-art-environment-free-assets-pack
+        - License.txt
+        [DIR] PNG
+          [DIR] Objects
+          [DIR] Tiles
+        - readme.txt
+      [DIR] craftpix-net-481981-free-summer-pixel-art-backgrounds
+        - License.txt
+        [DIR] PNG
+          [DIR] summer 1
+          [DIR] summer 2
+          [DIR] summer 3
+          [DIR] summer 4
+          [DIR] summer5
+          [DIR] summer6
+          [DIR] summer7
+          [DIR] summer8
+        - readme.txt
+      [DIR] craftpix-net-965049-free-industrial-zone-tileset-pixel-art
+        [DIR] 1 Tiles
+        [DIR] 2 Background
+        [DIR] 3 Objects
+        [DIR] 4 Animated objects
+        - Font.txt
+        - license.txt
+      [DIR] peasant's_house
+        [DIR] Peasant's_House
+          [DIR] Door_Animation
+            [DIR] Door_Animation-FrameByFrame
+          [DIR] House_in_the_middle
+            [DIR] Door_Animation
+            [DIR] Window_Animation
+          [DIR] Peasant's_House-NoAnimation
+          - README.txt
+          [DIR] Window_Animation
+            [DIR] Window_Animation-FrameByFrame
+      [DIR] sunny-land-files
+        [DIR] Sunny-land-files
+          [DIR] Graphical Assets
+            [DIR] environment
+              [DIR] Background
+              [DIR] Props
+            [DIR] sprites
+              [DIR] cherry
+              [DIR] eagle
+              [DIR] enemy-death
+              [DIR] frog
+                [DIR] idle
+                [DIR] jump
+              [DIR] gem
+              [DIR] item-feedback
+              [DIR] opossum
+              [DIR] player
+                [DIR] climb
+                [DIR] crouch
+                [DIR] hurt
+                [DIR] idle
+                [DIR] jump
+                [DIR] run
+            [DIR] spritesheets
+          - public-license.txt
+    [DIR] items
+    [DIR] ui
+    [DIR] unsorted
+      [DIR] Audio
+        [DIR] Tracks
+      [DIR] Bushes
+      [DIR] Character v.2
+        [DIR] acc
+        [DIR] characters
+        [DIR] clothes
+        [DIR] eyes
+        [DIR] greyscale
+          [DIR] acc
+            [DIR] acc
+            [DIR] modular
+          [DIR] character
+            [DIR] without
+          [DIR] clothes
+            [DIR] clothes
+            [DIR] modular
+          [DIR] eyes
+          [DIR] hair
+          [DIR] tools
+        [DIR] hair
+        [DIR] separate
+          [DIR] axe
+            [DIR] acc
+            [DIR] clothes
+            [DIR] eyes
+            [DIR] hair
+            [DIR] tool
+            [DIR] without
+          [DIR] block
+            [DIR] acc
+            [DIR] clothes
+            [DIR] eyes
+            [DIR] hair
+            [DIR] tool
+            [DIR] without
+          [DIR] carry
+            [DIR] acc
+            [DIR] clothes
+            [DIR] eyes
+            [DIR] hair
+          [DIR] die
+            [DIR] acc
+            [DIR] clothes
+            [DIR] eyes
+            [DIR] hair
+          [DIR] fish
+            [DIR] acc
+            [DIR] clothes
+            [DIR] eyes
+            [DIR] hair
+            [DIR] tool
+            [DIR] without
+          [DIR] hoe
+            [DIR] acc
+            [DIR] clothes
+            [DIR] eyes
+            [DIR] hair
+            [DIR] tool
+            [DIR] without
+          [DIR] hurt
+            [DIR] acc
+            [DIR] clothes
+            [DIR] eyes
+            [DIR] hair
+          [DIR] jump
+            [DIR] acc
+            [DIR] clothes
+            [DIR] eyes
+            [DIR] hair
+          [DIR] pickaxe
+            [DIR] acc
+            [DIR] clothes
+            [DIR] eyes
+            [DIR] hair
+            [DIR] tool
+            [DIR] without
+          [DIR] pickup
+            [DIR] acc
+            [DIR] clothes
+            [DIR] eyes
+            [DIR] hair
+          [DIR] sword
+            [DIR] acc
+            [DIR] clothes
+            [DIR] eyes
+            [DIR] hair
+            [DIR] tool
+            [DIR] without
+          [DIR] walk
+            [DIR] acc
+            [DIR] clothes
+            [DIR] eyes
+            [DIR] hair
+          [DIR] water
+            [DIR] acc
+            [DIR] clothes
+            [DIR] eyes
+            [DIR] hair
+            [DIR] tool
+            [DIR] without
+      [DIR] Font
+      [DIR] Fonts
+        [DIR] copyduck
+      - License.txt
+      [DIR] Monsters
+        [DIR] 1 Bat
+        [DIR] 2 Goblin_Mage
+        [DIR] 3 Goblin_Melee
+        [DIR] 4 Goblin_Range
+        [DIR] 5 Small_Mushroom
+        [DIR] 6 Big_Mushroom
+        [DIR] PSD
+      [DIR] Peasant's_House
+        [DIR] Peasant's_House
+          [DIR] Door_Animation
+            [DIR] Door_Animation-FrameByFrame
+          [DIR] House_in_the_middle
+            [DIR] Door_Animation
+            [DIR] Window_Animation
+          [DIR] Peasant's_House-NoAnimation
+          [DIR] Window_Animation
+            [DIR] Window_Animation-FrameByFrame
+      [DIR] Sunny-land-files
+        [DIR] Sunny-land-files
+          [DIR] Graphical Assets
+            [DIR] Aseprite
+            [DIR] GIF Previews
+              [DIR] FX
+              [DIR] eagle
+              [DIR] frog
+              [DIR] items
+              [DIR] opossum
+              [DIR] player
+            [DIR] PSD
+              [DIR] MISC
+              [DIR] environment
+              [DIR] sprites
+                [DIR] FX
+                [DIR] eagle
+                [DIR] frog
+                [DIR] items
+                [DIR] opossum
+                [DIR] player
+            [DIR] environment
+              [DIR] Background
+              [DIR] Props
+            [DIR] sprites
+              [DIR] cherry
+              [DIR] eagle
+              [DIR] enemy-death
+              [DIR] frog
+                [DIR] idle
+                [DIR] jump
+              [DIR] gem
+              [DIR] item-feedback
+              [DIR] opossum
+              [DIR] player
+                [DIR] climb
+                [DIR] crouch
+                [DIR] hurt
+                [DIR] idle
+                [DIR] jump
+                [DIR] run
+            [DIR] spritesheets
+      [DIR] craftpix-896753-village-pixel-art-environment-assets-pack
+        [DIR] PNG
+          [DIR] Objects
+          [DIR] Tiles
+        [DIR] Village_PixelArt_Environment.unitypackage
+      [DIR] craftpix-net-352322-nature-pixel-art-environment-free-assets-pack
+        [DIR] PNG
+          [DIR] Objects
+          [DIR] Tiles
+      [DIR] craftpix-net-481981-free-summer-pixel-art-backgrounds
+        [DIR] PNG
+          [DIR] summer 1
+          [DIR] summer 2
+          [DIR] summer 3
+          [DIR] summer 4
+          [DIR] summer5
+          [DIR] summer6
+          [DIR] summer7
+          [DIR] summer8
+        [DIR] PSD
+      [DIR] craftpix-net-965049-free-industrial-zone-tileset-pixel-art
+        [DIR] 1 Tiles
+        [DIR] 2 Background
+        [DIR] 3 Objects
+        [DIR] 4 Animated objects
+        [DIR] PSD
+  [DIR] tilemaps
+[DIR] config
+[DIR] docs
 - get_structure.py
 - project.godot
 - project_structure.txt
-- rock.gd
-- rock.tscn
-[DIR] stages
-  - AdventureLevel.tscn
-  [DIR] Ardits_Stage
-    - Arrogance.tscn
-    [DIR] Egypt
-    [DIR] Free
-      [DIR] Background
-      [DIR] Items
-        [DIR] Boxes
-          [DIR] Box1
-          [DIR] Box2
-          [DIR] Box3
-        [DIR] Checkpoints
-          [DIR] Checkpoint
-          [DIR] End
-          [DIR] Start
-        [DIR] Fruits
-      [DIR] Main Characters
-        [DIR] Mask Dude
-        [DIR] Ninja Frog
-        [DIR] Pink Man
-        [DIR] Virtual Guy
-      [DIR] Menu
-        [DIR] Buttons
-        [DIR] Levels
-        [DIR] Text
-      [DIR] Other
-      [DIR] Terrain
-      [DIR] Traps
-        [DIR] Arrow
-        [DIR] Blocks
-        [DIR] Falling Platforms
-        [DIR] Fan
-        [DIR] Fire
-        [DIR] Platforms
-        [DIR] Rock Head
-        [DIR] Sand Mud Ice
-        [DIR] Saw
-        [DIR] Spike Head
-        [DIR] Spiked Ball
-        [DIR] Spikes
-        [DIR] Trampoline
-    [DIR] Free Version
+[DIR] scenes
+  [DIR] common
+    [DIR] enemies
+    [DIR] items
+  [DIR] core
+    [DIR] character
+      - character_sprites.tscn
+      - player.tscn
+    [DIR] enemies
+      - ardit_enemy.tscn
+      - goblin_archer.tscn
+      - goblin_mage.tscn
+      - goblin_melee.tscn
+      - prince_enemy.tscn
+    [DIR] items
+      - coins.tscn
+      - killzone.tscn
+      - power_attack.tscn
+      - power_fly.tscn
+      - power_jump.tscn
+    [DIR] projectiles
+      - mage_ball.tscn
+      - rock.tscn
+  [DIR] levels
+    [DIR] adventure_mode
+      - adventure_level.tscn
+      - base_level.tscn
+    [DIR] ardit_levels
+      [DIR] Egypt
+      [DIR] Free
+        [DIR] Background
+        [DIR] Items
+          [DIR] Boxes
+            [DIR] Box1
+            [DIR] Box2
+            [DIR] Box3
+          [DIR] Checkpoints
+            [DIR] Checkpoint
+            [DIR] End
+            [DIR] Start
+          [DIR] Fruits
+        [DIR] Main Characters
+          [DIR] Mask Dude
+          [DIR] Ninja Frog
+          [DIR] Pink Man
+          [DIR] Virtual Guy
+        [DIR] Menu
+          [DIR] Buttons
+          [DIR] Levels
+          [DIR] Text
+        [DIR] Other
+        [DIR] Terrain
+        [DIR] Traps
+          [DIR] Arrow
+          [DIR] Blocks
+          [DIR] Falling Platforms
+          [DIR] Fan
+          [DIR] Fire
+          [DIR] Platforms
+          [DIR] Rock Head
+          [DIR] Sand Mud Ice
+          [DIR] Saw
+          [DIR] Spike Head
+          [DIR] Spiked Ball
+          [DIR] Spikes
+          [DIR] Trampoline
+      [DIR] Free Version
+        [DIR] Tiles
+      [DIR] [Free-Version] The Lost Tomb - [24x24] Dungeon Asset pack
+      - arrogance.tscn
+      [DIR] egyptian-game-ui-frames-assets
+      [DIR] enemy1
+    [DIR] prince_levels
+      [DIR] Scriptprince
       [DIR] Tiles
-    [DIR] [Free-Version] The Lost Tomb - [24x24] Dungeon Asset pack
-    [DIR] egyptian-game-ui-frames-assets
-    [DIR] enemy1
-    - enemy1.gd
-    - enemy1.tscn
-  [DIR] Prince_Stage
-    [DIR] Scriptprince
-      - gegner_1.gd
-      - killzone.gd
-    [DIR] Tiles
-      [DIR] fourSeasonsPlatformer
-        - - READ ME -.txt
-        [DIR] background_
-        [DIR] foreground_
-        [DIR] midground_
-        [DIR] objects_
-    - game_prince.tscn
-    - gegner_1.tscn
-    - killzone.tscn
-    - platform.tscn
-  [DIR] Sebastians_Stage
-    - level_1.tscn
-[DIR] start_screen
-  - AudioManager.gd
-  - AudioManager.tscn
-  - Audio_Settings.gd
-  - Audio_Settings.tscn
-  - Camera2D.gd
-  - Customizer_Button.gd
-  - setting_screen.gd
-  - setting_screen.tscn
-  - start_background.gd
-  - start_background.tscn
-  - start_screen.gd
-  - start_screen.tscn
-  - start_screen_buttons.gd
+        [DIR] fourSeasonsPlatformer
+          - - READ ME -.txt
+          [DIR] background_
+          [DIR] foreground_
+          [DIR] midground_
+          [DIR] objects_
+      - game_prince.tscn
+      - platform.tscn
+    [DIR] sebastian_levels
+      - level_1.tscn
+  [DIR] managers
+    - audio_manager.tscn
+  [DIR] ui
+    [DIR] character_customizer
+      - customizer.tscn
+      - outfit_showcase.tscn
+    [DIR] controls
+      - gui.tscn
+      - joystick.tscn
+    [DIR] customizer
+    [DIR] dialogs
+      - popup_dialog.tscn
+    [DIR] hud
+      - hud.tscn
+    [DIR] main_menu
+      - main_menu.tscn
+      - start_background.tscn
+    [DIR] settings
+      - audio_settings.tscn
+      - settings_menu.tscn
+[DIR] scripts
+  [DIR] autoload
+    - audio_manager.gd
+    - game_manager.gd
+  [DIR] core
+    [DIR] characters
+      - character_sprites.gd
+      - player.gd
+      - player_camera.gd
+    [DIR] enemies
+      - ardit_enemy.gd
+      - goblin_archer.gd
+      - goblin_mage.gd
+      - goblin_melee.gd
+      - prince_enemy.gd
+    [DIR] items
+      - coins.gd
+      - power_attack.gd
+      - power_fly.gd
+      - power_jump.gd
+    [DIR] projectiles
+      - mage_ball.gd
+      - rock.gd
+  [DIR] levels
+    - base_level.gd
+  [DIR] ui
+    [DIR] character_customizer
+      - customizer_controller.gd
+      - outfit_showcase.gd
+      - preview_helper.gd
+    [DIR] controls
+      - attack_button.gd
+      - defend_button.gd
+    [DIR] dialogs
+      - popup_dialog.gd
+      - popup_manager.gd
+    [DIR] hud
+      - hud_controller.gd
+    [DIR] main_menu
+      - camera.gd
+      - customizer_button.gd
+      - main_menu.gd
+      - menu_buttons.gd
+      - start_background.gd
+    [DIR] settings
+      - audio_settings.gd
+      - settings_menu.gd
+  [DIR] utils
+    - killzone.gd
 
 ========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Character_Assets\character_sprites.gd:
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\README.md:
 ========================================
+  # Godot Virtual Joystick
+  
+  <img src="addons/virtual_joystick/previews/icon.png" width="200">
+  
+  A simple virtual joystick for touchscreens, with useful options.
+  
+  GitHub Page: https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot
+  
+  Godot Engine: https://godotengine.org
+  
+  ## PREVIEWS:
+  
+  <img src="addons/virtual_joystick/previews/preview1.png" width="300">    <img src="addons/virtual_joystick/previews/preview2.png" width="300">
+  
+  Easy to use:
+  
+  ```GDScript
+  extends Sprite2D
+  
+  @export var speed : float = 100
+  
+  @export var joystick_left : VirtualJoystick
+  
+  @export var joystick_right : VirtualJoystick
+  
+  var move_vector := Vector2.ZERO
+  
+  func _process(delta: float) -> void:
+  	## Movement using the joystick output:
+  #	if joystick_left and joystick_left.is_pressed:
+  #		position += joystick_left.output * speed * delta
+  
+  	## Movement using Input functions:
+  	move_vector = Vector2.ZERO
+  	move_vector = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
+  	position += move_vector * speed * delta
+  
+  	# Rotation:
+  	if joystick_right and joystick_right.is_pressed:
+  		rotation = joystick_right.output.angle()
+  ```
+  
+  
+  ## OPTIONS:
+  
+  - Joystick mode:
+  	- Fixed: The joystick doesn't move.
+  	- Dynamic: Every time the joystick area is pressed, the joystick position is set on the touched position.
+  	- Following: When the finger moves outside the joystick area, the joystick will follow it.
+  
+  - Dead zone size: If the tip is inside this range the output is zero.
+  
+  - Clamp zone size: The max distance the tip can reach.
+  
+  - Visibility mode:
+  	- always: Always visible.
+  	- touchscreen only: Visible on touch screens only (will hide if the device has not a touchscreen).
+  	- when_touched: Visible only when touched.
+  
+  - Use input actions: if true the joystick will trigger the input actions created in Project -> Project Settings -> Input Map
+  
+  ## HELP:
+  - The Control parent of the joystick is the area in which the joystick can move in Dynamic mode.
+  - For moving the joystick inside his area, select it, right click, turn on "Editable Children" and then change the position of the Base node.
+  - With "Editable Children" turned on you can also edit the joystick textures and colors.
+  - Create a CanvasLayer node and name it "UI", it'll contain all the UI elements, then add the Joystick scene as a child of the UI node and move it where you prefer.
+  - An example scene is provided in the "Test" folder.
+  
+  ## FAQ
+  ### Multitouch doesn't work / can't use two joystick at the same time:
+  In Godot, the input events from the mouse don't support multitouch, so make sure to have this configuration:
+  Project -> Project Settings -> General -> Input Devices
+  "emulate touch from mouse" ON
+  "emulate mouse from touch" OFF
+  
+  ### The joystick doesn't work when using Input.get_vector():
+  ⚠ **This has been fixed in Godot Engine!**
+  Unfortunately, this a bug in the Godot engine, so the only solution for now is using Input.get_axis:
+  This doesn't work:
+  ```gdscript
+  input_vector := Input.get_vector("ui_left","ui_right","ui_up","ui_down")
+  ```
+  This works:
+  ```gdscript
+  input_vector := Vector2.ZERO
+  input_vector.x = Input.get_axis("ui_left", "ui_right")
+  input_vector.y = Input.get_axis("ui_up", "ui_down")
+  ```
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\addons\virtual_joystick\test\player.gd:
+========================================
+  extends Sprite2D
+  
+  @export var speed : float = 100
+  
+  @export var joystick_left : VirtualJoystick
+  
+  @export var joystick_right : VirtualJoystick
+  
+  var move_vector := Vector2.ZERO
+  
+  func _process(delta: float) -> void:
+  	## Movement using the joystick output:
+  #	if joystick_left and joystick_left.is_pressed:
+  #		position += joystick_left.output * speed * delta
+  
+  	## Movement using Input functions:
+  	move_vector = Vector2.ZERO
+  	move_vector = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
+  	position += move_vector * speed * delta
+  
+  	# Rotation:
+  	if joystick_right and joystick_right.is_pressed:
+  		rotation = joystick_right.output.angle()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\addons\virtual_joystick\virtual_joystick.gd:
+========================================
+  class_name VirtualJoystick
+  
+  extends Control
+  
+  ## A simple virtual joystick for touchscreens, with useful options.
+  ## Github: https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot
+  
+  # EXPORTED VARIABLE
+  
+  ## The color of the button when the joystick is pressed.
+  @export var pressed_color := Color.GRAY
+  
+  ## If the input is inside this range, the output is zero.
+  @export_range(0, 200, 1) var deadzone_size : float = 10
+  
+  ## The max distance the tip can reach.
+  @export_range(0, 500, 1) var clampzone_size : float = 75
+  
+  enum Joystick_mode {
+  	FIXED, ## The joystick doesn't move.
+  	DYNAMIC, ## Every time the joystick area is pressed, the joystick position is set on the touched position.
+  	FOLLOWING ## When the finger moves outside the joystick area, the joystick will follow it.
+  }
+  
+  ## If the joystick stays in the same position or appears on the touched position when touch is started
+  @export var joystick_mode := Joystick_mode.FIXED
+  
+  enum Visibility_mode {
+  	ALWAYS, ## Always visible
+  	TOUCHSCREEN_ONLY, ## Visible on touch screens only
+  	WHEN_TOUCHED ## Visible only when touched
+  }
+  
+  ## If the joystick is always visible, or is shown only if there is a touchscreen
+  @export var visibility_mode := Visibility_mode.ALWAYS
+  
+  ## If true, the joystick uses Input Actions (Project -> Project Settings -> Input Map)
+  @export var use_input_actions := true
+  
+  @export var action_left := "ui_left"
+  @export var action_right := "ui_right"
+  @export var action_up := "ui_up"
+  @export var action_down := "ui_down"
+  
+  # PUBLIC VARIABLES
+  
+  ## If the joystick is receiving inputs.
+  var is_pressed := false
+  
+  # The joystick output.
+  var output := Vector2.ZERO
+  
+  # PRIVATE VARIABLES
+  
+  var _touch_index : int = -1
+  
+  @onready var _base := $Base
+  @onready var _tip := $Base/Tip
+  
+  @onready var _base_default_position : Vector2 = _base.position
+  @onready var _tip_default_position : Vector2 = _tip.position
+  
+  @onready var _default_color : Color = _tip.modulate
+  
+  # FUNCTIONS
+  
+  func _ready() -> void:
+  	if ProjectSettings.get_setting("input_devices/pointing/emulate_mouse_from_touch"):
+  		printerr("The Project Setting 'emulate_mouse_from_touch' should be set to False")
+  	if not ProjectSettings.get_setting("input_devices/pointing/emulate_touch_from_mouse"):
+  		printerr("The Project Setting 'emulate_touch_from_mouse' should be set to True")
+  
+  	if not DisplayServer.is_touchscreen_available() and visibility_mode == Visibility_mode.TOUCHSCREEN_ONLY :
+  		hide()
+  
+  	if visibility_mode == Visibility_mode.WHEN_TOUCHED:
+  		hide()
+  
+  func _input(event: InputEvent) -> void:
+  	if event is InputEventScreenTouch:
+  		if event.pressed:
+  			if _is_point_inside_joystick_area(event.position) and _touch_index == -1:
+  				if joystick_mode == Joystick_mode.DYNAMIC or joystick_mode == Joystick_mode.FOLLOWING or (joystick_mode == Joystick_mode.FIXED and _is_point_inside_base(event.position)):
+  					if joystick_mode == Joystick_mode.DYNAMIC or joystick_mode == Joystick_mode.FOLLOWING:
+  						_move_base(event.position)
+  					if visibility_mode == Visibility_mode.WHEN_TOUCHED:
+  						show()
+  					_touch_index = event.index
+  					_tip.modulate = pressed_color
+  					_update_joystick(event.position)
+  					get_viewport().set_input_as_handled()
+  		elif event.index == _touch_index:
+  			_reset()
+  			if visibility_mode == Visibility_mode.WHEN_TOUCHED:
+  				hide()
+  			get_viewport().set_input_as_handled()
+  	elif event is InputEventScreenDrag:
+  		if event.index == _touch_index:
+  			_update_joystick(event.position)
+  			get_viewport().set_input_as_handled()
+  
+  func _move_base(new_position: Vector2) -> void:
+  	_base.global_position = new_position - _base.pivot_offset * get_global_transform_with_canvas().get_scale()
+  
+  func _move_tip(new_position: Vector2) -> void:
+  	_tip.global_position = new_position - _tip.pivot_offset * _base.get_global_transform_with_canvas().get_scale()
+  
+  func _is_point_inside_joystick_area(point: Vector2) -> bool:
+  	var x: bool = point.x >= global_position.x and point.x <= global_position.x + (size.x * get_global_transform_with_canvas().get_scale().x)
+  	var y: bool = point.y >= global_position.y and point.y <= global_position.y + (size.y * get_global_transform_with_canvas().get_scale().y)
+  	return x and y
+  
+  func _get_base_radius() -> Vector2:
+  	return _base.size * _base.get_global_transform_with_canvas().get_scale() / 2
+  
+  func _is_point_inside_base(point: Vector2) -> bool:
+  	var _base_radius = _get_base_radius()
+  	var center : Vector2 = _base.global_position + _base_radius
+  	var vector : Vector2 = point - center
+  	if vector.length_squared() <= _base_radius.x * _base_radius.x:
+  		return true
+  	else:
+  		return false
+  
+  func _update_joystick(touch_position: Vector2) -> void:
+  	var _base_radius = _get_base_radius()
+  	var center : Vector2 = _base.global_position + _base_radius
+  	var vector : Vector2 = touch_position - center
+  	vector = vector.limit_length(clampzone_size)
+  
+  	if joystick_mode == Joystick_mode.FOLLOWING and touch_position.distance_to(center) > clampzone_size:
+  		_move_base(touch_position - vector)
+  
+  	_move_tip(center + vector)
+  
+  	if vector.length_squared() > deadzone_size * deadzone_size:
+  		is_pressed = true
+  		output = (vector - (vector.normalized() * deadzone_size)) / (clampzone_size - deadzone_size)
+  	else:
+  		is_pressed = false
+  		output = Vector2.ZERO
+  
+  	if use_input_actions:
+  		if output.x > 0:
+  			Input.action_release(action_left)
+  			Input.action_press(action_right, output.x)
+  		else:
+  			Input.action_release(action_right)
+  			Input.action_press(action_left, -output.x)
+  
+  		if output.y > 0:
+  			Input.action_release(action_up)
+  			Input.action_press(action_down, output.y)
+  		else:
+  			Input.action_release(action_down)
+  			Input.action_press(action_up, -output.y)
+  
+  func _reset():
+  	is_pressed = false
+  	output = Vector2.ZERO
+  	_touch_index = -1
+  	_tip.modulate = _default_color
+  	_base.position = _base_default_position
+  	_tip.position = _tip_default_position
+  	if use_input_actions:
+  		for action in [action_left, action_right, action_down, action_up]:
+  			Input.action_release(action)
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\addons\virtual_joystick\virtual_joystick_instantiator.gd:
+========================================
+  @tool
+  extends Control
+  
+  var scene
+  
+  func _enter_tree():
+  	scene = preload("res://addons/virtual_joystick/virtual_joystick_scene.tscn").instantiate()
+  	add_child(scene)
+  
+  	if ProjectSettings.get_setting("input_devices/pointing/emulate_mouse_from_touch"):
+  		printerr("The Project Setting 'emulate_mouse_from_touch' should be set to False")
+  	if not ProjectSettings.get_setting("input_devices/pointing/emulate_touch_from_mouse"):
+  		printerr("The Project Setting 'emulate_touch_from_mouse' should be set to True")
+  
+  
+  func _exit_tree():
+  	scene.free()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\addons\virtual_joystick\virtual_joystick_plugin.gd:
+========================================
+  @tool
+  extends EditorPlugin
+  
+  
+  func _enter_tree():
+  	add_custom_type("Virtual Joystick", "Control", preload("virtual_joystick_instantiator.gd"), preload("virtual_joystick_icon.png"))
+  
+  
+  func _exit_tree():
+  	remove_custom_type("Virtual Joystick")
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\assets\fonts\special\copyduck\More Info.txt:
+========================================
+  First of All,
+  
+  Thank you for download my product.
+  This product 100% free for personal use & commercial use
+  
+  File include :
+  
+  1. Copyduck.ttf
+  2. Copyduck.otf
+  
+  More Info :
+  khurasantype@gmail.com
+  
+  For Donation:
+  paypal.me/khurasantype
+  
+  My OnlineShop:
+  https://www.creativefabrica.com/ref/53/
+  
+  My Portofolio:
+  https://www.behance.net/khurasan
+  
+  My web:
+  www.khurasanstudio.com
+  www.mbkaos.com
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\assets\sprites\characters\greyscale\info.txt:
+========================================
+  
+  How to use modular clothing
+  
+  Use basic_grey (clothes) as base and add the detail (modular) you want:
+  	floral, overalls, sailor, skull, sporty, stripe
+  
+  "button_grey" works for clown outfit and pumpkin outfit
+  
+  "shoes_grey" works for all outfits besides "witch_grey"
+  
+  "gloves_grey" works for clown, pumpkin and spooky
+  
+  
+  Modular hair
+  
+  Use "braids_tie_grey" on top of braids to adjust color of hair ties
+  
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\assets\sprites\characters\info.txt:
+========================================
+  
+  GRID SIZE 32x32
+  CELL SIZE MERGED: 256x1568
+  
+  WALK FR: 100
+  Cell Size: 256x128
+  
+  JUMP FR: 100; 200; 100; 120; 100
+  Cell Size: 160x128
+  
+  PICK UP FR: 150; 150; 100; 100; 150
+  Cell Size: 160x128
+  
+  CARRY FR:100
+  Cell Size: 256x128
+  (char moved  up 1px)
+  
+  SWORD FR: 100; 200; 80; 100
+  Cell Size: 128x128
+  
+  BLOCK Cell Size: 32x128
+  
+  HURT Cell Size: 32x128
+  
+  DIE FR: 500
+  Cell Size: 64x32
+  
+  PICKAXE/ AXE FR: 100; 100; 250; 60; 100
+  Cell Size: 160x128
+  
+  WATER FR: 300; 600
+  Cell Size: 64x128
+  (char moved up 5 px)
+  
+  HOE FR: 200; 150; 200; 200; 200
+  Cell Size: 160x128
+  (down: char moved up 8 px; left/right char moved up 1 px)
+  
+  FISHING L/R FR: 100; 100; 250; 60; 100
+  FISHING U/D FR: 100; 250; 60; 100; 100
+  Cell Size: 160x128
+  (char moved up 4 px)
+  
+  LAYERS
+  1. Characters
+  2. Eyes ->Blush/Lipstick
+  3. Clothes: Shirt -> Pants -> Shoes
+  4. Hair
+  5. Accessories Beard -> Glasses -> Hat
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\assets\sprites\characters\list.txt:
+========================================
+  
+  HAIR
+  1. Black
+  2. Blonde
+  3. Brown
+  4. Brown Light
+  5. Copper
+  6. Emerald
+  7. Green
+  8. Grey
+  9. Lilac
+  10. Navy
+  11. Pink
+  12. Purple
+  13. Red
+  14. Turquoise
+  
+  Clothes:
+  1. Black
+  2. Blue
+  3. Blue Light
+  4. Brown
+  5. Green
+  6. Green Light
+  7. Pink
+  8. Purple
+  9. Red
+  10. White/Grey
+  
+  Eyes:
+  1. Black
+  2. Blue
+  3. Blue Light
+  4. Brown
+  5. Brown Dark
+  6. Brown Light
+  7. Green
+  8. Green Dark
+  9. Green Light
+  10. Grey
+  11. Grey Light
+  12. Pink
+  13. Pink Light
+  14. Red
+  
+  Lipstick and Blush are sorted from light to dark.
+  
+  
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\assets\sprites\environment\craftpix-896753-village-pixel-art-environment-assets-pack\License.txt:
+========================================
+  https://craftpix.net/file-licenses/
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\assets\sprites\environment\craftpix-896753-village-pixel-art-environment-assets-pack\readme.txt:
+========================================
+  Font that was used for the background of the preview:
+  https://www.dafont.com/pixellari.font
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\assets\sprites\environment\craftpix-net-352322-nature-pixel-art-environment-free-assets-pack\License.txt:
+========================================
+  https://craftpix.net/file-licenses/
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\assets\sprites\environment\craftpix-net-352322-nature-pixel-art-environment-free-assets-pack\readme.txt:
+========================================
+  Font that was used for the background of the preview:
+  https://www.dafont.com/pixellari.font
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\assets\sprites\environment\craftpix-net-481981-free-summer-pixel-art-backgrounds\License.txt:
+========================================
+  https://craftpix.net/file-licenses/
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\assets\sprites\environment\craftpix-net-481981-free-summer-pixel-art-backgrounds\readme.txt:
+========================================
+  Font that was used for the background of the preview:
+  https://www.dafont.com/digital-disco.font
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\assets\sprites\environment\craftpix-net-965049-free-industrial-zone-tileset-pixel-art\Font.txt:
+========================================
+  Future Millennium
+  https://www.dafont.com/futuremillennium.font
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\assets\sprites\environment\craftpix-net-965049-free-industrial-zone-tileset-pixel-art\license.txt:
+========================================
+  https://craftpix.net/file-licenses/
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\assets\sprites\environment\peasant's_house\Peasant's_House\README.txt:
+========================================
+  THIS MATERIAL IS COMPLETELY FREE, AND YOU CAN FIND IT ON MY PAGE "https://ericksazevedo.itch.io/". IF YOU PAID FOR THIS MATERIAL, DEMAND A REFUND!
+  
+  I'm glad you chose my art for your project, I hope it proves to be very useful to you.
+  
+  INTRODUTION
+  
+  My name is Ericks Azevedo. I created this artwork for study purposes and in the hope that it will be useful for other people's projects. If you're interested in more art, take a look at my page "https://ericksazevedo.itch.io/". I'll be regularly posting new art there whenever possible
+  
+  LICENSES
+  
+  * You can use the artwork in both free and commercial projects, as long as you give me credit. For that purpose, use my Instagram profile "@ericks.azevedo".
+  * You can edit the images as you prefer; for this purpose, I'm providing the files in .aseprite format.
+  * Selling these assets is not allowed, even if modifications have been made.
+  
+  INSTRUCTIONS
+  
+  * In each folder, you will find two ways to import your files: one using image sequences and the other with individual frames. Both methods have their own .aseprite file, in case you want to make modifications.
+  * Pay attention to the "House_in_the_middle" folder. Inside it, you will find the images split in half, both for the door animation and the window animation. Both of them have the same sprite size, so you just need to overlay one onto the other. I organized it this way because the window and the door have different animation timings, and one is a loop while the other is not.
+  
+  If you want to support my work, please follow my page on itch.io ;)
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\assets\sprites\environment\sunny-land-files\Sunny-land-files\public-license.txt:
+========================================
+  Artwork created by Luis Zuno @ansimuz
+  
+  License for Everyone.
+  
+  Public domain and free to use on whatever you want, personal or commercial. Credit is not required but appreciated.
+  
+  Get more Free Assetslike these at: ansimuz.itch.io
+  or at my patreon page: patreon.com/ansimuz
+  
+  
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\assets\sprites\unsorted\License.txt:
+========================================
+  https://craftpix.net/file-licenses/
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\project.godot:
+========================================
+  ; Engine configuration file.
+  ; It's best edited using the editor UI and not directly,
+  ; since the parameters that go here are not all obvious.
+  ;
+  ; Format:
+  ;   [section] ; section goes between []
+  ;   param=value ; assign values to parameters
+  
+  config_version=5
+  
+  [application]
+  
+  config/name="The Little Saint"
+  run/main_scene="uid://dh7t0n4nj8w4o"
+  config/features=PackedStringArray("4.4", "Mobile")
+  
+  [autoload]
+  
+  AudioManager="*res://scripts/autoload/audio_manager.gd"
+  Global="*res://scripts/autoload/game_manager.gd"
+  PopupManager="*res://scripts/ui/dialogs/popup_manager.gd"
+  
+  [display]
+  
+  window/size/viewport_width=1280
+  window/size/viewport_height=720
+  window/stretch/mode="canvas_items"
+  window/stretch/aspect="expand"
+  
+  [input]
+  
+  right={
+  "deadzone": 0.5,
+  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":68,"key_label":0,"unicode":100,"location":0,"echo":false,"script":null)
+  , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194321,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+  ]
+  }
+  left={
+  "deadzone": 0.5,
+  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":65,"key_label":0,"unicode":97,"location":0,"echo":false,"script":null)
+  , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194319,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+  ]
+  }
+  up={
+  "deadzone": 0.5,
+  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":87,"key_label":0,"unicode":119,"location":0,"echo":false,"script":null)
+  , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194320,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+  ]
+  }
+  down={
+  "deadzone": 0.5,
+  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":115,"location":0,"echo":false,"script":null)
+  , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194322,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+  ]
+  }
+  attack={
+  "deadzone": 0.5,
+  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":85,"physical_keycode":0,"key_label":0,"unicode":117,"location":0,"echo":false,"script":null)
+  ]
+  }
+  defend={
+  "deadzone": 0.5,
+  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":73,"physical_keycode":0,"key_label":0,"unicode":105,"location":0,"echo":false,"script":null)
+  ]
+  }
+  Menu={
+  "deadzone": 0.5,
+  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+  ]
+  }
+  
+  [input_devices]
+  
+  pointing/emulate_touch_from_mouse=true
+  
+  [layer_names]
+  
+  2d_physics/layer_1="player"
+  2d_physics/layer_2="ports"
+  2d_physics/layer_3="item"
+  2d_physics/layer_4="enemy"
+  
+  [physics]
+  
+  2d/physics_engine="GodotPhysics2D"
+  
+  [rendering]
+  
+  textures/canvas_textures/default_texture_filter=0
+  renderer/rendering_method="mobile"
+  environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+
+[Skipped c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scenes\core\character\character_sprites.tscn: File too large (25611 KB)]
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scenes\levels\prince_levels\Tiles\fourSeasonsPlatformer\- READ ME -.txt:
+========================================
+  
+                                                                - READ ME -
+  
+  Thank you for using the fourSeasonsPlatformer_ [tileset]...part of the fourSeasonPlatformer_ series' of assets on itch.io!
+  
+  Stuff to know - Tilesets
+  
+  - Each tile is 16x16 pixels...although some objects/structures/terrain are 16x32/32x16/32x32...[e.g. trees, beehives, big terrain tile]
+  - The blackout_ tileset is designed to black out the spaces between tiles [optional]
+  
+  Stuff to know - Animations
+  
+  - coin_ animation is 12 frames
+  - each eventBlock_ animation is 14 frames [6 animations total]
+  - each foreground animation is 8 frames
+  
+  If you have any questions or requests you can contact me at analogstudios.inc@gmail.com
+  
+  
+  
+  
+  
+  
+
+[Skipped c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scenes\levels\prince_levels\game_prince.tscn: File too large (148 KB)]
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\autoload\audio_manager.gd:
+========================================
+  extends Node
+  
+  @export var autoplay: bool = false
+  @export var default_stream: AudioStream = null
+  
+  var audio_player: AudioStreamPlayer
+  var current_track: AudioStream = null
+  
+  func _ready():
+  	# Initialize the AudioStreamPlayer
+  	audio_player = AudioStreamPlayer.new()
+  	audio_player.name = "AudioStreamPlayer"
+  	add_child(audio_player)
+  
+  	# Connect the finished signal to handle when music ends
+  	audio_player.finished.connect(_on_audio_finished)
+  
+  	# Autoplay if enabled
+  	if autoplay and default_stream:
+  		play_track(default_stream)
+  
+  func play_track(audio_stream: AudioStream):
+  	if audio_stream != current_track:
+  		audio_player.stop()
+  		audio_player.stream = audio_stream
+  		audio_player.play()
+  		current_track = audio_stream
+  	elif not audio_player.playing:
+  		audio_player.play()
+  
+  func stop_track():
+  	audio_player.stop()
+  
+  func is_playing() -> bool:
+  	return audio_player.playing
+  
+  func _on_audio_finished():
+  	current_track = null  # Reset track when finished
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\autoload\game_manager.gd:
+========================================
+  extends Node
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\characters\character_sprites.gd:
+========================================
+  class_name CharacterSprites
   extends Node2D
   
   var animation_frames = {
@@ -429,11 +1382,683 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Char
   	"hair": 1
   }
 
-[Skipped c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Character_Assets\character_sprites.tscn: File too large (25610 KB)]
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\characters\player.gd:
+========================================
+  class_name Player
+  extends CharacterBody2D
+  
+  @export var joystick_right: VirtualJoystick
+  
+  # envrionment variables
+  var SPEED
+  var JUMP_VELOCITY
+  var FLY_VELOCITY
+  var GRAVITY
+  
+  # character mode variables
+  var mode
+  var passed_fly_time
+  var jump_counter
+  var ready_for_jump
+  var allowed_jumps
+  
+  # character health
+  var hud
+  
+  #character design variables
+  var player_animations
+  var current_animation
+  var player_outfit
+  var play_attack_animation
+  var attack_animation
+  
+  var config = ConfigFile.new() # Create a new ConfigFile instance
+  
+  func _ready() -> void:
+  	# Initialize your global variables here
+  	hud = get_node("../../HUD")
+  	SPEED = 200.0
+  	JUMP_VELOCITY = -250.0
+  	FLY_VELOCITY = -150.0
+  	GRAVITY = 300
+  	mode = "normal"
+  	passed_fly_time = 0.0
+  	jump_counter = 0
+  	ready_for_jump = true
+  	player_animations = get_node("character_sprites").animation_frames
+  	current_animation = "idle"
+  	allowed_jumps = 1
+  	play_attack_animation = false
+  	attack_animation = "idle"
+  
+  	var default_player_outfit = get_node("character_sprites").default_outfit
+  	get_node("character_sprites/masks").visible = false
+  	player_outfit = default_player_outfit
+  
+  	# Load the ConfigFile if it exists
+  	var err = config.load("user://settings.cfg")
+  	if err == OK: # If the ConfigFile loaded successfully
+  		# Get the values from the ConfigFile
+  		SPEED = config.get_value("settings", "SPEED", 200.0)
+  		JUMP_VELOCITY = config.get_value("settings", "JUMP_VELOCITY", -250.0)
+  		FLY_VELOCITY = config.get_value("settings", "FLY_VELOCITY", -150.0)
+  		GRAVITY = config.get_value("settings", "GRAVITY", 500)
+  		# mode = config.get_value("settings", "mode", "normal")
+  		passed_fly_time = config.get_value("settings", "passed_fly_time", 0.0)
+  		jump_counter = config.get_value("settings", "jump_counter", 0)
+  		ready_for_jump = config.get_value("settings", "ready_for_jump", true)
+  		#allowed_jumps = config.get_value("settings", "allowed_jumps", 1)
+  		player_outfit = config.get_value("settings", "outfit", default_player_outfit)
+  		# TO-DO: load dict wheaether category is visible or not
+  
+  func save_settings():
+  	# Set the values in the ConfigFile
+  	config.set_value("settings", "SPEED", SPEED)
+  	config.set_value("settings", "JUMP_VELOCITY", JUMP_VELOCITY)
+  	config.set_value("settings", "FLY_VELOCITY", FLY_VELOCITY)
+  	config.set_value("settings", "GRAVITY", GRAVITY)
+  	config.set_value("settings", "mode", mode)
+  	config.set_value("settings", "passed_fly_time", passed_fly_time)
+  	config.set_value("settings", "jump_counter", jump_counter)
+  	config.set_value("settings", "ready_for_jump", ready_for_jump)
+  	config.set_value("settings", "allowed_jumps", allowed_jumps)
+  	config.set_value("settings", "outfit", player_outfit, )
+  
+  	# Save the ConfigFile to the disk
+  	config.save("user://settings.cfg")
+  
+  func _process(delta):
+  	# Add the gravity.
+  	Engine.physics_ticks_per_second = 240
+  	# In case of Death
+  	if hud.lifes == 0:
+  		death()
+  	# Read the joystick input
+  	var x_input = Input.get_axis("left", "right")
+  	var y_input = Input.get_axis("down", "up")
+  	if Input.is_action_just_pressed("attack"):
+  		print("attack")
+  		play_attack_animation = true
+  	if Input.is_action_just_pressed("defend"):
+  		print("defend")
+  	if Input.is_action_just_pressed("Menu"):
+  		get_tree().change_scene_to_file("res://scenes/ui/main_menu/main_menu.tscn")
+  	# All Modes.
+  	velocity.y += GRAVITY * delta
+  
+  	if x_input != 0:
+  		velocity.x = x_input * SPEED
+  	else:
+  		velocity.x = move_toward(velocity.x, 0, 30)
+  
+  	if is_on_floor():
+  		jump_counter = 0
+  		ready_for_jump = true
+  		passed_fly_time = 0.0
+  
+  	elif jump_counter == 0	:
+  		ready_for_jump = false
+  
+  	if y_input > 0.4 && jump_counter < allowed_jumps:
+  		if ready_for_jump:
+  			velocity.y = JUMP_VELOCITY * y_input
+  			jump_counter += 1
+  			ready_for_jump = false
+  	elif y_input < 0.4:
+  		ready_for_jump = true
+  
+  
+  	# Fly mode
+  	if mode == "fly":
+  		allowed_jumps = 1
+  		if passed_fly_time < 4:
+  				passed_fly_time += delta
+  				if y_input != 0:
+  					velocity.y = FLY_VELOCITY * y_input
+  
+  	move_and_slide()
+  
+  	# Set Animation
+  	if x_input == 0 && y_input == 0 && current_animation != "dead":
+  		current_animation = "idle"
+  	elif x_input != 0 && y_input <= 0.4:
+  		current_animation = "animation3"
+  		current_animation
+  	elif y_input > 0.4 or y_input < - 0.4:
+  		current_animation = "idle"
+  
+  	if play_attack_animation:
+  		current_animation = attack_animation
+  
+  
+  	# Set Outfit
+  	for outfit in player_outfit:
+  		var animated_sprite = get_node("character_sprites/"+ outfit)
+  		var selected_outfit = player_outfit[outfit]
+  
+  		if str(selected_outfit) == "none":
+  			animated_sprite.visible = false
+  		else:
+  			animated_sprite.play(str(selected_outfit))
+  			animated_sprite.speed_scale = 2.0
+  			animated_sprite.flip_h = x_input > 0
+  			if animated_sprite.frame >= player_animations[current_animation][-1]:
+  				play_attack_animation = false
+  
+  			if (animated_sprite.frame < player_animations[current_animation][0] or
+  				animated_sprite.frame >= player_animations[current_animation][ - 1]):
+  					animated_sprite.frame = player_animations[current_animation][0]
+  
+  func _on_test_portal_entered(_body):
+  	get_tree().change_scene_to_file("res://scenes/ui/main_menu/main_menu.tscn")
+  	mode = "fly"
+  	save_settings()
+  
+  func _on_elias_portal_entered(_body):
+  	print("Elias")
+  	save_settings() # Replace with function body.
+  
+  func _on_ardit_portal_entered(_body):
+  	get_tree().change_scene_to_file("res://Arrogance.tscn")
+  	save_settings() # Replace with function body.
+  
+  func _on_sebastian_portal_entered(_body):
+  	mode = "normal"
+  	get_tree().change_scene_to_file("res://Stages/Sebastians_Stage/level_1.tscn")
+  	save_settings() # Replace with function body.
+  
+  func _on_prince_portal_entered(_body):
+  	get_tree().change_scene_to_file("res://Stages/Prince_Stage/game_prince.tscn")
+  	save_settings()
+  
+  		#current_animation = "dead"
+  		#current_animation = "hurt"
+  
+  func _on_fallzone_body_entered(_body):
+  	get_tree().change_scene_to_file("res://Stages/Ardits_Stage/Arrogance.tscn")
+  
+  func _on_life_up_body_entered(_body):
+  	get_parent().get_node("HUD").change_life(0.25)
+  
+  func _on_life_down_body_entered(_body):
+  		get_parent().get_node("HUD").change_life(-0.25)
+  
+  func death():
+  	$CollisionShape2D.disabled = true
+  	current_animation = "death"
+  	self.queue_free()
+  	get_tree().change_scene_to_file("res://scenes/ui/main_menu/main_menu.tscn")
+  
+  
+  
+  func _on_test_portal_body_entered(_body):
+  	get_tree().change_scene_to_file("res://Stages/AdventureLevel.tscn")
 
 ========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Character_Customizer\Control.gd:
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\characters\player_camera.gd:
 ========================================
+  class_name PlayerCamera
+  extends Camera2D
+  
+  
+  # Called when the node enters the scene tree for the first time.
+  func _ready():
+  	pass # Replace with function body.
+  
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	pass
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\enemies\ardit_enemy.gd:
+========================================
+  class_name ArditEnemy
+  extends Node2D
+  
+  const SPEED = 60
+  
+  var direction = 1
+  
+  @onready var ray_cast_right = $RayCastRight
+  @onready var ray_cast_left = $RayCastLeft
+  @onready var animated_sprite = $AnimatedSprite2D
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	if ray_cast_right.is_colliding():
+  		direction = -1
+  		animated_sprite.flip_h = false
+  	if ray_cast_left.is_colliding():
+  		direction = 1
+  		animated_sprite.flip_h = true
+  
+  	position.x += direction * SPEED * delta
+  
+  
+  func _on_top_checker_body_entered(body):
+  	$AnimatedSprite2D.play("dead")
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\enemies\goblin_archer.gd:
+========================================
+  class_name GoblinArcher
+  extends CharacterBody2D
+  
+  @onready var main = get_node("../../")
+  @onready var projectile = load("res://scenes/core/projectiles/rock.tscn")
+  var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+  var player
+  var speed = 60
+  var chase = false
+  var attack = false
+  var death = false
+  
+  func _ready():
+  	player = get_node("../../Player/Player")
+  	if death == false:
+  		get_node("AnimatedSprite2D").play("idle")
+  
+  func _process(delta):
+  	velocity.y += gravity * delta
+  	chaseMode()
+  	move_and_slide()
+  
+  func attackMode():
+  	if attack == true && death == false:
+  		velocity.x = 0
+  		player = get_node("../../Player/Player")
+  		get_node("AnimatedSprite2D").play("attack")
+  
+  func chaseMode():
+  	if chase == true && death == false && attack == false:
+  		get_node("AnimatedSprite2D").play("walk")
+  		var direction = (player.position - self.position).normalized()
+  		if direction.x > 0:
+  			get_node("AnimatedSprite2D").flip_h = true
+  		else:
+  			get_node("AnimatedSprite2D").flip_h = false
+  		velocity.x = direction.x * speed
+  
+  func shoot():
+  	var direction = (player.position - self.position).normalized()
+  	var instance = projectile.instantiate()
+  	instance.direction = direction
+  	instance.spawnPos = global_position
+  	instance.spawnRot = rotation
+  	main.add_child.call_deferred(instance)
+  
+  func _on_detection_radius_3_body_entered(body):
+  	if body.name == "Player" && attack == false:
+  		chase = true
+  		chaseMode()
+  
+  func _on_detection_radius_3_body_exited(body):
+  	if body.name == "Player":
+  		chase = false
+  
+  func _on_attack_radius_3_body_entered(body):
+  	if body.name == "Player":
+  		attack = true
+  		chase = false
+  		attackMode()
+  		while attack == true:
+  			shoot()
+  			await get_tree().create_timer(0.7).timeout
+  
+  func _on_attack_radius_3_body_exited(body):
+  	if body.name == "Player":
+  		chase = true
+  		attack = false
+  		chaseMode()
+  
+  func _on_death_radius_3_body_entered(body):
+  	if body.name == "Player":
+  		death = true
+  		speed = 0
+  		chase = false
+  		attack = false
+  		$CollisionShape2D.disabled = true
+  		get_node("AnimatedSprite2D").play("death")
+  		await get_node("AnimatedSprite2D").animation_finished
+  		self.queue_free()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\enemies\goblin_mage.gd:
+========================================
+  class_name GoblinMage
+  extends CharacterBody2D
+  
+  @onready var main = get_node("../../")
+  @onready var projectile = load("res://scenes/core/projectiles/mage_ball.tscn")
+  var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+  var player
+  var speed = 40
+  var chase = false
+  var attack = false
+  var death = false
+  
+  func _ready():
+  	player = get_node("../../Player/Player")
+  	if death == false:
+  		get_node("AnimatedSprite2D").play("idle")
+  
+  func _process(delta):
+  	velocity.y += gravity * delta
+  	chaseMode()
+  	move_and_slide()
+  
+  func attackMode():
+  	if attack == true && death == false:
+  		velocity.x = 0
+  		player = get_node("../../Player/Player")
+  		get_node("AnimatedSprite2D").play("attack")
+  
+  func chaseMode():
+  	if chase == true && death == false && attack == false:
+  		get_node("AnimatedSprite2D").play("walk")
+  		var direction = (player.position - self.position).normalized()
+  		if direction.x > 0:
+  			get_node("AnimatedSprite2D").flip_h = true
+  		else:
+  			get_node("AnimatedSprite2D").flip_h = false
+  		velocity.x = direction.x * speed
+  
+  func shoot():
+  	var direction = (player.position - self.position).normalized()
+  	var instance = projectile.instantiate()
+  	instance.direction = direction
+  	instance.spawnPos = global_position
+  	instance.spawnRot = rotation
+  	main.add_child.call_deferred(instance)
+  
+  func _on_detection_radius_2_body_entered(body):
+  	if body.name == "Player" && attack == false:
+  		chase = true
+  		chaseMode()
+  
+  func _on_detection_radius_2_body_exited(body):
+  	if body.name == "Player":
+  		chase = false
+  
+  func _on_attackzone_2_body_entered(body):
+  	if body.name == "Player":
+  		attack = true
+  		chase = false
+  		attackMode()
+  		while attack == true:
+  			shoot()
+  			await get_tree().create_timer(3.0).timeout
+  
+  func _on_attackzone_2_body_exited(body):
+  	if body.name == "Player":
+  		chase = true
+  		attack = false
+  		chaseMode()
+  
+  func _on_death_zone_2_body_entered(body):
+  	if body.name == "Player":
+  		death = true
+  		speed = 0
+  		chase = false
+  		attack = false
+  		$CollisionShape2D.disabled = true
+  		get_node("AnimatedSprite2D").play("death")
+  		await get_node("AnimatedSprite2D").animation_finished
+  		self.queue_free()
+  
+  func wait_for_seconds(seconds: float) -> void:
+  	await get_tree().create_timer(seconds).timeout
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\enemies\goblin_melee.gd:
+========================================
+  class_name GoblinMelee
+  extends CharacterBody2D
+  
+  var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+  var player
+  var speed = 80
+  var chase = false
+  var attack = false
+  var death = false
+  var hud
+  
+  func _ready():
+  	hud = get_node("../../HUD")
+  	if death == false:
+  		get_node("AnimatedSprite2D").play("idle")
+  func _process(delta):
+  	velocity.y += gravity * delta
+  
+  	if chase == true && death == false:
+  		player = get_node("../../Player/Player")
+  		get_node("AnimatedSprite2D").play("walk")
+  		var direction = (player.position - self.position).normalized()
+  		if direction.x > 0:
+  			get_node("AnimatedSprite2D").flip_h = true
+  		else:
+  			get_node("AnimatedSprite2D").flip_h = false
+  		velocity.x = direction.x * speed
+  
+  	if attack == true && death == false:
+  		player = get_node("../../Player/Player")
+  		get_node("AnimatedSprite2D").play("attack")
+  	move_and_slide()
+  
+  func _on_detection_radius_body_entered(body):
+  	if body.name == "Player":
+  		chase = true
+  
+  
+  func _on_detection_radius_body_exited(body):
+  	if body.name == "Player":
+  		chase = false
+  
+  
+  func _on_attackzone_body_entered(body):
+  	if body.name == "Player":
+  		chase = false
+  		attack = true
+  		hud.change_life(-1)
+  
+  
+  func _on_attackzone_body_exited(body):
+  	if body.name == "Player":
+  		chase = true
+  		attack = false
+  
+  
+  func _on_deathzone_body_entered(body):
+  	if body.name == "Player":
+  		death = true
+  		speed = 0
+  		chase = false
+  		attack = false
+  		$CollisionShape2D.disabled = true
+  		get_node("AnimatedSprite2D").play("death")
+  		await get_node("AnimatedSprite2D").animation_finished
+  		self.queue_free()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\enemies\prince_enemy.gd:
+========================================
+  class_name PrinceEnemy
+  extends Node2D
+  
+  const SPEED = 60
+  
+  var direction = 1
+  
+  @onready var ray_cast_right = $RayCastRight
+  @onready var ray_cast_left = $RayCastLeft
+  @onready var animated_sprite = $AnimatedSprite2D
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	if ray_cast_right.is_colliding():
+  		direction = -1
+  		animated_sprite.flip_h = false
+  	if ray_cast_left.is_colliding():
+  		direction = 1
+  		animated_sprite.flip_h = true
+  
+  	position.x += direction * SPEED * delta
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\items\coins.gd:
+========================================
+  class_name Coins
+  extends Area2D
+  
+  signal coin_collected
+  
+  
+  
+  func _on_coins_body_entered(body):
+  	get_parent().get_node("HUD").coin_collected()
+  	$AnimationPlayer.play("bounce")
+  	set_collision_mask_value(1,false)
+  
+  
+  func _on_animation_player_animation_finished(anim_name):
+  	queue_free()
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\items\power_attack.gd:
+========================================
+  class_name PowerAttack
+  extends Area2D
+  
+  
+  func _on_body_attack_entered(body):
+  	body.attack_animation = "animation36"
+  	print("axe_attack")
+  	queue_free()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\items\power_fly.gd:
+========================================
+  class_name PowerFly
+  extends Area2D
+  
+  
+  func _on_body_entered(body):
+  	body.mode = "fly"
+  	print("Fly")
+  	queue_free()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\items\power_jump.gd:
+========================================
+  class_name PowerJump
+  extends Area2D
+  
+  
+  func _on_body_entered(body):
+  	body.allowed_jumps += 1
+  	body.mode = "normal"
+  	print("double_jump")
+  	queue_free()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\projectiles\mage_ball.gd:
+========================================
+  class_name MageBall
+  extends CharacterBody2D
+  
+  @export var SPEED = 50
+  var hud
+  var direction = 0
+  var spawnPos : Vector2
+  var spawnRot : float
+  
+  func _ready():
+  	hud = get_node("../HUD")
+  	global_position = spawnPos
+  	global_rotation = spawnRot
+  	projectile_decay()
+  
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	velocity.x = direction.x * SPEED
+  	get_node("Ball").play("flying")
+  	move_and_slide()
+  
+  
+  func _on_hit_zone_body_entered(body):
+  	if body.name == "Player":
+  		hud.change_life(-1)
+  		self.queue_free()
+  
+  func projectile_decay():
+  	await get_tree().create_timer(5.0).timeout
+  	self.queue_free()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\projectiles\rock.gd:
+========================================
+  class_name Rock
+  extends CharacterBody2D
+  
+  @export var SPEED = 120
+  var hud
+  var direction = 0
+  var spawnPos : Vector2
+  var spawnRot : float
+  
+  func _ready():
+  	hud = get_node("../HUD")
+  	global_position = spawnPos
+  	global_rotation = spawnRot
+  	projectile_decay()
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	velocity.x = direction.x * SPEED
+  	get_node("rock").play("flying")
+  	move_and_slide()
+  
+  func projectile_decay():
+  	await get_tree().create_timer(5.0).timeout
+  	self.queue_free()
+  
+  func _on_hit_zone_body_entered(body):
+  	if body.name == "Player":
+  		hud.change_life(-0.2)
+  		self.queue_free()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\levels\base_level.gd:
+========================================
+  class_name BaseLevel
+  extends Node2D
+  
+  var boss_music = load("res://assets/audio/music/Tracks/the-epic-2-by-rafael-krux(chosic.com).mp3")
+  # Called when the node enters the scene tree for the first time.
+  func _ready():
+  	AudioManager.play_track(boss_music)
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	pass
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\ui\character_customizer\customizer_controller.gd:
+========================================
+  class_name CustomizerController
   # UI.gd
   extends Control
   
@@ -525,9 +2150,7 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Char
   func _process(_delta):
   	for outfit in player_outfit:
   		var animated_sprite = get_node("character_sprites/" + outfit)
-  		# Stelle sicher, dass wir einen String für die Animation haben
-  		var animation_value = str(player_outfit[outfit])
-  		animated_sprite.animation = animation_value
+  		animated_sprite.animation = player_outfit[outfit]
   		animated_sprite.frame = 1
   
   # Wird aufgerufen, wenn ein Item ausgewählt wird
@@ -655,7 +2278,8 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Char
   					else:
   						animated_sprite.visible = true
   
-  func _on_back_pressed():
+  
+  func _on_back_pressed() -> void:
   	if has_unsaved_changes:
   		PopupManager.confirm(
   			"Nicht gespeicherte Änderungen",
@@ -665,47 +2289,16 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Char
   			"back_confirmation"
   		)
   	else:
-  		get_tree().change_scene_to_file("res://Start_Screen/start_screen.tscn")
+  		get_tree().change_scene_to_file("res://scenes/ui/settings/settings_menu.tscn")
   
   func _on_dialog_confirmed(dialog_id):
   	if dialog_id == "back_confirmation":
-  		get_tree().change_scene_to_file("res://Start_Screen/start_screen.tscn")
+  		get_tree().change_scene_to_file("res://scenes/ui/settings/settings_menu.tscn")
 
 ========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Character_Customizer\back.gd:
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\ui\character_customizer\outfit_showcase.gd:
 ========================================
-  extends Button
-  
-  # Konstante für die Ziel-Szene
-  const TARGET_SCENE = "res://Start_Screen/start_screen.tscn"
-  
-  # Signal für Button-Klick
-  signal back_button_pressed
-  
-  # Wird aufgerufen, wenn der Node in den Szenenbaum eingefügt wird
-  func _ready():
-  	# Button mit Hover-Effekt verbessern
-  	mouse_entered.connect(_on_mouse_entered)
-  	mouse_exited.connect(_on_mouse_exit)
-  
-  # Hover-Effekt beim Betreten des Buttons
-  func _on_mouse_entered():
-  	modulate = Color(0.9, 0.9, 1.0, 1.0)  # Leicht heller
-  
-  # Hover-Effekt beim Verlassen des Buttons
-  func _on_mouse_exit():
-  	modulate = Color(1.0, 1.0, 1.0, 1.0)  # Zurück zur normalen Farbe
-  
-  # Diese Funktion könnte genutzt werden, falls eine Bestätigungsdialog
-  # vor dem Zurückkehren angezeigt werden soll
-  func confirm_back():
-  	# Hier könnte ein Bestätigungsdialog eingefügt werden
-  	# Für jetzt kehren wir direkt zurück
-  	get_tree().change_scene_to_file(TARGET_SCENE)
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Character_Customizer\outfit_showcase.gd:
-========================================
+  class_name OutfitShowcase
   # outfit_showcase.gd
   extends Control
   
@@ -719,7 +2312,7 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Char
   var preview_helper
   
   func _ready():
-  	preview_helper = load("res://Character_Customizer/preview_helper.gd").new()
+  	preview_helper = load("res://scripts/ui/character_customizer/preview_helper.gd").new()
   	add_child(preview_helper)
   
   	# UI erstellen
@@ -860,11 +2453,12 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Char
   	outfit_name_field.text = outfit_name
   
   func _on_back_pressed():
-  	get_tree().change_scene_to_file("res://Character_Customizer/customizer.tscn")
+  	get_tree().change_scene_to_file("res://scenes/ui/character_customizer/customizer.tscn")
 
 ========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Character_Customizer\preview_helper.gd:
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\ui\character_customizer\preview_helper.gd:
 ========================================
+  class_name PreviewHelper
   # preview_helper.gd
   # Diese Datei enthält Hilfsfunktionen für die Vorschau im Character-Customizer
   
@@ -952,326 +2546,9 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Char
   		return null
 
 ========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Enemies\Goblin_Archer.gd:
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\ui\controls\attack_button.gd:
 ========================================
-  extends CharacterBody2D
-  
-  @onready var main = get_node("../../")
-  @onready var projectile = load("res://rock.tscn")
-  var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-  var player
-  var speed = 60
-  var chase = false
-  var attack = false
-  var death = false
-  
-  func _ready():
-  	player = get_node("../../Player/Player")
-  	if death == false:
-  		get_node("AnimatedSprite2D").play("idle")
-  
-  func _process(delta):
-  	velocity.y += gravity * delta
-  	chaseMode()
-  	move_and_slide()
-  
-  func attackMode():
-  	if attack == true && death == false:
-  		velocity.x = 0
-  		player = get_node("../../Player/Player")
-  		get_node("AnimatedSprite2D").play("attack")
-  
-  func chaseMode():
-  	if chase == true && death == false && attack == false:
-  		get_node("AnimatedSprite2D").play("walk")
-  		var direction = (player.position - self.position).normalized()
-  		if direction.x > 0:
-  			get_node("AnimatedSprite2D").flip_h = true
-  		else:
-  			get_node("AnimatedSprite2D").flip_h = false
-  		velocity.x = direction.x * speed
-  
-  func shoot():
-  	var direction = (player.position - self.position).normalized()
-  	var instance = projectile.instantiate()
-  	instance.direction = direction
-  	instance.spawnPos = global_position
-  	instance.spawnRot = rotation
-  	main.add_child.call_deferred(instance)
-  
-  func _on_detection_radius_3_body_entered(body):
-  	if body.name == "Player" && attack == false:
-  		chase = true
-  		chaseMode()
-  
-  func _on_detection_radius_3_body_exited(body):
-  	if body.name == "Player":
-  		chase = false
-  
-  func _on_attack_radius_3_body_entered(body):
-  	if body.name == "Player":
-  		attack = true
-  		chase = false
-  		attackMode()
-  		while attack == true:
-  			shoot()
-  			await get_tree().create_timer(0.7).timeout
-  
-  func _on_attack_radius_3_body_exited(body):
-  	if body.name == "Player":
-  		chase = true
-  		attack = false
-  		chaseMode()
-  
-  func _on_death_radius_3_body_entered(body):
-  	if body.name == "Player":
-  		death = true
-  		speed = 0
-  		chase = false
-  		attack = false
-  		$CollisionShape2D.disabled = true
-  		get_node("AnimatedSprite2D").play("death")
-  		await get_node("AnimatedSprite2D").animation_finished
-  		self.queue_free()
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Enemies\Goblin_Mage.gd:
-========================================
-  extends CharacterBody2D
-  
-  @onready var main = get_node("../../")
-  @onready var projectile = load("res://MageBall.tscn")
-  var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-  var player
-  var speed = 40
-  var chase = false
-  var attack = false
-  var death = false
-  
-  func _ready():
-  	player = get_node("../../Player/Player")
-  	if death == false:
-  		get_node("AnimatedSprite2D").play("idle")
-  
-  func _process(delta):
-  	velocity.y += gravity * delta
-  	chaseMode()
-  	move_and_slide()
-  
-  func attackMode():
-  	if attack == true && death == false:
-  		velocity.x = 0
-  		player = get_node("../../Player/Player")
-  		get_node("AnimatedSprite2D").play("attack")
-  
-  func chaseMode():
-  	if chase == true && death == false && attack == false:
-  		get_node("AnimatedSprite2D").play("walk")
-  		var direction = (player.position - self.position).normalized()
-  		if direction.x > 0:
-  			get_node("AnimatedSprite2D").flip_h = true
-  		else:
-  			get_node("AnimatedSprite2D").flip_h = false
-  		velocity.x = direction.x * speed
-  
-  func shoot():
-  	var direction = (player.position - self.position).normalized()
-  	var instance = projectile.instantiate()
-  	instance.direction = direction
-  	instance.spawnPos = global_position
-  	instance.spawnRot = rotation
-  	main.add_child.call_deferred(instance)
-  
-  func _on_detection_radius_2_body_entered(body):
-  	if body.name == "Player" && attack == false:
-  		chase = true
-  		chaseMode()
-  
-  func _on_detection_radius_2_body_exited(body):
-  	if body.name == "Player":
-  		chase = false
-  
-  func _on_attackzone_2_body_entered(body):
-  	if body.name == "Player":
-  		attack = true
-  		chase = false
-  		attackMode()
-  		while attack == true:
-  			shoot()
-  			await get_tree().create_timer(3.0).timeout
-  
-  func _on_attackzone_2_body_exited(body):
-  	if body.name == "Player":
-  		chase = true
-  		attack = false
-  		chaseMode()
-  
-  func _on_death_zone_2_body_entered(body):
-  	if body.name == "Player":
-  		death = true
-  		speed = 0
-  		chase = false
-  		attack = false
-  		$CollisionShape2D.disabled = true
-  		get_node("AnimatedSprite2D").play("death")
-  		await get_node("AnimatedSprite2D").animation_finished
-  		self.queue_free()
-  
-  func wait_for_seconds(seconds: float) -> void:
-  	await get_tree().create_timer(seconds).timeout
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Enemies\Goblin_Melee.gd:
-========================================
-  extends CharacterBody2D
-  
-  var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-  var player
-  var speed = 80
-  var chase = false
-  var attack = false
-  var death = false
-  var hud
-  
-  func _ready():
-  	hud = get_node("../../HUD")
-  	if death == false:
-  		get_node("AnimatedSprite2D").play("idle")
-  func _process(delta):
-  	velocity.y += gravity * delta
-  
-  	if chase == true && death == false:
-  		player = get_node("../../Player/Player")
-  		get_node("AnimatedSprite2D").play("walk")
-  		var direction = (player.position - self.position).normalized()
-  		if direction.x > 0:
-  			get_node("AnimatedSprite2D").flip_h = true
-  		else:
-  			get_node("AnimatedSprite2D").flip_h = false
-  		velocity.x = direction.x * speed
-  
-  	if attack == true && death == false:
-  		player = get_node("../../Player/Player")
-  		get_node("AnimatedSprite2D").play("attack")
-  	move_and_slide()
-  
-  func _on_detection_radius_body_entered(body):
-  	if body.name == "Player":
-  		chase = true
-  
-  
-  func _on_detection_radius_body_exited(body):
-  	if body.name == "Player":
-  		chase = false
-  
-  
-  func _on_attackzone_body_entered(body):
-  	if body.name == "Player":
-  		chase = false
-  		attack = true
-  		hud.change_life(-1)
-  
-  
-  func _on_attackzone_body_exited(body):
-  	if body.name == "Player":
-  		chase = true
-  		attack = false
-  
-  
-  func _on_deathzone_body_entered(body):
-  	if body.name == "Player":
-  		death = true
-  		speed = 0
-  		chase = false
-  		attack = false
-  		$CollisionShape2D.disabled = true
-  		get_node("AnimatedSprite2D").play("death")
-  		await get_node("AnimatedSprite2D").animation_finished
-  		self.queue_free()
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Global.gd:
-========================================
-  extends Node
-  
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\HeadUp_Display\hud.gd:
-========================================
-  extends CanvasLayer
-  var coins = 0
-  var max_lifes = 3
-  var lifes = max_lifes
-  var hud
-  var initial_heart_position
-  var inital_heart_size
-  
-  func _ready():
-  	$HeartsFull.flip_h = true
-  	$LabelCoinSum.text = str(coins)
-  	initial_heart_position = $HeartsFull.position
-  	inital_heart_size = $HeartsFull.size
-  	$HeartsEmpty.position = initial_heart_position - Vector2(2*inital_heart_size.x, 0)
-  	$HeartsEmpty.size = inital_heart_size + Vector2(2*inital_heart_size.x, 0)
-  
-  	load_hearts()
-  
-  func coin_collected():
-  	coins = coins + 1
-  	$LabelCoinSum.text = str(coins)
-  
-  
-  func load_hearts():
-  	$HeartsFull.size.x = lifes * inital_heart_size.x
-  	$HeartsFull.position.x= initial_heart_position.x - ((lifes-1) * inital_heart_size.x)
-  
-  func change_life(amount):
-  	if  lifes + amount < 0:
-  		lifes = 0
-  
-  	elif  lifes + amount > 3:
-  		lifes = 3
-  	else:
-  		lifes = lifes + amount
-  	load_hearts()
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\MageBall.gd:
-========================================
-  extends CharacterBody2D
-  
-  @export var SPEED = 50
-  var hud
-  var direction = 0
-  var spawnPos : Vector2
-  var spawnRot : float
-  
-  func _ready():
-  	hud = get_node("../HUD")
-  	global_position = spawnPos
-  	global_rotation = spawnRot
-  	projectile_decay()
-  
-  
-  # Called every frame. 'delta' is the elapsed time since the previous frame.
-  func _process(delta):
-  	velocity.x = direction.x * SPEED
-  	get_node("Ball").play("flying")
-  	move_and_slide()
-  
-  
-  func _on_hit_zone_body_entered(body):
-  	if body.name == "Player":
-  		hud.change_life(-1)
-  		self.queue_free()
-  
-  func projectile_decay():
-  	await get_tree().create_timer(5.0).timeout
-  	self.queue_free()
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\OnScreen_Control\attack.gd:
-========================================
+  class_name AttackButton
   extends Button
   
   
@@ -1291,8 +2568,9 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\OnSc
   	Input.action_press("attack")
 
 ========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\OnScreen_Control\defend.gd:
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\ui\controls\defend_button.gd:
 ========================================
+  class_name DefendButton
   extends Button
   
   
@@ -1312,641 +2590,9 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\OnSc
   
 
 ========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Player\Player.gd:
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\ui\dialogs\popup_dialog.gd:
 ========================================
-  extends CharacterBody2D
-  
-  @export var joystick_right: VirtualJoystick
-  
-  # envrionment variables
-  var SPEED
-  var JUMP_VELOCITY
-  var FLY_VELOCITY
-  var GRAVITY
-  
-  # character mode variables
-  var mode
-  var passed_fly_time
-  var jump_counter
-  var ready_for_jump
-  var allowed_jumps
-  
-  # character health
-  var hud
-  
-  #character design variables
-  var player_animations
-  var current_animation
-  var player_outfit
-  var play_attack_animation
-  var attack_animation
-  
-  var config = ConfigFile.new() # Create a new ConfigFile instance
-  
-  func _ready() -> void:
-  	# Initialize your global variables here
-  	hud = get_node("../../HUD")
-  	SPEED = 200.0
-  	JUMP_VELOCITY = -250.0
-  	FLY_VELOCITY = -150.0
-  	GRAVITY = 300
-  	mode = "normal"
-  	passed_fly_time = 0.0
-  	jump_counter = 0
-  	ready_for_jump = true
-  	player_animations = get_node("character_sprites").animation_frames
-  	current_animation = "idle"
-  	allowed_jumps = 1
-  	play_attack_animation = false
-  	attack_animation = "idle"
-  
-  	var default_player_outfit = get_node("character_sprites").default_outfit
-  	get_node("character_sprites/masks").visible = false
-  	player_outfit = default_player_outfit
-  
-  	# Load the ConfigFile if it exists
-  	var err = config.load("user://settings.cfg")
-  	if err == OK: # If the ConfigFile loaded successfully
-  		# Get the values from the ConfigFile
-  		SPEED = config.get_value("settings", "SPEED", 200.0)
-  		JUMP_VELOCITY = config.get_value("settings", "JUMP_VELOCITY", -250.0)
-  		FLY_VELOCITY = config.get_value("settings", "FLY_VELOCITY", -150.0)
-  		GRAVITY = config.get_value("settings", "GRAVITY", 500)
-  		# mode = config.get_value("settings", "mode", "normal")
-  		passed_fly_time = config.get_value("settings", "passed_fly_time", 0.0)
-  		jump_counter = config.get_value("settings", "jump_counter", 0)
-  		ready_for_jump = config.get_value("settings", "ready_for_jump", true)
-  		#allowed_jumps = config.get_value("settings", "allowed_jumps", 1)
-  		player_outfit = config.get_value("settings", "outfit", default_player_outfit)
-  		# TO-DO: load dict wheaether category is visible or not
-  
-  func save_settings():
-  	# Set the values in the ConfigFile
-  	config.set_value("settings", "SPEED", SPEED)
-  	config.set_value("settings", "JUMP_VELOCITY", JUMP_VELOCITY)
-  	config.set_value("settings", "FLY_VELOCITY", FLY_VELOCITY)
-  	config.set_value("settings", "GRAVITY", GRAVITY)
-  	config.set_value("settings", "mode", mode)
-  	config.set_value("settings", "passed_fly_time", passed_fly_time)
-  	config.set_value("settings", "jump_counter", jump_counter)
-  	config.set_value("settings", "ready_for_jump", ready_for_jump)
-  	config.set_value("settings", "allowed_jumps", allowed_jumps)
-  	config.set_value("settings", "outfit", player_outfit, )
-  
-  	# Save the ConfigFile to the disk
-  	config.save("user://settings.cfg")
-  
-  func _process(delta):
-  	# Add the gravity.
-  	Engine.physics_ticks_per_second = 240
-  	# In case of Death
-  	if hud.lifes == 0:
-  		death()
-  	# Read the joystick input
-  	var x_input = Input.get_axis("left", "right")
-  	var y_input = Input.get_axis("down", "up")
-  	if Input.is_action_just_pressed("attack"):
-  		print("attack")
-  		play_attack_animation = true
-  	if Input.is_action_just_pressed("defend"):
-  		print("defend")
-  	if Input.is_action_just_pressed("Menu"):
-  		get_tree().change_scene_to_file("res://start_screen/start_screen.tscn")
-  	# All Modes.
-  	velocity.y += GRAVITY * delta
-  
-  	if x_input != 0:
-  		velocity.x = x_input * SPEED
-  	else:
-  		velocity.x = move_toward(velocity.x, 0, 30)
-  
-  	if is_on_floor():
-  		jump_counter = 0
-  		ready_for_jump = true
-  		passed_fly_time = 0.0
-  
-  	elif jump_counter == 0	:
-  		ready_for_jump = false
-  
-  	if y_input > 0.4 && jump_counter < allowed_jumps:
-  		if ready_for_jump:
-  			velocity.y = JUMP_VELOCITY * y_input
-  			jump_counter += 1
-  			ready_for_jump = false
-  	elif y_input < 0.4:
-  		ready_for_jump = true
-  
-  
-  	# Fly mode
-  	if mode == "fly":
-  		allowed_jumps = 1
-  		if passed_fly_time < 4:
-  				passed_fly_time += delta
-  				if y_input != 0:
-  					velocity.y = FLY_VELOCITY * y_input
-  
-  	move_and_slide()
-  
-  	# Set Animation
-  	if x_input == 0 && y_input == 0 && current_animation != "dead":
-  		current_animation = "idle"
-  	elif x_input != 0 && y_input <= 0.4:
-  		current_animation = "animation3"
-  		current_animation
-  	elif y_input > 0.4 or y_input < - 0.4:
-  		current_animation = "idle"
-  
-  	if play_attack_animation:
-  		current_animation = attack_animation
-  
-  
-  	# Set Outfit
-  	for outfit in player_outfit:
-  		var animated_sprite = get_node("character_sprites/"+ outfit)
-  		var selected_outfit = player_outfit[outfit]
-  
-  		if str(selected_outfit) == "none":
-  			animated_sprite.visible = false
-  		else:
-  			animated_sprite.play(str(selected_outfit))
-  			animated_sprite.speed_scale = 2.0
-  			animated_sprite.flip_h = x_input > 0
-  			if animated_sprite.frame >= player_animations[current_animation][-1]:
-  				play_attack_animation = false
-  
-  			if (animated_sprite.frame < player_animations[current_animation][0] or
-  				animated_sprite.frame >= player_animations[current_animation][ - 1]):
-  					animated_sprite.frame = player_animations[current_animation][0]
-  
-  func _on_test_portal_entered(body):
-  	get_tree().change_scene_to_file("res://start_screen/start_screen.tscn")
-  	mode = "fly"
-  	save_settings()
-  
-  func _on_elias_portal_entered(body):
-  	print("Elias")
-  	save_settings() # Replace with function body.
-  
-  func _on_ardit_portal_entered(body):
-  	get_tree().change_scene_to_file("res://Arrogance.tscn")
-  	save_settings() # Replace with function body.
-  
-  func _on_sebastian_portal_entered(body):
-  	mode = "normal"
-  	get_tree().change_scene_to_file("res://Stages/Sebastians_Stage/level_1.tscn")
-  	save_settings() # Replace with function body.
-  
-  func _on_prince_portal_entered(body):
-  	get_tree().change_scene_to_file("res://Stages/Prince_Stage/game_prince.tscn")
-  	save_settings()
-  
-  		#current_animation = "dead"
-  		#current_animation = "hurt"
-  
-  func _on_fallzone_body_entered(body):
-  	get_tree().change_scene_to_file("res://Stages/Ardits_Stage/Arrogance.tscn")
-  
-  func _on_life_up_body_entered(body):
-  	get_parent().get_node("HUD").change_life(0.25)
-  
-  func _on_life_down_body_entered(body):
-  		get_parent().get_node("HUD").change_life(-0.25)
-  
-  func death():
-  	$CollisionShape2D.disabled = true
-  	current_animation = "death"
-  	self.queue_free()
-  	get_tree().change_scene_to_file("res://start_screen/start_screen.tscn")
-  
-  
-  
-  func _on_test_portal_body_entered(body):
-  	get_tree().change_scene_to_file("res://Stages/AdventureLevel.tscn")
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Player\PlayerCamera.gd:
-========================================
-  extends Camera2D
-  
-  
-  # Called when the node enters the scene tree for the first time.
-  func _ready():
-  	pass # Replace with function body.
-  
-  
-  # Called every frame. 'delta' is the elapsed time since the previous frame.
-  func _process(delta):
-  	pass
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\PowerUps\coins.gd:
-========================================
-  extends Area2D
-  
-  signal coin_collected
-  
-  
-  
-  func _on_coins_body_entered(body):
-  	get_parent().get_node("HUD").coin_collected()
-  	$AnimationPlayer.play("bounce")
-  	set_collision_mask_value(1,false)
-  
-  
-  func _on_animation_player_animation_finished(anim_name):
-  	queue_free()
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\PowerUps\softpowerAttack.gd:
-========================================
-  extends Area2D
-  
-  
-  func _on_body_attack_entered(body):
-  	body.attack_animation = "animation36"
-  	print("axe_attack")
-  	queue_free()
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\PowerUps\softpowerFly.gd:
-========================================
-  extends Area2D
-  
-  
-  func _on_body_entered(body):
-  	body.mode = "fly"
-  	print("Fly")
-  	queue_free()
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\PowerUps\softpowerJump.gd:
-========================================
-  extends Area2D
-  
-  
-  func _on_body_entered(body):
-  	body.allowed_jumps += 1
-  	body.mode = "normal"
-  	print("double_jump")
-  	queue_free()
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\README.md:
-========================================
-  # Godot Virtual Joystick
-  
-  <img src="addons/virtual_joystick/previews/icon.png" width="200">
-  
-  A simple virtual joystick for touchscreens, with useful options.
-  
-  GitHub Page: https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot
-  
-  Godot Engine: https://godotengine.org
-  
-  ## PREVIEWS:
-  
-  <img src="addons/virtual_joystick/previews/preview1.png" width="300">    <img src="addons/virtual_joystick/previews/preview2.png" width="300">
-  
-  Easy to use:
-  
-  ```GDScript
-  extends Sprite2D
-  
-  @export var speed : float = 100
-  
-  @export var joystick_left : VirtualJoystick
-  
-  @export var joystick_right : VirtualJoystick
-  
-  var move_vector := Vector2.ZERO
-  
-  func _process(delta: float) -> void:
-  	## Movement using the joystick output:
-  #	if joystick_left and joystick_left.is_pressed:
-  #		position += joystick_left.output * speed * delta
-  
-  	## Movement using Input functions:
-  	move_vector = Vector2.ZERO
-  	move_vector = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
-  	position += move_vector * speed * delta
-  
-  	# Rotation:
-  	if joystick_right and joystick_right.is_pressed:
-  		rotation = joystick_right.output.angle()
-  ```
-  
-  
-  ## OPTIONS:
-  
-  - Joystick mode:
-  	- Fixed: The joystick doesn't move.
-  	- Dynamic: Every time the joystick area is pressed, the joystick position is set on the touched position.
-  	- Following: When the finger moves outside the joystick area, the joystick will follow it.
-  
-  - Dead zone size: If the tip is inside this range the output is zero.
-  
-  - Clamp zone size: The max distance the tip can reach.
-  
-  - Visibility mode:
-  	- always: Always visible.
-  	- touchscreen only: Visible on touch screens only (will hide if the device has not a touchscreen).
-  	- when_touched: Visible only when touched.
-  
-  - Use input actions: if true the joystick will trigger the input actions created in Project -> Project Settings -> Input Map
-  
-  ## HELP:
-  - The Control parent of the joystick is the area in which the joystick can move in Dynamic mode.
-  - For moving the joystick inside his area, select it, right click, turn on "Editable Children" and then change the position of the Base node.
-  - With "Editable Children" turned on you can also edit the joystick textures and colors.
-  - Create a CanvasLayer node and name it "UI", it'll contain all the UI elements, then add the Joystick scene as a child of the UI node and move it where you prefer.
-  - An example scene is provided in the "Test" folder.
-  
-  ## FAQ
-  ### Multitouch doesn't work / can't use two joystick at the same time:
-  In Godot, the input events from the mouse don't support multitouch, so make sure to have this configuration:
-  Project -> Project Settings -> General -> Input Devices
-  "emulate touch from mouse" ON
-  "emulate mouse from touch" OFF
-  
-  ### The joystick doesn't work when using Input.get_vector():
-  ⚠ **This has been fixed in Godot Engine!**
-  Unfortunately, this a bug in the Godot engine, so the only solution for now is using Input.get_axis:
-  This doesn't work:
-  ```gdscript
-  input_vector := Input.get_vector("ui_left","ui_right","ui_up","ui_down")
-  ```
-  This works:
-  ```gdscript
-  input_vector := Vector2.ZERO
-  input_vector.x = Input.get_axis("ui_left", "ui_right")
-  input_vector.y = Input.get_axis("ui_up", "ui_down")
-  ```
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\Character v.2\greyscale\info.txt:
-========================================
-  
-  How to use modular clothing
-  
-  Use basic_grey (clothes) as base and add the detail (modular) you want:
-  	floral, overalls, sailor, skull, sporty, stripe
-  
-  "button_grey" works for clown outfit and pumpkin outfit
-  
-  "shoes_grey" works for all outfits besides "witch_grey"
-  
-  "gloves_grey" works for clown, pumpkin and spooky
-  
-  
-  Modular hair
-  
-  Use "braids_tie_grey" on top of braids to adjust color of hair ties
-  
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\Character v.2\info.txt:
-========================================
-  
-  GRID SIZE 32x32
-  CELL SIZE MERGED: 256x1568
-  
-  WALK FR: 100
-  Cell Size: 256x128
-  
-  JUMP FR: 100; 200; 100; 120; 100
-  Cell Size: 160x128
-  
-  PICK UP FR: 150; 150; 100; 100; 150
-  Cell Size: 160x128
-  
-  CARRY FR:100
-  Cell Size: 256x128
-  (char moved  up 1px)
-  
-  SWORD FR: 100; 200; 80; 100
-  Cell Size: 128x128
-  
-  BLOCK Cell Size: 32x128
-  
-  HURT Cell Size: 32x128
-  
-  DIE FR: 500
-  Cell Size: 64x32
-  
-  PICKAXE/ AXE FR: 100; 100; 250; 60; 100
-  Cell Size: 160x128
-  
-  WATER FR: 300; 600
-  Cell Size: 64x128
-  (char moved up 5 px)
-  
-  HOE FR: 200; 150; 200; 200; 200
-  Cell Size: 160x128
-  (down: char moved up 8 px; left/right char moved up 1 px)
-  
-  FISHING L/R FR: 100; 100; 250; 60; 100
-  FISHING U/D FR: 100; 250; 60; 100; 100
-  Cell Size: 160x128
-  (char moved up 4 px)
-  
-  LAYERS
-  1. Characters
-  2. Eyes ->Blush/Lipstick
-  3. Clothes: Shirt -> Pants -> Shoes
-  4. Hair
-  5. Accessories Beard -> Glasses -> Hat
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\Character v.2\list.txt:
-========================================
-  
-  HAIR
-  1. Black
-  2. Blonde
-  3. Brown
-  4. Brown Light
-  5. Copper
-  6. Emerald
-  7. Green
-  8. Grey
-  9. Lilac
-  10. Navy
-  11. Pink
-  12. Purple
-  13. Red
-  14. Turquoise
-  
-  Clothes:
-  1. Black
-  2. Blue
-  3. Blue Light
-  4. Brown
-  5. Green
-  6. Green Light
-  7. Pink
-  8. Purple
-  9. Red
-  10. White/Grey
-  
-  Eyes:
-  1. Black
-  2. Blue
-  3. Blue Light
-  4. Brown
-  5. Brown Dark
-  6. Brown Light
-  7. Green
-  8. Green Dark
-  9. Green Light
-  10. Grey
-  11. Grey Light
-  12. Pink
-  13. Pink Light
-  14. Red
-  
-  Lipstick and Blush are sorted from light to dark.
-  
-  
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\Fonts\copyduck\More Info.txt:
-========================================
-  First of All,
-  
-  Thank you for download my product.
-  This product 100% free for personal use & commercial use
-  
-  File include :
-  
-  1. Copyduck.ttf
-  2. Copyduck.otf
-  
-  More Info :
-  khurasantype@gmail.com
-  
-  For Donation:
-  paypal.me/khurasantype
-  
-  My OnlineShop:
-  https://www.creativefabrica.com/ref/53/
-  
-  My Portofolio:
-  https://www.behance.net/khurasan
-  
-  My web:
-  www.khurasanstudio.com
-  www.mbkaos.com
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\License.txt:
-========================================
-  https://craftpix.net/file-licenses/
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\Peasant's_House\Peasant's_House\README.txt:
-========================================
-  THIS MATERIAL IS COMPLETELY FREE, AND YOU CAN FIND IT ON MY PAGE "https://ericksazevedo.itch.io/". IF YOU PAID FOR THIS MATERIAL, DEMAND A REFUND!
-  
-  I'm glad you chose my art for your project, I hope it proves to be very useful to you.
-  
-  INTRODUTION
-  
-  My name is Ericks Azevedo. I created this artwork for study purposes and in the hope that it will be useful for other people's projects. If you're interested in more art, take a look at my page "https://ericksazevedo.itch.io/". I'll be regularly posting new art there whenever possible
-  
-  LICENSES
-  
-  * You can use the artwork in both free and commercial projects, as long as you give me credit. For that purpose, use my Instagram profile "@ericks.azevedo".
-  * You can edit the images as you prefer; for this purpose, I'm providing the files in .aseprite format.
-  * Selling these assets is not allowed, even if modifications have been made.
-  
-  INSTRUCTIONS
-  
-  * In each folder, you will find two ways to import your files: one using image sequences and the other with individual frames. Both methods have their own .aseprite file, in case you want to make modifications.
-  * Pay attention to the "House_in_the_middle" folder. Inside it, you will find the images split in half, both for the door animation and the window animation. Both of them have the same sprite size, so you just need to overlay one onto the other. I organized it this way because the window and the door have different animation timings, and one is a loop while the other is not.
-  
-  If you want to support my work, please follow my page on itch.io ;)
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\Sunny-land-files\Sunny-land-files\public-license.txt:
-========================================
-  Artwork created by Luis Zuno @ansimuz
-  
-  License for Everyone.
-  
-  Public domain and free to use on whatever you want, personal or commercial. Credit is not required but appreciated.
-  
-  Get more Free Assetslike these at: ansimuz.itch.io
-  or at my patreon page: patreon.com/ansimuz
-  
-  
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\craftpix-896753-village-pixel-art-environment-assets-pack\License.txt:
-========================================
-  https://craftpix.net/file-licenses/
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\craftpix-896753-village-pixel-art-environment-assets-pack\readme.txt:
-========================================
-  Font that was used for the background of the preview:
-  https://www.dafont.com/pixellari.font
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\craftpix-net-352322-nature-pixel-art-environment-free-assets-pack\License.txt:
-========================================
-  https://craftpix.net/file-licenses/
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\craftpix-net-352322-nature-pixel-art-environment-free-assets-pack\readme.txt:
-========================================
-  Font that was used for the background of the preview:
-  https://www.dafont.com/pixellari.font
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\craftpix-net-481981-free-summer-pixel-art-backgrounds\License.txt:
-========================================
-  https://craftpix.net/file-licenses/
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\craftpix-net-481981-free-summer-pixel-art-backgrounds\readme.txt:
-========================================
-  Font that was used for the background of the preview:
-  https://www.dafont.com/digital-disco.font
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\craftpix-net-965049-free-industrial-zone-tileset-pixel-art\Font.txt:
-========================================
-  Future Millennium
-  https://www.dafont.com/futuremillennium.font
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\craftpix-net-965049-free-industrial-zone-tileset-pixel-art\license.txt:
-========================================
-  https://craftpix.net/file-licenses/
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\UI\Popups\popup_dialog.gd:
-========================================
+  class_name PopupDialog
   extends CanvasLayer
   
   # Signal, wenn der primäre (rechte) Button gedrückt wird
@@ -2200,7 +2846,7 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\UI\P
   		close()
 
 ========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\UI\Popups\popup_manager.gd:
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\ui\dialogs\popup_manager.gd:
 ========================================
   extends Node
   
@@ -2345,7 +2991,7 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\UI\P
   
   # Erstellt eine neue Popup-Instanz
   func _create_popup():
-  	var popup_script = load("res://UI/Popups/popup_dialog.gd")
+  	var popup_script = load("res://scripts/ui/dialogs/popup_dialog.gd")
   	# Hier ist die Korrektur: Wir erstellen einen CanvasLayer statt eines Node
   	var popup_instance = CanvasLayer.new()
   	popup_instance.set_script(popup_script)
@@ -2357,247 +3003,56 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\UI\P
   	return "dialog_" + str(randi())
 
 ========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\addons\virtual_joystick\test\player.gd:
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\ui\hud\hud_controller.gd:
 ========================================
-  extends Sprite2D
+  class_name HudController
+  extends CanvasLayer
+  var coins = 0
+  var max_lifes = 3
+  var lifes = max_lifes
+  var hud
+  var initial_heart_position
+  var inital_heart_size
   
-  @export var speed : float = 100
+  func _ready():
+  	$HeartsFull.flip_h = true
+  	$LabelCoinSum.text = str(coins)
+  	initial_heart_position = $HeartsFull.position
+  	inital_heart_size = $HeartsFull.size
+  	$HeartsEmpty.position = initial_heart_position - Vector2(2*inital_heart_size.x, 0)
+  	$HeartsEmpty.size = inital_heart_size + Vector2(2*inital_heart_size.x, 0)
   
-  @export var joystick_left : VirtualJoystick
+  	load_hearts()
   
-  @export var joystick_right : VirtualJoystick
+  func coin_collected():
+  	coins = coins + 1
+  	$LabelCoinSum.text = str(coins)
   
-  var move_vector := Vector2.ZERO
   
-  func _process(delta: float) -> void:
-  	## Movement using the joystick output:
-  #	if joystick_left and joystick_left.is_pressed:
-  #		position += joystick_left.output * speed * delta
+  func load_hearts():
+  	$HeartsFull.size.x = lifes * inital_heart_size.x
+  	$HeartsFull.position.x= initial_heart_position.x - ((lifes-1) * inital_heart_size.x)
   
-  	## Movement using Input functions:
-  	move_vector = Vector2.ZERO
-  	move_vector = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
-  	position += move_vector * speed * delta
+  func change_life(amount):
+  	if  lifes + amount < 0:
+  		lifes = 0
   
-  	# Rotation:
-  	if joystick_right and joystick_right.is_pressed:
-  		rotation = joystick_right.output.angle()
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\addons\virtual_joystick\virtual_joystick.gd:
-========================================
-  class_name VirtualJoystick
-  
-  extends Control
-  
-  ## A simple virtual joystick for touchscreens, with useful options.
-  ## Github: https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot
-  
-  # EXPORTED VARIABLE
-  
-  ## The color of the button when the joystick is pressed.
-  @export var pressed_color := Color.GRAY
-  
-  ## If the input is inside this range, the output is zero.
-  @export_range(0, 200, 1) var deadzone_size : float = 10
-  
-  ## The max distance the tip can reach.
-  @export_range(0, 500, 1) var clampzone_size : float = 75
-  
-  enum Joystick_mode {
-  	FIXED, ## The joystick doesn't move.
-  	DYNAMIC, ## Every time the joystick area is pressed, the joystick position is set on the touched position.
-  	FOLLOWING ## When the finger moves outside the joystick area, the joystick will follow it.
-  }
-  
-  ## If the joystick stays in the same position or appears on the touched position when touch is started
-  @export var joystick_mode := Joystick_mode.FIXED
-  
-  enum Visibility_mode {
-  	ALWAYS, ## Always visible
-  	TOUCHSCREEN_ONLY, ## Visible on touch screens only
-  	WHEN_TOUCHED ## Visible only when touched
-  }
-  
-  ## If the joystick is always visible, or is shown only if there is a touchscreen
-  @export var visibility_mode := Visibility_mode.ALWAYS
-  
-  ## If true, the joystick uses Input Actions (Project -> Project Settings -> Input Map)
-  @export var use_input_actions := true
-  
-  @export var action_left := "ui_left"
-  @export var action_right := "ui_right"
-  @export var action_up := "ui_up"
-  @export var action_down := "ui_down"
-  
-  # PUBLIC VARIABLES
-  
-  ## If the joystick is receiving inputs.
-  var is_pressed := false
-  
-  # The joystick output.
-  var output := Vector2.ZERO
-  
-  # PRIVATE VARIABLES
-  
-  var _touch_index : int = -1
-  
-  @onready var _base := $Base
-  @onready var _tip := $Base/Tip
-  
-  @onready var _base_default_position : Vector2 = _base.position
-  @onready var _tip_default_position : Vector2 = _tip.position
-  
-  @onready var _default_color : Color = _tip.modulate
-  
-  # FUNCTIONS
-  
-  func _ready() -> void:
-  	if ProjectSettings.get_setting("input_devices/pointing/emulate_mouse_from_touch"):
-  		printerr("The Project Setting 'emulate_mouse_from_touch' should be set to False")
-  	if not ProjectSettings.get_setting("input_devices/pointing/emulate_touch_from_mouse"):
-  		printerr("The Project Setting 'emulate_touch_from_mouse' should be set to True")
-  
-  	if not DisplayServer.is_touchscreen_available() and visibility_mode == Visibility_mode.TOUCHSCREEN_ONLY :
-  		hide()
-  
-  	if visibility_mode == Visibility_mode.WHEN_TOUCHED:
-  		hide()
-  
-  func _input(event: InputEvent) -> void:
-  	if event is InputEventScreenTouch:
-  		if event.pressed:
-  			if _is_point_inside_joystick_area(event.position) and _touch_index == -1:
-  				if joystick_mode == Joystick_mode.DYNAMIC or joystick_mode == Joystick_mode.FOLLOWING or (joystick_mode == Joystick_mode.FIXED and _is_point_inside_base(event.position)):
-  					if joystick_mode == Joystick_mode.DYNAMIC or joystick_mode == Joystick_mode.FOLLOWING:
-  						_move_base(event.position)
-  					if visibility_mode == Visibility_mode.WHEN_TOUCHED:
-  						show()
-  					_touch_index = event.index
-  					_tip.modulate = pressed_color
-  					_update_joystick(event.position)
-  					get_viewport().set_input_as_handled()
-  		elif event.index == _touch_index:
-  			_reset()
-  			if visibility_mode == Visibility_mode.WHEN_TOUCHED:
-  				hide()
-  			get_viewport().set_input_as_handled()
-  	elif event is InputEventScreenDrag:
-  		if event.index == _touch_index:
-  			_update_joystick(event.position)
-  			get_viewport().set_input_as_handled()
-  
-  func _move_base(new_position: Vector2) -> void:
-  	_base.global_position = new_position - _base.pivot_offset * get_global_transform_with_canvas().get_scale()
-  
-  func _move_tip(new_position: Vector2) -> void:
-  	_tip.global_position = new_position - _tip.pivot_offset * _base.get_global_transform_with_canvas().get_scale()
-  
-  func _is_point_inside_joystick_area(point: Vector2) -> bool:
-  	var x: bool = point.x >= global_position.x and point.x <= global_position.x + (size.x * get_global_transform_with_canvas().get_scale().x)
-  	var y: bool = point.y >= global_position.y and point.y <= global_position.y + (size.y * get_global_transform_with_canvas().get_scale().y)
-  	return x and y
-  
-  func _get_base_radius() -> Vector2:
-  	return _base.size * _base.get_global_transform_with_canvas().get_scale() / 2
-  
-  func _is_point_inside_base(point: Vector2) -> bool:
-  	var _base_radius = _get_base_radius()
-  	var center : Vector2 = _base.global_position + _base_radius
-  	var vector : Vector2 = point - center
-  	if vector.length_squared() <= _base_radius.x * _base_radius.x:
-  		return true
+  	elif  lifes + amount > 3:
+  		lifes = 3
   	else:
-  		return false
-  
-  func _update_joystick(touch_position: Vector2) -> void:
-  	var _base_radius = _get_base_radius()
-  	var center : Vector2 = _base.global_position + _base_radius
-  	var vector : Vector2 = touch_position - center
-  	vector = vector.limit_length(clampzone_size)
-  
-  	if joystick_mode == Joystick_mode.FOLLOWING and touch_position.distance_to(center) > clampzone_size:
-  		_move_base(touch_position - vector)
-  
-  	_move_tip(center + vector)
-  
-  	if vector.length_squared() > deadzone_size * deadzone_size:
-  		is_pressed = true
-  		output = (vector - (vector.normalized() * deadzone_size)) / (clampzone_size - deadzone_size)
-  	else:
-  		is_pressed = false
-  		output = Vector2.ZERO
-  
-  	if use_input_actions:
-  		if output.x > 0:
-  			Input.action_release(action_left)
-  			Input.action_press(action_right, output.x)
-  		else:
-  			Input.action_release(action_right)
-  			Input.action_press(action_left, -output.x)
-  
-  		if output.y > 0:
-  			Input.action_release(action_up)
-  			Input.action_press(action_down, output.y)
-  		else:
-  			Input.action_release(action_down)
-  			Input.action_press(action_up, -output.y)
-  
-  func _reset():
-  	is_pressed = false
-  	output = Vector2.ZERO
-  	_touch_index = -1
-  	_tip.modulate = _default_color
-  	_base.position = _base_default_position
-  	_tip.position = _tip_default_position
-  	if use_input_actions:
-  		for action in [action_left, action_right, action_down, action_up]:
-  			Input.action_release(action)
+  		lifes = lifes + amount
+  	load_hearts()
 
 ========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\addons\virtual_joystick\virtual_joystick_instantiator.gd:
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\ui\main_menu\camera.gd:
 ========================================
-  @tool
-  extends Control
-  
-  var scene
-  
-  func _enter_tree():
-  	scene = preload("res://addons/virtual_joystick/virtual_joystick_scene.tscn").instantiate()
-  	add_child(scene)
-  
-  	if ProjectSettings.get_setting("input_devices/pointing/emulate_mouse_from_touch"):
-  		printerr("The Project Setting 'emulate_mouse_from_touch' should be set to False")
-  	if not ProjectSettings.get_setting("input_devices/pointing/emulate_touch_from_mouse"):
-  		printerr("The Project Setting 'emulate_touch_from_mouse' should be set to True")
+  class_name Camera
+  extends Camera2D
   
   
-  func _exit_tree():
-  	scene.free()
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\addons\virtual_joystick\virtual_joystick_plugin.gd:
-========================================
-  @tool
-  extends EditorPlugin
-  
-  
-  func _enter_tree():
-  	add_custom_type("Virtual Joystick", "Control", preload("virtual_joystick_instantiator.gd"), preload("virtual_joystick_icon.png"))
-  
-  
-  func _exit_tree():
-  	remove_custom_type("Virtual Joystick")
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\base.gd:
-========================================
-  extends Node2D
-  
-  var boss_music = load("res://Ressources/Audio/Tracks/the-epic-2-by-rafael-krux(chosic.com).mp3")
   # Called when the node enters the scene tree for the first time.
   func _ready():
-  	AudioManager.play_track(boss_music)
+  	pass # Replace with function body.
   
   
   # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -2605,187 +3060,129 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\base
   	pass
 
 ========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\project.godot:
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\ui\main_menu\customizer_button.gd:
 ========================================
-  ; Engine configuration file.
-  ; It's best edited using the editor UI and not directly,
-  ; since the parameters that go here are not all obvious.
-  ;
-  ; Format:
-  ;   [section] ; section goes between []
-  ;   param=value ; assign values to parameters
+  class_name CustomizerButton
+  extends Button
   
-  config_version=5
   
-  [application]
-  
-  config/name="The Little Saint"
-  run/main_scene="res://Start_Screen/start_screen.tscn"
-  config/features=PackedStringArray("4.4", "Mobile")
-  
-  [autoload]
-  
-  AudioManager="*res://Start_Screen/AudioManager.tscn"
-  Global="*res://Global.gd"
-  PopupManager="*res://UI/Popups/popup_manager.gd"
-  
-  [display]
-  
-  window/size/viewport_width=1280
-  window/size/viewport_height=720
-  window/stretch/mode="canvas_items"
-  window/stretch/aspect="expand"
-  
-  [input]
-  
-  right={
-  "deadzone": 0.5,
-  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":68,"key_label":0,"unicode":100,"location":0,"echo":false,"script":null)
-  , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194321,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
-  ]
-  }
-  left={
-  "deadzone": 0.5,
-  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":65,"key_label":0,"unicode":97,"location":0,"echo":false,"script":null)
-  , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194319,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
-  ]
-  }
-  up={
-  "deadzone": 0.5,
-  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":87,"key_label":0,"unicode":119,"location":0,"echo":false,"script":null)
-  , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194320,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
-  ]
-  }
-  down={
-  "deadzone": 0.5,
-  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":115,"location":0,"echo":false,"script":null)
-  , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194322,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
-  ]
-  }
-  attack={
-  "deadzone": 0.5,
-  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":85,"physical_keycode":0,"key_label":0,"unicode":117,"location":0,"echo":false,"script":null)
-  ]
-  }
-  defend={
-  "deadzone": 0.5,
-  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":73,"physical_keycode":0,"key_label":0,"unicode":105,"location":0,"echo":false,"script":null)
-  ]
-  }
-  Menu={
-  "deadzone": 0.5,
-  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
-  ]
-  }
-  
-  [input_devices]
-  
-  pointing/emulate_touch_from_mouse=true
-  
-  [layer_names]
-  
-  2d_physics/layer_1="player"
-  2d_physics/layer_2="ports"
-  2d_physics/layer_3="item"
-  2d_physics/layer_4="enemy"
-  
-  [physics]
-  
-  2d/physics_engine="GodotPhysics2D"
-  
-  [rendering]
-  
-  textures/canvas_textures/default_texture_filter=0
-  renderer/rendering_method="mobile"
-  environment/defaults/default_clear_color=Color(0, 0, 0, 1)
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\rock.gd:
-========================================
-  extends CharacterBody2D
-  
-  @export var SPEED = 120
-  var hud
-  var direction = 0
-  var spawnPos : Vector2
-  var spawnRot : float
-  
+  # Called when the node enters the scene tree for the first time.
   func _ready():
-  	hud = get_node("../HUD")
-  	global_position = spawnPos
-  	global_rotation = spawnRot
-  	projectile_decay()
+  	pass # Replace with function body.
+  
   
   # Called every frame. 'delta' is the elapsed time since the previous frame.
   func _process(delta):
-  	velocity.x = direction.x * SPEED
-  	get_node("rock").play("flying")
-  	move_and_slide()
-  
-  func projectile_decay():
-  	await get_tree().create_timer(5.0).timeout
-  	self.queue_free()
-  
-  func _on_hit_zone_body_entered(body):
-  	if body.name == "Player":
-  		hud.change_life(-0.2)
-  		self.queue_free()
+  	pass
 
 ========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\stages\Ardits_Stage\enemy1.gd:
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\ui\main_menu\main_menu.gd:
 ========================================
+  class_name MainMenu
   extends Node2D
   
-  const SPEED = 60
   
-  var direction = 1
-  
-  @onready var ray_cast_right = $RayCastRight
-  @onready var ray_cast_left = $RayCastLeft
-  @onready var animated_sprite = $AnimatedSprite2D
-  
-  # Called every frame. 'delta' is the elapsed time since the previous frame.
-  func _process(delta):
-  	if ray_cast_right.is_colliding():
-  		direction = -1
-  		animated_sprite.flip_h = false
-  	if ray_cast_left.is_colliding():
-  		direction = 1
-  		animated_sprite.flip_h = true
-  
-  	position.x += direction * SPEED * delta
+  func _on_exit_button_pressed():
+  	get_tree().quit()
   
   
-  func _on_top_checker_body_entered(body):
-  	$AnimatedSprite2D.play("dead")
+  func _on_settings_button_pressed():
+  	get_tree().change_scene_to_file("res://scenes/ui/settings/settings_menu.tscn")
+  
+  
+  func _on_start_button_pressed():
+  	get_tree().change_scene_to_file("res://scenes/levels/adventure_mode/base_level.tscn")
 
 ========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\stages\Prince_Stage\Scriptprince\gegner_1.gd:
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\ui\main_menu\menu_buttons.gd:
 ========================================
+  class_name MenuButtons
+  extends Button
+  
+  
+  # Called when the node enters the scene tree for the first time.
+  func _ready():
+  	pass # Replace with function body.
+  
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(_delta):
+  	pass
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\ui\main_menu\start_background.gd:
+========================================
+  class_name StartBackground
+  extends ParallaxBackground
+  
+  var scrolling_speed = 50
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	scroll_offset.x -= scrolling_speed * delta
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\ui\settings\audio_settings.gd:
+========================================
+  class_name AudioSettings
   extends Node2D
   
-  const SPEED = 60
   
-  var direction = 1
+  # Called when the node enters the scene tree for the first time.
+  func _ready():
+  	pass # Replace with function body.
   
-  @onready var ray_cast_right = $RayCastRight
-  @onready var ray_cast_left = $RayCastLeft
-  @onready var animated_sprite = $AnimatedSprite2D
   
   # Called every frame. 'delta' is the elapsed time since the previous frame.
   func _process(delta):
-  	if ray_cast_right.is_colliding():
-  		direction = -1
-  		animated_sprite.flip_h = false
-  	if ray_cast_left.is_colliding():
-  		direction = 1
-  		animated_sprite.flip_h = true
+  	pass
   
-  	position.x += direction * SPEED * delta
+  
+  func _on_back_button_pressed():
+  	get_tree().change_scene_to_file("res://scenes/ui/settings/settings_menu.tscn")
+  
+  var master_bus = AudioServer.get_bus_index("Master")
+  
+  
+  func _on_h_slider_value_changed(value):
+  	AudioServer.set_bus_volume_db(master_bus, value)
+  
+  	if value == -30:
+  		AudioServer.set_bus_mute(master_bus, true)
+  	else:
+  		AudioServer.set_bus_mute(master_bus, false)
 
 ========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\stages\Prince_Stage\Scriptprince\killzone.gd:
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\ui\settings\settings_menu.gd:
 ========================================
+  class_name SettingsMenu
+  extends Node2D
+  
+  "res://scripts/ui/settings/settings_menu.gd"
+  # Called when the node enters the scene tree for the first time.
+  func _ready():
+  	pass # Replace with function body.
+  
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	pass
+  
+  
+  func _on_back_button_pressed():
+  	get_tree().change_scene_to_file("res://scenes/ui/main_menu/main_menu.tscn")
+  
+  
+  func _on_audio_button_pressed():
+  	get_tree().change_scene_to_file("res://scenes/ui/settings/audio_settings.tscn")
+  
+  
+  func _on_customizer_button_pressed():
+  	get_tree().change_scene_to_file("res://scenes/ui/character_customizer/customizer.tscn")
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\utils\killzone.gd:
+========================================
+  class_name Killzone
   extends Area2D
   
   @onready var timer = $Timer
@@ -2801,194 +3198,3 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\stag
   func _on_timer_timeout():
   	Engine.time_scale = 1.0
   	get_tree().reload_current_scene()
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\stages\Prince_Stage\Tiles\fourSeasonsPlatformer\- READ ME -.txt:
-========================================
-  
-                                                                - READ ME -
-  
-  Thank you for using the fourSeasonsPlatformer_ [tileset]...part of the fourSeasonPlatformer_ series' of assets on itch.io!
-  
-  Stuff to know - Tilesets
-  
-  - Each tile is 16x16 pixels...although some objects/structures/terrain are 16x32/32x16/32x32...[e.g. trees, beehives, big terrain tile]
-  - The blackout_ tileset is designed to black out the spaces between tiles [optional]
-  
-  Stuff to know - Animations
-  
-  - coin_ animation is 12 frames
-  - each eventBlock_ animation is 14 frames [6 animations total]
-  - each foreground animation is 8 frames
-  
-  If you have any questions or requests you can contact me at analogstudios.inc@gmail.com
-  
-  
-  
-  
-  
-  
-
-[Skipped c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\stages\Prince_Stage\game_prince.tscn: File too large (146 KB)]
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\start_screen\AudioManager.gd:
-========================================
-  extends Node
-  
-  
-  var music_playing = false
-  var current_track: AudioStream = null
-  
-  
-  func _ready():
-  	var audio_player = $AudioStreamPlayer
-  	if !music_playing:
-  		audio_player.stream = load("res://Ressources/Audio/Tracks/the-epic-2-by-rafael-krux(chosic.com).mp3")
-  		audio_player.play()
-  		music_playing = true
-  	else:
-  		audio_player.play()
-  
-  func play_track(audio_stream: AudioStream):
-  	var audio_player = $AudioStreamPlayer
-  	if audio_stream != current_track:
-  		audio_player.stop()
-  		audio_player.stream = audio_stream
-  		audio_player.play()
-  		current_track = audio_stream
-  		music_playing = true
-  	elif not audio_player.playing:
-  		audio_player.play()
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\start_screen\Audio_Settings.gd:
-========================================
-  extends Node2D
-  
-  
-  # Called when the node enters the scene tree for the first time.
-  func _ready():
-  	pass # Replace with function body.
-  
-  
-  # Called every frame. 'delta' is the elapsed time since the previous frame.
-  func _process(delta):
-  	pass
-  
-  
-  func _on_back_button_pressed():
-  	get_tree().change_scene_to_file("res://start_screen/setting_screen.tscn")
-  
-  var master_bus = AudioServer.get_bus_index("Master")
-  
-  
-  func _on_h_slider_value_changed(value):
-  	AudioServer.set_bus_volume_db(master_bus, value)
-  
-  	if value == -30:
-  		AudioServer.set_bus_mute(master_bus, true)
-  	else:
-  		AudioServer.set_bus_mute(master_bus, false)
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\start_screen\Camera2D.gd:
-========================================
-  extends Camera2D
-  
-  
-  # Called when the node enters the scene tree for the first time.
-  func _ready():
-  	pass # Replace with function body.
-  
-  
-  # Called every frame. 'delta' is the elapsed time since the previous frame.
-  func _process(delta):
-  	pass
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\start_screen\Customizer_Button.gd:
-========================================
-  extends Button
-  
-  
-  # Called when the node enters the scene tree for the first time.
-  func _ready():
-  	pass # Replace with function body.
-  
-  
-  # Called every frame. 'delta' is the elapsed time since the previous frame.
-  func _process(delta):
-  	pass
-  
-  
-  
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\start_screen\setting_screen.gd:
-========================================
-  extends Node2D
-  
-  "res://start_screen/setting_screen.gd"
-  # Called when the node enters the scene tree for the first time.
-  func _ready():
-  	pass # Replace with function body.
-  
-  
-  # Called every frame. 'delta' is the elapsed time since the previous frame.
-  func _process(delta):
-  	pass
-  
-  
-  func _on_back_button_pressed():
-  	get_tree().change_scene_to_file("res://start_screen/start_screen.tscn")
-  
-  
-  func _on_audio_button_pressed():
-  	get_tree().change_scene_to_file("res://start_screen/Audio_Settings.tscn")
-  
-  
-  func _on_customizer_button_pressed():
-  	get_tree().change_scene_to_file("res://Character_Customizer/customizer.tscn")
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\start_screen\start_background.gd:
-========================================
-  extends ParallaxBackground
-  
-  var scrolling_speed = 50
-  # Called every frame. 'delta' is the elapsed time since the previous frame.
-  func _process(delta):
-  	scroll_offset.x -= scrolling_speed * delta
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\start_screen\start_screen.gd:
-========================================
-  extends Node2D
-  
-  
-  func _on_exit_button_pressed():
-  	get_tree().quit()
-  
-  
-  func _on_settings_button_pressed():
-  	get_tree().change_scene_to_file("res://start_screen/setting_screen.tscn")
-  
-  
-  func _on_start_button_pressed():
-  	get_tree().change_scene_to_file("res://base.tscn")
-
-========================================
-Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\start_screen\start_screen_buttons.gd:
-========================================
-  extends Button
-  
-  
-  # Called when the node enters the scene tree for the first time.
-  func _ready():
-  	pass # Replace with function body.
-  
-  
-  # Called every frame. 'delta' is the elapsed time since the previous frame.
-  func _process(delta):
-  	pass

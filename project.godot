@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="The Little Saint"
-run/main_scene="res://Start_Screen/start_screen.tscn"
+run/main_scene="uid://dh7t0n4nj8w4o"
 config/features=PackedStringArray("4.4", "Mobile")
 
 [autoload]
 
-AudioManager="*res://Start_Screen/AudioManager.tscn"
-Global="*res://Global.gd"
-PopupManager="*res://UI/Popups/popup_manager.gd"
+AudioManager="*res://scripts/autoload/audio_manager.gd"
+Global="*res://scripts/autoload/game_manager.gd"
+PopupManager="*res://scripts/ui/dialogs/popup_manager.gd"
 
 [display]
 

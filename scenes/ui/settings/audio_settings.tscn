@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://jdsqxwwc0a0a"]
+
+[ext_resource type="Script"  path="res://scripts/ui/settings/audio_settings.gd" id="1_v38ib"]
+[ext_resource type="Script"  path="res://scripts/ui/main_menu/menu_buttons.gd" id="2_mhwes"]
+[ext_resource type="PackedScene"  path="res://scenes/ui/main_menu/start_background.tscn" id="3_kci5j"]
+[ext_resource type="FontFile"  path="res://assets/fonts/special/copyduck/Copyduck.otf" id="4_hcyq3"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_v38ib")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(0, 0, 0, 0.45098)
+custom_minimum_size = Vector2(-4.19, 0)
+offset_left = 402.0
+offset_top = 186.0
+offset_right = 884.0
+offset_bottom = 358.0
+size_flags_stretch_ratio = 0.0
+
+[node name="Back_Button" type="Button" parent="."]
+offset_left = 416.0
+offset_top = 298.0
+offset_right = 864.0
+offset_bottom = 339.0
+text = "Back"
+script = ExtResource("2_mhwes")
+
+[node name="start_background" parent="." instance=ExtResource("3_kci5j")]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 471.0
+offset_top = 113.0
+offset_right = 603.495
+offset_bottom = 131.0
+scale = Vector2(2.66, 2.66)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_hcyq3")
+text = "Audio-Settings"
+
+[node name="HSlider" type="HSlider" parent="."]
+modulate = Color(0.313726, 1, 0.317647, 1)
+offset_left = 407.0
+offset_top = 201.0
+offset_right = 702.565
+offset_bottom = 237.0
+scale = Vector2(1.605, 1.605)
+min_value = -30.0
+max_value = 0.0
+
+[connection signal="pressed" from="Back_Button" to="." method="_on_back_button_pressed"]
+[connection signal="value_changed" from="HSlider" to="." method="_on_h_slider_value_changed"]
