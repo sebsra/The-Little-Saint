@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="1_lhb4i"]
 [ext_resource type="Texture2D" uid="uid://1xr2854l0q0r" path="res://Ressources/a.png" id="2_4nxph"]
-[ext_resource type="Script" path="res://OnScreen_Control/attack.gd" id="3_otb72"]
+[ext_resource type="Script" uid="uid://cnh4k6igqwp7t" path="res://OnScreen_Control/attack.gd" id="3_otb72"]
 [ext_resource type="Texture2D" uid="uid://r1ap0jkbih51" path="res://Ressources/x.png" id="4_2x15l"]
-[ext_resource type="Script" path="res://OnScreen_Control/defend.gd" id="5_w52k3"]
+[ext_resource type="Script" uid="uid://c7fn8ke0t5dm4" path="res://OnScreen_Control/defend.gd" id="5_w52k3"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h823n"]
 

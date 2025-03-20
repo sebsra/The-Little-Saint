@@ -1,0 +1,2994 @@
+PROJECT STRUCTURE FOR: c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint
+==================================================
+
+[DIR] .git (skipped)
+[DIR] .godot (skipped)
+[DIR] .vscode (skipped)
+[DIR] Character_Assets
+  - character_sprites.gd
+  - character_sprites.tscn
+[DIR] Character_Customizer
+  - Control.gd
+  - back.gd
+  - customizer.tscn
+  - outfit_showcase.gd
+  - outfit_showcase.tscn
+  - preview_helper.gd
+[DIR] Enemies
+  - Goblin_Archer.gd
+  - Goblin_Archer.tscn
+  - Goblin_Mage.gd
+  - Goblin_Mage.tscn
+  - Goblin_Melee.gd
+  - Goblin_Melee.tscn
+- Global.gd
+[DIR] HeadUp_Display
+  - hud.gd
+  - hud.tscn
+- MageBall.gd
+- MageBall.tscn
+[DIR] OnScreen_Control
+  - JoyStick.tscn
+  - attack.gd
+  - defend.gd
+  - gui.tscn
+[DIR] Player
+  - Player.gd
+  - Player.tscn
+  - PlayerCamera.gd
+[DIR] PowerUps
+  - coins.gd
+  - coins.tscn
+  - softpowerAttack.gd
+  - softpowerAttack.tscn
+  - softpowerFly.gd
+  - softpowerFly.tscn
+  - softpowerJump.gd
+  - softpowerJump.tscn
+- README.md
+[DIR] Ressources
+  [DIR] Audio
+    [DIR] Tracks
+  [DIR] Bushes
+  [DIR] Character v.2
+    [DIR] acc
+    [DIR] characters
+    [DIR] clothes
+    [DIR] eyes
+    [DIR] greyscale
+      [DIR] acc
+        [DIR] acc
+        [DIR] modular
+      [DIR] character
+        [DIR] without
+      [DIR] clothes
+        [DIR] clothes
+        [DIR] modular
+      [DIR] eyes
+      [DIR] hair
+      - info.txt
+      [DIR] tools
+    [DIR] hair
+    - info.txt
+    - list.txt
+    [DIR] separate
+      [DIR] axe
+        [DIR] acc
+        [DIR] clothes
+        [DIR] eyes
+        [DIR] hair
+        [DIR] tool
+        [DIR] without
+      [DIR] block
+        [DIR] acc
+        [DIR] clothes
+        [DIR] eyes
+        [DIR] hair
+        [DIR] tool
+        [DIR] without
+      [DIR] carry
+        [DIR] acc
+        [DIR] clothes
+        [DIR] eyes
+        [DIR] hair
+      [DIR] die
+        [DIR] acc
+        [DIR] clothes
+        [DIR] eyes
+        [DIR] hair
+      [DIR] fish
+        [DIR] acc
+        [DIR] clothes
+        [DIR] eyes
+        [DIR] hair
+        [DIR] tool
+        [DIR] without
+      [DIR] hoe
+        [DIR] acc
+        [DIR] clothes
+        [DIR] eyes
+        [DIR] hair
+        [DIR] tool
+        [DIR] without
+      [DIR] hurt
+        [DIR] acc
+        [DIR] clothes
+        [DIR] eyes
+        [DIR] hair
+      [DIR] jump
+        [DIR] acc
+        [DIR] clothes
+        [DIR] eyes
+        [DIR] hair
+      [DIR] pickaxe
+        [DIR] acc
+        [DIR] clothes
+        [DIR] eyes
+        [DIR] hair
+        [DIR] tool
+        [DIR] without
+      [DIR] pickup
+        [DIR] acc
+        [DIR] clothes
+        [DIR] eyes
+        [DIR] hair
+      [DIR] sword
+        [DIR] acc
+        [DIR] clothes
+        [DIR] eyes
+        [DIR] hair
+        [DIR] tool
+        [DIR] without
+      [DIR] walk
+        [DIR] acc
+        [DIR] clothes
+        [DIR] eyes
+        [DIR] hair
+      [DIR] water
+        [DIR] acc
+        [DIR] clothes
+        [DIR] eyes
+        [DIR] hair
+        [DIR] tool
+        [DIR] without
+  [DIR] Font
+  [DIR] Fonts
+    [DIR] copyduck
+      - More Info.txt
+  - License.txt
+  [DIR] Monsters
+    [DIR] 1 Bat
+    [DIR] 2 Goblin_Mage
+    [DIR] 3 Goblin_Melee
+    [DIR] 4 Goblin_Range
+    [DIR] 5 Small_Mushroom
+    [DIR] 6 Big_Mushroom
+    [DIR] PSD
+  [DIR] Peasant's_House
+    [DIR] Peasant's_House
+      [DIR] Door_Animation
+        [DIR] Door_Animation-FrameByFrame
+      [DIR] House_in_the_middle
+        [DIR] Door_Animation
+        [DIR] Window_Animation
+      [DIR] Peasant's_House-NoAnimation
+      - README.txt
+      [DIR] Window_Animation
+        [DIR] Window_Animation-FrameByFrame
+  [DIR] Sunny-land-files
+    [DIR] Sunny-land-files
+      [DIR] Graphical Assets
+        [DIR] Aseprite
+        [DIR] GIF Previews
+          [DIR] FX
+          [DIR] eagle
+          [DIR] frog
+          [DIR] items
+          [DIR] opossum
+          [DIR] player
+        [DIR] PSD
+          [DIR] MISC
+          [DIR] environment
+          [DIR] sprites
+            [DIR] FX
+            [DIR] eagle
+            [DIR] frog
+            [DIR] items
+            [DIR] opossum
+            [DIR] player
+        [DIR] environment
+          [DIR] Background
+          [DIR] Props
+        [DIR] sprites
+          [DIR] cherry
+          [DIR] eagle
+          [DIR] enemy-death
+          [DIR] frog
+            [DIR] idle
+            [DIR] jump
+          [DIR] gem
+          [DIR] item-feedback
+          [DIR] opossum
+          [DIR] player
+            [DIR] climb
+            [DIR] crouch
+            [DIR] hurt
+            [DIR] idle
+            [DIR] jump
+            [DIR] run
+        [DIR] spritesheets
+      - public-license.txt
+  [DIR] craftpix-896753-village-pixel-art-environment-assets-pack
+    - License.txt
+    [DIR] PNG
+      [DIR] Objects
+      [DIR] Tiles
+    [DIR] Village_PixelArt_Environment.unitypackage
+    - readme.txt
+  [DIR] craftpix-net-352322-nature-pixel-art-environment-free-assets-pack
+    - License.txt
+    [DIR] PNG
+      [DIR] Objects
+      [DIR] Tiles
+    - readme.txt
+  [DIR] craftpix-net-481981-free-summer-pixel-art-backgrounds
+    - License.txt
+    [DIR] PNG
+      [DIR] summer 1
+      [DIR] summer 2
+      [DIR] summer 3
+      [DIR] summer 4
+      [DIR] summer5
+      [DIR] summer6
+      [DIR] summer7
+      [DIR] summer8
+    [DIR] PSD
+    - readme.txt
+  [DIR] craftpix-net-965049-free-industrial-zone-tileset-pixel-art
+    [DIR] 1 Tiles
+    [DIR] 2 Background
+    [DIR] 3 Objects
+    [DIR] 4 Animated objects
+    - Font.txt
+    [DIR] PSD
+    - license.txt
+[DIR] UI
+  [DIR] Popups
+    - popup_dialog.gd
+    - popup_dialog.tscn
+    - popup_manager.gd
+[DIR] addons
+  [DIR] virtual_joystick
+    [DIR] previews
+    [DIR] test
+      - player.gd
+      - test.tscn
+    [DIR] textures
+    - virtual_joystick.gd
+    - virtual_joystick_instantiator.gd
+    - virtual_joystick_plugin.gd
+    - virtual_joystick_scene.tscn
+- base.gd
+- base.tscn
+- get_structure.py
+- project.godot
+- project_structure.txt
+- rock.gd
+- rock.tscn
+[DIR] stages
+  - AdventureLevel.tscn
+  [DIR] Ardits_Stage
+    - Arrogance.tscn
+    [DIR] Egypt
+    [DIR] Free
+      [DIR] Background
+      [DIR] Items
+        [DIR] Boxes
+          [DIR] Box1
+          [DIR] Box2
+          [DIR] Box3
+        [DIR] Checkpoints
+          [DIR] Checkpoint
+          [DIR] End
+          [DIR] Start
+        [DIR] Fruits
+      [DIR] Main Characters
+        [DIR] Mask Dude
+        [DIR] Ninja Frog
+        [DIR] Pink Man
+        [DIR] Virtual Guy
+      [DIR] Menu
+        [DIR] Buttons
+        [DIR] Levels
+        [DIR] Text
+      [DIR] Other
+      [DIR] Terrain
+      [DIR] Traps
+        [DIR] Arrow
+        [DIR] Blocks
+        [DIR] Falling Platforms
+        [DIR] Fan
+        [DIR] Fire
+        [DIR] Platforms
+        [DIR] Rock Head
+        [DIR] Sand Mud Ice
+        [DIR] Saw
+        [DIR] Spike Head
+        [DIR] Spiked Ball
+        [DIR] Spikes
+        [DIR] Trampoline
+    [DIR] Free Version
+      [DIR] Tiles
+    [DIR] [Free-Version] The Lost Tomb - [24x24] Dungeon Asset pack
+    [DIR] egyptian-game-ui-frames-assets
+    [DIR] enemy1
+    - enemy1.gd
+    - enemy1.tscn
+  [DIR] Prince_Stage
+    [DIR] Scriptprince
+      - gegner_1.gd
+      - killzone.gd
+    [DIR] Tiles
+      [DIR] fourSeasonsPlatformer
+        - - READ ME -.txt
+        [DIR] background_
+        [DIR] foreground_
+        [DIR] midground_
+        [DIR] objects_
+    - game_prince.tscn
+    - gegner_1.tscn
+    - killzone.tscn
+    - platform.tscn
+  [DIR] Sebastians_Stage
+    - level_1.tscn
+[DIR] start_screen
+  - AudioManager.gd
+  - AudioManager.tscn
+  - Audio_Settings.gd
+  - Audio_Settings.tscn
+  - Camera2D.gd
+  - Customizer_Button.gd
+  - setting_screen.gd
+  - setting_screen.tscn
+  - start_background.gd
+  - start_background.tscn
+  - start_screen.gd
+  - start_screen.tscn
+  - start_screen_buttons.gd
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Character_Assets\character_sprites.gd:
+========================================
+  extends Node2D
+  
+  var animation_frames = {
+  	"idle": [0, 1, 2, 3, 4, 5, 6, 7],
+  	"animation1": [8, 9, 10, 11, 12, 13, 14, 15],
+  	"animation2": [16, 17, 18, 19, 20, 21, 22, 23],
+  	"animation3": [24, 25, 26, 27, 28, 29, 30, 31],
+  	"animation4": [32, 33, 34, 35, 36],
+  	"animation5": [40, 41, 42, 43, 44],
+  	"animation6": [48, 49, 50, 51, 52],
+  	"animation7": [56, 57, 58, 59, 60],
+  	"animation8": [64, 65, 66, 67, 68],
+  	"animation9": [72, 73, 74, 75, 76],
+  	"animation10": [80, 81, 82, 83, 84],
+  	"animation11": [88, 89, 90, 91, 92],
+  	"animation12": [96, 97, 98, 99, 100, 101, 102, 103],
+  	"animation13": [104, 105, 106, 107, 108, 109, 110, 111],
+  	"animation14": [112, 113, 114, 115, 116, 117, 118, 119],
+  	"animation15": [120, 121, 122, 123, 124, 125, 126, 127],
+  	"animation16": [128, 129, 130, 131],
+  	"animation17": [136, 137, 138, 139],
+  	"animation18": [144, 145, 146, 147], #attack knife
+  	"animation19": [152, 153, 154, 155],
+  	"animation20": [160],
+  	"animation21": [168],
+  	"animation22": [176],
+  	"animation23": [184],
+  	"animation24": [192],
+  	"animation25": [200],
+  	"animation26": [208],
+  	"animation27": [216],
+  	"dead": [224, 225],
+  	"animation29": [232, 233, 234, 235, 236],
+  	"animation30": [240, 241, 242, 243, 244],
+  	"animation31": [248, 249, 250, 251, 252],
+  	"animation32": [256, 257, 258, 259, 260],
+  	"animation33": [264, 265, 266, 267, 268],
+  	"animation34": [272, 273, 274, 275, 276],
+  	"animation35": [280, 281, 282, 283, 284], #attack axe right
+  	"animation36": [288, 289, 290, 291, 292], #attack axe left
+  	"animation37": [296, 297],
+  	"animation38": [304, 305],
+  	"animation39": [312, 313],
+  	"animation40": [320, 321],
+  	"animation41": [328, 329, 330, 331, 332],
+  	"animation42": [336, 337, 338, 339, 340],
+  	"animation43": [344, 345, 346, 347, 348],
+  	"animation44": [352, 353, 354, 355, 356],
+  	"animation45": [360, 361, 362, 363, 364],
+  	"animation46": [368, 369, 370, 371, 372],
+  	"animation47": [376, 377, 378, 379, 380],
+  	"animation48": [384, 385, 386, 387, 388],
+  	"hurt":        [25*8, 27*8],
+  }
+  
+  var default_outfit = {
+  	"beard": 1,
+  	"lipstick": 1,
+  	"eyes": 1,
+  	"shoes": 1,
+  	"earrings": 1,
+  	"hats": 1,
+  	"glasses": 1,
+  	"clothes_down": 1,
+  	"clothes_up": 1,
+  	"clothes_complete": 1,
+  	"bodies": 1,
+  	"hair": 1
+  }
+
+[Skipped c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Character_Assets\character_sprites.tscn: File too large (25610 KB)]
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Character_Customizer\Control.gd:
+========================================
+  # UI.gd
+  extends Control
+  
+  # Spieler-Outfit-Eigenschaften
+  var body
+  var player_outfit
+  var selected_outfit_category = ""
+  var player_animations
+  var options_per_category = {}
+  var config_path = "user://settings.cfg"
+  var has_unsaved_changes = false  # Neue Variable für ungespeicherte Änderungen
+  
+  # Signal für Debugging
+  signal debug_message(message)
+  
+  func _ready():
+  	randomize() # Initialisiere den Zufallsgenerator
+  	get_node("character_sprites/masks").visible = false
+  	player_outfit = get_node("character_sprites").default_outfit
+  	player_animations = get_node("character_sprites").animation_frames
+  	PopupManager.dialog_confirmed.connect(_on_dialog_confirmed)
+  
+  	# UI-Elemente für jede Outfit-Kategorie erstellen
+  	setup_outfit_categories()
+  
+  	# Versuche, gespeicherte Outfits zu laden
+  	load_saved_outfit()
+  
+  	# Bei Programmstart gibt es keine ungespeicherten Änderungen
+  	has_unsaved_changes = false
+  
+  # Erstellt UI-Elemente für alle Outfit-Kategorien
+  func setup_outfit_categories():
+  	for category in player_outfit:
+  		var category_button = Button.new()
+  		var items_container = ScrollContainer.new()
+  		var item_container_grid = GridContainer.new()
+  
+  		# Kategorie-Button einrichten
+  		category_button.text = category
+  		category_button.pressed.connect(_on_category_button_pressed.bind(category))
+  		$Outfit_Category_Picker/GridContainer.add_child(category_button)
+  
+  		# Container für Items einrichten
+  		items_container.size = Vector2(620, 400)
+  		items_container.position = Vector2(600, 200)
+  		items_container.add_child(item_container_grid)
+  		items_container.name = category
+  		add_child(items_container)
+  		items_container.hide()
+  
+  		# Grid für Items einrichten
+  		item_container_grid.columns = 6
+  		var current_item = 0
+  		var button_size = Vector2(100, 100)
+  
+  		# Leeren Button für optionale Kategorien hinzufügen
+  		if category != "bodies":
+  			var empty_button = Button.new()
+  			empty_button.custom_minimum_size = button_size
+  			empty_button.pressed.connect(_on_item_button_pressed.bind("none"))
+  			item_container_grid.add_child(empty_button)
+  
+  			var animated_sprite = get_node("character_sprites/" + category)
+  			animated_sprite.visible = false
+  			player_outfit[category] = "none"
+  
+  		# Alle verfügbaren Items für diese Kategorie hinzufügen
+  		while true:
+  			current_item += 1
+  			var texture = get_node("character_sprites/"+category).sprite_frames.get_frame_texture(str(current_item), 1)
+  			if texture == null:
+  				break
+  
+  			var item_texture = TextureRect.new()
+  			item_texture.texture = texture
+  			item_texture.custom_minimum_size = button_size
+  			item_texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+  
+  			var item_button = Button.new()
+  			item_button.custom_minimum_size = button_size
+  			item_button.add_child(item_texture)
+  			item_button.pressed.connect(_on_item_button_pressed.bind(str(current_item)))
+  			item_container_grid.add_child(item_button)
+  
+  		options_per_category[category] = current_item - 1
+  
+  # Aktualisiert die Animations-Frames basierend auf dem gewählten Outfit
+  func _process(_delta):
+  	for outfit in player_outfit:
+  		var animated_sprite = get_node("character_sprites/" + outfit)
+  		# Stelle sicher, dass wir einen String für die Animation haben
+  		var animation_value = str(player_outfit[outfit])
+  		animated_sprite.animation = animation_value
+  		animated_sprite.frame = 1
+  
+  # Wird aufgerufen, wenn ein Item ausgewählt wird
+  func _on_item_button_pressed(item):
+  	var animated_sprite = get_node("character_sprites/" + selected_outfit_category)
+  	var old_value = player_outfit[selected_outfit_category]
+  	var new_value = str(item)
+  
+  	if new_value == "none":
+  		animated_sprite.visible = false
+  	else:
+  		animated_sprite.visible = true
+  
+  	# Setze has_unsaved_changes nur, wenn sich etwas geändert hat
+  	if old_value != new_value:
+  		player_outfit[selected_outfit_category] = new_value
+  		has_unsaved_changes = true
+  	else:
+  		player_outfit[selected_outfit_category] = new_value
+  
+  # Wird aufgerufen, wenn eine Kategorie ausgewählt wird
+  func _on_category_button_pressed(category):
+  	if selected_outfit_category:
+  		get_node(selected_outfit_category).hide()
+  	get_node(category).show()
+  	selected_outfit_category = category
+  
+  # Generiert ein zufälliges Outfit
+  func _random_button_pressed():
+  	var old_outfit = player_outfit.duplicate()
+  	var had_changes = false
+  
+  	for category in player_outfit:
+  		if category == "bodies":
+  			# Körper sollte immer sichtbar sein
+  			var random_body = randi() % options_per_category[category] + 1
+  			if player_outfit[category] != str(random_body):
+  				player_outfit[category] = str(random_body)
+  				had_changes = true
+  		else:
+  			# Für andere Kategorien, entscheide zufällig, ob sie sichtbar sein sollen
+  			if randf() > 0.3: # 70% Chance, dass ein Item angezeigt wird
+  				var random_item = randi() % options_per_category[category] + 1
+  				if player_outfit[category] != str(random_item):
+  					player_outfit[category] = str(random_item)
+  					had_changes = true
+  				get_node("character_sprites/" + category).visible = true
+  			else:
+  				if player_outfit[category] != "none":
+  					player_outfit[category] = "none"
+  					had_changes = true
+  				get_node("character_sprites/" + category).visible = false
+  
+  	if had_changes:
+  		has_unsaved_changes = true
+  
+  # Speichert das aktuelle Outfit
+  func _save_button_pressed():
+  	var config = ConfigFile.new()
+  
+  	# Versuche zuerst die vorhandene Konfigurationsdatei zu laden
+  	var err = config.load(config_path)
+  
+  	# Speichere das Outfit, unabhängig davon, ob die Datei existiert
+  	config.set_value("settings", "outfit", player_outfit)
+  
+  	err = config.save(config_path)
+  	if err != OK:
+  		emit_signal("debug_message", "Fehler beim Speichern der Einstellungen: " + str(err))
+  		show_message("Fehler beim Speichern!", Color(1, 0.3, 0.3, 1))
+  	else:
+  		has_unsaved_changes = false  # Änderungen wurden gespeichert
+  		show_message("Outfit erfolgreich gespeichert!", Color(0.3, 1, 0.3, 1))
+  
+  # Setzt alle optionalen Teile des Outfits zurück
+  func _reset_button_pressed():
+  	var had_changes = false
+  
+  	for category in player_outfit:
+  		if category != "bodies":
+  			var animated_sprite = get_node("character_sprites/" + category)
+  			animated_sprite.visible = false
+  
+  			if player_outfit[category] != "none":
+  				player_outfit[category] = "none"
+  				had_changes = true
+  
+  	if had_changes:
+  		has_unsaved_changes = true
+  
+  	show_message("Outfit zurückgesetzt!", Color(0.3, 0.7, 1, 1))
+  
+  # Hilfsfunktion zum Anzeigen von Nachrichten
+  func show_message(text, color = Color(1, 1, 1, 1)):
+  	if has_node("save_feedback"):
+  		var label = get_node("save_feedback")
+  		label.text = text
+  		label.modulate = color
+  
+  		# Timer zum Ausblenden nach 2 Sekunden
+  		get_tree().create_timer(2.0).timeout.connect(func():
+  			if has_node("save_feedback"):
+  				get_node("save_feedback").text = ""
+  		)
+  
+  # Lädt das gespeicherte Outfit, falls vorhanden
+  func load_saved_outfit():
+  	var config = ConfigFile.new()
+  	var err = config.load(config_path)
+  
+  	if err == OK:
+  		var saved_outfit = config.get_value("settings", "outfit", null)
+  		if saved_outfit:
+  			# Aktualisiere das Outfit mit den gespeicherten Werten
+  			for category in saved_outfit:
+  				if player_outfit.has(category):
+  					# Konvertiere den Wert zu String
+  					var outfit_value = str(saved_outfit[category])
+  					player_outfit[category] = outfit_value
+  
+  					# Aktualisiere die Sichtbarkeit
+  					var animated_sprite = get_node("character_sprites/" + category)
+  					if outfit_value == "none":
+  						animated_sprite.visible = false
+  					else:
+  						animated_sprite.visible = true
+  
+  func _on_back_pressed():
+  	if has_unsaved_changes:
+  		PopupManager.confirm(
+  			"Nicht gespeicherte Änderungen",
+  			"Du hast nicht gespeicherte Änderungen. Möchtest du wirklich ohne Speichern zurückkehren?",
+  			"Abbrechen",
+  			"Zurück",
+  			"back_confirmation"
+  		)
+  	else:
+  		get_tree().change_scene_to_file("res://Start_Screen/start_screen.tscn")
+  
+  func _on_dialog_confirmed(dialog_id):
+  	if dialog_id == "back_confirmation":
+  		get_tree().change_scene_to_file("res://Start_Screen/start_screen.tscn")
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Character_Customizer\back.gd:
+========================================
+  extends Button
+  
+  # Konstante für die Ziel-Szene
+  const TARGET_SCENE = "res://Start_Screen/start_screen.tscn"
+  
+  # Signal für Button-Klick
+  signal back_button_pressed
+  
+  # Wird aufgerufen, wenn der Node in den Szenenbaum eingefügt wird
+  func _ready():
+  	# Button mit Hover-Effekt verbessern
+  	mouse_entered.connect(_on_mouse_entered)
+  	mouse_exited.connect(_on_mouse_exit)
+  
+  # Hover-Effekt beim Betreten des Buttons
+  func _on_mouse_entered():
+  	modulate = Color(0.9, 0.9, 1.0, 1.0)  # Leicht heller
+  
+  # Hover-Effekt beim Verlassen des Buttons
+  func _on_mouse_exit():
+  	modulate = Color(1.0, 1.0, 1.0, 1.0)  # Zurück zur normalen Farbe
+  
+  # Diese Funktion könnte genutzt werden, falls eine Bestätigungsdialog
+  # vor dem Zurückkehren angezeigt werden soll
+  func confirm_back():
+  	# Hier könnte ein Bestätigungsdialog eingefügt werden
+  	# Für jetzt kehren wir direkt zurück
+  	get_tree().change_scene_to_file(TARGET_SCENE)
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Character_Customizer\outfit_showcase.gd:
+========================================
+  # outfit_showcase.gd
+  extends Control
+  
+  var current_outfits = {}
+  var preview_container
+  var outfit_grid
+  var back_button
+  var outfit_name_field
+  var save_button
+  var delete_button
+  var preview_helper
+  
+  func _ready():
+  	preview_helper = load("res://Character_Customizer/preview_helper.gd").new()
+  	add_child(preview_helper)
+  
+  	# UI erstellen
+  	setup_ui()
+  
+  	# Gespeicherte Outfits laden
+  	load_saved_outfits()
+  
+  func setup_ui():
+  	# Container für die Vorschau
+  	preview_container = ScrollContainer.new()
+  	preview_container.position = Vector2(50, 50)
+  	preview_container.size = Vector2(900, 400)
+  	add_child(preview_container)
+  
+  	# Grid für Outfit-Vorschaubilder
+  	outfit_grid = GridContainer.new()
+  	outfit_grid.columns = 4
+  	preview_container.add_child(outfit_grid)
+  
+  	# Textfeld für Outfit-Namen
+  	var name_label = Label.new()
+  	name_label.text = "Outfit-Name:"
+  	name_label.position = Vector2(50, 470)
+  	add_child(name_label)
+  
+  	outfit_name_field = LineEdit.new()
+  	outfit_name_field.position = Vector2(150, 470)
+  	outfit_name_field.size = Vector2(300, 30)
+  	outfit_name_field.placeholder_text = "Mein cooles Outfit"
+  	add_child(outfit_name_field)
+  
+  	# Save-Button
+  	save_button = Button.new()
+  	save_button.text = "Speichern"
+  	save_button.position = Vector2(470, 470)
+  	save_button.size = Vector2(120, 30)
+  	save_button.pressed.connect(_on_save_pressed)
+  	add_child(save_button)
+  
+  	# Delete-Button
+  	delete_button = Button.new()
+  	delete_button.text = "Löschen"
+  	delete_button.position = Vector2(600, 470)
+  	delete_button.size = Vector2(120, 30)
+  	delete_button.pressed.connect(_on_delete_pressed)
+  	add_child(delete_button)
+  
+  	# Back-Button
+  	back_button = Button.new()
+  	back_button.text = "Zurück"
+  	back_button.position = Vector2(400, 550)
+  	back_button.size = Vector2(200, 40)
+  	back_button.pressed.connect(_on_back_pressed)
+  	add_child(back_button)
+  
+  # Lädt alle gespeicherten Outfits und zeigt sie an
+  func load_saved_outfits():
+  	current_outfits = preview_helper.load_favorites()
+  
+  	# UI aktualisieren
+  	update_showcase()
+  
+  # Aktualisiert die Anzeige der Outfits
+  func update_showcase():
+  	# Alle vorherigen Kinder entfernen
+  	for child in outfit_grid.get_children():
+  		outfit_grid.remove_child(child)
+  		child.queue_free()
+  
+  	# Aktuelle Outfit-Liste durchgehen
+  	for outfit_name in current_outfits:
+  		var outfit_config = current_outfits[outfit_name]
+  
+  		# Container für jedes Outfit
+  		var outfit_container = VBoxContainer.new()
+  		outfit_grid.add_child(outfit_container)
+  
+  		# Vorschaubild generieren
+  		var preview_image = await preview_helper.generate_outfit_preview(
+  			get_node("/root/Main/character_sprites"),
+  			outfit_config
+  		)
+  
+  		# TextureRect für das Vorschaubild
+  		var preview_rect = TextureRect.new()
+  		var image_texture = ImageTexture.create_from_image(preview_image)
+  		preview_rect.texture = image_texture
+  		preview_rect.custom_minimum_size = Vector2(200, 200)
+  		preview_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+  		outfit_container.add_child(preview_rect)
+  
+  		# Label für den Namen
+  		var name_label = Label.new()
+  		name_label.text = outfit_name
+  		name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+  		outfit_container.add_child(name_label)
+  
+  		# Button zum Laden dieses Outfits
+  		var load_button = Button.new()
+  		load_button.text = "Laden"
+  		load_button.pressed.connect(_on_load_outfit_pressed.bind(outfit_name))
+  		outfit_container.add_child(load_button)
+  
+  # Event-Handler
+  
+  func _on_save_pressed():
+  	var current_outfit = get_node("/root/Main").get_current_outfit()
+  	var name = outfit_name_field.text
+  
+  	if name.empty():
+  		name = "Outfit " + str(current_outfits.size() + 1)
+  
+  	# Outfit zu Favoriten hinzufügen
+  	preview_helper.save_to_favorites(current_outfit, name)
+  
+  	# Liste aktualisieren
+  	load_saved_outfits()
+  
+  func _on_delete_pressed():
+  	var name = outfit_name_field.text
+  	if current_outfits.has(name):
+  		current_outfits.erase(name)
+  
+  		# Aktualisierte Liste speichern
+  		var config = ConfigFile.new()
+  		config.set_value("favorites", "outfits", current_outfits)
+  		config.save("user://favorites.cfg")
+  
+  		# UI aktualisieren
+  		update_showcase()
+  
+  func _on_load_outfit_pressed(outfit_name):
+  	var outfit_config = current_outfits[outfit_name]
+  	get_node("/root/Main").apply_outfit(outfit_config)
+  
+  	# Eingabefeld aktualisieren
+  	outfit_name_field.text = outfit_name
+  
+  func _on_back_pressed():
+  	get_tree().change_scene_to_file("res://Character_Customizer/customizer.tscn")
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Character_Customizer\preview_helper.gd:
+========================================
+  # preview_helper.gd
+  # Diese Datei enthält Hilfsfunktionen für die Vorschau im Character-Customizer
+  
+  extends Node
+  
+  # Cache für Outfit-Vorschaubilder
+  var preview_cache = {}
+  
+  # Generiert ein Vorschaubild für ein komplettes Outfit
+  # Kann verwendet werden, um mehrere Outfits nebeneinander anzuzeigen
+  func generate_outfit_preview(character_sprites, outfit_config):
+  	var viewport = SubViewport.new()
+  	viewport.size = Vector2i(128, 128)
+  	viewport.transparent_bg = true
+  	viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+  
+  	var sprites_instance = character_sprites.duplicate()
+  	viewport.add_child(sprites_instance)
+  
+  	# Positioniere die Sprites in der Mitte des Viewports
+  	sprites_instance.position = Vector2(64, 64)
+  	sprites_instance.scale = Vector2(4, 4)
+  
+  	# Setze das Outfit gemäß der Konfiguration
+  	for category in outfit_config:
+  		if sprites_instance.has_node(category):
+  			var sprite = sprites_instance.get_node(category)
+  			if str(outfit_config[category]) == "none":
+  				sprite.visible = false
+  			else:
+  				sprite.visible = true
+  				sprite.animation = str(outfit_config[category])
+  				sprite.frame = 1
+  
+  	# Rendern und Vorschaubild zurückgeben
+  	await get_tree().process_frame
+  	await get_tree().process_frame
+  
+  	var texture = viewport.get_texture()
+  	var image = texture.get_image()
+  
+  	# Viewport und Duplikat aufräumen
+  	viewport.remove_child(sprites_instance)
+  	sprites_instance.queue_free()
+  	viewport.queue_free()
+  
+  	return image
+  
+  # Speichert ein Outfit in einem gesonderten Bereich für Favoriten
+  func save_to_favorites(outfit_config, name = ""):
+  	var favorites = load_favorites()
+  
+  	if name.empty():
+  		name = "Outfit " + str(favorites.size() + 1)
+  
+  	favorites[name] = outfit_config
+  
+  	var config = ConfigFile.new()
+  	config.set_value("favorites", "outfits", favorites)
+  	var err = config.save("user://favorites.cfg")
+  
+  	return err == OK
+  
+  # Lädt alle gespeicherten Favoriten
+  func load_favorites():
+  	var config = ConfigFile.new()
+  	var err = config.load("user://favorites.cfg")
+  
+  	if err == OK:
+  		return config.get_value("favorites", "outfits", {})
+  	else:
+  		return {}
+  
+  # Konvertiert ein Outfit in ein exportierbares Format (z.B. JSON)
+  func export_outfit_to_json(outfit_config):
+  	return JSON.stringify(outfit_config)
+  
+  # Importiert ein Outfit aus einem exportierten Format
+  func import_outfit_from_json(json_string):
+  	var json = JSON.new()
+  	var error = json.parse(json_string)
+  	if error == OK:
+  		return json.get_data()
+  	else:
+  		return null
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Enemies\Goblin_Archer.gd:
+========================================
+  extends CharacterBody2D
+  
+  @onready var main = get_node("../../")
+  @onready var projectile = load("res://rock.tscn")
+  var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+  var player
+  var speed = 60
+  var chase = false
+  var attack = false
+  var death = false
+  
+  func _ready():
+  	player = get_node("../../Player/Player")
+  	if death == false:
+  		get_node("AnimatedSprite2D").play("idle")
+  
+  func _process(delta):
+  	velocity.y += gravity * delta
+  	chaseMode()
+  	move_and_slide()
+  
+  func attackMode():
+  	if attack == true && death == false:
+  		velocity.x = 0
+  		player = get_node("../../Player/Player")
+  		get_node("AnimatedSprite2D").play("attack")
+  
+  func chaseMode():
+  	if chase == true && death == false && attack == false:
+  		get_node("AnimatedSprite2D").play("walk")
+  		var direction = (player.position - self.position).normalized()
+  		if direction.x > 0:
+  			get_node("AnimatedSprite2D").flip_h = true
+  		else:
+  			get_node("AnimatedSprite2D").flip_h = false
+  		velocity.x = direction.x * speed
+  
+  func shoot():
+  	var direction = (player.position - self.position).normalized()
+  	var instance = projectile.instantiate()
+  	instance.direction = direction
+  	instance.spawnPos = global_position
+  	instance.spawnRot = rotation
+  	main.add_child.call_deferred(instance)
+  
+  func _on_detection_radius_3_body_entered(body):
+  	if body.name == "Player" && attack == false:
+  		chase = true
+  		chaseMode()
+  
+  func _on_detection_radius_3_body_exited(body):
+  	if body.name == "Player":
+  		chase = false
+  
+  func _on_attack_radius_3_body_entered(body):
+  	if body.name == "Player":
+  		attack = true
+  		chase = false
+  		attackMode()
+  		while attack == true:
+  			shoot()
+  			await get_tree().create_timer(0.7).timeout
+  
+  func _on_attack_radius_3_body_exited(body):
+  	if body.name == "Player":
+  		chase = true
+  		attack = false
+  		chaseMode()
+  
+  func _on_death_radius_3_body_entered(body):
+  	if body.name == "Player":
+  		death = true
+  		speed = 0
+  		chase = false
+  		attack = false
+  		$CollisionShape2D.disabled = true
+  		get_node("AnimatedSprite2D").play("death")
+  		await get_node("AnimatedSprite2D").animation_finished
+  		self.queue_free()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Enemies\Goblin_Mage.gd:
+========================================
+  extends CharacterBody2D
+  
+  @onready var main = get_node("../../")
+  @onready var projectile = load("res://MageBall.tscn")
+  var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+  var player
+  var speed = 40
+  var chase = false
+  var attack = false
+  var death = false
+  
+  func _ready():
+  	player = get_node("../../Player/Player")
+  	if death == false:
+  		get_node("AnimatedSprite2D").play("idle")
+  
+  func _process(delta):
+  	velocity.y += gravity * delta
+  	chaseMode()
+  	move_and_slide()
+  
+  func attackMode():
+  	if attack == true && death == false:
+  		velocity.x = 0
+  		player = get_node("../../Player/Player")
+  		get_node("AnimatedSprite2D").play("attack")
+  
+  func chaseMode():
+  	if chase == true && death == false && attack == false:
+  		get_node("AnimatedSprite2D").play("walk")
+  		var direction = (player.position - self.position).normalized()
+  		if direction.x > 0:
+  			get_node("AnimatedSprite2D").flip_h = true
+  		else:
+  			get_node("AnimatedSprite2D").flip_h = false
+  		velocity.x = direction.x * speed
+  
+  func shoot():
+  	var direction = (player.position - self.position).normalized()
+  	var instance = projectile.instantiate()
+  	instance.direction = direction
+  	instance.spawnPos = global_position
+  	instance.spawnRot = rotation
+  	main.add_child.call_deferred(instance)
+  
+  func _on_detection_radius_2_body_entered(body):
+  	if body.name == "Player" && attack == false:
+  		chase = true
+  		chaseMode()
+  
+  func _on_detection_radius_2_body_exited(body):
+  	if body.name == "Player":
+  		chase = false
+  
+  func _on_attackzone_2_body_entered(body):
+  	if body.name == "Player":
+  		attack = true
+  		chase = false
+  		attackMode()
+  		while attack == true:
+  			shoot()
+  			await get_tree().create_timer(3.0).timeout
+  
+  func _on_attackzone_2_body_exited(body):
+  	if body.name == "Player":
+  		chase = true
+  		attack = false
+  		chaseMode()
+  
+  func _on_death_zone_2_body_entered(body):
+  	if body.name == "Player":
+  		death = true
+  		speed = 0
+  		chase = false
+  		attack = false
+  		$CollisionShape2D.disabled = true
+  		get_node("AnimatedSprite2D").play("death")
+  		await get_node("AnimatedSprite2D").animation_finished
+  		self.queue_free()
+  
+  func wait_for_seconds(seconds: float) -> void:
+  	await get_tree().create_timer(seconds).timeout
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Enemies\Goblin_Melee.gd:
+========================================
+  extends CharacterBody2D
+  
+  var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+  var player
+  var speed = 80
+  var chase = false
+  var attack = false
+  var death = false
+  var hud
+  
+  func _ready():
+  	hud = get_node("../../HUD")
+  	if death == false:
+  		get_node("AnimatedSprite2D").play("idle")
+  func _process(delta):
+  	velocity.y += gravity * delta
+  
+  	if chase == true && death == false:
+  		player = get_node("../../Player/Player")
+  		get_node("AnimatedSprite2D").play("walk")
+  		var direction = (player.position - self.position).normalized()
+  		if direction.x > 0:
+  			get_node("AnimatedSprite2D").flip_h = true
+  		else:
+  			get_node("AnimatedSprite2D").flip_h = false
+  		velocity.x = direction.x * speed
+  
+  	if attack == true && death == false:
+  		player = get_node("../../Player/Player")
+  		get_node("AnimatedSprite2D").play("attack")
+  	move_and_slide()
+  
+  func _on_detection_radius_body_entered(body):
+  	if body.name == "Player":
+  		chase = true
+  
+  
+  func _on_detection_radius_body_exited(body):
+  	if body.name == "Player":
+  		chase = false
+  
+  
+  func _on_attackzone_body_entered(body):
+  	if body.name == "Player":
+  		chase = false
+  		attack = true
+  		hud.change_life(-1)
+  
+  
+  func _on_attackzone_body_exited(body):
+  	if body.name == "Player":
+  		chase = true
+  		attack = false
+  
+  
+  func _on_deathzone_body_entered(body):
+  	if body.name == "Player":
+  		death = true
+  		speed = 0
+  		chase = false
+  		attack = false
+  		$CollisionShape2D.disabled = true
+  		get_node("AnimatedSprite2D").play("death")
+  		await get_node("AnimatedSprite2D").animation_finished
+  		self.queue_free()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Global.gd:
+========================================
+  extends Node
+  
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\HeadUp_Display\hud.gd:
+========================================
+  extends CanvasLayer
+  var coins = 0
+  var max_lifes = 3
+  var lifes = max_lifes
+  var hud
+  var initial_heart_position
+  var inital_heart_size
+  
+  func _ready():
+  	$HeartsFull.flip_h = true
+  	$LabelCoinSum.text = str(coins)
+  	initial_heart_position = $HeartsFull.position
+  	inital_heart_size = $HeartsFull.size
+  	$HeartsEmpty.position = initial_heart_position - Vector2(2*inital_heart_size.x, 0)
+  	$HeartsEmpty.size = inital_heart_size + Vector2(2*inital_heart_size.x, 0)
+  
+  	load_hearts()
+  
+  func coin_collected():
+  	coins = coins + 1
+  	$LabelCoinSum.text = str(coins)
+  
+  
+  func load_hearts():
+  	$HeartsFull.size.x = lifes * inital_heart_size.x
+  	$HeartsFull.position.x= initial_heart_position.x - ((lifes-1) * inital_heart_size.x)
+  
+  func change_life(amount):
+  	if  lifes + amount < 0:
+  		lifes = 0
+  
+  	elif  lifes + amount > 3:
+  		lifes = 3
+  	else:
+  		lifes = lifes + amount
+  	load_hearts()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\MageBall.gd:
+========================================
+  extends CharacterBody2D
+  
+  @export var SPEED = 50
+  var hud
+  var direction = 0
+  var spawnPos : Vector2
+  var spawnRot : float
+  
+  func _ready():
+  	hud = get_node("../HUD")
+  	global_position = spawnPos
+  	global_rotation = spawnRot
+  	projectile_decay()
+  
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	velocity.x = direction.x * SPEED
+  	get_node("Ball").play("flying")
+  	move_and_slide()
+  
+  
+  func _on_hit_zone_body_entered(body):
+  	if body.name == "Player":
+  		hud.change_life(-1)
+  		self.queue_free()
+  
+  func projectile_decay():
+  	await get_tree().create_timer(5.0).timeout
+  	self.queue_free()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\OnScreen_Control\attack.gd:
+========================================
+  extends Button
+  
+  
+  @onready var attack = $"."
+  
+  func _ready():
+  	attack.modulate = Color(2, 2, 2, 0.5)
+  
+  
+  func _on_button_up():
+  	attack.modulate = Color(2, 2, 2, 0.5)
+  	Input.action_release("attack")
+  
+  
+  func _on_button_down():
+  	attack.modulate = Color(1.0, 1.0, 1.0, 0.5)
+  	Input.action_press("attack")
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\OnScreen_Control\defend.gd:
+========================================
+  extends Button
+  
+  
+  @onready var defend = $"."
+  
+  func _ready():
+  	defend.modulate = Color(2, 2, 2, 0.5)
+  
+  
+  func _on_button_up():
+  	defend.modulate = Color(2, 2, 2, 0.5)
+  	Input.action_release("defend")
+  
+  func _on_button_down():
+  	defend.modulate = Color(1.0, 1.0, 1.0, 0.5)
+  	Input.action_press("defend")
+  
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Player\Player.gd:
+========================================
+  extends CharacterBody2D
+  
+  @export var joystick_right: VirtualJoystick
+  
+  # envrionment variables
+  var SPEED
+  var JUMP_VELOCITY
+  var FLY_VELOCITY
+  var GRAVITY
+  
+  # character mode variables
+  var mode
+  var passed_fly_time
+  var jump_counter
+  var ready_for_jump
+  var allowed_jumps
+  
+  # character health
+  var hud
+  
+  #character design variables
+  var player_animations
+  var current_animation
+  var player_outfit
+  var play_attack_animation
+  var attack_animation
+  
+  var config = ConfigFile.new() # Create a new ConfigFile instance
+  
+  func _ready() -> void:
+  	# Initialize your global variables here
+  	hud = get_node("../../HUD")
+  	SPEED = 200.0
+  	JUMP_VELOCITY = -250.0
+  	FLY_VELOCITY = -150.0
+  	GRAVITY = 300
+  	mode = "normal"
+  	passed_fly_time = 0.0
+  	jump_counter = 0
+  	ready_for_jump = true
+  	player_animations = get_node("character_sprites").animation_frames
+  	current_animation = "idle"
+  	allowed_jumps = 1
+  	play_attack_animation = false
+  	attack_animation = "idle"
+  
+  	var default_player_outfit = get_node("character_sprites").default_outfit
+  	get_node("character_sprites/masks").visible = false
+  	player_outfit = default_player_outfit
+  
+  	# Load the ConfigFile if it exists
+  	var err = config.load("user://settings.cfg")
+  	if err == OK: # If the ConfigFile loaded successfully
+  		# Get the values from the ConfigFile
+  		SPEED = config.get_value("settings", "SPEED", 200.0)
+  		JUMP_VELOCITY = config.get_value("settings", "JUMP_VELOCITY", -250.0)
+  		FLY_VELOCITY = config.get_value("settings", "FLY_VELOCITY", -150.0)
+  		GRAVITY = config.get_value("settings", "GRAVITY", 500)
+  		# mode = config.get_value("settings", "mode", "normal")
+  		passed_fly_time = config.get_value("settings", "passed_fly_time", 0.0)
+  		jump_counter = config.get_value("settings", "jump_counter", 0)
+  		ready_for_jump = config.get_value("settings", "ready_for_jump", true)
+  		#allowed_jumps = config.get_value("settings", "allowed_jumps", 1)
+  		player_outfit = config.get_value("settings", "outfit", default_player_outfit)
+  		# TO-DO: load dict wheaether category is visible or not
+  
+  func save_settings():
+  	# Set the values in the ConfigFile
+  	config.set_value("settings", "SPEED", SPEED)
+  	config.set_value("settings", "JUMP_VELOCITY", JUMP_VELOCITY)
+  	config.set_value("settings", "FLY_VELOCITY", FLY_VELOCITY)
+  	config.set_value("settings", "GRAVITY", GRAVITY)
+  	config.set_value("settings", "mode", mode)
+  	config.set_value("settings", "passed_fly_time", passed_fly_time)
+  	config.set_value("settings", "jump_counter", jump_counter)
+  	config.set_value("settings", "ready_for_jump", ready_for_jump)
+  	config.set_value("settings", "allowed_jumps", allowed_jumps)
+  	config.set_value("settings", "outfit", player_outfit, )
+  
+  	# Save the ConfigFile to the disk
+  	config.save("user://settings.cfg")
+  
+  func _process(delta):
+  	# Add the gravity.
+  	Engine.physics_ticks_per_second = 240
+  	# In case of Death
+  	if hud.lifes == 0:
+  		death()
+  	# Read the joystick input
+  	var x_input = Input.get_axis("left", "right")
+  	var y_input = Input.get_axis("down", "up")
+  	if Input.is_action_just_pressed("attack"):
+  		print("attack")
+  		play_attack_animation = true
+  	if Input.is_action_just_pressed("defend"):
+  		print("defend")
+  	if Input.is_action_just_pressed("Menu"):
+  		get_tree().change_scene_to_file("res://start_screen/start_screen.tscn")
+  	# All Modes.
+  	velocity.y += GRAVITY * delta
+  
+  	if x_input != 0:
+  		velocity.x = x_input * SPEED
+  	else:
+  		velocity.x = move_toward(velocity.x, 0, 30)
+  
+  	if is_on_floor():
+  		jump_counter = 0
+  		ready_for_jump = true
+  		passed_fly_time = 0.0
+  
+  	elif jump_counter == 0	:
+  		ready_for_jump = false
+  
+  	if y_input > 0.4 && jump_counter < allowed_jumps:
+  		if ready_for_jump:
+  			velocity.y = JUMP_VELOCITY * y_input
+  			jump_counter += 1
+  			ready_for_jump = false
+  	elif y_input < 0.4:
+  		ready_for_jump = true
+  
+  
+  	# Fly mode
+  	if mode == "fly":
+  		allowed_jumps = 1
+  		if passed_fly_time < 4:
+  				passed_fly_time += delta
+  				if y_input != 0:
+  					velocity.y = FLY_VELOCITY * y_input
+  
+  	move_and_slide()
+  
+  	# Set Animation
+  	if x_input == 0 && y_input == 0 && current_animation != "dead":
+  		current_animation = "idle"
+  	elif x_input != 0 && y_input <= 0.4:
+  		current_animation = "animation3"
+  		current_animation
+  	elif y_input > 0.4 or y_input < - 0.4:
+  		current_animation = "idle"
+  
+  	if play_attack_animation:
+  		current_animation = attack_animation
+  
+  
+  	# Set Outfit
+  	for outfit in player_outfit:
+  		var animated_sprite = get_node("character_sprites/"+ outfit)
+  		var selected_outfit = player_outfit[outfit]
+  
+  		if str(selected_outfit) == "none":
+  			animated_sprite.visible = false
+  		else:
+  			animated_sprite.play(str(selected_outfit))
+  			animated_sprite.speed_scale = 2.0
+  			animated_sprite.flip_h = x_input > 0
+  			if animated_sprite.frame >= player_animations[current_animation][-1]:
+  				play_attack_animation = false
+  
+  			if (animated_sprite.frame < player_animations[current_animation][0] or
+  				animated_sprite.frame >= player_animations[current_animation][ - 1]):
+  					animated_sprite.frame = player_animations[current_animation][0]
+  
+  func _on_test_portal_entered(body):
+  	get_tree().change_scene_to_file("res://start_screen/start_screen.tscn")
+  	mode = "fly"
+  	save_settings()
+  
+  func _on_elias_portal_entered(body):
+  	print("Elias")
+  	save_settings() # Replace with function body.
+  
+  func _on_ardit_portal_entered(body):
+  	get_tree().change_scene_to_file("res://Arrogance.tscn")
+  	save_settings() # Replace with function body.
+  
+  func _on_sebastian_portal_entered(body):
+  	mode = "normal"
+  	get_tree().change_scene_to_file("res://Stages/Sebastians_Stage/level_1.tscn")
+  	save_settings() # Replace with function body.
+  
+  func _on_prince_portal_entered(body):
+  	get_tree().change_scene_to_file("res://Stages/Prince_Stage/game_prince.tscn")
+  	save_settings()
+  
+  		#current_animation = "dead"
+  		#current_animation = "hurt"
+  
+  func _on_fallzone_body_entered(body):
+  	get_tree().change_scene_to_file("res://Stages/Ardits_Stage/Arrogance.tscn")
+  
+  func _on_life_up_body_entered(body):
+  	get_parent().get_node("HUD").change_life(0.25)
+  
+  func _on_life_down_body_entered(body):
+  		get_parent().get_node("HUD").change_life(-0.25)
+  
+  func death():
+  	$CollisionShape2D.disabled = true
+  	current_animation = "death"
+  	self.queue_free()
+  	get_tree().change_scene_to_file("res://start_screen/start_screen.tscn")
+  
+  
+  
+  func _on_test_portal_body_entered(body):
+  	get_tree().change_scene_to_file("res://Stages/AdventureLevel.tscn")
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Player\PlayerCamera.gd:
+========================================
+  extends Camera2D
+  
+  
+  # Called when the node enters the scene tree for the first time.
+  func _ready():
+  	pass # Replace with function body.
+  
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	pass
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\PowerUps\coins.gd:
+========================================
+  extends Area2D
+  
+  signal coin_collected
+  
+  
+  
+  func _on_coins_body_entered(body):
+  	get_parent().get_node("HUD").coin_collected()
+  	$AnimationPlayer.play("bounce")
+  	set_collision_mask_value(1,false)
+  
+  
+  func _on_animation_player_animation_finished(anim_name):
+  	queue_free()
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\PowerUps\softpowerAttack.gd:
+========================================
+  extends Area2D
+  
+  
+  func _on_body_attack_entered(body):
+  	body.attack_animation = "animation36"
+  	print("axe_attack")
+  	queue_free()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\PowerUps\softpowerFly.gd:
+========================================
+  extends Area2D
+  
+  
+  func _on_body_entered(body):
+  	body.mode = "fly"
+  	print("Fly")
+  	queue_free()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\PowerUps\softpowerJump.gd:
+========================================
+  extends Area2D
+  
+  
+  func _on_body_entered(body):
+  	body.allowed_jumps += 1
+  	body.mode = "normal"
+  	print("double_jump")
+  	queue_free()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\README.md:
+========================================
+  # Godot Virtual Joystick
+  
+  <img src="addons/virtual_joystick/previews/icon.png" width="200">
+  
+  A simple virtual joystick for touchscreens, with useful options.
+  
+  GitHub Page: https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot
+  
+  Godot Engine: https://godotengine.org
+  
+  ## PREVIEWS:
+  
+  <img src="addons/virtual_joystick/previews/preview1.png" width="300">    <img src="addons/virtual_joystick/previews/preview2.png" width="300">
+  
+  Easy to use:
+  
+  ```GDScript
+  extends Sprite2D
+  
+  @export var speed : float = 100
+  
+  @export var joystick_left : VirtualJoystick
+  
+  @export var joystick_right : VirtualJoystick
+  
+  var move_vector := Vector2.ZERO
+  
+  func _process(delta: float) -> void:
+  	## Movement using the joystick output:
+  #	if joystick_left and joystick_left.is_pressed:
+  #		position += joystick_left.output * speed * delta
+  
+  	## Movement using Input functions:
+  	move_vector = Vector2.ZERO
+  	move_vector = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
+  	position += move_vector * speed * delta
+  
+  	# Rotation:
+  	if joystick_right and joystick_right.is_pressed:
+  		rotation = joystick_right.output.angle()
+  ```
+  
+  
+  ## OPTIONS:
+  
+  - Joystick mode:
+  	- Fixed: The joystick doesn't move.
+  	- Dynamic: Every time the joystick area is pressed, the joystick position is set on the touched position.
+  	- Following: When the finger moves outside the joystick area, the joystick will follow it.
+  
+  - Dead zone size: If the tip is inside this range the output is zero.
+  
+  - Clamp zone size: The max distance the tip can reach.
+  
+  - Visibility mode:
+  	- always: Always visible.
+  	- touchscreen only: Visible on touch screens only (will hide if the device has not a touchscreen).
+  	- when_touched: Visible only when touched.
+  
+  - Use input actions: if true the joystick will trigger the input actions created in Project -> Project Settings -> Input Map
+  
+  ## HELP:
+  - The Control parent of the joystick is the area in which the joystick can move in Dynamic mode.
+  - For moving the joystick inside his area, select it, right click, turn on "Editable Children" and then change the position of the Base node.
+  - With "Editable Children" turned on you can also edit the joystick textures and colors.
+  - Create a CanvasLayer node and name it "UI", it'll contain all the UI elements, then add the Joystick scene as a child of the UI node and move it where you prefer.
+  - An example scene is provided in the "Test" folder.
+  
+  ## FAQ
+  ### Multitouch doesn't work / can't use two joystick at the same time:
+  In Godot, the input events from the mouse don't support multitouch, so make sure to have this configuration:
+  Project -> Project Settings -> General -> Input Devices
+  "emulate touch from mouse" ON
+  "emulate mouse from touch" OFF
+  
+  ### The joystick doesn't work when using Input.get_vector():
+  ⚠ **This has been fixed in Godot Engine!**
+  Unfortunately, this a bug in the Godot engine, so the only solution for now is using Input.get_axis:
+  This doesn't work:
+  ```gdscript
+  input_vector := Input.get_vector("ui_left","ui_right","ui_up","ui_down")
+  ```
+  This works:
+  ```gdscript
+  input_vector := Vector2.ZERO
+  input_vector.x = Input.get_axis("ui_left", "ui_right")
+  input_vector.y = Input.get_axis("ui_up", "ui_down")
+  ```
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\Character v.2\greyscale\info.txt:
+========================================
+  
+  How to use modular clothing
+  
+  Use basic_grey (clothes) as base and add the detail (modular) you want:
+  	floral, overalls, sailor, skull, sporty, stripe
+  
+  "button_grey" works for clown outfit and pumpkin outfit
+  
+  "shoes_grey" works for all outfits besides "witch_grey"
+  
+  "gloves_grey" works for clown, pumpkin and spooky
+  
+  
+  Modular hair
+  
+  Use "braids_tie_grey" on top of braids to adjust color of hair ties
+  
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\Character v.2\info.txt:
+========================================
+  
+  GRID SIZE 32x32
+  CELL SIZE MERGED: 256x1568
+  
+  WALK FR: 100
+  Cell Size: 256x128
+  
+  JUMP FR: 100; 200; 100; 120; 100
+  Cell Size: 160x128
+  
+  PICK UP FR: 150; 150; 100; 100; 150
+  Cell Size: 160x128
+  
+  CARRY FR:100
+  Cell Size: 256x128
+  (char moved  up 1px)
+  
+  SWORD FR: 100; 200; 80; 100
+  Cell Size: 128x128
+  
+  BLOCK Cell Size: 32x128
+  
+  HURT Cell Size: 32x128
+  
+  DIE FR: 500
+  Cell Size: 64x32
+  
+  PICKAXE/ AXE FR: 100; 100; 250; 60; 100
+  Cell Size: 160x128
+  
+  WATER FR: 300; 600
+  Cell Size: 64x128
+  (char moved up 5 px)
+  
+  HOE FR: 200; 150; 200; 200; 200
+  Cell Size: 160x128
+  (down: char moved up 8 px; left/right char moved up 1 px)
+  
+  FISHING L/R FR: 100; 100; 250; 60; 100
+  FISHING U/D FR: 100; 250; 60; 100; 100
+  Cell Size: 160x128
+  (char moved up 4 px)
+  
+  LAYERS
+  1. Characters
+  2. Eyes ->Blush/Lipstick
+  3. Clothes: Shirt -> Pants -> Shoes
+  4. Hair
+  5. Accessories Beard -> Glasses -> Hat
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\Character v.2\list.txt:
+========================================
+  
+  HAIR
+  1. Black
+  2. Blonde
+  3. Brown
+  4. Brown Light
+  5. Copper
+  6. Emerald
+  7. Green
+  8. Grey
+  9. Lilac
+  10. Navy
+  11. Pink
+  12. Purple
+  13. Red
+  14. Turquoise
+  
+  Clothes:
+  1. Black
+  2. Blue
+  3. Blue Light
+  4. Brown
+  5. Green
+  6. Green Light
+  7. Pink
+  8. Purple
+  9. Red
+  10. White/Grey
+  
+  Eyes:
+  1. Black
+  2. Blue
+  3. Blue Light
+  4. Brown
+  5. Brown Dark
+  6. Brown Light
+  7. Green
+  8. Green Dark
+  9. Green Light
+  10. Grey
+  11. Grey Light
+  12. Pink
+  13. Pink Light
+  14. Red
+  
+  Lipstick and Blush are sorted from light to dark.
+  
+  
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\Fonts\copyduck\More Info.txt:
+========================================
+  First of All,
+  
+  Thank you for download my product.
+  This product 100% free for personal use & commercial use
+  
+  File include :
+  
+  1. Copyduck.ttf
+  2. Copyduck.otf
+  
+  More Info :
+  khurasantype@gmail.com
+  
+  For Donation:
+  paypal.me/khurasantype
+  
+  My OnlineShop:
+  https://www.creativefabrica.com/ref/53/
+  
+  My Portofolio:
+  https://www.behance.net/khurasan
+  
+  My web:
+  www.khurasanstudio.com
+  www.mbkaos.com
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\License.txt:
+========================================
+  https://craftpix.net/file-licenses/
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\Peasant's_House\Peasant's_House\README.txt:
+========================================
+  THIS MATERIAL IS COMPLETELY FREE, AND YOU CAN FIND IT ON MY PAGE "https://ericksazevedo.itch.io/". IF YOU PAID FOR THIS MATERIAL, DEMAND A REFUND!
+  
+  I'm glad you chose my art for your project, I hope it proves to be very useful to you.
+  
+  INTRODUTION
+  
+  My name is Ericks Azevedo. I created this artwork for study purposes and in the hope that it will be useful for other people's projects. If you're interested in more art, take a look at my page "https://ericksazevedo.itch.io/". I'll be regularly posting new art there whenever possible
+  
+  LICENSES
+  
+  * You can use the artwork in both free and commercial projects, as long as you give me credit. For that purpose, use my Instagram profile "@ericks.azevedo".
+  * You can edit the images as you prefer; for this purpose, I'm providing the files in .aseprite format.
+  * Selling these assets is not allowed, even if modifications have been made.
+  
+  INSTRUCTIONS
+  
+  * In each folder, you will find two ways to import your files: one using image sequences and the other with individual frames. Both methods have their own .aseprite file, in case you want to make modifications.
+  * Pay attention to the "House_in_the_middle" folder. Inside it, you will find the images split in half, both for the door animation and the window animation. Both of them have the same sprite size, so you just need to overlay one onto the other. I organized it this way because the window and the door have different animation timings, and one is a loop while the other is not.
+  
+  If you want to support my work, please follow my page on itch.io ;)
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\Sunny-land-files\Sunny-land-files\public-license.txt:
+========================================
+  Artwork created by Luis Zuno @ansimuz
+  
+  License for Everyone.
+  
+  Public domain and free to use on whatever you want, personal or commercial. Credit is not required but appreciated.
+  
+  Get more Free Assetslike these at: ansimuz.itch.io
+  or at my patreon page: patreon.com/ansimuz
+  
+  
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\craftpix-896753-village-pixel-art-environment-assets-pack\License.txt:
+========================================
+  https://craftpix.net/file-licenses/
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\craftpix-896753-village-pixel-art-environment-assets-pack\readme.txt:
+========================================
+  Font that was used for the background of the preview:
+  https://www.dafont.com/pixellari.font
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\craftpix-net-352322-nature-pixel-art-environment-free-assets-pack\License.txt:
+========================================
+  https://craftpix.net/file-licenses/
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\craftpix-net-352322-nature-pixel-art-environment-free-assets-pack\readme.txt:
+========================================
+  Font that was used for the background of the preview:
+  https://www.dafont.com/pixellari.font
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\craftpix-net-481981-free-summer-pixel-art-backgrounds\License.txt:
+========================================
+  https://craftpix.net/file-licenses/
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\craftpix-net-481981-free-summer-pixel-art-backgrounds\readme.txt:
+========================================
+  Font that was used for the background of the preview:
+  https://www.dafont.com/digital-disco.font
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\craftpix-net-965049-free-industrial-zone-tileset-pixel-art\Font.txt:
+========================================
+  Future Millennium
+  https://www.dafont.com/futuremillennium.font
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Ressources\craftpix-net-965049-free-industrial-zone-tileset-pixel-art\license.txt:
+========================================
+  https://craftpix.net/file-licenses/
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\UI\Popups\popup_dialog.gd:
+========================================
+  extends CanvasLayer
+  
+  # Signal, wenn der primäre (rechte) Button gedrückt wird
+  signal confirmed
+  # Signal, wenn der sekundäre (linke) Button gedrückt wird
+  signal canceled
+  
+  # UI-Elemente
+  var dimmer
+  var dialog_panel
+  var title_label
+  var message_label
+  var button_container
+  var cancel_button
+  var confirm_button
+  
+  # Standardwerte
+  var _title_text = "Bestätigung"
+  var _message_text = "Möchtest du fortfahren?"
+  var _cancel_text = "Abbrechen"
+  var _confirm_text = "Bestätigen"
+  var _confirm_color = Color(0.7, 0.2, 0.2, 1)  # Rot
+  var _auto_hide = true
+  
+  func _init():
+  	# Erstelle alle UI-Elemente programmatisch
+  	_create_ui()
+  
+  func _ready():
+  	# Bei Start nicht anzeigen
+  	hide()
+  
+  	# Verbinde Button-Signale
+  	cancel_button.pressed.connect(_on_cancel_pressed)
+  	confirm_button.pressed.connect(_on_confirm_pressed)
+  
+  # Erstellt die komplette UI-Struktur
+  func _create_ui():
+  	# Dimmer (Hintergrund-Verdunkelung)
+  	dimmer = ColorRect.new()
+  	dimmer.name = "Dimmer"
+  	dimmer.color = Color(0, 0, 0, 0.6)  # Halbtransparentes Schwarz
+  	add_child(dimmer)
+  
+  	# DialogPanel
+  	dialog_panel = Panel.new()
+  	dialog_panel.name = "DialogPanel"
+  
+  	# Panel-Design
+  	var panel_style = StyleBoxFlat.new()
+  	panel_style.bg_color = Color(0.12, 0.12, 0.15, 1.0)
+  	panel_style.border_width_left = 2
+  	panel_style.border_width_top = 2
+  	panel_style.border_width_right = 2
+  	panel_style.border_width_bottom = 2
+  	panel_style.border_color = Color(0.6, 0.6, 1.0, 0.7)
+  	panel_style.corner_radius_top_left = 15
+  	panel_style.corner_radius_top_right = 15
+  	panel_style.corner_radius_bottom_left = 15
+  	panel_style.corner_radius_bottom_right = 15
+  	panel_style.shadow_color = Color(0, 0, 0, 0.3)
+  	panel_style.shadow_size = 8
+  	dialog_panel.add_theme_stylebox_override("panel", panel_style)
+  	dimmer.add_child(dialog_panel)
+  
+  	# Titel
+  	title_label = Label.new()
+  	title_label.name = "Title"
+  	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+  	title_label.add_theme_font_size_override("font_size", 24)
+  	title_label.add_theme_color_override("font_color", Color(1, 1, 1, 1))
+  	dialog_panel.add_child(title_label)
+  
+  	# Nachricht
+  	message_label = Label.new()
+  	message_label.name = "Message"
+  	message_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+  	message_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+  	message_label.add_theme_font_size_override("font_size", 18)
+  	message_label.add_theme_color_override("font_color", Color(0.9, 0.9, 0.9, 1))
+  	dialog_panel.add_child(message_label)
+  
+  	# Buttons-Container
+  	button_container = HBoxContainer.new()
+  	button_container.name = "ButtonContainer"
+  	button_container.alignment = BoxContainer.ALIGNMENT_CENTER
+  	button_container.add_theme_constant_override("separation", 20)
+  	dialog_panel.add_child(button_container)
+  
+  	# Button-Style vorbereiten
+  	var button_style_normal = StyleBoxFlat.new()
+  	button_style_normal.bg_color = Color(0.2, 0.2, 0.25, 1)
+  	button_style_normal.border_width_left = 0
+  	button_style_normal.border_width_top = 0
+  	button_style_normal.border_width_right = 0
+  	button_style_normal.border_width_bottom = 0
+  	button_style_normal.corner_radius_top_left = 8
+  	button_style_normal.corner_radius_top_right = 8
+  	button_style_normal.corner_radius_bottom_left = 8
+  	button_style_normal.corner_radius_bottom_right = 8
+  
+  	var button_style_hover = StyleBoxFlat.new()
+  	button_style_hover.bg_color = Color(0.25, 0.25, 0.3, 1)
+  	button_style_hover.border_width_left = 0
+  	button_style_hover.border_width_top = 0
+  	button_style_hover.border_width_right = 0
+  	button_style_hover.border_width_bottom = 0
+  	button_style_hover.corner_radius_top_left = 8
+  	button_style_hover.corner_radius_top_right = 8
+  	button_style_hover.corner_radius_bottom_left = 8
+  	button_style_hover.corner_radius_bottom_right = 8
+  
+  	var button_style_pressed = StyleBoxFlat.new()
+  	button_style_pressed.bg_color = Color(0.15, 0.15, 0.2, 1)
+  	button_style_pressed.border_width_left = 0
+  	button_style_pressed.border_width_top = 0
+  	button_style_pressed.border_width_right = 0
+  	button_style_pressed.border_width_bottom = 0
+  	button_style_pressed.corner_radius_top_left = 8
+  	button_style_pressed.corner_radius_top_right = 8
+  	button_style_pressed.corner_radius_bottom_left = 8
+  	button_style_pressed.corner_radius_bottom_right = 8
+  
+  	# Abbrechen-Button
+  	cancel_button = Button.new()
+  	cancel_button.name = "CancelButton"
+  	cancel_button.add_theme_font_size_override("font_size", 18)
+  	cancel_button.add_theme_stylebox_override("normal", button_style_normal.duplicate())
+  	cancel_button.add_theme_stylebox_override("hover", button_style_hover.duplicate())
+  	cancel_button.add_theme_stylebox_override("pressed", button_style_pressed.duplicate())
+  	button_container.add_child(cancel_button)
+  
+  	# Bestätigen-Button
+  	confirm_button = Button.new()
+  	confirm_button.name = "ConfirmButton"
+  	confirm_button.add_theme_font_size_override("font_size", 18)
+  
+  	# Rote Button-Stile
+  	var confirm_style_normal = button_style_normal.duplicate()
+  	confirm_style_normal.bg_color = Color(0.7, 0.2, 0.2, 1)
+  	var confirm_style_hover = button_style_hover.duplicate()
+  	confirm_style_hover.bg_color = Color(0.8, 0.3, 0.3, 1)
+  	var confirm_style_pressed = button_style_pressed.duplicate()
+  	confirm_style_pressed.bg_color = Color(0.6, 0.15, 0.15, 1)
+  
+  	confirm_button.add_theme_stylebox_override("normal", confirm_style_normal)
+  	confirm_button.add_theme_stylebox_override("hover", confirm_style_hover)
+  	confirm_button.add_theme_stylebox_override("pressed", confirm_style_pressed)
+  	button_container.add_child(confirm_button)
+  
+  # Setzt Text-Inhalte und Farben
+  func setup(title: String = "", message: String = "",
+  		   cancel_text: String = "", confirm_text: String = "",
+  		   confirm_button_color: Color = Color(0.7, 0.2, 0.2, 1)):
+  
+  	# Setze nur nicht-leere Werte
+  	if title:
+  		_title_text = title
+  	if message:
+  		_message_text = message
+  	if cancel_text:
+  		_cancel_text = cancel_text
+  	if confirm_text:
+  		_confirm_text = confirm_text
+  
+  	_confirm_color = confirm_button_color
+  
+  	return self  # Für Methoden-Verkettung
+  
+  # Einstellen, ob das Popup sich automatisch schließen soll
+  func set_auto_hide(value: bool):
+  	_auto_hide = value
+  	return self  # Für Methoden-Verkettung
+  
+  # Zeigt den Dialog an
+  func popup():
+  	# Fenstergröße aktualisieren
+  	var viewport_size = get_viewport().get_visible_rect().size
+  	dimmer.size = viewport_size
+  
+  	var dialog_width = min(500, viewport_size.x * 0.8)
+  	var dialog_height = 230
+  	dialog_panel.size = Vector2(dialog_width, dialog_height)
+  	dialog_panel.position = (viewport_size - dialog_panel.size) / 2
+  	dialog_panel.pivot_offset = dialog_panel.size / 2
+  
+  	# Layout aktualisieren
+  	title_label.position = Vector2(0, 20)
+  	title_label.size = Vector2(dialog_width, 30)
+  
+  	message_label.position = Vector2(20, 60)
+  	message_label.size = Vector2(dialog_width - 40, 60)
+  
+  	button_container.position = Vector2(20, dialog_height - 80)
+  	button_container.size = Vector2(dialog_width - 40, 60)
+  
+  	cancel_button.custom_minimum_size = Vector2(dialog_width * 0.35, 60)
+  	confirm_button.custom_minimum_size = Vector2(dialog_width * 0.35, 60)
+  
+  	# Aktualisiere UI
+  	title_label.text = _title_text
+  	message_label.text = _message_text
+  	cancel_button.text = _cancel_text
+  	confirm_button.text = _confirm_text
+  
+  	# Setze Button-Farbe
+  	var normal_style = confirm_button.get_theme_stylebox("normal").duplicate()
+  	var hover_style = confirm_button.get_theme_stylebox("hover").duplicate()
+  	var pressed_style = confirm_button.get_theme_stylebox("pressed").duplicate()
+  
+  	normal_style.bg_color = _confirm_color
+  	hover_style.bg_color = _confirm_color.lightened(0.1)
+  	pressed_style.bg_color = _confirm_color.darkened(0.1)
+  
+  	confirm_button.add_theme_stylebox_override("normal", normal_style)
+  	confirm_button.add_theme_stylebox_override("hover", hover_style)
+  	confirm_button.add_theme_stylebox_override("pressed", pressed_style)
+  
+  	# Dialog anzeigen mit Animation
+  	show()
+  	dimmer.modulate = Color(1, 1, 1, 0)
+  
+  	var tween = create_tween()
+  	tween.tween_property(dimmer, "modulate", Color(1, 1, 1, 1), 0.3).set_ease(Tween.EASE_OUT)
+  
+  	# Dialog-Panel Animation (Skalierung)
+  	dialog_panel.scale = Vector2(0.9, 0.9)
+  	tween.parallel().tween_property(dialog_panel, "scale", Vector2(1, 1), 0.3).set_ease(Tween.EASE_OUT)
+  
+  	return self  # Für Methoden-Verkettung
+  
+  # Schließt den Dialog
+  func close():
+  	var tween = create_tween()
+  	tween.tween_property(dimmer, "modulate", Color(1, 1, 1, 0), 0.2).set_ease(Tween.EASE_IN)
+  	tween.parallel().tween_property(dialog_panel, "scale", Vector2(0.9, 0.9), 0.2).set_ease(Tween.EASE_IN)
+  
+  	# Warte auf das Ende der Animation
+  	await tween.finished
+  	hide()
+  
+  # Button-Handling
+  func _on_cancel_pressed():
+  	emit_signal("canceled")
+  	if _auto_hide:
+  		close()
+  
+  func _on_confirm_pressed():
+  	emit_signal("confirmed")
+  	if _auto_hide:
+  		close()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\UI\Popups\popup_manager.gd:
+========================================
+  extends Node
+  
+  # Signal, dass ein zuvor erstellter Dialog bestätigt wurde
+  signal dialog_confirmed(dialog_id: String)
+  # Signal, dass ein zuvor erstellter Dialog abgebrochen wurde
+  signal dialog_canceled(dialog_id: String)
+  
+  # Speichert alle aktiven Popups
+  var _active_popups = {}
+  
+  # Zeigt eine einfache Bestätigungsabfrage
+  func confirm(title: String, message: String,
+  			 cancel_text: String = "Abbrechen", confirm_text: String = "Bestätigen",
+  			 dialog_id: String = "") -> String:
+  
+  	# Generiere eine eindeutige ID, falls keine angegeben wurde
+  	var id = dialog_id if dialog_id else _generate_id()
+  
+  	# Erstelle und zeige das Popup an
+  	var popup = _create_popup()
+  	popup.setup(title, message, cancel_text, confirm_text)
+  
+  	# Verbinde Signale, um weiterzuleiten
+  	popup.confirmed.connect(func():
+  		emit_signal("dialog_confirmed", id)
+  		_active_popups.erase(id)
+  	)
+  	popup.canceled.connect(func():
+  		emit_signal("dialog_canceled", id)
+  		_active_popups.erase(id)
+  	)
+  
+  	# Speichere das Popup für spätere Referenz
+  	_active_popups[id] = popup
+  
+  	# Zeige das Popup an
+  	popup.popup()
+  
+  	return id
+  
+  # Zeigt einen Warnungs-Dialog
+  func warning(title: String, message: String, button_text: String = "OK") -> String:
+  	var id = _generate_id()
+  	var popup = _create_popup()
+  
+  	# Stelle Warnungs-Dialog ein
+  	popup.setup(
+  		title,
+  		message,
+  		"", # Kein Abbrechen-Button
+  		button_text,
+  		Color(0.9, 0.6, 0.1, 1) # Orange für Warnungen
+  	)
+  
+  	# Verbinde Signale
+  	popup.confirmed.connect(func():
+  		emit_signal("dialog_confirmed", id)
+  		_active_popups.erase(id)
+  	)
+  
+  	# Verstecke den Abbrechen-Button
+  	popup.cancel_button.visible = false
+  
+  	# Speichere und zeige an
+  	_active_popups[id] = popup
+  	popup.popup()
+  
+  	return id
+  
+  # Zeigt einen Fehler-Dialog
+  func error(title: String, message: String, button_text: String = "OK") -> String:
+  	var id = _generate_id()
+  	var popup = _create_popup()
+  
+  	# Stelle Fehler-Dialog ein
+  	popup.setup(
+  		title,
+  		message,
+  		"", # Kein Abbrechen-Button
+  		button_text,
+  		Color(0.8, 0.1, 0.1, 1) # Rot für Fehler
+  	)
+  
+  	# Verbinde Signale
+  	popup.confirmed.connect(func():
+  		emit_signal("dialog_confirmed", id)
+  		_active_popups.erase(id)
+  	)
+  
+  	# Verstecke den Abbrechen-Button
+  	popup.cancel_button.visible = false
+  
+  	# Speichere und zeige an
+  	_active_popups[id] = popup
+  	popup.popup()
+  
+  	return id
+  
+  # Zeigt eine Info-Nachricht
+  func info(title: String, message: String, button_text: String = "OK") -> String:
+  	var id = _generate_id()
+  	var popup = _create_popup()
+  
+  	# Stelle Info-Dialog ein
+  	popup.setup(
+  		title,
+  		message,
+  		"", # Kein Abbrechen-Button
+  		button_text,
+  		Color(0.2, 0.6, 0.8, 1) # Blau für Info
+  	)
+  
+  	# Verbinde Signale
+  	popup.confirmed.connect(func():
+  		emit_signal("dialog_confirmed", id)
+  		_active_popups.erase(id)
+  	)
+  
+  	# Verstecke den Abbrechen-Button
+  	popup.cancel_button.visible = false
+  
+  	# Speichere und zeige an
+  	_active_popups[id] = popup
+  	popup.popup()
+  
+  	return id
+  
+  # Schließt einen bestimmten Dialog
+  func close_dialog(dialog_id: String) -> bool:
+  	if _active_popups.has(dialog_id):
+  		_active_popups[dialog_id].close()
+  		_active_popups.erase(dialog_id)
+  		return true
+  	return false
+  
+  # Schließt alle aktiven Dialoge
+  func close_all_dialogs():
+  	for id in _active_popups:
+  		_active_popups[id].close()
+  	_active_popups.clear()
+  
+  # Erstellt eine neue Popup-Instanz
+  func _create_popup():
+  	var popup_script = load("res://UI/Popups/popup_dialog.gd")
+  	# Hier ist die Korrektur: Wir erstellen einen CanvasLayer statt eines Node
+  	var popup_instance = CanvasLayer.new()
+  	popup_instance.set_script(popup_script)
+  	add_child(popup_instance)
+  	return popup_instance
+  
+  # Generiert eine eindeutige ID für Dialoge
+  func _generate_id() -> String:
+  	return "dialog_" + str(randi())
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\addons\virtual_joystick\test\player.gd:
+========================================
+  extends Sprite2D
+  
+  @export var speed : float = 100
+  
+  @export var joystick_left : VirtualJoystick
+  
+  @export var joystick_right : VirtualJoystick
+  
+  var move_vector := Vector2.ZERO
+  
+  func _process(delta: float) -> void:
+  	## Movement using the joystick output:
+  #	if joystick_left and joystick_left.is_pressed:
+  #		position += joystick_left.output * speed * delta
+  
+  	## Movement using Input functions:
+  	move_vector = Vector2.ZERO
+  	move_vector = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
+  	position += move_vector * speed * delta
+  
+  	# Rotation:
+  	if joystick_right and joystick_right.is_pressed:
+  		rotation = joystick_right.output.angle()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\addons\virtual_joystick\virtual_joystick.gd:
+========================================
+  class_name VirtualJoystick
+  
+  extends Control
+  
+  ## A simple virtual joystick for touchscreens, with useful options.
+  ## Github: https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot
+  
+  # EXPORTED VARIABLE
+  
+  ## The color of the button when the joystick is pressed.
+  @export var pressed_color := Color.GRAY
+  
+  ## If the input is inside this range, the output is zero.
+  @export_range(0, 200, 1) var deadzone_size : float = 10
+  
+  ## The max distance the tip can reach.
+  @export_range(0, 500, 1) var clampzone_size : float = 75
+  
+  enum Joystick_mode {
+  	FIXED, ## The joystick doesn't move.
+  	DYNAMIC, ## Every time the joystick area is pressed, the joystick position is set on the touched position.
+  	FOLLOWING ## When the finger moves outside the joystick area, the joystick will follow it.
+  }
+  
+  ## If the joystick stays in the same position or appears on the touched position when touch is started
+  @export var joystick_mode := Joystick_mode.FIXED
+  
+  enum Visibility_mode {
+  	ALWAYS, ## Always visible
+  	TOUCHSCREEN_ONLY, ## Visible on touch screens only
+  	WHEN_TOUCHED ## Visible only when touched
+  }
+  
+  ## If the joystick is always visible, or is shown only if there is a touchscreen
+  @export var visibility_mode := Visibility_mode.ALWAYS
+  
+  ## If true, the joystick uses Input Actions (Project -> Project Settings -> Input Map)
+  @export var use_input_actions := true
+  
+  @export var action_left := "ui_left"
+  @export var action_right := "ui_right"
+  @export var action_up := "ui_up"
+  @export var action_down := "ui_down"
+  
+  # PUBLIC VARIABLES
+  
+  ## If the joystick is receiving inputs.
+  var is_pressed := false
+  
+  # The joystick output.
+  var output := Vector2.ZERO
+  
+  # PRIVATE VARIABLES
+  
+  var _touch_index : int = -1
+  
+  @onready var _base := $Base
+  @onready var _tip := $Base/Tip
+  
+  @onready var _base_default_position : Vector2 = _base.position
+  @onready var _tip_default_position : Vector2 = _tip.position
+  
+  @onready var _default_color : Color = _tip.modulate
+  
+  # FUNCTIONS
+  
+  func _ready() -> void:
+  	if ProjectSettings.get_setting("input_devices/pointing/emulate_mouse_from_touch"):
+  		printerr("The Project Setting 'emulate_mouse_from_touch' should be set to False")
+  	if not ProjectSettings.get_setting("input_devices/pointing/emulate_touch_from_mouse"):
+  		printerr("The Project Setting 'emulate_touch_from_mouse' should be set to True")
+  
+  	if not DisplayServer.is_touchscreen_available() and visibility_mode == Visibility_mode.TOUCHSCREEN_ONLY :
+  		hide()
+  
+  	if visibility_mode == Visibility_mode.WHEN_TOUCHED:
+  		hide()
+  
+  func _input(event: InputEvent) -> void:
+  	if event is InputEventScreenTouch:
+  		if event.pressed:
+  			if _is_point_inside_joystick_area(event.position) and _touch_index == -1:
+  				if joystick_mode == Joystick_mode.DYNAMIC or joystick_mode == Joystick_mode.FOLLOWING or (joystick_mode == Joystick_mode.FIXED and _is_point_inside_base(event.position)):
+  					if joystick_mode == Joystick_mode.DYNAMIC or joystick_mode == Joystick_mode.FOLLOWING:
+  						_move_base(event.position)
+  					if visibility_mode == Visibility_mode.WHEN_TOUCHED:
+  						show()
+  					_touch_index = event.index
+  					_tip.modulate = pressed_color
+  					_update_joystick(event.position)
+  					get_viewport().set_input_as_handled()
+  		elif event.index == _touch_index:
+  			_reset()
+  			if visibility_mode == Visibility_mode.WHEN_TOUCHED:
+  				hide()
+  			get_viewport().set_input_as_handled()
+  	elif event is InputEventScreenDrag:
+  		if event.index == _touch_index:
+  			_update_joystick(event.position)
+  			get_viewport().set_input_as_handled()
+  
+  func _move_base(new_position: Vector2) -> void:
+  	_base.global_position = new_position - _base.pivot_offset * get_global_transform_with_canvas().get_scale()
+  
+  func _move_tip(new_position: Vector2) -> void:
+  	_tip.global_position = new_position - _tip.pivot_offset * _base.get_global_transform_with_canvas().get_scale()
+  
+  func _is_point_inside_joystick_area(point: Vector2) -> bool:
+  	var x: bool = point.x >= global_position.x and point.x <= global_position.x + (size.x * get_global_transform_with_canvas().get_scale().x)
+  	var y: bool = point.y >= global_position.y and point.y <= global_position.y + (size.y * get_global_transform_with_canvas().get_scale().y)
+  	return x and y
+  
+  func _get_base_radius() -> Vector2:
+  	return _base.size * _base.get_global_transform_with_canvas().get_scale() / 2
+  
+  func _is_point_inside_base(point: Vector2) -> bool:
+  	var _base_radius = _get_base_radius()
+  	var center : Vector2 = _base.global_position + _base_radius
+  	var vector : Vector2 = point - center
+  	if vector.length_squared() <= _base_radius.x * _base_radius.x:
+  		return true
+  	else:
+  		return false
+  
+  func _update_joystick(touch_position: Vector2) -> void:
+  	var _base_radius = _get_base_radius()
+  	var center : Vector2 = _base.global_position + _base_radius
+  	var vector : Vector2 = touch_position - center
+  	vector = vector.limit_length(clampzone_size)
+  
+  	if joystick_mode == Joystick_mode.FOLLOWING and touch_position.distance_to(center) > clampzone_size:
+  		_move_base(touch_position - vector)
+  
+  	_move_tip(center + vector)
+  
+  	if vector.length_squared() > deadzone_size * deadzone_size:
+  		is_pressed = true
+  		output = (vector - (vector.normalized() * deadzone_size)) / (clampzone_size - deadzone_size)
+  	else:
+  		is_pressed = false
+  		output = Vector2.ZERO
+  
+  	if use_input_actions:
+  		if output.x > 0:
+  			Input.action_release(action_left)
+  			Input.action_press(action_right, output.x)
+  		else:
+  			Input.action_release(action_right)
+  			Input.action_press(action_left, -output.x)
+  
+  		if output.y > 0:
+  			Input.action_release(action_up)
+  			Input.action_press(action_down, output.y)
+  		else:
+  			Input.action_release(action_down)
+  			Input.action_press(action_up, -output.y)
+  
+  func _reset():
+  	is_pressed = false
+  	output = Vector2.ZERO
+  	_touch_index = -1
+  	_tip.modulate = _default_color
+  	_base.position = _base_default_position
+  	_tip.position = _tip_default_position
+  	if use_input_actions:
+  		for action in [action_left, action_right, action_down, action_up]:
+  			Input.action_release(action)
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\addons\virtual_joystick\virtual_joystick_instantiator.gd:
+========================================
+  @tool
+  extends Control
+  
+  var scene
+  
+  func _enter_tree():
+  	scene = preload("res://addons/virtual_joystick/virtual_joystick_scene.tscn").instantiate()
+  	add_child(scene)
+  
+  	if ProjectSettings.get_setting("input_devices/pointing/emulate_mouse_from_touch"):
+  		printerr("The Project Setting 'emulate_mouse_from_touch' should be set to False")
+  	if not ProjectSettings.get_setting("input_devices/pointing/emulate_touch_from_mouse"):
+  		printerr("The Project Setting 'emulate_touch_from_mouse' should be set to True")
+  
+  
+  func _exit_tree():
+  	scene.free()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\addons\virtual_joystick\virtual_joystick_plugin.gd:
+========================================
+  @tool
+  extends EditorPlugin
+  
+  
+  func _enter_tree():
+  	add_custom_type("Virtual Joystick", "Control", preload("virtual_joystick_instantiator.gd"), preload("virtual_joystick_icon.png"))
+  
+  
+  func _exit_tree():
+  	remove_custom_type("Virtual Joystick")
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\base.gd:
+========================================
+  extends Node2D
+  
+  var boss_music = load("res://Ressources/Audio/Tracks/the-epic-2-by-rafael-krux(chosic.com).mp3")
+  # Called when the node enters the scene tree for the first time.
+  func _ready():
+  	AudioManager.play_track(boss_music)
+  
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	pass
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\project.godot:
+========================================
+  ; Engine configuration file.
+  ; It's best edited using the editor UI and not directly,
+  ; since the parameters that go here are not all obvious.
+  ;
+  ; Format:
+  ;   [section] ; section goes between []
+  ;   param=value ; assign values to parameters
+  
+  config_version=5
+  
+  [application]
+  
+  config/name="The Little Saint"
+  run/main_scene="res://Start_Screen/start_screen.tscn"
+  config/features=PackedStringArray("4.4", "Mobile")
+  
+  [autoload]
+  
+  AudioManager="*res://Start_Screen/AudioManager.tscn"
+  Global="*res://Global.gd"
+  PopupManager="*res://UI/Popups/popup_manager.gd"
+  
+  [display]
+  
+  window/size/viewport_width=1280
+  window/size/viewport_height=720
+  window/stretch/mode="canvas_items"
+  window/stretch/aspect="expand"
+  
+  [input]
+  
+  right={
+  "deadzone": 0.5,
+  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":68,"key_label":0,"unicode":100,"location":0,"echo":false,"script":null)
+  , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194321,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+  ]
+  }
+  left={
+  "deadzone": 0.5,
+  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":65,"key_label":0,"unicode":97,"location":0,"echo":false,"script":null)
+  , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194319,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+  ]
+  }
+  up={
+  "deadzone": 0.5,
+  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":87,"key_label":0,"unicode":119,"location":0,"echo":false,"script":null)
+  , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194320,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+  ]
+  }
+  down={
+  "deadzone": 0.5,
+  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":115,"location":0,"echo":false,"script":null)
+  , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194322,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+  ]
+  }
+  attack={
+  "deadzone": 0.5,
+  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":85,"physical_keycode":0,"key_label":0,"unicode":117,"location":0,"echo":false,"script":null)
+  ]
+  }
+  defend={
+  "deadzone": 0.5,
+  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":73,"physical_keycode":0,"key_label":0,"unicode":105,"location":0,"echo":false,"script":null)
+  ]
+  }
+  Menu={
+  "deadzone": 0.5,
+  "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+  ]
+  }
+  
+  [input_devices]
+  
+  pointing/emulate_touch_from_mouse=true
+  
+  [layer_names]
+  
+  2d_physics/layer_1="player"
+  2d_physics/layer_2="ports"
+  2d_physics/layer_3="item"
+  2d_physics/layer_4="enemy"
+  
+  [physics]
+  
+  2d/physics_engine="GodotPhysics2D"
+  
+  [rendering]
+  
+  textures/canvas_textures/default_texture_filter=0
+  renderer/rendering_method="mobile"
+  environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\rock.gd:
+========================================
+  extends CharacterBody2D
+  
+  @export var SPEED = 120
+  var hud
+  var direction = 0
+  var spawnPos : Vector2
+  var spawnRot : float
+  
+  func _ready():
+  	hud = get_node("../HUD")
+  	global_position = spawnPos
+  	global_rotation = spawnRot
+  	projectile_decay()
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	velocity.x = direction.x * SPEED
+  	get_node("rock").play("flying")
+  	move_and_slide()
+  
+  func projectile_decay():
+  	await get_tree().create_timer(5.0).timeout
+  	self.queue_free()
+  
+  func _on_hit_zone_body_entered(body):
+  	if body.name == "Player":
+  		hud.change_life(-0.2)
+  		self.queue_free()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\stages\Ardits_Stage\enemy1.gd:
+========================================
+  extends Node2D
+  
+  const SPEED = 60
+  
+  var direction = 1
+  
+  @onready var ray_cast_right = $RayCastRight
+  @onready var ray_cast_left = $RayCastLeft
+  @onready var animated_sprite = $AnimatedSprite2D
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	if ray_cast_right.is_colliding():
+  		direction = -1
+  		animated_sprite.flip_h = false
+  	if ray_cast_left.is_colliding():
+  		direction = 1
+  		animated_sprite.flip_h = true
+  
+  	position.x += direction * SPEED * delta
+  
+  
+  func _on_top_checker_body_entered(body):
+  	$AnimatedSprite2D.play("dead")
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\stages\Prince_Stage\Scriptprince\gegner_1.gd:
+========================================
+  extends Node2D
+  
+  const SPEED = 60
+  
+  var direction = 1
+  
+  @onready var ray_cast_right = $RayCastRight
+  @onready var ray_cast_left = $RayCastLeft
+  @onready var animated_sprite = $AnimatedSprite2D
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	if ray_cast_right.is_colliding():
+  		direction = -1
+  		animated_sprite.flip_h = false
+  	if ray_cast_left.is_colliding():
+  		direction = 1
+  		animated_sprite.flip_h = true
+  
+  	position.x += direction * SPEED * delta
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\stages\Prince_Stage\Scriptprince\killzone.gd:
+========================================
+  extends Area2D
+  
+  @onready var timer = $Timer
+  
+  func _on_body_entered(body):
+  	print("you died!")
+  	Engine.time_scale = 0.5
+  	body.get_node("CollisionShape2D").queue_free()
+  	timer.start()
+  
+  
+  
+  func _on_timer_timeout():
+  	Engine.time_scale = 1.0
+  	get_tree().reload_current_scene()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\stages\Prince_Stage\Tiles\fourSeasonsPlatformer\- READ ME -.txt:
+========================================
+  
+                                                                - READ ME -
+  
+  Thank you for using the fourSeasonsPlatformer_ [tileset]...part of the fourSeasonPlatformer_ series' of assets on itch.io!
+  
+  Stuff to know - Tilesets
+  
+  - Each tile is 16x16 pixels...although some objects/structures/terrain are 16x32/32x16/32x32...[e.g. trees, beehives, big terrain tile]
+  - The blackout_ tileset is designed to black out the spaces between tiles [optional]
+  
+  Stuff to know - Animations
+  
+  - coin_ animation is 12 frames
+  - each eventBlock_ animation is 14 frames [6 animations total]
+  - each foreground animation is 8 frames
+  
+  If you have any questions or requests you can contact me at analogstudios.inc@gmail.com
+  
+  
+  
+  
+  
+  
+
+[Skipped c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\stages\Prince_Stage\game_prince.tscn: File too large (146 KB)]
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\start_screen\AudioManager.gd:
+========================================
+  extends Node
+  
+  
+  var music_playing = false
+  var current_track: AudioStream = null
+  
+  
+  func _ready():
+  	var audio_player = $AudioStreamPlayer
+  	if !music_playing:
+  		audio_player.stream = load("res://Ressources/Audio/Tracks/the-epic-2-by-rafael-krux(chosic.com).mp3")
+  		audio_player.play()
+  		music_playing = true
+  	else:
+  		audio_player.play()
+  
+  func play_track(audio_stream: AudioStream):
+  	var audio_player = $AudioStreamPlayer
+  	if audio_stream != current_track:
+  		audio_player.stop()
+  		audio_player.stream = audio_stream
+  		audio_player.play()
+  		current_track = audio_stream
+  		music_playing = true
+  	elif not audio_player.playing:
+  		audio_player.play()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\start_screen\Audio_Settings.gd:
+========================================
+  extends Node2D
+  
+  
+  # Called when the node enters the scene tree for the first time.
+  func _ready():
+  	pass # Replace with function body.
+  
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	pass
+  
+  
+  func _on_back_button_pressed():
+  	get_tree().change_scene_to_file("res://start_screen/setting_screen.tscn")
+  
+  var master_bus = AudioServer.get_bus_index("Master")
+  
+  
+  func _on_h_slider_value_changed(value):
+  	AudioServer.set_bus_volume_db(master_bus, value)
+  
+  	if value == -30:
+  		AudioServer.set_bus_mute(master_bus, true)
+  	else:
+  		AudioServer.set_bus_mute(master_bus, false)
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\start_screen\Camera2D.gd:
+========================================
+  extends Camera2D
+  
+  
+  # Called when the node enters the scene tree for the first time.
+  func _ready():
+  	pass # Replace with function body.
+  
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	pass
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\start_screen\Customizer_Button.gd:
+========================================
+  extends Button
+  
+  
+  # Called when the node enters the scene tree for the first time.
+  func _ready():
+  	pass # Replace with function body.
+  
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	pass
+  
+  
+  
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\start_screen\setting_screen.gd:
+========================================
+  extends Node2D
+  
+  "res://start_screen/setting_screen.gd"
+  # Called when the node enters the scene tree for the first time.
+  func _ready():
+  	pass # Replace with function body.
+  
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	pass
+  
+  
+  func _on_back_button_pressed():
+  	get_tree().change_scene_to_file("res://start_screen/start_screen.tscn")
+  
+  
+  func _on_audio_button_pressed():
+  	get_tree().change_scene_to_file("res://start_screen/Audio_Settings.tscn")
+  
+  
+  func _on_customizer_button_pressed():
+  	get_tree().change_scene_to_file("res://Character_Customizer/customizer.tscn")
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\start_screen\start_background.gd:
+========================================
+  extends ParallaxBackground
+  
+  var scrolling_speed = 50
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	scroll_offset.x -= scrolling_speed * delta
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\start_screen\start_screen.gd:
+========================================
+  extends Node2D
+  
+  
+  func _on_exit_button_pressed():
+  	get_tree().quit()
+  
+  
+  func _on_settings_button_pressed():
+  	get_tree().change_scene_to_file("res://start_screen/setting_screen.tscn")
+  
+  
+  func _on_start_button_pressed():
+  	get_tree().change_scene_to_file("res://base.tscn")
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\start_screen\start_screen_buttons.gd:
+========================================
+  extends Button
+  
+  
+  # Called when the node enters the scene tree for the first time.
+  func _ready():
+  	pass # Replace with function body.
+  
+  
+  # Called every frame. 'delta' is the elapsed time since the previous frame.
+  func _process(delta):
+  	pass

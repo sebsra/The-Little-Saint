@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://bq1h5147ej8ka"]
 
-[ext_resource type="Script" path="res://PowerUps/coins.gd" id="1_17fm3"]
-[ext_resource type="Texture2D" uid="uid://ke6swdrk1sb7" path="res://Stages/Ardits_Stage/GameItemsAnims-Sheet.png" id="2_6tilb"]
+[ext_resource type="Script" uid="uid://cfuj27mf5qtd0" path="res://PowerUps/coins.gd" id="1_17fm3"]
+[ext_resource type="Texture2D" uid="uid://ke6swdrk1sb7" path="res://stages/Ardits_Stage/GameItemsAnims-Sheet.png" id="2_6tilb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rqm4w"]
 radius = 18.0278
@@ -116,7 +116,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1wsg7"]
 _data = {
-"bounce": SubResource("Animation_c04vi")
+&"bounce": SubResource("Animation_c04vi")
 }
 
 [node name="coins" type="Area2D"]

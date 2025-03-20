@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://brvsjhwye311q"]
 
-[ext_resource type="Script" path="res://HeadUp_Display/hud.gd" id="1_n00ko"]
-[ext_resource type="Texture2D" uid="uid://02t70kpuff6o" path="res://Stages/Ardits_Stage/Coin_alone.png" id="2_yfuy3"]
+[ext_resource type="Script" uid="uid://colr2l055sb2q" path="res://HeadUp_Display/hud.gd" id="1_n00ko"]
+[ext_resource type="Texture2D" uid="uid://02t70kpuff6o" path="res://stages/Ardits_Stage/Coin_alone.png" id="2_yfuy3"]
 [ext_resource type="FontFile" uid="uid://dlm30ebykk1sv" path="res://Ressources/Fonts/copyduck/Copyduck.ttf" id="3_6xw86"]
 [ext_resource type="Texture2D" uid="uid://dm67cqfufmwf" path="res://Ressources/hud_heartFull.png" id="4_i601r"]
 [ext_resource type="Texture2D" uid="uid://knayw820n7j" path="res://Ressources/hud_heartEmpty.png" id="5_eddrx"]

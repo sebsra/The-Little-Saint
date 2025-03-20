@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://cwbn3etducxob"]
 
-[ext_resource type="Script" path="res://Start_Screen/setting_screen.gd" id="1_02txe"]
-[ext_resource type="Script" path="res://Start_Screen/start_screen_buttons.gd" id="1_bq4oe"]
-[ext_resource type="Script" path="res://Start_Screen/Customizer_Button.gd" id="2_ffl57"]
-[ext_resource type="PackedScene" uid="uid://cacipyxg6gu2d" path="res://Start_Screen/start_background.tscn" id="3_4l1dq"]
+[ext_resource type="Script" uid="uid://ct27vxnubgiu3" path="res://Start_Screen/setting_screen.gd" id="1_02txe"]
+[ext_resource type="Script" uid="uid://bsv3bsnvip5b8" path="res://Start_Screen/start_screen_buttons.gd" id="1_bq4oe"]
+[ext_resource type="Script" uid="uid://bwcmr78gqya3n" path="res://Start_Screen/Customizer_Button.gd" id="2_ffl57"]
+[ext_resource type="PackedScene" uid="uid://cacipyxg6gu2d" path="res://start_screen/start_background.tscn" id="3_4l1dq"]
 [ext_resource type="FontFile" uid="uid://67ml0t54w5t4" path="res://Ressources/Fonts/copyduck/Copyduck.otf" id="4_l0sqt"]
 
 [node name="Node2D" type="Node2D"]

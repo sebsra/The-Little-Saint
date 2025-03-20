@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bo5t5s7gd8sb7"]
 
-[ext_resource type="Script" path="res://MageBall.gd" id="1_w3e8l"]
+[ext_resource type="Script" uid="uid://bckn33p0cdkcd" path="res://MageBall.gd" id="1_w3e8l"]
 [ext_resource type="Texture2D" uid="uid://drsm4xn2cbpwf" path="res://Ressources/Monsters/2 Goblin_Mage/Attack_balls.png" id="2_p7p2r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qcogy"]

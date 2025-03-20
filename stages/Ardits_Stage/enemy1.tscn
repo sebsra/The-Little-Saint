@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://d3os0qbhty35c"]
 
-[ext_resource type="Script" path="res://Stages/Ardits_Stage/enemy1.gd" id="1_rjf1f"]
-[ext_resource type="Texture2D" uid="uid://bgj5ymmpy3m2" path="res://Stages/Ardits_Stage/enemy1/spider_hit.png" id="2_i8wal"]
-[ext_resource type="Texture2D" uid="uid://bjslug0lleed4" path="res://Stages/Ardits_Stage/enemy1/spider_dead.png" id="3_s4ko6"]
-[ext_resource type="Texture2D" uid="uid://mx5hexdirtal" path="res://Stages/Ardits_Stage/enemy1/spider_walk1.png" id="4_4eats"]
-[ext_resource type="Texture2D" uid="uid://doql6yth06xw" path="res://Stages/Ardits_Stage/enemy1/spider_walk2.png" id="5_h7p42"]
+[ext_resource type="Script" uid="uid://dknmffc5lmqu0" path="res://Stages/Ardits_Stage/enemy1.gd" id="1_rjf1f"]
+[ext_resource type="Texture2D" uid="uid://bgj5ymmpy3m2" path="res://stages/Ardits_Stage/enemy1/spider_hit.png" id="2_i8wal"]
+[ext_resource type="Texture2D" uid="uid://bjslug0lleed4" path="res://stages/Ardits_Stage/enemy1/spider_dead.png" id="3_s4ko6"]
+[ext_resource type="Texture2D" uid="uid://mx5hexdirtal" path="res://stages/Ardits_Stage/enemy1/spider_walk1.png" id="4_4eats"]
+[ext_resource type="Texture2D" uid="uid://doql6yth06xw" path="res://stages/Ardits_Stage/enemy1/spider_walk2.png" id="5_h7p42"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8etr1"]
 animations = [{

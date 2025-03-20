@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7p3rojg1fmmc"]
+
+[ext_resource type="Script" uid="uid://bspd838jrwn40" path="res://UI/Popups/popup_dialog.gd" id="1_r3ysr"]
+
+[node name="PopupDialog" type="Node2D"]
+script = ExtResource("1_r3ysr")

@@ -1,8 +1,8 @@
 [gd_scene load_steps=16 format=3 uid="uid://bon4nuk6xvqoj"]
 
 [ext_resource type="Texture2D" uid="uid://ddhl5lokha6ew" path="res://Ressources/greyscale .png" id="1_3doyf"]
-[ext_resource type="Script" path="res://Stages/Prince_Stage/Scriptprince/gegner_1.gd" id="1_7fano"]
-[ext_resource type="PackedScene" uid="uid://c0alsp8f0al5p" path="res://Stages/Prince_Stage/killzone.tscn" id="2_nynrs"]
+[ext_resource type="Script" uid="uid://4u1cdgl8kdjy" path="res://Stages/Prince_Stage/Scriptprince/gegner_1.gd" id="1_7fano"]
+[ext_resource type="PackedScene" uid="uid://c0alsp8f0al5p" path="res://stages/Prince_Stage/killzone.tscn" id="2_nynrs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_roe4s"]
 atlas = ExtResource("1_3doyf")

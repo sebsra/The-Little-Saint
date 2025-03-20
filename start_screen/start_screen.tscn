@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dh7t0n4nj8w4o"]
 
-[ext_resource type="Script" path="res://Start_Screen/start_screen.gd" id="1_ls6jq"]
-[ext_resource type="Script" path="res://Start_Screen/start_screen_buttons.gd" id="2_fswj7"]
+[ext_resource type="Script" uid="uid://yxto1dlgq8mw" path="res://Start_Screen/start_screen.gd" id="1_ls6jq"]
+[ext_resource type="Script" uid="uid://bsv3bsnvip5b8" path="res://Start_Screen/start_screen_buttons.gd" id="2_fswj7"]
 [ext_resource type="PackedScene" uid="uid://cacipyxg6gu2d" path="res://start_screen/start_background.tscn" id="2_kaae1"]
 [ext_resource type="FontFile" uid="uid://67ml0t54w5t4" path="res://Ressources/Fonts/copyduck/Copyduck.otf" id="4_kolhe"]
 

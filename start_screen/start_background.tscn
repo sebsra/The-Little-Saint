@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cacipyxg6gu2d"]
 
-[ext_resource type="Script" path="res://Start_Screen/start_background.gd" id="1_p4p80"]
+[ext_resource type="Script" uid="uid://dkgsen8wiasa6" path="res://Start_Screen/start_background.gd" id="1_p4p80"]
 [ext_resource type="Texture2D" uid="uid://dbq0ec78dfam4" path="res://Ressources/Sunny-land-files/Sunny-land-files/Graphical Assets/environment/Background/back.png" id="2_yc0m6"]
 [ext_resource type="Texture2D" uid="uid://dsa7wvqg6pukl" path="res://Ressources/craftpix-net-481981-free-summer-pixel-art-backgrounds/PNG/summer 2/3.png" id="3_wo0lf"]
 

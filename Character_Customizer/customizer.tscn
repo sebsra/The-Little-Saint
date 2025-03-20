@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://bfup2p6wpte44"]
 
-[ext_resource type="Script" path="res://Character_Customizer/Control.gd" id="1_4gdiv"]
+[ext_resource type="Script" uid="uid://drpcikcpbg8th" path="res://Character_Customizer/Control.gd" id="1_4gdiv"]
 [ext_resource type="PackedScene" uid="uid://cubtrfejltu51" path="res://Character_Assets/character_sprites.tscn" id="2_rx7te"]
-[ext_resource type="Script" path="res://Character_Customizer/back.gd" id="3_2rgi2"]
+[ext_resource type="Script" uid="uid://c815f2gtcrqlt" path="res://Character_Customizer/back.gd" id="3_2rgi2"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -62,6 +62,13 @@ offset_bottom = 685.0
 text = "Back
 "
 script = ExtResource("3_2rgi2")
+
+[node name="save_feedback" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 187.0
+offset_top = 677.0
+offset_right = 457.0
+offset_bottom = 713.0
 
 [connection signal="pressed" from="Control/random" to="Control" method="_random_button_pressed"]
 [connection signal="pressed" from="Control/save" to="Control" method="_save_button_pressed"]

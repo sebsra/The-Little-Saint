@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bvodoquin8gd6"]
 
-[ext_resource type="Script" path="res://PowerUps/softpowerJump.gd" id="1_0ah4n"]
-[ext_resource type="Texture2D" uid="uid://cjujmbng36kxc" path="res://Stages/Prince_Stage/Tiles/fourSeasonsPlatformer/objects_/items_.png" id="1_niubn"]
+[ext_resource type="Script" uid="uid://3rbx44yonss6" path="res://PowerUps/softpowerJump.gd" id="1_0ah4n"]
+[ext_resource type="Texture2D" uid="uid://cjujmbng36kxc" path="res://stages/Prince_Stage/Tiles/fourSeasonsPlatformer/objects_/items_.png" id="1_niubn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nwa5q"]
 radius = 3.55556
