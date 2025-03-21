@@ -122,13 +122,33 @@ func _process(delta):
 		ready_for_jump = true
 		
 
-	# Fly mode
 	if mode == "fly":
 		allowed_jumps = 1
-		if passed_fly_time < 4:
+
+		# Check if elixir is available
+		if hud.elixir_fill_level > 0.0:
+			if passed_fly_time < 4:
 				passed_fly_time += delta
+				
+				# Allow movement in the air while flying
 				if y_input != 0:
 					velocity.y = FLY_VELOCITY * y_input
+
+			# Reduce elixir by 25% every time fly mode is triggered
+			if passed_fly_time >= 4.0:  
+				hud.use_softpower()  # Drain 25% elixir
+				passed_fly_time = 0.0  # Reset flight time counter
+
+		else:
+			# If no elixir left, return to normal mode
+			mode = "normal"
+			print("Elixir empty! Returning to normal mode.")
+
+	# Ensure the player can only fly again after landing
+	if is_on_floor() and mode == "normal":
+		allowed_jumps = 1  # Reset jumps when the player lands
+
+
 
 	move_and_slide()
 

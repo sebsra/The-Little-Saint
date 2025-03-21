@@ -1,10 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://brvsjhwye311q"]
+[gd_scene load_steps=11 format=3 uid="uid://brvsjhwye311q"]
 
-[ext_resource type="Script"  path="res://scripts/ui/hud/hud_controller.gd" id="1_n00ko"]
-[ext_resource type="Texture2D"  path="res://scenes/levels/ardit_levels/Coin_alone.png" id="2_yfuy3"]
-[ext_resource type="FontFile"  path="res://assets/fonts/special/copyduck/Copyduck.ttf" id="3_6xw86"]
-[ext_resource type="Texture2D"  path="res://assets/sprites/unsorted/hud_heartFull.png" id="4_i601r"]
-[ext_resource type="Texture2D"  path="res://assets/sprites/unsorted/hud_heartEmpty.png" id="5_eddrx"]
+[ext_resource type="Script" uid="uid://c3aqe6tuh5mrl" path="res://scripts/ui/hud/hud_controller.gd" id="1_n00ko"]
+[ext_resource type="Texture2D" uid="uid://b8xa3n5e0qpwc" path="res://scenes/levels/ardit_levels/Coin_alone.png" id="2_yfuy3"]
+[ext_resource type="FontFile" uid="uid://cjlr4oid6p4jb" path="res://assets/fonts/special/copyduck/Copyduck.ttf" id="3_6xw86"]
+[ext_resource type="Texture2D" uid="uid://dm67cqfufmwf" path="res://assets/sprites/unsorted/hud_heartFull.png" id="4_i601r"]
+[ext_resource type="Texture2D" uid="uid://knayw820n7j" path="res://assets/sprites/unsorted/hud_heartEmpty.png" id="5_eddrx"]
+[ext_resource type="Texture2D" uid="uid://twuadcsu8x6w" path="res://assets/sprites/unsorted/princefotos/Adler.webp" id="6_todbw"]
+[ext_resource type="Texture2D" uid="uid://ck3g4v2os2pnr" path="res://assets/sprites/unsorted/princefotos/D_Jumpicon.png" id="7_e7gie"]
+[ext_resource type="Texture2D" uid="uid://bga12qjbnk324" path="res://assets/sprites/unsorted/princefotos/ElixirEmpty.png" id="8_a660p"]
+[ext_resource type="Texture2D" uid="uid://bekobulslwnkl" path="res://assets/sprites/unsorted/princefotos/Füllstand.png" id="10_a660p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eh2a1"]
 bg_color = Color(0.6, 0.6, 0.6, 0.6)
@@ -26,7 +30,7 @@ script = ExtResource("1_n00ko")
 offset_left = 910.0
 offset_top = 43.0
 offset_right = 1229.0
-offset_bottom = 176.0
+offset_bottom = 225.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_eh2a1")
 
 [node name="CoinSum" type="TextureRect" parent="."]
@@ -79,3 +83,29 @@ offset_bottom = 101.0
 texture = ExtResource("4_i601r")
 expand_mode = 1
 stretch_mode = 1
+
+[node name="Adler" type="TextureRect" parent="."]
+offset_left = 921.0
+offset_top = 106.0
+offset_right = 984.0
+offset_bottom = 153.0
+texture = ExtResource("6_todbw")
+expand_mode = 1
+
+[node name="DoubleJump" type="TextureRect" parent="."]
+offset_left = 919.0
+offset_top = 163.0
+offset_right = 987.0
+offset_bottom = 213.0
+texture = ExtResource("7_e7gie")
+expand_mode = 1
+
+[node name="bottle" type="Sprite2D" parent="."]
+position = Vector2(1083, 132.5)
+scale = Vector2(0.124179, 0.0895296)
+texture = ExtResource("8_a660p")
+
+[node name="elixir" type="Sprite2D" parent="."]
+position = Vector2(1083, 141.75)
+scale = Vector2(0.124179, 0.0950855)
+texture = ExtResource("10_a660p")

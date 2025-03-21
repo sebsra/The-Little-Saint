@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ds83orkh8d6l"]
 
-[ext_resource type="Script"  path="res://scripts/core/characters/player.gd" id="1_lc4bu"]
-[ext_resource type="PackedScene"  path="res://scenes/core/character/character_sprites.tscn" id="1_ycdme"]
+[ext_resource type="Script" uid="uid://c8y36uq5jpl07" path="res://scripts/core/characters/player.gd" id="1_lc4bu"]
+[ext_resource type="PackedScene" uid="uid://cubtrfejltu51" path="res://scenes/core/character/character_sprites.tscn" id="1_ycdme"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l53bs"]
 radius = 7.5

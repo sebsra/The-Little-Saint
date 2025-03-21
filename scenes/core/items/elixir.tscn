@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwltbuuif0nqd"]
+
+[ext_resource type="Script" uid="uid://cqh4mgvib7i0q" path="res://scripts/core/items/elixir.gd" id="1_7doin"]
+[ext_resource type="Texture2D" uid="uid://y6hfyffqte21" path="res://assets/sprites/unsorted/princefotos/ElixirFull.png" id="1_snuyi"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7doin"]
+radius = 11.0
+height = 28.0
+
+[node name="elixir" type="Area2D"]
+script = ExtResource("1_7doin")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-5.96046e-08, 1.19209e-07)
+scale = Vector2(0.0601191, 0.0478188)
+texture = ExtResource("1_snuyi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_7doin")
