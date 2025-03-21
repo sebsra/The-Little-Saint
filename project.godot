@@ -16,7 +16,9 @@ config/features=PackedStringArray("4.4", "Mobile")
 
 [autoload]
 
+Constants="*res://scripts/autoload/constants.gd"
 AudioManager="*res://scripts/autoload/audio_manager.gd"
+SaveManager="*res://scripts/autoload/save_manager.gd"
 Global="*res://scripts/autoload/game_manager.gd"
 PopupManager="*res://scripts/ui/dialogs/popup_manager.gd"
 
