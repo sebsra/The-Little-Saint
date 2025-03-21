@@ -46,18 +46,18 @@ func to_dictionary() -> Dictionary:
 
 # Create from dictionary (for backwards compatibility)
 func from_dictionary(dict: Dictionary) -> PlayerOutfitResource:
-	beard = dict.get("beard", "none")
-	lipstick = dict.get("lipstick", "none")
-	eyes = dict.get("eyes", "1")
-	shoes = dict.get("shoes", "1")
-	earrings = dict.get("earrings", "none")
-	hat = dict.get("hats", "none")
-	glasses = dict.get("glasses", "none")
-	clothes_down = dict.get("clothes_down", "1")
-	clothes_up = dict.get("clothes_up", "1")
-	clothes_complete = dict.get("clothes_complete", "none")
-	body = dict.get("bodies", "1")
-	hair = dict.get("hair", "1")
+	beard = str(dict.get("beard", "none"))
+	lipstick = str(dict.get("lipstick", "none"))
+	eyes = str(dict.get("eyes", "1"))
+	shoes = str(dict.get("shoes", "1"))
+	earrings = str(dict.get("earrings", "none"))
+	hat = str(dict.get("hats", "none"))
+	glasses = str(dict.get("glasses", "none"))
+	clothes_down = str(dict.get("clothes_down", "1"))
+	clothes_up = str(dict.get("clothes_up", "1"))
+	clothes_complete = str(dict.get("clothes_complete", "none"))
+	body = str(dict.get("bodies", "1"))
+	hair = str(dict.get("hair", "1"))
 	return self
 
 # Check if a component is visible

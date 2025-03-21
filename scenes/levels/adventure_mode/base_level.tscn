@@ -565,6 +565,9 @@ position = Vector2(553, 312)
 [node name="elixir3" parent="." instance=ExtResource("25_u6bqp")]
 position = Vector2(156, 270)
 
+[node name="elixir4" parent="." instance=ExtResource("25_u6bqp")]
+position = Vector2(458, 313)
+
 [connection signal="body_entered" from="Elements/Prince_Area2D" to="Player/Player" method="_on_prince_portal_entered"]
 [connection signal="body_entered" from="Elements/Sebastian_Area2D" to="Player/Player" method="_on_sebastian_portal_entered"]
 [connection signal="body_entered" from="Elements/Ardit_Area2D" to="Player/Player" method="_on_ardit_portal_entered"]

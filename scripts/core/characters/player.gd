@@ -119,7 +119,7 @@ func _update_outfit_visuals():
 	for category in player_outfit:
 		if has_node("character_sprites/" + category):
 			var sprite = get_node("character_sprites/" + category)
-			var value = player_outfit[category]
+			var value = str(player_outfit[category])
 			
 			if value == "none":
 				sprite.visible = false
