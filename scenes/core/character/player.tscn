@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ds83orkh8d6l"]
+[gd_scene load_steps=13 format=3 uid="uid://ds83orkh8d6l"]
 
 [ext_resource type="Script" uid="uid://c8y36uq5jpl07" path="res://scripts/core/characters/player.gd" id="1_lc4bu"]
 [ext_resource type="PackedScene" uid="uid://cubtrfejltu51" path="res://scenes/core/character/character_sprites.tscn" id="1_ycdme"]
@@ -11,7 +11,6 @@
 [ext_resource type="Script" uid="uid://f1664l1rv2k1" path="res://scripts/core/state_machine/player_states/player_hurt_state.gd" id="9_73ab5"]
 [ext_resource type="Script" uid="uid://bwnmp1l50187q" path="res://scripts/core/state_machine/player_states/player_death_state.gd" id="10_nmyox"]
 [ext_resource type="Script" uid="uid://sp2vsuxkk8c4" path="res://scripts/core/state_machine/player_states/player_fly_state.gd" id="11_33maa"]
-[ext_resource type="Script" uid="uid://b6wrgbidwa20d" path="res://scenes/core/character/debug.gd" id="12_w0cs5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l53bs"]
 radius = 7.5
@@ -55,6 +54,3 @@ script = ExtResource("10_nmyox")
 
 [node name="PlayerFlyState" type="Node" parent="StateMachine"]
 script = ExtResource("11_33maa")
-
-[node name="Node" type="Node" parent="."]
-script = ExtResource("12_w0cs5")
