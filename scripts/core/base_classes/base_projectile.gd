@@ -2,6 +2,7 @@ class_name BaseProjectile
 extends CharacterBody2D
 
 ## Base class for all projectiles in the game
+## Now supports object pooling
 
 # Projectile properties
 @export var speed: float = 100.0
@@ -18,6 +19,7 @@ var spawn_position: Vector2
 var spawn_rotation: float
 var time_alive: float = 0.0
 var has_hit: bool = false
+var is_from_pool: bool = false  # Whether this projectile came from a pool
 
 # Signals
 signal projectile_hit(projectile, target)
@@ -27,10 +29,6 @@ func _ready():
 	# Start lifetime timer
 	if lifetime > 0:
 		get_tree().create_timer(lifetime).timeout.connect(_on_lifetime_expired)
-	
-	# Set initial position and rotation
-	global_position = spawn_position
-	global_rotation = spawn_rotation
 	
 	# Setup animation if available
 	if has_node("AnimatedSprite2D"):
@@ -58,8 +56,16 @@ func setup(dir: Vector2, spawn_pos: Vector2, spawn_rot: float = 0.0, source = nu
 	spawn_rotation = spawn_rot
 	source_node = source
 	
+	# Set initial position and rotation
+	global_position = spawn_position
+	global_rotation = spawn_rotation
+	
 	# Set initial velocity
 	velocity = direction * speed
+	
+	# Reset state
+	has_hit = false
+	time_alive = 0.0
 	
 	return self  # For method chaining
 
@@ -98,7 +104,7 @@ func _on_hit_player(player):
 	# Play hit effect if available
 	play_hit_effect()
 	
-	queue_free()
+	_recycle_or_free()
 
 func _on_hit_enemy(enemy):
 	emit_signal("projectile_hit", self, enemy)
@@ -110,7 +116,7 @@ func _on_hit_enemy(enemy):
 	# Play hit effect if available
 	play_hit_effect()
 	
-	queue_free()
+	_recycle_or_free()
 
 func _on_hit_environment(object):
 	emit_signal("projectile_hit", self, object)
@@ -118,12 +124,12 @@ func _on_hit_environment(object):
 	# Play hit effect if available
 	play_hit_effect()
 	
-	queue_free()
+	_recycle_or_free()
 
 func _on_lifetime_expired():
 	if not has_hit:
 		emit_signal("projectile_expired", self)
-		queue_free()
+		_recycle_or_free()
 
 func play_hit_effect():
 	# If we have an AnimatedSprite2D, try to play the hit animation
@@ -141,3 +147,53 @@ func play_hit_effect():
 			
 			# Wait for animation to finish
 			await sprite.animation_finished
+
+# Called when spawned from an object pool
+func _on_spawn_from_pool():
+	is_from_pool = true
+	visible = true
+	set_physics_process(true)
+	
+	# Reset state
+	has_hit = false
+	time_alive = 0.0
+
+# Called when returned to an object pool
+func _on_recycle_to_pool():
+	# Reset state
+	has_hit = false
+	time_alive = 0.0
+	velocity = Vector2.ZERO
+	source_node = null
+	
+	# Reset animation if needed
+	if has_node("AnimatedSprite2D"):
+		var sprite = get_node("AnimatedSprite2D")
+		if sprite.sprite_frames.has_animation("flying"):
+			sprite.play("flying")
+			sprite.frame = 0
+
+# Either recycle to pool or free based on whether we're using pooling
+func _recycle_or_free():
+	if is_from_pool:
+		# Find the object pool that owns this projectile
+		var scene_root = get_tree().get_root()
+		var pool = null
+		
+		# First check if our source has a projectile pool
+		if source_node and source_node.has_node("ProjectilePool"):
+			pool = source_node.get_node("ProjectilePool")
+		
+		# Otherwise look in the scene root
+		if not pool:
+			pool = scene_root.find_child("ProjectilePool", true, false)
+		
+		if pool and pool is ObjectPool:
+			# Return to pool
+			pool.recycle(self)
+		else:
+			# Fall back to queue_free
+			queue_free()
+	else:
+		# Not from pool, just free it
+		queue_free()

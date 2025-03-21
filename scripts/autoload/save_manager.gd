@@ -2,9 +2,15 @@ extends Node
 
 ## SaveManager handles all game saving and loading operations
 ## It manages player data, settings, and outfit configurations
+## Now with auto-save functionality
 
 # Current save data instance
 var current_save_data: SaveData = null
+
+# Auto-save settings
+var auto_save_enabled: bool = false
+var auto_save_interval: float = 300.0  # Default: save every 5 minutes
+var time_since_last_save: float = 0.0
 
 # Signals
 signal save_completed(success, message)
@@ -12,6 +18,7 @@ signal load_completed(success, message)
 signal settings_saved(success)
 signal settings_loaded(success)
 signal outfit_saved(success, outfit_name)
+signal auto_save_performed(success)
 
 # Initialize on ready
 func _ready():
@@ -20,6 +27,47 @@ func _ready():
 	current_save_data = SaveData.new()
 	# Load settings immediately on startup
 	load_settings()
+	# Initialize auto-save
+	_init_auto_save()
+
+func _process(delta):
+	# Handle auto-save timer
+	if auto_save_enabled:
+		time_since_last_save += delta
+		
+		if time_since_last_save >= auto_save_interval:
+			perform_auto_save()
+
+# Initialize auto-save
+func _init_auto_save():
+	# Default is disabled
+	auto_save_enabled = false
+	time_since_last_save = 0.0
+	# Ensure process is called
+	set_process(true)
+
+# Toggle auto-save functionality
+func toggle_auto_save(enabled: bool) -> void:
+	auto_save_enabled = enabled
+	time_since_last_save = 0.0
+	print("Auto-save " + ("enabled" if enabled else "disabled"))
+
+# Set auto-save interval (in seconds)
+func set_auto_save_interval(interval: float) -> void:
+	if interval < 10.0:
+		push_warning("Auto-save interval set too low (< 10 seconds). Using 10 seconds.")
+		auto_save_interval = 10.0
+	else:
+		auto_save_interval = interval
+
+# Perform an auto-save operation
+func perform_auto_save() -> bool:
+	print("Performing auto-save...")
+	time_since_last_save = 0.0
+	
+	var success = save_game()
+	emit_signal("auto_save_performed", success)
+	return success
 
 # Save the full game state
 func save_game() -> bool:
@@ -98,7 +146,7 @@ func _update_save_data() -> void:
 		# Get outfit data - ensure we have a deep copy
 		if player.player_outfit:
 			current_save_data.player_outfit = player.player_outfit.duplicate(true)
-		
+
 		# Update timestamp
 		current_save_data.save_date = Time.get_datetime_string_from_system(false, true)
 
@@ -107,6 +155,9 @@ func _update_save_data() -> void:
 		current_save_data.collected_coins = get_node("/root/Global").collected_coins
 		current_save_data.unlocked_levels = get_node("/root/Global").unlocked_levels.duplicate()
 		current_save_data.completed_quests = get_node("/root/Global").completed_quests.duplicate()
+		
+	# Update playtime
+	current_save_data.playtime_seconds += 1  # Add at least 1 second each time
 
 # Apply loaded save data to the game
 func _apply_save_data() -> void:
@@ -139,7 +190,7 @@ func apply_save_data_to_player(player) -> void:
 	# Apply outfit if available
 	if current_save_data.player_outfit:
 		player.player_outfit = current_save_data.player_outfit.duplicate(true)
-		
+
 		# If there's a resource-based outfit, update that too
 		if player.current_outfit:
 			player.current_outfit.from_dictionary(current_save_data.player_outfit)
@@ -187,7 +238,7 @@ func save_settings() -> bool:
 		config.set_value(Constants.SECTION_SETTINGS, "jump_counter", current_save_data.player_jump_counter)
 		config.set_value(Constants.SECTION_SETTINGS, "ready_for_jump", current_save_data.player_ready_for_jump)
 		config.set_value(Constants.SECTION_SETTINGS, "allowed_jumps", current_save_data.player_allowed_jumps)
-		
+
 		# Save outfit
 		if current_save_data.player_outfit:
 			config.set_value(Constants.SECTION_SETTINGS, "outfit", current_save_data.player_outfit)
@@ -196,6 +247,10 @@ func save_settings() -> bool:
 	var master_bus_idx = AudioServer.get_bus_index("Master")
 	config.set_value(Constants.SECTION_SETTINGS, "master_volume", AudioServer.get_bus_volume_db(master_bus_idx))
 	config.set_value(Constants.SECTION_SETTINGS, "master_mute", AudioServer.is_bus_mute(master_bus_idx))
+	
+	# Save auto-save settings
+	config.set_value(Constants.SECTION_SETTINGS, "auto_save_enabled", auto_save_enabled)
+	config.set_value(Constants.SECTION_SETTINGS, "auto_save_interval", auto_save_interval)
 
 	# Save the config
 	var err = config.save(Constants.SETTINGS_FILE_PATH)
@@ -205,7 +260,7 @@ func save_settings() -> bool:
 		print("Settings saved successfully to: ", Constants.SETTINGS_FILE_PATH)
 	else:
 		push_error("Failed to save settings. Error code: " + str(err))
-		
+
 	emit_signal("settings_saved", success)
 	return success
 
@@ -219,7 +274,7 @@ func load_settings() -> bool:
 		return false
 
 	print("Loading settings from: ", Constants.SETTINGS_FILE_PATH)
-	
+
 	# Create default save data if not already created
 	if not current_save_data:
 		current_save_data = SaveData.new()
@@ -248,6 +303,10 @@ func load_settings() -> bool:
 	AudioServer.set_bus_volume_db(master_bus_idx, volume)
 	AudioServer.set_bus_mute(master_bus_idx, mute)
 	
+	# Load auto-save settings
+	auto_save_enabled = config.get_value(Constants.SECTION_SETTINGS, "auto_save_enabled", false)
+	auto_save_interval = config.get_value(Constants.SECTION_SETTINGS, "auto_save_interval", 300.0)
+
 	print("Settings loaded successfully")
 	emit_signal("settings_loaded", true)
 	return true
@@ -270,7 +329,7 @@ func save_outfit(outfit_config: Dictionary, name: String = "") -> bool:
 		print("Outfit saved successfully: ", name)
 	else:
 		push_error("Failed to save outfit. Error code: " + str(err))
-		
+
 	emit_signal("outfit_saved", success, name)
 	return success
 

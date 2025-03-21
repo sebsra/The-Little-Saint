@@ -2,6 +2,7 @@ class_name Rock
 extends BaseProjectile
 
 ## Rock projectile used by archer enemies
+## Now supports object pooling
 
 @export var bounce_count: int = 1  # How many times the rock can bounce
 @export var hit_sound: AudioStream
@@ -27,6 +28,15 @@ func _ready():
 	if has_node("rock"):
 		$rock.play("flying")
 
+func setup(dir: Vector2, spawn_pos: Vector2, spawn_rot: float = 0.0, source = null):
+	# Call parent setup
+	super.setup(dir, spawn_pos, spawn_rot, source)
+	
+	# Reset bounce count
+	bounces_remaining = bounce_count
+	
+	return self
+
 func _on_collision(collision):
 	var collider = collision.get_collider()
 	
@@ -47,8 +57,9 @@ func _on_collision(collision):
 			audio_player.play()
 			
 			# Auto-remove audio player after sound finishes
-			await audio_player.finished
-			audio_player.queue_free()
+			audio_player.finished.connect(func(): 
+				audio_player.queue_free()
+			)
 		
 		return
 	
@@ -72,7 +83,14 @@ func _on_hit_player(player):
 	if hud and hud.has_method("change_life"):
 		hud.change_life(-damage/100.0)  # Assuming HUD uses 0-1 scale
 
-# Connect the hit zone to our hit methods
+# Reset state when recycled to pool
+func _on_recycle_to_pool():
+	super._on_recycle_to_pool()
+	
+	# Reset bounce count
+	bounces_remaining = bounce_count
+
+# Connect the hit zone to our hit methods if we have one
 func _on_hit_zone_body_entered(body):
 	if body.name == "Player":
 		_on_hit_player(body)

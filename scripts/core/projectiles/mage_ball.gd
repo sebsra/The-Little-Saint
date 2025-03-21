@@ -2,9 +2,11 @@ class_name MageBall
 extends BaseProjectile
 
 ## Magical projectile used by mage enemies
+## Now supports object pooling
 
 @export var particle_effect: PackedScene
 @export var hit_sound: AudioStream
+var particles_list = []  # To track spawned particles for cleanup
 
 func _ready():
 	# Set projectile properties
@@ -25,16 +27,21 @@ func _physics_process(delta):
 	super._physics_process(delta)
 	
 	# Add magical effect (optional particle trail)
-	if particle_effect and randf() < 0.3:  # 30% chance per frame
+	if particle_effect and randf() < 0.3 and visible:  # 30% chance per frame
 		var particles = particle_effect.instantiate()
 		particles.global_position = global_position
 		get_tree().current_scene.add_child(particles)
 		particles.emitting = true
 		
+		# Track spawned particles for cleanup
+		particles_list.append(particles)
+		
 		# Auto-remove particles after their lifetime
-		await get_tree().create_timer(particles.lifetime).timeout
-		if is_instance_valid(particles):
-			particles.queue_free()
+		get_tree().create_timer(particles.lifetime).timeout.connect(func():
+			if is_instance_valid(particles):
+				particles.queue_free()
+				particles_list.erase(particles)
+		)
 
 func _on_hit_player(player):
 	# Call parent implementation
@@ -54,10 +61,22 @@ func _on_hit_player(player):
 		audio_player.play()
 		
 		# Auto-remove audio player after sound finishes
-		await audio_player.finished
-		audio_player.queue_free()
+		audio_player.finished.connect(func(): 
+			audio_player.queue_free()
+		)
 
-# Connect the hit zone to our hit methods
+# Override to clean up particles when recycled
+func _on_recycle_to_pool():
+	super._on_recycle_to_pool()
+	
+	# Clean up any remaining particle effects
+	for particle in particles_list:
+		if is_instance_valid(particle):
+			particle.queue_free()
+	
+	particles_list.clear()
+
+# Connect the hit zone to our hit methods if we have one
 func _on_hit_zone_body_entered(body):
 	if body.name == "Player":
 		_on_hit_player(body)
