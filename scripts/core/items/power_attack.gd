@@ -23,10 +23,10 @@ func apply_effect(player):
 	
 	# Set the player's attack animation
 	if player.has_method("set_attack_animation"):
-		player.set_attack_animation("animation36")
+		player.set_attack_animation("walking6")
 	else:
 		# Fallback for current implementation
-		player.attack_animation = "animation36"
+		player.attack_animation = "walking6"
 		
 	# Enable attack ability if player has the method
 	if player.has_method("enable_attack"):
