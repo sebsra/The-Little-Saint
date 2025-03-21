@@ -42,22 +42,17 @@ Here's my prioritized recommendation, organized by importance:
 2. **UI Framework Enhancements**
    - [NEW] `scripts/ui/components/ui_theme.gd` - Central theme manager
    - [MODIFY] `scripts/ui/hud/hud_controller.gd` - Refactor for modularity
-   - [NEW] `scripts/ui/dialogs/conversation_system.gd` - NPC conversation system
-   - [NEW] `scripts/ui/dialogs/dialog_tree.gd` - Branching dialog system
-   
+
    **Rationale:** These changes would improve your UI consistency and dialog system, which appear to be core mechanics. Your popup_manager.gd shows you're already using dialogs, so expanding this is a natural next step.
 
 3. **Player Experience**
    - [NEW] `scripts/ui/hud/objective_tracker.gd` - Quest tracking
    - [NEW] `scripts/core/combat/hit_effect.gd` - Visual hit effects
-   - [MODIFY] `scripts/ui/character_customizer/customizer_controller.gd` - Improve using SaveManager
-   
-   **Rationale:** These changes directly improve player experience without fundamental architecture changes. The customizer improvements align with your existing outfit system.
 
 4. **Audio System Enhancements**
-   - [MODIFY] `scripts/autoload/audio_manager.gd` - Add categories and volume controls
+   - [MODIFY] `scripts/autoload/audio_manager.gd`
+
    
-   **Rationale:** Your current audio system is basic but functional. Adding categories and better controls is a worthwhile improvement but not critical.
 
 ## LOW PRIORITY
 
