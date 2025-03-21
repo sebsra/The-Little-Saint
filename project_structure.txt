@@ -4,6 +4,8 @@ PROJECT STRUCTURE FOR: c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little
 [DIR] .git (skipped)
 [DIR] .godot (skipped)
 [DIR] .vscode (skipped)
+[DIR] Artefakte
+  - # Refactoring TODO List.md
 - README.md
 [DIR] addons
   [DIR] virtual_joystick
@@ -497,7 +499,6 @@ PROJECT STRUCTURE FOR: c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little
     [DIR] controls
       - gui.tscn
       - joystick.tscn
-    [DIR] customizer
     [DIR] dialogs
       - popup_dialog.tscn
     [DIR] hud
@@ -511,8 +512,14 @@ PROJECT STRUCTURE FOR: c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little
 [DIR] scripts
   [DIR] autoload
     - audio_manager.gd
+    - constants.gd
     - game_manager.gd
+    - save_manager.gd
   [DIR] core
+    [DIR] base_classes
+      - base_enemy.gd
+      - base_power_up.gd
+      - base_projectile.gd
     [DIR] characters
       - character_sprites.gd
       - player.gd
@@ -531,8 +538,25 @@ PROJECT STRUCTURE FOR: c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little
     [DIR] projectiles
       - mage_ball.gd
       - rock.gd
+    [DIR] state_machine
+      [DIR] enemy_states
+        - enemy_idle_state.gd
+      [DIR] player_states
+        - player_attack_state.gd
+        - player_base_state.gd
+        - player_death_state.gd
+        - player_fall_state.gd
+        - player_fly_state.gd
+        - player_hurt_state.gd
+        - player_idle_state.gd
+        - player_jump_state.gd
+        - player_walk_state.gd
+      - state.gd
+      - state_machine.gd
   [DIR] levels
     - base_level.gd
+  [DIR] resources
+    - player_outfit_resource.gd
   [DIR] ui
     [DIR] character_customizer
       - customizer_controller.gd
@@ -557,6 +581,127 @@ PROJECT STRUCTURE FOR: c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little
       - settings_menu.gd
   [DIR] utils
     - killzone.gd
+    - save_data.gd
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\Artefakte\# Refactoring TODO List.md:
+========================================
+  # The Little Saint - Adjusted Refactoring Plan
+  
+  Based on your current project state, I've adjusted the refactoring plan for the remaining tasks (19-75). I've observed that you've successfully implemented:
+  
+  - Base classes (BaseEnemy, BasePowerUp, BaseProjectile)
+  - State machine framework
+  - Player and enemy state classes
+  - Modified existing scripts to work with the new architecture
+  
+  Here's the adjusted plan with proper sequencing to prevent duplicate file modifications:
+  
+  ## Phase 1: Core Infrastructure & Game Management (Foundation
+   First)
+  
+  1. [NEW] `scripts/utils/constants.gd` (Task 68) - Create global constants file for game settings
+  2. [MODIFY] `scripts/autoload/game_manager.gd` (Task 19) - Develop the empty manager with:
+     - Game state tracking (menu, playing, paused, game over)
+     - Scene management functionality
+     - Global event handling
+  3. [NEW] `scripts/autoload/save_manager.gd` (Task 22) - Create dedicated save manager that:
+     - Handles saving/loading player data
+     - Manages outfit configurations
+     - Includes error handling and validation
+  4. [NEW] `scripts/utils/save_data.gd` (Task 23) - Create data structure for saved games
+  5. [NEW] `scripts/resources/player_outfit_resource.gd` (Task 31) - Create resource-based outfit system
+  
+  ## Phase 2: Player System Enhancements (Building on State Machine)
+  
+  6. [MODIFY] `scripts/core/characters/player.gd` (Tasks 25, 26, 63) - Complete refactoring by:
+     - Integrating with SaveManager (replace ConfigFile usage)
+     - Optimizing signal connections
+     - Ensuring proper state machine integration
+  7. [MODIFY] `scripts/ui/character_customizer/customizer_controller.gd` (Tasks 24, 32) - Improve by:
+     - Using SaveManager instead of ConfigFile
+     - Implementing resource-based outfit system
+  8. [MODIFY] `scripts/ui/character_customizer/preview_helper.gd` (Task 34) - Optimize preview generation
+  9. [MODIFY] `scripts/ui/character_customizer/outfit_showcase.gd` (Task 33) - Improve UI feedback
+  
+  ## Phase 3: UI Framework & Dialog Enhancements
+  
+  10. [NEW] `scripts/ui/theme/ui_theme.gd` (Task 45) - Create consistent UI theme
+  11. [MODIFY] `scripts/ui/dialogs/popup_dialog.gd` (Task 54) - Enhance with animations and polish
+  12. [NEW] `scripts/ui/dialogs/conversation_system.gd` (Task 55) - Create NPC conversation system
+  13. [NEW] `scripts/ui/dialogs/dialog_tree.gd` (Task 56) - Implement branching dialogs
+  14. [NEW] `scripts/ui/components/button_with_sound.gd` (Task 47) - Create button with sound effects
+  15. [NEW] `scripts/ui/transitions/screen_transition.gd` (Task 48) - Create screen transition effects
+  
+  ## Phase 4: HUD & User Experience
+  
+  16. [MODIFY] `scripts/ui/hud/hud_controller.gd` (Tasks 44, 50) - Enhance with:
+      - Improved health display
+      - Better damage feedback
+      - Animations for UI changes
+  17. [NEW] `scripts/ui/hud/mini_map.gd` (Task 51) - Add mini-map component
+  18. [NEW] `scripts/ui/hud/objective_tracker.gd` (Task 52) - Add objective tracking
+  19. [MODIFY] `scenes/ui/hud/hud.tscn` (Task 53) - Update with new components
+  20. [MODIFY] `scenes/ui/main_menu/main_menu.tscn` (Task 49) - Update with new UI components
+  
+  ## Phase 5: Combat System & Enemy Behaviors
+  
+  21. [NEW] `scripts/core/combat/damage_system.gd` (Task 41) - Create system for damage handling
+  22. [NEW] `scripts/core/combat/hit_effect.gd` (Task 42) - Create visual effects for hits
+  23. [NEW] `scripts/core/combat/screen_shake.gd` (Task 43) - Add screen shake effect
+  24. [NEW] `scripts/core/enemies/behaviors/patrol_behavior.gd` (Task 35) - Create modular patrol behavior
+  25. [NEW] `scripts/core/enemies/behaviors/chase_behavior.gd` (Task 36) - Create modular chase behavior
+  26. [NEW] `scripts/core/enemies/behaviors/attack_behavior.gd` (Task 37) - Create modular attack behavior
+  27. [NEW] `scripts/core/enemies/behaviors/ranged_attack.gd` (Task 38) - Create ranged attack component
+  28. [NEW] `scripts/core/enemies/behaviors/melee_attack.gd` (Task 39) - Create melee attack component
+  29. [NEW] `scripts/managers/enemy_manager.gd` (Task 40) - Create manager for enemy spawning and waves
+  
+  ## Phase 6: Performance Optimization & Resource Management
+  
+  30. [NEW] `scripts/utils/resource_preloader.gd` (Task 58) - Create resource preloading manager
+  31. [NEW] `scripts/utils/object_pool.gd` (Task 59) - Implement object pooling system
+  32. [NEW] `scripts/utils/performance_monitor.gd` (Task 64) - Add monitoring capabilities
+  33. [MODIFY] `scripts/core/projectiles/mage_ball.gd` (Task 60) - Use object pooling
+  34. [MODIFY] `scripts/core/projectiles/rock.gd` (Task 61) - Use object pooling
+  
+  ## Phase 7: Audio System Enhancements
+  
+  35. [MODIFY] `scripts/autoload/audio_manager.gd` (Task 72) - Expand with:
+      - Audio categories (Music, SFX, UI, Ambient)
+      - Volume control
+      - Sound effect management
+  36. [NEW] `scripts/audio/adaptive_music_system.gd` (Task 73) - Create dynamic music system
+  37. [NEW] `scripts/audio/sound_effect.gd` (Task 74) - Create enhanced sound effect class
+  38. [MODIFY] `scenes/managers/audio_manager.tscn` (Task 75) - Update with new audio buses
+  
+  ## Phase 8: Development Tools & Documentation
+  
+  39. [NEW] `scripts/utils/debug_console.gd` (Task 65) - Implement in-game debug console
+  40. [NEW] `scripts/utils/performance_display.gd` (Task 66) - Add FPS and memory display
+  41. [NEW] `scripts/utils/cheat_system.gd` (Task 67) - Add cheat code functionality
+  42. [NEW] `docs/code_standards.md` (Task 70) - Create coding standards document
+  43. [NEW] `docs/architecture.md` (Task 71) - Document project architecture
+  44. [REVIEW] (Task 62) - Optimize heavy processing in _process methods
+  45. [REVIEW] (Task 69) - Standardize class_name usage across all scripts
+  
+  ## Implementation Strategy
+  
+  1. **Focus on core infrastructure first** - Ensure the game manager, event system, and save system are robust before moving on.
+  2. **Implement one phase at a time** - Complete each phase before moving to the next to maintain code stability.
+  3. **Test frequently** - Run the game after each significant change to catch issues early.
+  4. **Document as you go** - Update documentation in parallel with code changes.
+  5. **Leverage state machine** - Use the existing state machine for new behaviors instead of creating parallel systems.
+  
+  ## Priority Order
+  
+  If you need to prioritize certain improvements:
+  
+  1. Game Manager & Save System (Phase 1)
+  2. UI Framework & HUD Improvements (Phases 3 & 4)
+  3. Combat System & Enemy Behaviors (Phase 5)
+  4. Audio System Enhancements (Phase 7)
+  5. Performance Optimization (Phase 6)
+  6. Development Tools (Phase 8)
 
 ========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\README.md:
@@ -1156,7 +1301,9 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\proj
   
   [autoload]
   
+  Constants="*res://scripts/autoload/constants.gd"
   AudioManager="*res://scripts/autoload/audio_manager.gd"
+  SaveManager="*res://scripts/autoload/save_manager.gd"
   Global="*res://scripts/autoload/game_manager.gd"
   PopupManager="*res://scripts/ui/dialogs/popup_manager.gd"
   
@@ -1212,6 +1359,7 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\proj
   [input_devices]
   
   pointing/emulate_touch_from_mouse=true
+  pointing/emulate_mouse_from_touch=false
   
   [layer_names]
   
@@ -1304,9 +1452,919 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scri
   	current_track = null  # Reset track when finished
 
 ========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\autoload\constants.gd:
+========================================
+  extends Node
+  
+  ## Global constants for The Little Saint game
+  
+  # Game States
+  enum GameState {
+  	MENU,           # In main menu
+  	PLAYING,        # Actively playing
+  	PAUSED,         # Game paused
+  	GAME_OVER,      # Player died or level failed
+  	CUTSCENE,       # In a cutscene
+  	DIALOGUE,       # In dialogue
+  	LOADING         # Loading screen
+  }
+  
+  # Player Movement
+  const PLAYER_DEFAULT_SPEED: float = 200.0
+  const PLAYER_DEFAULT_JUMP_VELOCITY: float = -250.0
+  const PLAYER_DEFAULT_FLY_VELOCITY: float = -150.0
+  const PLAYER_DEFAULT_GRAVITY: float = 300.0
+  const PLAYER_MAX_JUMPS: int = 2
+  
+  # Player Status
+  const PLAYER_DEFAULT_MAX_HEALTH: float = 3.0
+  const PLAYER_INVULNERABILITY_TIME: float = 1.0
+  const PLAYER_DEFAULT_FLY_TIME: float = 4.0
+  
+  # File Paths
+  const SETTINGS_FILE_PATH: String = "user://settings.cfg"
+  const SAVE_FILE_PATH: String = "user://save_data.tres"
+  const OUTFIT_FILE_PATH: String = "user://outfits.tres"
+  const FAVORITES_FILE_PATH: String = "user://favorites.cfg"
+  
+  # Config Sections
+  const SECTION_SETTINGS: String = "settings"
+  const SECTION_PLAYER: String = "player"
+  const SECTION_OUTFITS: String = "outfits"
+  const SECTION_FAVORITES: String = "favorites"
+  
+  # Physics
+  const DEFAULT_GRAVITY: float = 980.0
+  
+  # Animation
+  const ANIMATION_IDLE: String = "idle"
+  const ANIMATION_WALKING: String = "walking"
+  const ANIMATION_ATTACK: String = "walking6"  # Current attack animation
+  const ANIMATION_HURT: String = "hurt"
+  const ANIMATION_DEATH: String = "dead"
+  const ANIMATION_JUMP: String = "animation4"  # May need to be updated
+  
+  # Layers
+  enum Layer {
+  	PLAYER = 1,
+  	PORTS = 2,
+  	ITEM = 3,
+  	ENEMY = 4
+  }
+  
+  # Input Action Names
+  const INPUT_RIGHT: String = "right"
+  const INPUT_LEFT: String = "left"
+  const INPUT_UP: String = "up"
+  const INPUT_DOWN: String = "down"
+  const INPUT_ATTACK: String = "attack"
+  const INPUT_DEFEND: String = "defend"
+  const INPUT_MENU: String = "Menu"
+  
+  # Scene paths
+  const MAIN_MENU_SCENE: String = "res://scenes/ui/main_menu/main_menu.tscn"
+  const ADVENTURE_LEVEL_SCENE: String = "res://scenes/levels/adventure_mode/adventure_level.tscn"
+  const SETTINGS_MENU_SCENE: String = "res://scenes/ui/settings/settings_menu.tscn"
+  const CUSTOMIZER_SCENE: String = "res://scenes/ui/character_customizer/customizer.tscn"
+  const AUDIO_SETTINGS_SCENE: String = "res://scenes/ui/settings/audio_settings.tscn"
+  
+  # Debug
+  const DEBUG_ENABLED: bool = false
+
+========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\autoload\game_manager.gd:
 ========================================
   extends Node
+  
+  ## Game Manager handles game state, scene transitions, and global events
+  ## Serves as the central controller for the game
+  
+  # Game state
+  var current_state: Constants.GameState = Constants.GameState.MENU
+  var previous_state: Constants.GameState = Constants.GameState.MENU
+  
+  # Player reference
+  var player = null
+  
+  # Current level
+  var current_level: String = ""
+  var current_level_node = null
+  
+  # Game progress
+  var collected_coins: int = 0
+  var unlocked_levels: Array = []
+  var completed_quests: Array = []
+  
+  # Events
+  signal state_changed(new_state, old_state)
+  signal level_started(level_name)
+  signal level_completed(level_name)
+  signal player_died()
+  signal coin_collected(total_coins)
+  signal game_saved()
+  signal game_loaded()
+  
+  # Initialization
+  func _ready():
+  	process_mode = Node.PROCESS_MODE_ALWAYS # Game manager should run even when paused
+  	print("Game Manager initialized")
+  
+  # State management
+  func change_state(new_state: Constants.GameState) -> void:
+  	if new_state == current_state:
+  		return
+  
+  	previous_state = current_state
+  	current_state = new_state
+  
+  	match new_state:
+  		Constants.GameState.PAUSED:
+  			get_tree().paused = true
+  		Constants.GameState.PLAYING, Constants.GameState.MENU:
+  			get_tree().paused = false
+  
+  	emit_signal("state_changed", current_state, previous_state)
+  	print("Game state changed to: ", Constants.GameState.keys()[current_state])
+  
+  func is_state(state: Constants.GameState) -> bool:
+  	return current_state == state
+  
+  func resume_previous_state() -> void:
+  	change_state(previous_state)
+  
+  # Scene management
+  func change_scene(scene_path: String) -> void:
+  	call_deferred("_deferred_change_scene", scene_path)
+  
+  func _deferred_change_scene(scene_path: String) -> void:
+  	# Clear any popups or overlays
+  	if PopupManager:
+  		PopupManager.close_all_dialogs()
+  
+  	# Store reference to current level if it's a level scene
+  	if scene_path.begins_with("res://scenes/levels/"):
+  		current_level = scene_path
+  
+  	# Transition animation could be added here
+  	get_tree().change_scene_to_file(scene_path)
+  
+  	# After scene change, set appropriate state
+  	if scene_path == Constants.MAIN_MENU_SCENE:
+  		change_state(Constants.GameState.MENU)
+  	elif scene_path.begins_with("res://scenes/levels/"):
+  		change_state(Constants.GameState.PLAYING)
+  		emit_signal("level_started", scene_path)
+  
+  # Level management
+  func restart_level() -> void:
+  	if current_level:
+  		change_scene(current_level)
+  
+  func go_to_main_menu() -> void:
+  	change_scene(Constants.MAIN_MENU_SCENE)
+  
+  # Save and load through SaveManager
+  func save_game() -> void:
+  	if SaveManager:
+  		SaveManager.save_game()
+  		emit_signal("game_saved")
+  
+  func load_game() -> void:
+  	if SaveManager:
+  		SaveManager.load_game()
+  		emit_signal("game_loaded")
+  
+  # Player-related functions
+  func register_player(player_instance) -> void:
+  	player = player_instance
+  	print("Player registered with Game Manager")
+  
+  func collect_coin() -> void:
+  	collected_coins += 1
+  	emit_signal("coin_collected", collected_coins)
+  
+  func player_death() -> void:
+  	change_state(Constants.GameState.GAME_OVER)
+  	emit_signal("player_died")
+  
+  # Event handling
+  func notify_level_completed() -> void:
+  	if current_level and not unlocked_levels.has(current_level):
+  		unlocked_levels.append(current_level)
+  	emit_signal("level_completed", current_level)
+  
+  # Debug helpers
+  func toggle_debug_mode() -> void:
+  	get_node("/root").get_tree().get_root().set_debug_enabled(not get_node("/root").get_tree().get_root().is_debug_enabled())
+  
+  # System functions
+  func quit_game() -> void:
+  	save_game()
+  	get_tree().quit()
+  
+  # Input handling
+  func _input(event: InputEvent) -> void:
+  	if event.is_action_pressed(Constants.INPUT_MENU):
+  		if current_state == Constants.GameState.PLAYING:
+  			change_state(Constants.GameState.PAUSED)
+  		elif current_state == Constants.GameState.PAUSED:
+  			change_state(Constants.GameState.PLAYING)
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\autoload\save_manager.gd:
+========================================
+  extends Node
+  
+  ## SaveManager handles all game saving and loading operations
+  ## It manages player data, settings, and outfit configurations
+  
+  # Current save data instance
+  var current_save_data: SaveData = null
+  
+  # Signals
+  signal save_completed(success, message)
+  signal load_completed(success, message)
+  signal settings_saved(success)
+  signal settings_loaded(success)
+  signal outfit_saved(success, outfit_name)
+  
+  # Initialize on ready
+  func _ready():
+  	print("Save Manager initialized")
+  	current_save_data = SaveData.new()
+  	load_settings() # Always try to load settings at startup
+  
+  # Save the full game state
+  func save_game() -> bool:
+  	if not current_save_data:
+  		current_save_data = SaveData.new()
+  
+  	# Update data before saving
+  	_update_save_data()
+  
+  	# Try to save the resource file
+  	var success = ResourceSaver.save(current_save_data, Constants.SAVE_FILE_PATH)
+  
+  	if success == OK:
+  		print("Game saved successfully to: ", Constants.SAVE_FILE_PATH)
+  		emit_signal("save_completed", true, "Game saved successfully")
+  		return true
+  	else:
+  		push_error("Failed to save game. Error code: " + str(success))
+  		emit_signal("save_completed", false, "Failed to save game")
+  		return false
+  
+  # Load the full game state
+  func load_game() -> bool:
+  	if ResourceLoader.exists(Constants.SAVE_FILE_PATH):
+  		var loaded_data = ResourceLoader.load(Constants.SAVE_FILE_PATH)
+  
+  		if loaded_data is SaveData:
+  			current_save_data = loaded_data
+  
+  			# Apply loaded data to game state
+  			_apply_save_data()
+  
+  			print("Game loaded successfully from: ", Constants.SAVE_FILE_PATH)
+  			emit_signal("load_completed", true, "Game loaded successfully")
+  			return true
+  		else:
+  			push_error("Loaded resource is not a SaveData resource")
+  
+  	# If we get here, loading failed
+  	emit_signal("load_completed", false, "No save data found or data corrupted")
+  	return false
+  
+  # Update the save data with current game state
+  func _update_save_data() -> void:
+  	# Get player reference from GameManager
+  	var player = null
+  	if get_node_or_null("/root/Global") and get_node("/root/Global").player:
+  		player = get_node("/root/Global").player
+  
+  	if player:
+  		# Update player data
+  		current_save_data.health = player.hud.lifes if player.hud else 3.0
+  		current_save_data.coins = player.hud.coins if player.hud else 0
+  		current_save_data.player_position = player.global_position
+  		current_save_data.current_level = get_node("/root/Global").current_level
+  
+  		# Update player stats and settings
+  		current_save_data.player_speed = player.SPEED
+  		current_save_data.player_jump_velocity = player.JUMP_VELOCITY
+  		current_save_data.player_fly_velocity = player.FLY_VELOCITY
+  		current_save_data.player_gravity = player.GRAVITY
+  		current_save_data.player_mode = player.mode
+  		current_save_data.player_passed_fly_time = player.passed_fly_time
+  		current_save_data.player_jump_counter = player.jump_counter
+  		current_save_data.player_ready_for_jump = player.ready_for_jump
+  		current_save_data.player_allowed_jumps = player.allowed_jumps
+  
+  		# Get outfit data
+  		if player.player_outfit:
+  			current_save_data.player_outfit = player.player_outfit.duplicate(true)
+  
+  	# Add global game state
+  	if get_node_or_null("/root/Global"):
+  		current_save_data.collected_coins = get_node("/root/Global").collected_coins
+  		current_save_data.unlocked_levels = get_node("/root/Global").unlocked_levels.duplicate()
+  		current_save_data.completed_quests = get_node("/root/Global").completed_quests.duplicate()
+  
+  # Apply loaded save data to the game
+  func _apply_save_data() -> void:
+  	# Update GameManager data
+  	if get_node_or_null("/root/Global"):
+  		get_node("/root/Global").collected_coins = current_save_data.collected_coins
+  		get_node("/root/Global").unlocked_levels = current_save_data.unlocked_levels.duplicate()
+  		get_node("/root/Global").completed_quests = current_save_data.completed_quests.duplicate()
+  		get_node("/root/Global").current_level = current_save_data.current_level
+  
+  	# We will apply player-specific data when the player is instantiated
+  	# or when we change to the appropriate scene
+  
+  # Apply save data to the player (called when player is instantiated)
+  func apply_save_data_to_player(player) -> void:
+  	if not current_save_data or not player:
+  		return
+  
+  	# Set player stats
+  	player.SPEED = current_save_data.player_speed
+  	player.JUMP_VELOCITY = current_save_data.player_jump_velocity
+  	player.FLY_VELOCITY = current_save_data.player_fly_velocity
+  	player.GRAVITY = current_save_data.player_gravity
+  	player.mode = current_save_data.player_mode
+  	player.passed_fly_time = current_save_data.player_passed_fly_time
+  	player.jump_counter = current_save_data.player_jump_counter
+  	player.ready_for_jump = current_save_data.player_ready_for_jump
+  	player.allowed_jumps = current_save_data.player_allowed_jumps
+  
+  	# Apply outfit if available
+  	if current_save_data.player_outfit:
+  		player.player_outfit = current_save_data.player_outfit.duplicate(true)
+  
+  	# Set HUD data if available
+  	if player.hud:
+  		player.hud.lifes = current_save_data.health
+  		player.hud.coins = current_save_data.coins
+  		player.hud.load_hearts()
+  		player.hud._update_coin_display()
+  
+  # Settings management - Separate from save data for quick access
+  func save_settings() -> bool:
+  	var config = ConfigFile.new()
+  
+  	# Get player for current settings
+  	var player = null
+  	if get_node_or_null("/root/Global") and get_node("/root/Global").player:
+  		player = get_node("/root/Global").player
+  
+  	if player:
+  		# Save player settings
+  		config.set_value(Constants.SECTION_SETTINGS, "SPEED", player.SPEED)
+  		config.set_value(Constants.SECTION_SETTINGS, "JUMP_VELOCITY", player.JUMP_VELOCITY)
+  		config.set_value(Constants.SECTION_SETTINGS, "FLY_VELOCITY", player.FLY_VELOCITY)
+  		config.set_value(Constants.SECTION_SETTINGS, "GRAVITY", player.GRAVITY)
+  		config.set_value(Constants.SECTION_SETTINGS, "mode", player.mode)
+  		config.set_value(Constants.SECTION_SETTINGS, "passed_fly_time", player.passed_fly_time)
+  		config.set_value(Constants.SECTION_SETTINGS, "jump_counter", player.jump_counter)
+  		config.set_value(Constants.SECTION_SETTINGS, "ready_for_jump", player.ready_for_jump)
+  		config.set_value(Constants.SECTION_SETTINGS, "allowed_jumps", player.allowed_jumps)
+  
+  		# Save outfit
+  		if player.player_outfit:
+  			config.set_value(Constants.SECTION_SETTINGS, "outfit", player.player_outfit)
+  
+  	# Save audio settings
+  	var master_bus_idx = AudioServer.get_bus_index("Master")
+  	config.set_value(Constants.SECTION_SETTINGS, "master_volume", AudioServer.get_bus_volume_db(master_bus_idx))
+  	config.set_value(Constants.SECTION_SETTINGS, "master_mute", AudioServer.is_bus_mute(master_bus_idx))
+  
+  	# Save the config
+  	var err = config.save(Constants.SETTINGS_FILE_PATH)
+  	var success = (err == OK)
+  
+  	emit_signal("settings_saved", success)
+  	return success
+  
+  func load_settings() -> bool:
+  	var config = ConfigFile.new()
+  	var err = config.load(Constants.SETTINGS_FILE_PATH)
+  
+  	if err != OK:
+  		emit_signal("settings_loaded", false)
+  		return false
+  
+  	# Create default save data if not already created
+  	if not current_save_data:
+  		current_save_data = SaveData.new()
+  
+  	# Load settings into current_save_data for future use
+  	current_save_data.player_speed = config.get_value(Constants.SECTION_SETTINGS, "SPEED", Constants.PLAYER_DEFAULT_SPEED)
+  	current_save_data.player_jump_velocity = config.get_value(Constants.SECTION_SETTINGS, "JUMP_VELOCITY", Constants.PLAYER_DEFAULT_JUMP_VELOCITY)
+  	current_save_data.player_fly_velocity = config.get_value(Constants.SECTION_SETTINGS, "FLY_VELOCITY", Constants.PLAYER_DEFAULT_FLY_VELOCITY)
+  	current_save_data.player_gravity = config.get_value(Constants.SECTION_SETTINGS, "GRAVITY", Constants.PLAYER_DEFAULT_GRAVITY)
+  	current_save_data.player_mode = config.get_value(Constants.SECTION_SETTINGS, "mode", "normal")
+  	current_save_data.player_passed_fly_time = config.get_value(Constants.SECTION_SETTINGS, "passed_fly_time", 0.0)
+  	current_save_data.player_jump_counter = config.get_value(Constants.SECTION_SETTINGS, "jump_counter", 0)
+  	current_save_data.player_ready_for_jump = config.get_value(Constants.SECTION_SETTINGS, "ready_for_jump", true)
+  	current_save_data.player_allowed_jumps = config.get_value(Constants.SECTION_SETTINGS, "allowed_jumps", 1)
+  
+  	# Load outfit
+  	var saved_outfit = config.get_value(Constants.SECTION_SETTINGS, "outfit", null)
+  	if saved_outfit:
+  		current_save_data.player_outfit = saved_outfit.duplicate(true)
+  
+  	# Apply audio settings
+  	var master_bus_idx = AudioServer.get_bus_index("Master")
+  	var volume = config.get_value(Constants.SECTION_SETTINGS, "master_volume", 0.0)
+  	var mute = config.get_value(Constants.SECTION_SETTINGS, "master_mute", false)
+  
+  	AudioServer.set_bus_volume_db(master_bus_idx, volume)
+  	AudioServer.set_bus_mute(master_bus_idx, mute)
+  
+  	emit_signal("settings_loaded", true)
+  	return true
+  
+  # Outfit management
+  func save_outfit(outfit_config: Dictionary, name: String = "") -> bool:
+  	var favorites = load_favorite_outfits()
+  
+  	if name.is_empty():
+  		name = "Outfit " + str(favorites.size() + 1)
+  
+  	favorites[name] = outfit_config
+  
+  	var config = ConfigFile.new()
+  	config.set_value(Constants.SECTION_FAVORITES, "outfits", favorites)
+  	var err = config.save(Constants.FAVORITES_FILE_PATH)
+  	var success = (err == OK)
+  
+  	emit_signal("outfit_saved", success, name)
+  	return success
+  
+  func load_favorite_outfits() -> Dictionary:
+  	var config = ConfigFile.new()
+  	var err = config.load(Constants.FAVORITES_FILE_PATH)
+  
+  	if err == OK:
+  		return config.get_value(Constants.SECTION_FAVORITES, "outfits", {})
+  	else:
+  		return {}
+  
+  func delete_outfit(name: String) -> bool:
+  	var favorites = load_favorite_outfits()
+  
+  	if not favorites.has(name):
+  		return false
+  
+  	favorites.erase(name)
+  
+  	var config = ConfigFile.new()
+  	config.set_value(Constants.SECTION_FAVORITES, "outfits", favorites)
+  	var err = config.save(Constants.FAVORITES_FILE_PATH)
+  
+  	return (err == OK)
+  
+  # Helper functions
+  func save_exists() -> bool:
+  	return ResourceLoader.exists(Constants.SAVE_FILE_PATH)
+  
+  func clear_save_data() -> void:
+  	var dir = DirAccess.open("user://")
+  	if dir:
+  		dir.remove(Constants.SAVE_FILE_PATH)
+  	current_save_data = SaveData.new()
+  
+  # Return a fresh instance of SaveData
+  func create_new_save_data() -> SaveData:
+  	return SaveData.new()
+  
+  # Helper method for other scripts to add callback function when save completes
+  func connect_save_completed(target: Object, method: String, binds: Array = [], flags: int = 0) -> void:
+  	if not is_connected("save_completed", Callable(target, method)):
+  		connect("save_completed", Callable(target, method).bind(binds), flags)
+  
+  # Called when player instance is being initialized
+  func _on_player_ready(player) -> void:
+  	apply_save_data_to_player(player)
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\base_classes\base_enemy.gd:
+========================================
+  class_name BaseEnemy
+  extends CharacterBody2D
+  
+  ## Base class for all enemies in the game
+  
+  # Enemy properties
+  @export var max_health: float = 100.0
+  @export var speed: float = 80.0
+  @export var chase_speed: float = 100.0
+  @export var attack_damage: float = 10.0
+  @export var attack_cooldown: float = 1.0
+  @export var detection_radius: float = 200.0
+  @export var attack_radius: float = 75.0
+  
+  # Current state
+  var current_health: float
+  var is_dead: bool = false
+  var is_chasing: bool = false
+  var is_attacking: bool = false
+  var can_attack: bool = true
+  var target = null
+  
+  # Nodes (to be assigned by extending classes)
+  var animated_sprite: AnimatedSprite2D
+  var collision_shape: CollisionShape2D
+  var hud = null
+  
+  # Emitted when enemy dies
+  signal enemy_died(enemy)
+  # Emitted when enemy takes damage
+  signal enemy_damaged(enemy, amount)
+  
+  func _ready():
+  	# Initialize health
+  	current_health = max_health
+  
+  	# Set default animation
+  	if animated_sprite:
+  		animated_sprite.play("idle")
+  
+  	# Get HUD reference (if needed)
+  	hud = get_node_or_null("../../HUD")
+  
+  func _physics_process(delta):
+  	# Apply gravity
+  	if not is_on_floor():
+  		velocity.y += calculate_gravity() * delta
+  
+  	# Core movement
+  	move_and_slide()
+  
+  func calculate_gravity():
+  	# Can be overridden by child classes
+  	return ProjectSettings.get_setting("physics/2d/default_gravity")
+  
+  func take_damage(amount):
+  	if is_dead:
+  		return
+  
+  	current_health -= amount
+  	emit_signal("enemy_damaged", self, amount)
+  
+  	if current_health <= 0:
+  		die()
+  	else:
+  		play_animation("hurt")
+  
+  func die():
+  	is_dead = true
+  	is_chasing = false
+  	is_attacking = false
+  
+  	# Disable collision
+  	if collision_shape:
+  		collision_shape.set_deferred("disabled", true)
+  
+  	# Play death animation
+  	play_animation("death")
+  
+  	# Emit signal
+  	emit_signal("enemy_died", self)
+  
+  	# Wait for animation to finish before removing
+  	await animated_sprite.animation_finished
+  	queue_free()
+  
+  func play_animation(anim_name: String):
+  	if animated_sprite and animated_sprite.sprite_frames.has_animation(anim_name):
+  		animated_sprite.play(anim_name)
+  
+  func chase_target(target_node):
+  	if is_dead or is_attacking:
+  		return
+  
+  	target = target_node
+  	is_chasing = true
+  
+  	var direction = (target.global_position - global_position).normalized()
+  
+  	# Face the correct direction
+  	if animated_sprite:
+  		animated_sprite.flip_h = direction.x > 0
+  
+  	# Set velocity
+  	velocity.x = direction.x * (chase_speed if is_chasing else speed)
+  
+  	# Play animation
+  	play_animation("walk")
+  
+  func stop_chase():
+  	is_chasing = false
+  	velocity.x = 0
+  	play_animation("idle")
+  	target = null
+  
+  func attack():
+  	if is_dead or not can_attack or not target:
+  		return
+  
+  	is_attacking = true
+  	can_attack = false
+  	velocity.x = 0
+  
+  	play_animation("attack")
+  
+  	# Wait for animation to finish
+  	await animated_sprite.animation_finished
+  
+  	is_attacking = false
+  
+  	# Start cooldown
+  	await get_tree().create_timer(attack_cooldown).timeout
+  	can_attack = true
+  
+  # Called when a player or other entity enters detection radius
+  func _on_detection_radius_body_entered(body):
+  	if body.name == "Player" and not is_dead:
+  		chase_target(body)
+  
+  # Called when a player or other entity exits detection radius
+  func _on_detection_radius_body_exited(body):
+  	if body.name == "Player":
+  		stop_chase()
+  
+  # Called when a player enters attack range
+  func _on_attack_radius_body_entered(body):
+  	if body.name == "Player" and not is_dead:
+  		is_chasing = false
+  		attack()
+  
+  # Called when a player exits attack range
+  func _on_attack_radius_body_exited(body):
+  	if body.name == "Player" and not is_dead:
+  		is_chasing = true
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\base_classes\base_power_up.gd:
+========================================
+  class_name BasePowerUp
+  extends Area2D
+  
+  ## Base class for all power-ups in the game
+  
+  # Power-up properties
+  @export var power_up_name: String = "Power Up"
+  @export var description: String = "A mysterious power-up"
+  @export var icon_texture: Texture2D
+  @export var effect_duration: float = 0.0  # 0 means permanent effect
+  @export var play_animation: bool = true
+  @export var destroy_on_pickup: bool = true
+  
+  # Animation
+  @export var bounce_height: float = 5.0
+  @export var bounce_speed: float = 2.0
+  @export var rotation_speed: float = 0.0
+  
+  # Internal variables
+  var original_position: Vector2
+  var animation_time: float = 0.0
+  var player_ref = null
+  
+  # Signals
+  signal power_up_collected(power_up, player)
+  signal power_up_effect_started(power_up, player)
+  signal power_up_effect_ended(power_up, player)
+  
+  func _ready():
+  	original_position = global_position
+  
+  	# Set up collision
+  	if not has_node("CollisionShape2D"):
+  		push_error("Power-up " + name + " has no CollisionShape2D!")
+  
+  	# Set up sprite/animation if enabled
+  	if play_animation and has_node("Sprite2D"):
+  		var sprite = get_node("Sprite2D")
+  		if icon_texture:
+  			sprite.texture = icon_texture
+  
+  	# Connect signals
+  	body_entered.connect(_on_power_up_body_entered)
+  
+  func _process(delta):
+  	if play_animation:
+  		animate_power_up(delta)
+  
+  func animate_power_up(delta):
+  	animation_time += delta
+  
+  	# Bouncing animation
+  	if bounce_height > 0:
+  		var bounce_offset = sin(animation_time * bounce_speed) * bounce_height
+  		global_position.y = original_position.y + bounce_offset
+  
+  	# Rotation animation
+  	if rotation_speed > 0 and has_node("Sprite2D"):
+  		var sprite = get_node("Sprite2D")
+  		sprite.rotation += rotation_speed * delta
+  
+  func _on_power_up_body_entered(body):
+  	if body.is_in_group("Player") or body.name == "Player":
+  		collect_power_up(body)
+  
+  func collect_power_up(player):
+  	# Store reference to player
+  	player_ref = player
+  
+  	# Disable collision
+  	set_collision_mask_value(1, false)
+  
+  	# Emit collected signal
+  	emit_signal("power_up_collected", self, player)
+  
+  	# Play collection animation if available
+  	if has_node("AnimationPlayer"):
+  		var anim_player = get_node("AnimationPlayer")
+  		if anim_player.has_animation("collect"):
+  			anim_player.play("collect")
+  			await anim_player.animation_finished
+  
+  	# Apply effect
+  	apply_effect(player)
+  
+  	# Destroy if set
+  	if destroy_on_pickup:
+  		queue_free()
+  
+  func apply_effect(player):
+  	# Base implementation just emits signal
+  	# Override in child classes to implement specific effects
+  	emit_signal("power_up_effect_started", self, player)
+  
+  	# If temporary effect, setup timer to end effect
+  	if effect_duration > 0:
+  		await get_tree().create_timer(effect_duration).timeout
+  		remove_effect(player)
+  
+  func remove_effect(player):
+  	# Override in child classes to implement specific effect removal
+  	emit_signal("power_up_effect_ended", self, player)
+  
+  # Optional methods for child classes to implement
+  func get_effect_description() -> String:
+  	return description
+  
+  func get_icon() -> Texture2D:
+  	return icon_texture
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\base_classes\base_projectile.gd:
+========================================
+  class_name BaseProjectile
+  extends CharacterBody2D
+  
+  ## Base class for all projectiles in the game
+  
+  # Projectile properties
+  @export var speed: float = 100.0
+  @export var damage: float = 10.0
+  @export var lifetime: float = 5.0  # Time before auto-destruction
+  @export var gravity_affected: bool = false
+  @export var bounce: bool = false
+  @export var bounce_factor: float = 0.5  # How much velocity is retained when bouncing
+  
+  # Internal variables
+  var direction: Vector2 = Vector2.ZERO
+  var source_node = null  # Who fired this projectile
+  var spawn_position: Vector2
+  var spawn_rotation: float
+  var time_alive: float = 0.0
+  var has_hit: bool = false
+  
+  # Signals
+  signal projectile_hit(projectile, target)
+  signal projectile_expired(projectile)
+  
+  func _ready():
+  	# Start lifetime timer
+  	if lifetime > 0:
+  		get_tree().create_timer(lifetime).timeout.connect(_on_lifetime_expired)
+  
+  	# Set initial position and rotation
+  	global_position = spawn_position
+  	global_rotation = spawn_rotation
+  
+  	# Setup animation if available
+  	if has_node("AnimatedSprite2D"):
+  		var sprite = get_node("AnimatedSprite2D")
+  		if sprite.sprite_frames.has_animation("flying"):
+  			sprite.play("flying")
+  
+  func _physics_process(delta):
+  	time_alive += delta
+  
+  	# Apply gravity if enabled
+  	if gravity_affected:
+  		velocity.y += ProjectSettings.get_setting("physics/2d/default_gravity") * delta
+  
+  	# Move the projectile
+  	var collision = move_and_collide(velocity * delta)
+  
+  	# Handle collision
+  	if collision and not has_hit:
+  		_on_collision(collision)
+  
+  func setup(dir: Vector2, spawn_pos: Vector2, spawn_rot: float = 0.0, source = null):
+  	direction = dir.normalized()
+  	spawn_position = spawn_pos
+  	spawn_rotation = spawn_rot
+  	source_node = source
+  
+  	# Set initial velocity
+  	velocity = direction * speed
+  
+  	return self  # For method chaining
+  
+  func _on_collision(collision):
+  	var collider = collision.get_collider()
+  
+  	# Check if we should bounce
+  	if bounce and not (collider.is_in_group("Player") or collider.is_in_group("Enemy")):
+  		var reflection = collision.get_remainder().bounce(collision.get_normal())
+  		velocity = velocity.bounce(collision.get_normal()) * bounce_factor
+  		global_position += reflection
+  		return
+  
+  	has_hit = true
+  
+  	# Handle different collision types
+  	if collider.is_in_group("Player") and source_node != collider:
+  		_on_hit_player(collider)
+  	elif collider.is_in_group("Enemy") and source_node != collider:
+  		_on_hit_enemy(collider)
+  	else:
+  		_on_hit_environment(collider)
+  
+  func _on_hit_player(player):
+  	emit_signal("projectile_hit", self, player)
+  
+  	# Apply damage
+  	if player.has_method("take_damage"):
+  		player.take_damage(damage)
+  
+  	# Get HUD reference
+  	var hud = get_node_or_null("../HUD")
+  	if hud and hud.has_method("change_life"):
+  		hud.change_life(-damage/100.0)  # Assuming HUD uses 0-1 scale
+  
+  	# Play hit effect if available
+  	play_hit_effect()
+  
+  	queue_free()
+  
+  func _on_hit_enemy(enemy):
+  	emit_signal("projectile_hit", self, enemy)
+  
+  	# Apply damage
+  	if enemy.has_method("take_damage"):
+  		enemy.take_damage(damage)
+  
+  	# Play hit effect if available
+  	play_hit_effect()
+  
+  	queue_free()
+  
+  func _on_hit_environment(object):
+  	emit_signal("projectile_hit", self, object)
+  
+  	# Play hit effect if available
+  	play_hit_effect()
+  
+  	queue_free()
+  
+  func _on_lifetime_expired():
+  	if not has_hit:
+  		emit_signal("projectile_expired", self)
+  		queue_free()
+  
+  func play_hit_effect():
+  	# If we have an AnimatedSprite2D, try to play the hit animation
+  	if has_node("AnimatedSprite2D"):
+  		var sprite = get_node("AnimatedSprite2D")
+  		if sprite.sprite_frames.has_animation("hit"):
+  			# Disconnect from physics process
+  			set_physics_process(false)
+  
+  			# Stop motion
+  			velocity = Vector2.ZERO
+  
+  			# Play hit animation
+  			sprite.play("hit")
+  
+  			# Wait for animation to finish
+  			await sprite.animation_finished
 
 ========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\characters\character_sprites.gd:
@@ -1318,7 +2376,7 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scri
   	"idle": [0, 1, 2, 3, 4, 5, 6, 7],
   	"animation1": [8, 9, 10, 11, 12, 13, 14, 15],
   	"animation2": [16, 17, 18, 19, 20, 21, 22, 23],
-  	"animation3": [24, 25, 26, 27, 28, 29, 30, 31],
+  	"walking": [24, 25, 26, 27, 28, 29, 30, 31],
   	"animation4": [32, 33, 34, 35, 36],
   	"animation5": [40, 41, 42, 43, 44],
   	"animation6": [48, 49, 50, 51, 52],
@@ -1345,16 +2403,16 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scri
   	"animation27": [216],
   	"dead": [224, 225],
   	"animation29": [232, 233, 234, 235, 236],
-  	"animation30": [240, 241, 242, 243, 244],
-  	"animation31": [248, 249, 250, 251, 252],
-  	"animation32": [256, 257, 258, 259, 260],
-  	"animation33": [264, 265, 266, 267, 268],
-  	"animation34": [272, 273, 274, 275, 276],
-  	"animation35": [280, 281, 282, 283, 284], #attack axe right
-  	"animation36": [288, 289, 290, 291, 292], #attack axe left
-  	"animation37": [296, 297],
-  	"animation38": [304, 305],
-  	"animation39": [312, 313],
+  	"walking0": [240, 241, 242, 243, 244],
+  	"walking1": [248, 249, 250, 251, 252],
+  	"walking2": [256, 257, 258, 259, 260],
+  	"walking3": [264, 265, 266, 267, 268],
+  	"walking4": [272, 273, 274, 275, 276],
+  	"walking5": [280, 281, 282, 283, 284], #attack axe right
+  	"walking6": [288, 289, 290, 291, 292], #attack axe left
+  	"walking7": [296, 297],
+  	"walking8": [304, 305],
+  	"walking9": [312, 313],
   	"animation40": [320, 321],
   	"animation41": [328, 329, 330, 331, 332],
   	"animation42": [336, 337, 338, 339, 340],
@@ -1385,214 +2443,181 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scri
 ========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\characters\player.gd:
 ========================================
+  # Modified player.gd - Remove direct input handling and delegate to state machine
+  
   class_name Player
   extends CharacterBody2D
   
   @export var joystick_right: VirtualJoystick
+  @export var debug_mode: bool = false
   
-  # envrionment variables
-  var SPEED
-  var JUMP_VELOCITY
-  var FLY_VELOCITY
-  var GRAVITY
+  # environment variables
+  var SPEED = 200.0
+  var JUMP_VELOCITY = -250.0
+  var FLY_VELOCITY = -150.0
+  var GRAVITY = 300
   
   # character mode variables
-  var mode
-  var passed_fly_time
-  var jump_counter
-  var ready_for_jump
-  var allowed_jumps
+  var mode = "normal"
+  var passed_fly_time = 0.0
+  var jump_counter = 0
+  var ready_for_jump = true
+  var allowed_jumps = 1
   
   # character health
   var hud
   
-  #character design variables
+  # character design variables
   var player_animations
-  var current_animation
+  var current_animation = "idle"
   var player_outfit
-  var play_attack_animation
-  var attack_animation
+  var play_attack_animation = false
+  var attack_animation = "idle"
   
-  var config = ConfigFile.new() # Create a new ConfigFile instance
+  # Resource-based outfit system
+  var current_outfit: PlayerOutfitResource = null
+  
+  # Reference to the state machine
+  @onready var state_machine = $StateMachine
   
   func _ready() -> void:
   	# Initialize your global variables here
   	hud = get_node("../../HUD")
-  	SPEED = 200.0
-  	JUMP_VELOCITY = -250.0
-  	FLY_VELOCITY = -150.0
-  	GRAVITY = 300
-  	mode = "normal"
-  	passed_fly_time = 0.0
-  	jump_counter = 0
-  	ready_for_jump = true
   	player_animations = get_node("character_sprites").animation_frames
-  	current_animation = "idle"
-  	allowed_jumps = 1
-  	play_attack_animation = false
-  	attack_animation = "idle"
   
   	var default_player_outfit = get_node("character_sprites").default_outfit
   	get_node("character_sprites/masks").visible = false
   	player_outfit = default_player_outfit
   
-  	# Load the ConfigFile if it exists
-  	var err = config.load("user://settings.cfg")
-  	if err == OK: # If the ConfigFile loaded successfully
-  		# Get the values from the ConfigFile
-  		SPEED = config.get_value("settings", "SPEED", 200.0)
-  		JUMP_VELOCITY = config.get_value("settings", "JUMP_VELOCITY", -250.0)
-  		FLY_VELOCITY = config.get_value("settings", "FLY_VELOCITY", -150.0)
-  		GRAVITY = config.get_value("settings", "GRAVITY", 500)
-  		# mode = config.get_value("settings", "mode", "normal")
-  		passed_fly_time = config.get_value("settings", "passed_fly_time", 0.0)
-  		jump_counter = config.get_value("settings", "jump_counter", 0)
-  		ready_for_jump = config.get_value("settings", "ready_for_jump", true)
-  		#allowed_jumps = config.get_value("settings", "allowed_jumps", 1)
-  		player_outfit = config.get_value("settings", "outfit", default_player_outfit)
-  		# TO-DO: load dict wheaether category is visible or not
+  	# Create outfit resource
+  	current_outfit = PlayerOutfitResource.new()
+  
+  	# Connect to SaveManager
+  	SaveManager.connect("load_completed", _on_save_loaded)
+  
+  	# Load settings from SaveManager
+  	if SaveManager.current_save_data:
+  		update_from_save_data()
+  
+  	# Register with GameManager
+  	Global.register_player(self)
+  
+  	if debug_mode:
+  		print("Player ready, State Machine initialized")
   
   func save_settings():
-  	# Set the values in the ConfigFile
-  	config.set_value("settings", "SPEED", SPEED)
-  	config.set_value("settings", "JUMP_VELOCITY", JUMP_VELOCITY)
-  	config.set_value("settings", "FLY_VELOCITY", FLY_VELOCITY)
-  	config.set_value("settings", "GRAVITY", GRAVITY)
-  	config.set_value("settings", "mode", mode)
-  	config.set_value("settings", "passed_fly_time", passed_fly_time)
-  	config.set_value("settings", "jump_counter", jump_counter)
-  	config.set_value("settings", "ready_for_jump", ready_for_jump)
-  	config.set_value("settings", "allowed_jumps", allowed_jumps)
-  	config.set_value("settings", "outfit", player_outfit, )
+  	SaveManager.save_settings()
   
-  	# Save the ConfigFile to the disk
-  	config.save("user://settings.cfg")
+  # New methods for SaveManager integration
+  func _on_save_loaded(success, message):
+  	if success:
+  		update_from_save_data()
   
-  func _process(delta):
-  	# Add the gravity.
-  	Engine.physics_ticks_per_second = 240
-  	# In case of Death
-  	if hud.lifes == 0:
-  		death()
-  	# Read the joystick input
-  	var x_input = Input.get_axis("left", "right")
-  	var y_input = Input.get_axis("down", "up")
-  	if Input.is_action_just_pressed("attack"):
-  		print("attack")
-  		play_attack_animation = true
-  	if Input.is_action_just_pressed("defend"):
-  		print("defend")
-  	if Input.is_action_just_pressed("Menu"):
-  		get_tree().change_scene_to_file("res://scenes/ui/main_menu/main_menu.tscn")
-  	# All Modes.
-  	velocity.y += GRAVITY * delta
+  func update_from_save_data():
+  	if not SaveManager.current_save_data:
+  		return
   
-  	if x_input != 0:
-  		velocity.x = x_input * SPEED
-  	else:
-  		velocity.x = move_toward(velocity.x, 0, 30)
+  	var save_data = SaveManager.current_save_data
+  	SPEED = save_data.player_speed
+  	JUMP_VELOCITY = save_data.player_jump_velocity
+  	FLY_VELOCITY = save_data.player_fly_velocity
+  	GRAVITY = save_data.player_gravity
+  	mode = save_data.player_mode
+  	passed_fly_time = save_data.player_passed_fly_time
+  	jump_counter = save_data.player_jump_counter
+  	ready_for_jump = save_data.player_ready_for_jump
+  	allowed_jumps = save_data.player_allowed_jumps
   
-  	if is_on_floor():
-  		jump_counter = 0
-  		ready_for_jump = true
-  		passed_fly_time = 0.0
-  
-  	elif jump_counter == 0	:
-  		ready_for_jump = false
-  
-  	if y_input > 0.4 && jump_counter < allowed_jumps:
-  		if ready_for_jump:
-  			velocity.y = JUMP_VELOCITY * y_input
-  			jump_counter += 1
-  			ready_for_jump = false
-  	elif y_input < 0.4:
-  		ready_for_jump = true
-  
-  
-  	# Fly mode
-  	if mode == "fly":
-  		allowed_jumps = 1
-  		if passed_fly_time < 4:
-  				passed_fly_time += delta
-  				if y_input != 0:
-  					velocity.y = FLY_VELOCITY * y_input
-  
-  	move_and_slide()
-  
-  	# Set Animation
-  	if x_input == 0 && y_input == 0 && current_animation != "dead":
-  		current_animation = "idle"
-  	elif x_input != 0 && y_input <= 0.4:
-  		current_animation = "animation3"
-  	elif y_input > 0.4 or y_input < - 0.4:
-  		current_animation = "idle"
-  
-  	if play_attack_animation:
-  		current_animation = attack_animation
-  
-  
-  	# Set Outfit
-  	for outfit in player_outfit:
-  		var animated_sprite = get_node("character_sprites/"+ outfit)
-  		var selected_outfit = player_outfit[outfit]
-  
-  		if str(selected_outfit) == "none":
-  			animated_sprite.visible = false
+  	# Apply outfit if available
+  	if save_data.player_outfit:
+  		if current_outfit:
+  			current_outfit.from_dictionary(save_data.player_outfit)
   		else:
-  			animated_sprite.play(str(selected_outfit))
-  			animated_sprite.speed_scale = 2.0
-  			animated_sprite.flip_h = x_input > 0
-  			if animated_sprite.frame >= player_animations[current_animation][-1]:
-  				play_attack_animation = false
+  			current_outfit = PlayerOutfitResource.new().from_dictionary(save_data.player_outfit)
   
-  			if (animated_sprite.frame < player_animations[current_animation][0] or
-  				animated_sprite.frame >= player_animations[current_animation][ - 1]):
-  					animated_sprite.frame = player_animations[current_animation][0]
+  		# Apply current outfit to character
+  		player_outfit = save_data.player_outfit.duplicate(true)
   
+  # Helper method to play animations
+  func play_animation(anim_name: String):
+  	current_animation = anim_name
+  
+  # Return gravity as a Vector2 to avoid conflicts with PhysicsBody2D
+  func calculate_gravity() -> Vector2:
+  	return Vector2(0, GRAVITY)
+  
+  # Keep portal handlers and other methods
   func _on_test_portal_entered(_body):
-  	get_tree().change_scene_to_file("res://scenes/ui/main_menu/main_menu.tscn")
+  	Global.change_scene(Constants.MAIN_MENU_SCENE)
   	mode = "fly"
   	save_settings()
   
   func _on_elias_portal_entered(_body):
   	print("Elias")
-  	save_settings() # Replace with function body.
+  	save_settings()
   
   func _on_ardit_portal_entered(_body):
-  	get_tree().change_scene_to_file("res://Arrogance.tscn")
-  	save_settings() # Replace with function body.
+  	Global.change_scene("res://Arrogance.tscn")
+  	save_settings()
   
   func _on_sebastian_portal_entered(_body):
   	mode = "normal"
-  	get_tree().change_scene_to_file("res://scenes/levels/sebastian_levels/level_1.tscn")
-  	save_settings() # Replace with function body.
-  
-  func _on_prince_portal_entered(_body):
-  	get_tree().change_scene_to_file("res://scenes/levels/prince_levels/platform.tscn")
+  	Global.change_scene("res://scenes/levels/sebastian_levels/level_1.tscn")
   	save_settings()
   
-  		#current_animation = "dead"
-  		#current_animation = "hurt"
+  func _on_prince_portal_entered(_body):
+  	Global.change_scene("res://scenes/levels/prince_levels/platform.tscn")
+  	save_settings()
   
   func _on_fallzone_body_entered(_body):
-  	get_tree().change_scene_to_file("res://scenes/levels/ardit_levels/arrogance.tscn")
+  	Global.change_scene("res://scenes/levels/ardit_levels/arrogance.tscn")
   
   func _on_life_up_body_entered(_body):
-  	get_parent().get_node("HUD").change_life(0.25)
+  	if hud:
+  		hud.change_life(0.25)
   
   func _on_life_down_body_entered(_body):
-  		get_parent().get_node("HUD").change_life(-0.25)
+  	if hud:
+  		hud.change_life(-0.25)
   
   func death():
   	$CollisionShape2D.disabled = true
-  	current_animation = "death"
+  	current_animation = "dead"
+  
+  	# Notify GameManager of player death
+  	Global.player_death()
+  
   	self.queue_free()
-  	get_tree().change_scene_to_file("res://scenes/ui/main_menu/main_menu.tscn")
-  
-  
+  	Global.go_to_main_menu()
   
   func _on_test_portal_body_entered(_body):
-  	get_tree().change_scene_to_file("res://scenes/levels/adventure_mode/adventure_level.tscn")
+  	Global.change_scene("res://scenes/levels/adventure_mode/adventure_level.tscn")
+  
+  # New methods for gameplay enhancement
+  func set_movement_mode(new_mode: String) -> void:
+  	mode = new_mode
+  
+  	if new_mode == "fly":
+  		passed_fly_time = 0.0
+  
+  	if debug_mode:
+  		print("Movement mode changed to: ", new_mode)
+  
+  func enable_attack(enable: bool) -> void:
+  	play_attack_animation = enable
+  
+  func set_attack_animation(anim_name: String) -> void:
+  	attack_animation = anim_name
+  
+  func add_extra_jumps(extra_jumps: int) -> void:
+  	allowed_jumps += extra_jumps
+  
+  func take_damage(amount: float) -> void:
+  	if hud:
+  		hud.change_life(-amount/100.0)
+  
+  func bounce() -> void:
+  	velocity.y = JUMP_VELOCITY * 0.7  # Less powerful than a regular jump
 
 ========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\characters\player_camera.gd:
@@ -1614,296 +2639,560 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scri
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\enemies\ardit_enemy.gd:
 ========================================
   class_name ArditEnemy
-  extends Node2D
+  extends BaseEnemy
   
-  const SPEED = 60
+  ## Simple patrol enemy that walks back and forth
   
-  var direction = 1
+  @export var patrol_distance: float = 100.0
+  @export var direction: int = 1  # 1 = right, -1 = left
   
-  @onready var ray_cast_right = $RayCastRight
-  @onready var ray_cast_left = $RayCastLeft
-  @onready var animated_sprite = $AnimatedSprite2D
+  @onready var ray_cast_right: RayCast2D = $RayCastRight
+  @onready var ray_cast_left: RayCast2D = $RayCastLeft
   
-  # Called every frame. 'delta' is the elapsed time since the previous frame.
-  func _process(delta):
-  	if ray_cast_right.is_colliding():
+  var start_position: Vector2
+  var is_patrolling: bool = true
+  
+  func _ready():
+  	# Set base enemy properties
+  	max_health = 50.0
+  	speed = 60.0
+  	chase_speed = 80.0
+  	attack_damage = 15.0
+  	attack_cooldown = 1.0
+  
+  	# Set references
+  	animated_sprite = $AnimatedSprite2D
+  	collision_shape = $CollisionShape2D
+  
+  	# Store starting position for patrol
+  	start_position = global_position
+  
+  	# Initialize raycasts if not already set
+  	if not ray_cast_right:
+  		ray_cast_right = $RayCastRight if has_node("RayCastRight") else null
+  
+  	if not ray_cast_left:
+  		ray_cast_left = $RayCastLeft if has_node("RayCastLeft") else null
+  
+  	# Call parent ready method
+  	super._ready()
+  
+  	# Start patrol behavior
+  	play_animation("walk")
+  
+  func _physics_process(delta):
+  	# Call parent implementation for gravity and movement
+  	super._physics_process(delta)
+  
+  	# Handle patrol logic if not chasing or attacking
+  	if is_patrolling and not is_chasing and not is_attacking and not is_dead:
+  		patrol()
+  
+  func patrol():
+  	# Check wall collisions
+  	if ray_cast_right and ray_cast_right.is_colliding():
   		direction = -1
   		animated_sprite.flip_h = false
-  	if ray_cast_left.is_colliding():
+  	elif ray_cast_left and ray_cast_left.is_colliding():
   		direction = 1
   		animated_sprite.flip_h = true
   
-  	position.x += direction * SPEED * delta
+  	# Check patrol distance limits
+  	if abs(global_position.x - start_position.x) > patrol_distance:
+  		direction *= -1
+  		animated_sprite.flip_h = direction > 0
   
+  	# Set movement velocity
+  	velocity.x = direction * speed
   
+  	# Play walk animation
+  	play_animation("walk")
+  
+  func chase_target(target_node):
+  	# Stop patrolling when chasing
+  	is_patrolling = false
+  
+  	# Call parent implementation
+  	super.chase_target(target_node)
+  
+  func stop_chase():
+  	# Resume patrolling when chase ends
+  	is_patrolling = true
+  
+  	# Call parent implementation
+  	super.stop_chase()
+  
+  # Overridden to properly handle player jumping on enemy
   func _on_top_checker_body_entered(body):
-  	$AnimatedSprite2D.play("dead")
+  	if body.name == "Player" and not is_dead:
+  		# Player jumped on top, take damage
+  		take_damage(current_health)  # Instant kill when jumped on
+  
+  		# Give player an upward boost if it has the method
+  		if body.has_method("bounce"):
+  			body.bounce()
 
 ========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\enemies\goblin_archer.gd:
 ========================================
   class_name GoblinArcher
-  extends CharacterBody2D
+  extends BaseEnemy
   
-  @onready var main = get_node("../../")
-  @onready var projectile = load("res://scenes/core/projectiles/rock.tscn")
-  var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-  var player
-  var speed = 60
-  var chase = false
-  var attack = false
-  var death = false
+  ## Goblin Archer - Ranged enemy that attacks with arrows/rocks
+  
+  @export var projectile_scene: PackedScene
+  @export var quiver_size: int = 5  # How many arrows before needing to reload
+  @export var reload_time: float = 1.5
+  @export var attack_delay: float = 0.5  # Time before arrow is fired after attack animation starts
+  
+  var arrows_remaining: int
+  var is_reloading: bool = false
   
   func _ready():
-  	player = get_node("../../Player/Player")
-  	if death == false:
-  		get_node("AnimatedSprite2D").play("idle")
+  	# Set base enemy properties
+  	max_health = 70.0
+  	speed = 60.0
+  	chase_speed = 80.0
+  	attack_damage = 8.0
+  	attack_cooldown = 0.7
   
-  func _process(delta):
-  	velocity.y += gravity * delta
-  	chaseMode()
-  	move_and_slide()
+  	# Initialize archer specific properties
+  	arrows_remaining = quiver_size
   
-  func attackMode():
-  	if attack == true && death == false:
-  		velocity.x = 0
-  		player = get_node("../../Player/Player")
-  		get_node("AnimatedSprite2D").play("attack")
+  	# Set references
+  	animated_sprite = $AnimatedSprite2D
+  	collision_shape = $CollisionShape2D
   
-  func chaseMode():
-  	if chase == true && death == false && attack == false:
-  		get_node("AnimatedSprite2D").play("walk")
-  		var direction = (player.position - self.position).normalized()
-  		if direction.x > 0:
-  			get_node("AnimatedSprite2D").flip_h = true
-  		else:
-  			get_node("AnimatedSprite2D").flip_h = false
-  		velocity.x = direction.x * speed
+  	# Call parent ready method
+  	super._ready()
   
-  func shoot():
-  	var direction = (player.position - self.position).normalized()
-  	var instance = projectile.instantiate()
-  	instance.direction = direction
-  	instance.spawnPos = global_position
-  	instance.spawnRot = rotation
-  	main.add_child.call_deferred(instance)
+  func attack():
+  	if is_dead or not can_attack or not target or is_reloading:
+  		return
   
+  	# Check if we need to reload
+  	if arrows_remaining <= 0:
+  		reload()
+  		return
+  
+  	is_attacking = true
+  	can_attack = false
+  	velocity.x = 0
+  
+  	play_animation("attack")
+  
+  	# Wait for the right animation frame to spawn projectile
+  	await get_tree().create_timer(attack_delay).timeout
+  
+  	# Spawn projectile if we still have a target
+  	if target and not is_dead:
+  		spawn_projectile()
+  		arrows_remaining -= 1
+  
+  	# Wait for animation to finish
+  	await animated_sprite.animation_finished
+  
+  	is_attacking = false
+  
+  	# Start cooldown
+  	await get_tree().create_timer(attack_cooldown).timeout
+  	can_attack = true
+  
+  func reload():
+  	is_reloading = true
+  
+  	# Play reload animation if available, otherwise just idle
+  	if animated_sprite.sprite_frames.has_animation("reload"):
+  		play_animation("reload")
+  	else:
+  		play_animation("idle")
+  
+  	# Wait for reload time
+  	await get_tree().create_timer(reload_time).timeout
+  
+  	# Refill quiver
+  	arrows_remaining = quiver_size
+  	is_reloading = false
+  
+  func spawn_projectile():
+  	# Make sure we have a projectile scene
+  	if not projectile_scene:
+  		projectile_scene = load("res://scenes/core/projectiles/rock.tscn")
+  
+  	# Create projectile instance
+  	var instance = projectile_scene.instantiate()
+  
+  	# Get direction to target
+  	var direction = (target.global_position - global_position).normalized()
+  
+  	# Setup the projectile
+  	if instance is BaseProjectile:
+  		instance.setup(
+  			direction,
+  			global_position,
+  			global_rotation,
+  			self
+  		)
+  	else:
+  		# Legacy fallback for existing implementation
+  		instance.direction = direction
+  		instance.spawn_position = global_position
+  		instance.spawn_rotation = global_rotation
+  
+  	# Add projectile to the main scene
+  	var main = get_node("../../")
+  	main.add_child(instance)
+  
+  # Connection to detection radius (override parent implementation)
   func _on_detection_radius_3_body_entered(body):
-  	if body.name == "Player" && attack == false:
-  		chase = true
-  		chaseMode()
+  	if body.name == "Player" and not is_dead:
+  		chase_target(body)
   
   func _on_detection_radius_3_body_exited(body):
   	if body.name == "Player":
-  		chase = false
+  		stop_chase()
   
+  # Connection to attack zone (override parent implementation)
   func _on_attack_radius_3_body_entered(body):
   	if body.name == "Player":
-  		attack = true
-  		chase = false
-  		attackMode()
-  		while attack == true:
-  			shoot()
-  			await get_tree().create_timer(0.7).timeout
+  		is_chasing = false
+  		attack()
+  
+  		# Setup continuous attack if in range
+  		var attack_timer = func():
+  			while is_attacking == false and can_attack and not is_dead and body and is_instance_valid(body):
+  				attack()
+  				await get_tree().create_timer(0.1).timeout
+  
+  		attack_timer.call()
   
   func _on_attack_radius_3_body_exited(body):
   	if body.name == "Player":
-  		chase = true
-  		attack = false
-  		chaseMode()
+  		is_chasing = true
+  		chase_target(body)
   
+  # Connection to death zone (override parent implementation)
   func _on_death_radius_3_body_entered(body):
   	if body.name == "Player":
-  		death = true
-  		speed = 0
-  		chase = false
-  		attack = false
-  		$CollisionShape2D.disabled = true
-  		get_node("AnimatedSprite2D").play("death")
-  		await get_node("AnimatedSprite2D").animation_finished
-  		self.queue_free()
+  		take_damage(current_health)  # Instant death
 
 ========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\enemies\goblin_mage.gd:
 ========================================
   class_name GoblinMage
-  extends CharacterBody2D
+  extends BaseEnemy
   
-  @onready var main = get_node("../../")
-  @onready var projectile = load("res://scenes/core/projectiles/mage_ball.tscn")
-  var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-  var player
-  var speed = 40
-  var chase = false
-  var attack = false
-  var death = false
+  ## Goblin Mage - Ranged magical enemy that attacks with spell projectiles
+  
+  @export var projectile_scene: PackedScene
+  @export var mana: float = 100.0
+  @export var mana_regen_rate: float = 5.0
+  @export var spell_mana_cost: float = 20.0
+  @export var attack_delay: float = 1.0
+  
+  var current_mana: float
+  var can_cast: bool = true
   
   func _ready():
-  	player = get_node("../../Player/Player")
-  	if death == false:
-  		get_node("AnimatedSprite2D").play("idle")
+  	# Set base enemy properties
+  	max_health = 60.0
+  	speed = 40.0
+  	chase_speed = 50.0
+  	attack_damage = 15.0
+  	attack_cooldown = 3.0
+  
+  	# Initialize goblin mage specific properties
+  	current_mana = mana
+  
+  	# Set references
+  	animated_sprite = $AnimatedSprite2D
+  	collision_shape = $CollisionShape2D
+  
+  	# Call parent ready method
+  	super._ready()
   
   func _process(delta):
-  	velocity.y += gravity * delta
-  	chaseMode()
-  	move_and_slide()
+  	# Regenerate mana
+  	if current_mana < mana:
+  		current_mana = min(current_mana + mana_regen_rate * delta, mana)
   
-  func attackMode():
-  	if attack == true && death == false:
-  		velocity.x = 0
-  		player = get_node("../../Player/Player")
-  		get_node("AnimatedSprite2D").play("attack")
+  func attack():
+  	if is_dead or not can_attack or not target or current_mana < spell_mana_cost:
+  		return
   
-  func chaseMode():
-  	if chase == true && death == false && attack == false:
-  		get_node("AnimatedSprite2D").play("walk")
-  		var direction = (player.position - self.position).normalized()
-  		if direction.x > 0:
-  			get_node("AnimatedSprite2D").flip_h = true
-  		else:
-  			get_node("AnimatedSprite2D").flip_h = false
-  		velocity.x = direction.x * speed
+  	is_attacking = true
+  	can_attack = false
+  	velocity.x = 0
   
-  func shoot():
-  	var direction = (player.position - self.position).normalized()
-  	var instance = projectile.instantiate()
-  	instance.direction = direction
-  	instance.spawnPos = global_position
-  	instance.spawnRot = rotation
-  	main.add_child.call_deferred(instance)
+  	play_animation("attack")
   
+  	# Wait for the right animation frame to spawn projectile
+  	await get_tree().create_timer(attack_delay).timeout
+  
+  	# Spawn projectile if we still have a target
+  	if target and not is_dead:
+  		spawn_projectile()
+  
+  	# Wait for animation to finish
+  	await animated_sprite.animation_finished
+  
+  	is_attacking = false
+  
+  	# Start cooldown
+  	await get_tree().create_timer(attack_cooldown).timeout
+  	can_attack = true
+  
+  func spawn_projectile():
+  	# Make sure we have a projectile scene
+  	if not projectile_scene:
+  		projectile_scene = load("res://scenes/core/projectiles/mage_ball.tscn")
+  
+  	# Create projectile instance
+  	var instance = projectile_scene.instantiate()
+  
+  	# Get direction to target
+  	var direction = (target.global_position - global_position).normalized()
+  
+  	# Setup the projectile
+  	if instance is BaseProjectile:
+  		instance.setup(
+  			direction,
+  			global_position,
+  			global_rotation,
+  			self
+  		)
+  	else:
+  		# Legacy fallback for existing implementation
+  		instance.direction = direction
+  		instance.spawn_position = global_position
+  		instance.spawn_rotation = global_rotation
+  
+  	# Add projectile to the main scene
+  	var main = get_node("../../")
+  	main.add_child(instance)
+  
+  	# Consume mana
+  	current_mana -= spell_mana_cost
+  
+  # Connection to detection radius (override parent implementation)
   func _on_detection_radius_2_body_entered(body):
-  	if body.name == "Player" && attack == false:
-  		chase = true
-  		chaseMode()
+  	if body.name == "Player" and not is_dead:
+  		chase_target(body)
   
   func _on_detection_radius_2_body_exited(body):
   	if body.name == "Player":
-  		chase = false
+  		stop_chase()
   
+  # Connection to attack zone (override parent implementation)
   func _on_attackzone_2_body_entered(body):
   	if body.name == "Player":
-  		attack = true
-  		chase = false
-  		attackMode()
-  		while attack == true:
-  			shoot()
-  			await get_tree().create_timer(3.0).timeout
+  		is_chasing = false
+  		attack()
   
   func _on_attackzone_2_body_exited(body):
   	if body.name == "Player":
-  		chase = true
-  		attack = false
-  		chaseMode()
+  		is_chasing = true
+  		chase_target(body)
   
+  # Connection to death zone (override parent implementation)
   func _on_death_zone_2_body_entered(body):
   	if body.name == "Player":
-  		death = true
-  		speed = 0
-  		chase = false
-  		attack = false
-  		$CollisionShape2D.disabled = true
-  		get_node("AnimatedSprite2D").play("death")
-  		await get_node("AnimatedSprite2D").animation_finished
-  		self.queue_free()
-  
-  func wait_for_seconds(seconds: float) -> void:
-  	await get_tree().create_timer(seconds).timeout
+  		take_damage(current_health)  # Instant death
 
 ========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\enemies\goblin_melee.gd:
 ========================================
   class_name GoblinMelee
-  extends CharacterBody2D
+  extends BaseEnemy
   
-  var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-  var player
-  var speed = 80
-  var chase = false
-  var attack = false
-  var death = false
-  var hud
+  ## Goblin Melee - Close combat enemy that attacks directly
+  
+  @export var rage_threshold: float = 0.3  # Percentage of health that triggers rage mode
+  @export var rage_speed_multiplier: float = 1.5
+  @export var rage_damage_multiplier: float = 1.2
+  
+  var is_enraged: bool = false
+  var base_speed: float
+  var base_chase_speed: float
+  var base_attack_damage: float
   
   func _ready():
-  	hud = get_node("../../HUD")
-  	if death == false:
-  		get_node("AnimatedSprite2D").play("idle")
-  func _process(delta):
-  	velocity.y += gravity * delta
+  	# Set base enemy properties
+  	max_health = 100.0
+  	speed = 80.0
+  	chase_speed = 100.0
+  	attack_damage = 20.0
+  	attack_cooldown = 1.0
   
-  	if chase == true && death == false:
-  		player = get_node("../../Player/Player")
-  		get_node("AnimatedSprite2D").play("walk")
-  		var direction = (player.position - self.position).normalized()
-  		if direction.x > 0:
-  			get_node("AnimatedSprite2D").flip_h = true
-  		else:
-  			get_node("AnimatedSprite2D").flip_h = false
-  		velocity.x = direction.x * speed
+  	# Store base values for rage mode
+  	base_speed = speed
+  	base_chase_speed = chase_speed
+  	base_attack_damage = attack_damage
   
-  	if attack == true && death == false:
-  		player = get_node("../../Player/Player")
-  		get_node("AnimatedSprite2D").play("attack")
-  	move_and_slide()
+  	# Set references
+  	animated_sprite = $AnimatedSprite2D
+  	collision_shape = $CollisionShape2D
   
+  	# Call parent ready method
+  	super._ready()
+  
+  func take_damage(amount):
+  	super.take_damage(amount)
+  
+  	# Check if we should enter rage mode
+  	if not is_enraged and current_health <= max_health * rage_threshold:
+  		enter_rage_mode()
+  
+  func enter_rage_mode():
+  	is_enraged = true
+  
+  	# Increase stats
+  	speed = base_speed * rage_speed_multiplier
+  	chase_speed = base_chase_speed * rage_speed_multiplier
+  	attack_damage = base_attack_damage * rage_damage_multiplier
+  
+  	# Visual indication of rage if available
+  	if animated_sprite.sprite_frames.has_animation("rage"):
+  		animated_sprite.play("rage")
+  
+  	# Play a sound if available
+  	if has_node("AudioStreamPlayer"):
+  		var audio = get_node("AudioStreamPlayer")
+  		audio.play()
+  
+  func attack():
+  	if is_dead or not can_attack or not target:
+  		return
+  
+  	is_attacking = true
+  	can_attack = false
+  	velocity.x = 0
+  
+  	# Use rage attack animation if available and enraged
+  	if is_enraged and animated_sprite.sprite_frames.has_animation("rage_attack"):
+  		play_animation("rage_attack")
+  	else:
+  		play_animation("attack")
+  
+  	# Apply damage to player
+  	if target.has_method("take_damage"):
+  		target.take_damage(attack_damage)
+  
+  	# Update HUD
+  	if hud and hud.has_method("change_life"):
+  		hud.change_life(-attack_damage/100.0)  # Assuming health is on 0-1 scale for HUD
+  
+  	# Wait for animation to finish
+  	await animated_sprite.animation_finished
+  
+  	is_attacking = false
+  
+  	# Start cooldown
+  	await get_tree().create_timer(attack_cooldown).timeout
+  	can_attack = true
+  
+  # Connection to detection radius (override parent implementation)
   func _on_detection_radius_body_entered(body):
-  	if body.name == "Player":
-  		chase = true
-  
+  	if body.name == "Player" and not is_dead:
+  		chase_target(body)
   
   func _on_detection_radius_body_exited(body):
   	if body.name == "Player":
-  		chase = false
+  		stop_chase()
   
-  
+  # Connection to attack zone (override parent implementation)
   func _on_attackzone_body_entered(body):
   	if body.name == "Player":
-  		chase = false
-  		attack = true
-  		hud.change_life(-1)
-  
+  		is_chasing = false
+  		attack()
   
   func _on_attackzone_body_exited(body):
   	if body.name == "Player":
-  		chase = true
-  		attack = false
+  		is_chasing = true
+  		chase_target(body)
   
-  
+  # Connection to death zone (override parent implementation)
   func _on_deathzone_body_entered(body):
   	if body.name == "Player":
-  		death = true
-  		speed = 0
-  		chase = false
-  		attack = false
-  		$CollisionShape2D.disabled = true
-  		get_node("AnimatedSprite2D").play("death")
-  		await get_node("AnimatedSprite2D").animation_finished
-  		self.queue_free()
+  		take_damage(current_health)  # Instant death
 
 ========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\enemies\prince_enemy.gd:
 ========================================
   class_name PrinceEnemy
-  extends Node2D
+  extends BaseEnemy
   
-  const SPEED = 60
+  ## Simple patrol enemy that walks back and forth (used in prince levels)
   
-  var direction = 1
+  @export var direction: int = 1  # 1 = right, -1 = left
+  @export var damage_on_touch: float = 10.0  # Damage dealt when touching player
   
-  @onready var ray_cast_right = $RayCastRight
-  @onready var ray_cast_left = $RayCastLeft
-  @onready var animated_sprite = $AnimatedSprite2D
+  @onready var ray_cast_right: RayCast2D = $RayCastRight
+  @onready var ray_cast_left: RayCast2D = $RayCastLeft
   
-  # Called every frame. 'delta' is the elapsed time since the previous frame.
-  func _process(delta):
-  	if ray_cast_right.is_colliding():
+  var start_position: Vector2
+  var is_patrolling: bool = true
+  
+  func _ready():
+  	# Set base enemy properties
+  	max_health = 40.0
+  	speed = 60.0
+  	chase_speed = speed  # Same as normal speed since this enemy doesn't chase
+  	attack_damage = damage_on_touch
+  
+  	# Set references
+  	animated_sprite = $AnimatedSprite2D
+  	collision_shape = $CollisionShape2D
+  
+  	# Store starting position
+  	start_position = global_position
+  
+  	# Initialize raycasts if not already set
+  	if not ray_cast_right:
+  		ray_cast_right = $RayCastRight if has_node("RayCastRight") else null
+  
+  	if not ray_cast_left:
+  		ray_cast_left = $RayCastLeft if has_node("RayCastLeft") else null
+  
+  	# Call parent ready method
+  	super._ready()
+  
+  	# Start patrol behavior
+  	play_animation("walk")
+  
+  func _physics_process(delta):
+  	# Call parent implementation for gravity and movement
+  	super._physics_process(delta)
+  
+  	# Handle patrol logic if not chasing or attacking
+  	if is_patrolling and not is_dead:
+  		patrol()
+  
+  func patrol():
+  	# Check wall collisions
+  	if ray_cast_right and ray_cast_right.is_colliding():
   		direction = -1
   		animated_sprite.flip_h = false
-  	if ray_cast_left.is_colliding():
+  	elif ray_cast_left and ray_cast_left.is_colliding():
   		direction = 1
   		animated_sprite.flip_h = true
   
-  	position.x += direction * SPEED * delta
+  	# Set movement velocity
+  	velocity.x = direction * speed
+  
+  	# Play walk animation
+  	play_animation("walk")
+  
+  # Override to handle damage-on-touch behavior
+  func _on_body_entered(body):
+  	if body.name == "Player" and not is_dead:
+  		# Deal damage to player
+  		if body.has_method("take_damage"):
+  			body.take_damage(damage_on_touch)
+  
+  		# Update HUD
+  		if hud and hud.has_method("change_life"):
+  			hud.change_life(-damage_on_touch/100.0)  # Assuming health is on 0-1 scale for HUD
 
 ========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\items\coins.gd:
@@ -1938,106 +3227,1113 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scri
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\items\power_attack.gd:
 ========================================
   class_name PowerAttack
-  extends Area2D
+  extends BasePowerUp
   
+  ## Power-up that gives the player an axe attack ability
   
-  func _on_body_attack_entered(body):
-  	body.attack_animation = "animation36"
-  	print("axe_attack")
-  	queue_free()
+  func _ready():
+  	# Set power-up properties
+  	power_up_name = "Battle Axe"
+  	description = "Grants the ability to attack with a powerful axe"
+  	destroy_on_pickup = true
+  
+  	# Set animation properties
+  	bounce_height = 5.0
+  	bounce_speed = 2.0
+  	rotation_speed = 1.0
+  
+  	# Call parent ready method
+  	super._ready()
+  
+  func apply_effect(player):
+  	# Call the parent implementation for signals
+  	super.apply_effect(player)
+  
+  	# Set the player's attack animation
+  	if player.has_method("set_attack_animation"):
+  		player.set_attack_animation("walking6")
+  	else:
+  		# Fallback for current implementation
+  		player.attack_animation = "walking6"
+  
+  	# Enable attack ability if player has the method
+  	if player.has_method("enable_attack"):
+  		player.enable_attack(true)
+  
+  	print("Player gained axe attack ability")
+  
+  	# Show notification to player
+  	var popup_manager = get_node_or_null("/root/PopupManager")
+  	if popup_manager:
+  		popup_manager.info("New Ability", "You've acquired a battle axe! Press the attack button to use it.")
 
 ========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\items\power_fly.gd:
 ========================================
   class_name PowerFly
-  extends Area2D
+  extends BasePowerUp
   
+  ## Power-up that gives the player temporary flying ability
   
-  func _on_body_entered(body):
-  	body.mode = "fly"
-  	print("Fly")
-  	queue_free()
+  func _ready():
+  	# Set power-up properties
+  	power_up_name = "Angel Wings"
+  	description = "Grants temporary flying ability"
+  	effect_duration = 20.0  # 20 seconds of flight
+  	destroy_on_pickup = true
+  
+  	# Set animation properties
+  	bounce_height = 8.0
+  	bounce_speed = 1.5
+  	rotation_speed = 0.5
+  
+  	# Call parent ready method
+  	super._ready()
+  
+  func apply_effect(player):
+  	# Call the parent implementation for signals
+  	super.apply_effect(player)
+  
+  	# Set the player's movement mode
+  	if player.has_method("set_movement_mode"):
+  		player.set_movement_mode("fly")
+  	else:
+  		# Fallback for current implementation
+  		player.mode = "fly"
+  
+  	print("Player gained flight ability")
+  
+  	# Show notification to player
+  	var popup_manager = get_node_or_null("/root/PopupManager")
+  	if popup_manager:
+  		popup_manager.info("New Ability", "You've acquired angel wings! You can now fly for " + str(effect_duration) + " seconds.")
+  
+  	# Add a visible timer to the HUD if available
+  	var hud = get_node_or_null("../../HUD")
+  	if hud and hud.has_method("show_ability_timer"):
+  		hud.show_ability_timer("Flight", effect_duration)
+  
+  func remove_effect(player):
+  	# Set the player's movement mode back to normal
+  	if player.has_method("set_movement_mode"):
+  		player.set_movement_mode("normal")
+  	else:
+  		# Fallback for current implementation
+  		player.mode = "normal"
+  
+  	# Reset player's flight timer
+  	player.passed_fly_time = 0.0
+  
+  	# Let the player know the effect has ended
+  	var popup_manager = get_node_or_null("/root/PopupManager")
+  	if popup_manager:
+  		popup_manager.info("Ability Expired", "Your angel wings have disappeared.")
+  
+  	# Call the parent implementation for signals
+  	super.remove_effect(player)
 
 ========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\items\power_jump.gd:
 ========================================
   class_name PowerJump
-  extends Area2D
+  extends BasePowerUp
   
+  ## Power-up that gives the player double jump ability
   
-  func _on_body_entered(body):
-  	body.allowed_jumps += 1
-  	body.mode = "normal"
-  	print("double_jump")
-  	queue_free()
+  @export var extra_jumps: int = 1  # How many extra jumps to grant
+  
+  func _ready():
+  	# Set power-up properties
+  	power_up_name = "Feather Boots"
+  	description = "Grants the ability to double jump"
+  	destroy_on_pickup = true
+  
+  	# Set animation properties
+  	bounce_height = 10.0
+  	bounce_speed = 3.0
+  	rotation_speed = 0.0
+  
+  	# Call parent ready method
+  	super._ready()
+  
+  func apply_effect(player):
+  	# Call the parent implementation for signals
+  	super.apply_effect(player)
+  
+  	# Increase player's allowed jumps
+  	if player.has_method("add_extra_jumps"):
+  		player.add_extra_jumps(extra_jumps)
+  	else:
+  		# Fallback for current implementation
+  		player.allowed_jumps += extra_jumps
+  
+  	# Set the player's movement mode to normal (in case they were flying)
+  	if player.has_method("set_movement_mode"):
+  		player.set_movement_mode("normal")
+  	else:
+  		# Fallback for current implementation
+  		player.mode = "normal"
+  
+  	print("Player gained double jump ability")
+  
+  	# Show notification to player
+  	var popup_manager = get_node_or_null("/root/PopupManager")
+  	if popup_manager:
+  		if extra_jumps == 1:
+  			popup_manager.info("New Ability", "You've acquired Feather Boots! You can now double jump in mid-air.")
+  		else:
+  			popup_manager.info("New Ability", "You've acquired Feather Boots! You can now perform " + str(extra_jumps + 1) + " jumps in a row.")
 
 ========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\projectiles\mage_ball.gd:
 ========================================
   class_name MageBall
-  extends CharacterBody2D
+  extends BaseProjectile
   
-  @export var SPEED = 50
-  var hud
-  var direction = 0
-  var spawnPos : Vector2
-  var spawnRot : float
+  ## Magical projectile used by mage enemies
+  
+  @export var particle_effect: PackedScene
+  @export var hit_sound: AudioStream
   
   func _ready():
-  	hud = get_node("../HUD")
-  	global_position = spawnPos
-  	global_rotation = spawnRot
-  	projectile_decay()
+  	# Set projectile properties
+  	speed = 50.0
+  	damage = 10.0
+  	lifetime = 5.0
+  	gravity_affected = false
   
+  	# Call parent ready method
+  	super._ready()
   
-  # Called every frame. 'delta' is the elapsed time since the previous frame.
-  func _process(delta):
-  	velocity.x = direction.x * SPEED
-  	get_node("Ball").play("flying")
-  	move_and_slide()
+  	# Set up animation
+  	if has_node("Ball"):
+  		$Ball.play("flying")
   
+  func _physics_process(delta):
+  	# Implement base projectile physics
+  	super._physics_process(delta)
   
+  	# Add magical effect (optional particle trail)
+  	if particle_effect and randf() < 0.3:  # 30% chance per frame
+  		var particles = particle_effect.instantiate()
+  		particles.global_position = global_position
+  		get_tree().current_scene.add_child(particles)
+  		particles.emitting = true
+  
+  		# Auto-remove particles after their lifetime
+  		await get_tree().create_timer(particles.lifetime).timeout
+  		if is_instance_valid(particles):
+  			particles.queue_free()
+  
+  func _on_hit_player(player):
+  	# Call parent implementation
+  	super._on_hit_player(player)
+  
+  	# Add magical effect (status effect, screen shake, etc.)
+  	var hud = get_node_or_null("../HUD")
+  	if hud and hud.has_method("change_life"):
+  		hud.change_life(-damage/100.0)  # Assuming HUD uses 0-1 scale
+  
+  	# Play hit sound
+  	if hit_sound:
+  		var audio_player = AudioStreamPlayer.new()
+  		audio_player.stream = hit_sound
+  		audio_player.volume_db = -10.0
+  		get_tree().current_scene.add_child(audio_player)
+  		audio_player.play()
+  
+  		# Auto-remove audio player after sound finishes
+  		await audio_player.finished
+  		audio_player.queue_free()
+  
+  # Connect the hit zone to our hit methods
   func _on_hit_zone_body_entered(body):
   	if body.name == "Player":
-  		hud.change_life(-1)
-  		self.queue_free()
-  
-  func projectile_decay():
-  	await get_tree().create_timer(5.0).timeout
-  	self.queue_free()
+  		_on_hit_player(body)
 
 ========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\projectiles\rock.gd:
 ========================================
   class_name Rock
-  extends CharacterBody2D
+  extends BaseProjectile
   
-  @export var SPEED = 120
-  var hud
-  var direction = 0
-  var spawnPos : Vector2
-  var spawnRot : float
+  ## Rock projectile used by archer enemies
+  
+  @export var bounce_count: int = 1  # How many times the rock can bounce
+  @export var hit_sound: AudioStream
+  
+  var bounces_remaining: int = 0
   
   func _ready():
-  	hud = get_node("../HUD")
-  	global_position = spawnPos
-  	global_rotation = spawnRot
-  	projectile_decay()
+  	# Set projectile properties
+  	speed = 120.0
+  	damage = 8.0
+  	lifetime = 5.0
+  	gravity_affected = true
+  	bounce = true
+  	bounce_factor = 0.6
   
-  # Called every frame. 'delta' is the elapsed time since the previous frame.
-  func _process(delta):
-  	velocity.x = direction.x * SPEED
-  	get_node("rock").play("flying")
-  	move_and_slide()
+  	# Set remaining bounces
+  	bounces_remaining = bounce_count
   
-  func projectile_decay():
-  	await get_tree().create_timer(5.0).timeout
-  	self.queue_free()
+  	# Call parent ready method
+  	super._ready()
   
+  	# Set up animation
+  	if has_node("rock"):
+  		$rock.play("flying")
+  
+  func _on_collision(collision):
+  	var collider = collision.get_collider()
+  
+  	# Check if we should bounce
+  	if bounce and bounces_remaining > 0 and not collider.is_in_group("Player") and not collider.is_in_group("Enemy"):
+  		bounces_remaining -= 1
+  
+  		var reflection = collision.get_remainder().bounce(collision.get_normal())
+  		velocity = velocity.bounce(collision.get_normal()) * bounce_factor
+  		global_position += reflection
+  
+  		# Play bounce sound if available
+  		if hit_sound:
+  			var audio_player = AudioStreamPlayer.new()
+  			audio_player.stream = hit_sound
+  			audio_player.volume_db = -15.0
+  			get_tree().current_scene.add_child(audio_player)
+  			audio_player.play()
+  
+  			# Auto-remove audio player after sound finishes
+  			await audio_player.finished
+  			audio_player.queue_free()
+  
+  		return
+  
+  	# If no more bounces or hit player/enemy, use default behavior
+  	has_hit = true
+  
+  	# Handle different collision types
+  	if collider.is_in_group("Player") and source_node != collider:
+  		_on_hit_player(collider)
+  	elif collider.is_in_group("Enemy") and source_node != collider:
+  		_on_hit_enemy(collider)
+  	else:
+  		_on_hit_environment(collider)
+  
+  func _on_hit_player(player):
+  	# Call parent implementation
+  	super._on_hit_player(player)
+  
+  	# Update HUD
+  	var hud = get_node_or_null("../HUD")
+  	if hud and hud.has_method("change_life"):
+  		hud.change_life(-damage/100.0)  # Assuming HUD uses 0-1 scale
+  
+  # Connect the hit zone to our hit methods
   func _on_hit_zone_body_entered(body):
   	if body.name == "Player":
-  		hud.change_life(-0.2)
-  		self.queue_free()
+  		_on_hit_player(body)
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\state_machine\enemy_states\enemy_idle_state.gd:
+========================================
+  class_name EnemyIdleState
+  extends State
+  
+  ## Enemy idle state - when the enemy is standing still
+  
+  @export var idle_animation: String = "idle"
+  @export var idle_min_time: float = 1.0
+  @export var idle_max_time: float = 3.0
+  
+  var idle_timer: float = 0.0
+  var idle_duration: float = 0.0
+  var target = null
+  
+  func enter():
+  	# Play idle animation
+  	play_animation(idle_animation)
+  
+  	# Reset horizontal velocity
+  	var velocity = get_velocity()
+  	velocity.x = 0
+  	set_velocity(velocity)
+  
+  	# Set random idle duration
+  	idle_duration = randf_range(idle_min_time, idle_max_time)
+  	idle_timer = 0.0
+  
+  func physics_process(delta: float):
+  	# Apply gravity
+  	var velocity = get_velocity()
+  	var gravity = owner_node.get_gravity() if owner_node.has_method("get_gravity") else 980.0
+  
+  	velocity.y += gravity * delta
+  	set_velocity(velocity)
+  
+  	# Handle movement for character body
+  	if owner_node.has_method("move_and_slide"):
+  		owner_node.move_and_slide()
+  
+  	# Update idle timer
+  	idle_timer += delta
+  
+  func get_next_state() -> String:
+  	# Check if there's a player in detection range
+  	target = get_owner_property("target")
+  	if target != null:
+  		return "Chase"
+  
+  	# Check if idle time has elapsed - transition to patrol
+  	if idle_timer >= idle_duration:
+  		return "Patrol"
+  
+  	# No transition, stay in idle
+  	return ""
+  
+  # Used by enemies to find nearby player
+  func check_for_player():
+  	var detection_radius = get_owner_property("detection_radius")
+  	if not detection_radius:
+  		return null
+  
+  	var space_state = owner_node.get_world_2d().direct_space_state
+  	var player_detection_shape = CircleShape2D.new()
+  	player_detection_shape.radius = detection_radius
+  
+  	var query = PhysicsShapeQueryParameters2D.new()
+  	query.set_shape(player_detection_shape)
+  	query.transform = Transform2D(0, owner_node.global_position)
+  	query.collision_mask = 1  # Player layer
+  
+  	var results = space_state.intersect_shape(query)
+  
+  	for result in results:
+  		var collider = result.collider
+  		if collider.name == "Player":
+  			return collider
+  
+  	return null
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\state_machine\player_states\player_attack_state.gd:
+========================================
+  class_name PlayerAttackState
+  extends PlayerBaseState
+  
+  var attack_timer: float = 0.0
+  var attack_duration: float = 0.5  # Duration of the attack animation
+  
+  func enter():
+      player.current_animation = player.attack_animation
+      player.play_attack_animation = true
+      attack_timer = 0.0
+  
+      # Optionally play attack sound
+      # if player.has_node("AttackSound"):
+      #     player.get_node("AttackSound").play()
+  
+  func physics_process(delta: float):
+      # Apply gravity
+      var velocity = get_velocity()
+      velocity.y += player.GRAVITY * delta
+  
+      # Reduce movement during attack (optional)
+      velocity.x = move_toward(velocity.x, 0, 20)
+  
+      set_velocity(velocity)
+  
+      # Handle movement for character body
+      player.move_and_slide()
+  
+      # Update attack timer
+      attack_timer += delta
+  
+      # Update outfit
+      update_outfit()
+  
+  func get_next_state() -> String:
+      # Check state transitions
+      var life_state = check_life()
+      if life_state:
+          return life_state
+  
+      # Return to appropriate state after attack finishes
+      if attack_timer >= attack_duration:
+          player.play_attack_animation = false
+  
+          if player.is_on_floor():
+              var x_input = Input.get_axis("left", "right")
+              if x_input != 0:
+                  return "PlayerWalkState"
+              else:
+                  return "PlayerIdleState"
+          else:
+              return "PlayerFallState"
+  
+      # Stay in attack state
+      return ""
+  
+  func handle_input(event: InputEvent):
+      check_menu_input(event)
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\state_machine\player_states\player_base_state.gd:
+========================================
+  class_name PlayerBaseState
+  extends State
+  
+  # Base functions shared by all player states
+  var player: Player
+  
+  func _ready():
+  	# Set player reference during initialization
+  	player = owner_node as Player
+  
+  # Function to update the outfit based on the current state
+  func update_outfit():
+  	var player_outfit = player.player_outfit
+  	var player_animations = player.player_animations
+  	var current_animation = player.current_animation
+  
+  	for outfit in player_outfit:
+  		var animated_sprite = player.get_node("character_sprites/" + outfit)
+  		var selected_outfit = player_outfit[outfit]
+  
+  		if str(selected_outfit) == "none":
+  			animated_sprite.visible = false
+  		else:
+  			animated_sprite.visible = true
+  			animated_sprite.play(str(selected_outfit))
+  			animated_sprite.speed_scale = 2.0
+  
+  			# Set direction based on movement
+  			var x_input = Input.get_axis("left", "right")
+  			if x_input != 0:
+  				animated_sprite.flip_h = x_input > 0
+  
+  			# Frame management
+  			if current_animation in player_animations:
+  				if animated_sprite.frame < player_animations[current_animation][0] or animated_sprite.frame >= player_animations[current_animation][-1]:
+  					animated_sprite.frame = player_animations[current_animation][0]
+  
+  # Function to check life and handle death
+  func check_life():
+  	if player.hud and player.hud.lifes <= 0:
+  		return "PlayerDeathState"
+  	return ""
+  
+  # Function to check menu input
+  func check_menu_input(event):
+  	if event is InputEvent and event.is_action_pressed("Menu"):
+  		get_tree().change_scene_to_file("res://scenes/ui/main_menu/main_menu.tscn")
+  		if player.has_method("save_settings"):
+  			player.save_settings()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\state_machine\player_states\player_death_state.gd:
+========================================
+  class_name PlayerDeathState
+  extends PlayerBaseState
+  
+  var death_timer: float = 0.0
+  var death_duration: float = 1.5  # Duration before scene transition
+  
+  func enter():
+      player.current_animation = "death"
+      player.get_node("CollisionShape2D").disabled = true
+      death_timer = 0.0
+  
+  func physics_process(delta: float):
+      # Update death animation timer
+      death_timer += delta
+  
+      # Update outfit
+      update_outfit()
+  
+  func get_next_state() -> String:
+      # Scene transition after death animation
+      if death_timer >= death_duration:
+          player.queue_free()
+          get_tree().change_scene_to_file("res://scenes/ui/main_menu/main_menu.tscn")
+  
+      # Stay in death state
+      return ""
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\state_machine\player_states\player_fall_state.gd:
+========================================
+  class_name PlayerFallState
+  extends PlayerBaseState
+  
+  func enter():
+  	# player.current_animation = "idle"  # You may want a falling animation
+  
+  	# Mark as not ready for jump
+  	if player.jump_counter == 0:
+  		player.ready_for_jump = false
+  
+  func physics_process(delta: float):
+  	# Apply gravity
+  	var velocity = get_velocity()
+  	velocity.y += player.GRAVITY * delta
+  
+  	# Read the input
+  	var x_input = Input.get_axis("left", "right")
+  	var y_input = Input.get_axis("down", "up")
+  
+  	# Apply horizontal movement
+  	if x_input != 0:
+  		velocity.x = x_input * player.SPEED
+  		player.current_animation = "walking"
+  	else:
+  		velocity.x = move_toward(velocity.x, 0, 30)
+  
+  	# Check for double jump if allowed
+  	if y_input > 0.4 && player.jump_counter < player.allowed_jumps && player.ready_for_jump:
+  		velocity.y = player.JUMP_VELOCITY * y_input
+  		player.jump_counter += 1
+  		player.ready_for_jump = false
+  	elif y_input < 0.4:
+  		player.ready_for_jump = true
+  
+  	set_velocity(velocity)
+  
+  	# Handle movement for character body
+  	player.move_and_slide()
+  
+  	# Update outfit
+  	update_outfit()
+  
+  func get_next_state() -> String:
+  	# Check state transitions
+  	var life_state = check_life()
+  	if life_state:
+  		return life_state
+  
+  	# Check for attack input
+  	if Input.is_action_just_pressed("attack"):
+  		return "PlayerAttackState"
+  
+  	# Check for fly mode
+  	if player.mode == "fly":
+  		return "PlayerFlyState"
+  
+  	# Landing transition
+  	if player.is_on_floor():
+  		player.jump_counter = 0
+  		player.ready_for_jump = true
+  		player.passed_fly_time = 0.0
+  
+  		# Check if still moving
+  		var x_input = Input.get_axis("left", "right")
+  		if x_input != 0:
+  			return "PlayerWalkState"
+  		else:
+  			return "PlayerIdleState"
+  
+  	# Double jump transition
+  	var y_input = Input.get_axis("down", "up")
+  	if y_input > 0.4 && player.jump_counter < player.allowed_jumps && player.ready_for_jump:
+  		return "PlayerJumpState"
+  
+  	# Stay in fall state
+  	return ""
+  
+  func handle_input(event: InputEvent):
+  	check_menu_input(event)
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\state_machine\player_states\player_fly_state.gd:
+========================================
+  class_name PlayerFlyState
+  extends PlayerBaseState
+  
+  func enter():
+      player.current_animation = "idle"  # You may want a specific fly animation
+  
+  func physics_process(delta: float):
+      # Apply gravity
+      var velocity = get_velocity()
+      velocity.y += player.GRAVITY * delta
+  
+      # Read inputs
+      var x_input = Input.get_axis("left", "right")
+      var y_input = Input.get_axis("down", "up")
+  
+      # Apply horizontal movement
+      if x_input != 0:
+          velocity.x = x_input * player.SPEED
+      else:
+          velocity.x = move_toward(velocity.x, 0, 30)
+  
+      # Update fly time counter
+      if player.passed_fly_time < 4:
+          player.passed_fly_time += delta
+          if y_input != 0:
+              velocity.y = player.FLY_VELOCITY * y_input
+  
+      set_velocity(velocity)
+  
+      # Handle movement for character body
+      player.move_and_slide()
+  
+      # Update outfit
+      update_outfit()
+  
+  func get_next_state() -> String:
+      # Check state transitions
+      var life_state = check_life()
+      if life_state:
+          return life_state
+  
+      # Check for attack input
+      if Input.is_action_just_pressed("attack"):
+          return "PlayerAttackState"
+  
+      # Landing transition
+      if player.is_on_floor():
+          player.jump_counter = 0
+          player.ready_for_jump = true
+          player.passed_fly_time = 0.0
+  
+          # Check movement direction after landing
+          var x_input = Input.get_axis("left", "right")
+          if x_input != 0:
+              return "PlayerWalkState"
+          else:
+              return "PlayerIdleState"
+  
+      # Time limit check
+      if player.passed_fly_time >= 4:
+          return "PlayerFallState"
+  
+      # Stay in fly state
+      return ""
+  
+  func handle_input(event: InputEvent):
+      check_menu_input(event)
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\state_machine\player_states\player_hurt_state.gd:
+========================================
+  class_name PlayerHurtState
+  extends PlayerBaseState
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\state_machine\player_states\player_idle_state.gd:
+========================================
+  class_name PlayerIdleState
+  extends PlayerBaseState
+  
+  func enter():
+  	player.current_animation = "idle"
+  	# Reset horizontal velocity
+  	var velocity = get_velocity()
+  	velocity.x = 0
+  	set_velocity(velocity)
+  
+  	if player.debug_mode:
+  		print("Entered Idle State")
+  
+  func physics_process(delta: float):
+  	# Apply gravity
+  	var velocity = get_velocity()
+  	velocity.y += player.GRAVITY * delta
+  	set_velocity(velocity)
+  
+  	# Handle movement for character body
+  	player.move_and_slide()
+  
+  	# Update outfit
+  	update_outfit()
+  
+  func get_next_state() -> String:
+  	# Check for death
+  	var life_state = check_life()
+  	if life_state != "":
+  		return life_state
+  
+  	# Check input for state transitions
+  	var x_input = Input.get_axis("left", "right")
+  	var y_input = Input.get_axis("down", "up")
+  
+  	# Check for attack
+  	if Input.is_action_just_pressed("attack"):
+  		return "PlayerAttackState"
+  
+  	# Check for movement
+  	if x_input != 0:
+  		return "PlayerWalkState"
+  
+  	# Check for jumping
+  	if y_input > 0.4 and player.is_on_floor():
+  		return "PlayerJumpState"
+  
+  	# Check for falling
+  	if !player.is_on_floor():
+  		return "PlayerFallState"
+  
+  	# No transition
+  	return ""
+  
+  func handle_input(event: InputEvent):
+  	check_menu_input(event)
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\state_machine\player_states\player_jump_state.gd:
+========================================
+  # Fix for player_jump_state.gd - Correct class name
+  class_name PlayerJumpState
+  extends PlayerBaseState
+  
+  func enter():
+  	# player.current_animation = "idle"  # You may want to use a jump animation
+  
+  	# Apply initial jump velocity
+  	var velocity = get_velocity()
+  	var y_input = Input.get_axis("down", "up")
+  	velocity.y = player.JUMP_VELOCITY * y_input
+  	set_velocity(velocity)
+  
+  	# Update jump counter
+  	player.jump_counter += 1
+  	player.ready_for_jump = false
+  
+  	if player.debug_mode:
+  		print("Entered Jump State")
+  
+  func physics_process(delta: float):
+  	# Apply gravity
+  	var velocity = get_velocity()
+  	velocity.y += player.GRAVITY * delta
+  
+  	# Read horizontal input
+  	var x_input = Input.get_axis("left", "right")
+  
+  	# Apply horizontal movement
+  	if x_input != 0:
+  		velocity.x = x_input * player.SPEED
+  		player.current_animation = "walking"
+  	else:
+  		velocity.x = move_toward(velocity.x, 0, 30)
+  
+  	set_velocity(velocity)
+  
+  	# Handle movement for character body
+  	player.move_and_slide()
+  
+  	# Reset jump readiness when input is released
+  	var y_input = Input.get_axis("down", "up")
+  	if y_input < 0.4:
+  		player.ready_for_jump = true
+  
+  	# Update outfit
+  	update_outfit()
+  
+  func get_next_state() -> String:
+  	# Check state transitions
+  	var life_state = check_life()
+  	if life_state:
+  		return life_state
+  
+  	# Check for attack input
+  	if Input.is_action_just_pressed("attack"):
+  		return "PlayerAttackState"
+  
+  	# Fly state transition
+  	if player.mode == "fly":
+  		return "PlayerFlyState"
+  
+  	# Landing transition
+  	if player.is_on_floor():
+  		player.jump_counter = 0
+  		player.ready_for_jump = true
+  
+  		# Check if still moving
+  		var x_input = Input.get_axis("left", "right")
+  		if x_input != 0:
+  			return "PlayerWalkState"
+  		else:
+  			return "PlayerIdleState"
+  
+  	# Falling transition
+  	if get_velocity().y > 0:
+  		return "PlayerFallState"
+  
+  	# Stay in jump state
+  	return ""
+  
+  func handle_input(event: InputEvent):
+  	check_menu_input(event)
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\state_machine\player_states\player_walk_state.gd:
+========================================
+  class_name PlayerWalkState
+  extends PlayerBaseState
+  
+  func enter():
+  	player.current_animation = "walking"  # Walk animation
+  
+  	if player.debug_mode:
+  		print("Entered Walk State")
+  
+  func physics_process(delta: float):
+  	# Apply gravity
+  	var velocity = get_velocity()
+  	velocity.y += player.GRAVITY * delta
+  
+  	# Read the input
+  	var x_input = Input.get_axis("left", "right")
+  
+  	# Apply horizontal movement
+  	if x_input != 0:
+  		velocity.x = x_input * player.SPEED
+  	else:
+  		velocity.x = move_toward(velocity.x, 0, 30)
+  
+  	set_velocity(velocity)
+  
+  	# Handle movement for character body
+  	player.move_and_slide()
+  
+  	# Update outfit
+  	update_outfit()
+  
+  func get_next_state() -> String:
+  	# Check for death
+  	var life_state = check_life()
+  	if life_state != "":
+  		return life_state
+  
+  	# Check for attack
+  	if Input.is_action_just_pressed("attack"):
+  		return "PlayerAttackState"
+  
+  	# Read inputs
+  	var x_input = Input.get_axis("left", "right")
+  	var y_input = Input.get_axis("down", "up")
+  
+  	# Stop walking
+  	if x_input == 0:
+  		return "PlayerIdleState"
+  
+  	# Jump while moving
+  	if y_input > 0.4 and player.is_on_floor():
+  		return "PlayerJumpState"
+  
+  	# Fall transition
+  	if !player.is_on_floor():
+  		return "PlayerFallState"
+  
+  	# Stay in walk state
+  	return ""
+  
+  func handle_input(event: InputEvent):
+  	check_menu_input(event)
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\state_machine\state.gd:
+========================================
+  class_name State
+  extends Node
+  
+  ## Base class for all states in a state machine
+  
+  # Reference to the state machine
+  var state_machine: StateMachine = null
+  
+  # Reference to the owner node
+  var owner_node: Node = null
+  
+  # State parameters (can be extended by child classes)
+  var parameters: Dictionary = {}
+  
+  
+  # Called when entering this state
+  func enter():
+  	pass
+  
+  # Called when exiting this state
+  func exit():
+  	pass
+  
+  # Called during _process
+  func process(delta: float):
+  	pass
+  
+  # Called during _physics_process
+  func physics_process(delta: float):
+  	pass
+  
+  # Called during _input
+  func handle_input(event: InputEvent):
+  	pass
+  
+  # Override this to determine the next state to transition to
+  func get_next_state() -> String:
+  	return ""
+  
+  # Utility functions that can be used by derived states
+  
+  # Check if a condition is true
+  func condition_met(condition_name: String) -> bool:
+  	if owner_node.has_method("check_condition"):
+  		return owner_node.check_condition(condition_name)
+  	return false
+  
+  # Get a value from the owner
+  func get_owner_property(property_name: String):
+  	if owner_node and property_name in owner_node:
+  		return owner_node.get(property_name)
+  	return null
+  
+  # Set a value on the owner
+  func set_owner_property(property_name: String, value):
+  	if owner_node and property_name in owner_node:
+  		owner_node.set(property_name, value)
+  
+  # Helper to check if owner is on floor (for platformers)
+  func is_on_floor() -> bool:
+  	if owner_node.has_method("is_on_floor"):
+  		return owner_node.is_on_floor()
+  	return false
+  
+  # Helper to get owner velocity (for physics bodies)
+  func get_velocity() -> Vector2:
+  	if "velocity" in owner_node:
+  		return owner_node.velocity
+  	return Vector2.ZERO
+  
+  # Helper to set owner velocity (for physics bodies)
+  func set_velocity(value: Vector2):
+  	if "velocity" in owner_node:
+  		owner_node.velocity = value
+  
+  # Helper to play animations
+  func play_animation(anim_name: String):
+  	if owner_node.has_method("play_animation"):
+  		owner_node.play_animation(anim_name)
+  	elif owner_node.has_node("AnimatedSprite2D"):
+  		var sprite = owner_node.get_node("AnimatedSprite2D")
+  		if sprite.sprite_frames.has_animation(anim_name):
+  			sprite.play(anim_name)
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\state_machine\state_machine.gd:
+========================================
+  class_name StateMachine
+  extends Node
+  
+  ## A finite state machine implementation for Godot 4.x
+  
+  # Current active state
+  var current_state: State = null
+  
+  # Dictionary of available states
+  var states: Dictionary = {}
+  
+  # The owner node that this state machine controls
+  var owner_node: Node = null
+  
+  # Debug mode flag
+  @export var debug_mode: bool = true
+  
+  # Signal emitted when state changes
+  signal state_changed(from_state, to_state)
+  
+  func _ready():
+  	owner_node = get_parent()
+  
+  	# Register all child states
+  	for child in get_children():
+  		if child is State:
+  			register_state(child)
+  
+  	# Initialize the first state
+  	if states.size() > 0:
+  		var initial_state = states.values()[0]
+  		change_state(initial_state.name)
+  
+  func _process(delta):
+  	if current_state != null:
+  		# Call the current state's process method
+  		current_state.process(delta)
+  
+  		# Check for state transitions
+  		var next_state = current_state.get_next_state()
+  		if next_state != null and next_state != "" and states.has(next_state):
+  			change_state(next_state)
+  
+  func _physics_process(delta):
+  	if current_state != null:
+  		# Call the current state's physics_process method
+  		current_state.physics_process(delta)
+  
+  func _input(event):
+  	if current_state != null:
+  		# Call the current state's input method
+  		current_state.handle_input(event)
+  
+  func register_state(state: State):
+  	# Add to states dictionary
+  	states[state.name] = state
+  
+  	# Set the state machine reference
+  	state.state_machine = self
+  
+  	# Set the owner reference
+  	state.owner_node = owner_node
+  
+  	# Specifically initialize player references for PlayerBaseState instances
+  	if state is PlayerBaseState:
+  		state.player = owner_node
+  
+  	if debug_mode:
+  		print("Registered state: ", state.name)
+  
+  func change_state(new_state_name: String):
+  	if not states.has(new_state_name):
+  		push_error("State '" + new_state_name + "' not found in state machine!")
+  		return
+  
+  	var from_state = current_state.name if current_state else "None"
+  
+  	if current_state != null:
+  		if debug_mode:
+  			print("Exiting state: ", current_state.name)
+  		current_state.exit()
+  
+  	var next_state = states[new_state_name]
+  	current_state = next_state
+  
+  	# Make sure the player reference is properly set before entering the state
+  	if current_state is PlayerBaseState and current_state.player == null:
+  		current_state.player = owner_node
+  
+  	if debug_mode:
+  		print("Entering state: ", current_state.name)
+  
+  	current_state.enter()
+  
+  	# Emit state change signal
+  	emit_signal("state_changed", from_state, new_state_name)
+  
+  func get_current_state() -> String:
+  	if current_state != null:
+  		return current_state.name
+  	return "None"
+  
+  # Add a new state at runtime
+  func add_state(state: State):
+  	register_state(state)
+  
+  # Remove a state at runtime
+  func remove_state(state_name: String):
+  	if states.has(state_name):
+  		states.erase(state_name)
+  	else:
+  		push_error("Tried to remove non-existent state: " + state_name)
 
 ========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\levels\base_level.gd:
@@ -2055,6 +4351,202 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scri
   	pass
 
 ========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\resources\player_outfit_resource.gd:
+========================================
+  class_name PlayerOutfitResource
+  extends Resource
+  
+  ## Resource-based outfit system for The Little Saint
+  ## Provides structured way to store and manage player appearance
+  
+  # Outfit components
+  @export var beard: String = "none"
+  @export var lipstick: String = "none"
+  @export var eyes: String = "1"
+  @export var shoes: String = "1"
+  @export var earrings: String = "none"
+  @export var hat: String = "none"
+  @export var glasses: String = "none"
+  @export var clothes_down: String = "1"
+  @export var clothes_up: String = "1"
+  @export var clothes_complete: String = "none"
+  @export var body: String = "1"
+  @export var hair: String = "1"
+  
+  # Outfit metadata
+  @export var outfit_name: String = "Default Outfit"
+  @export var is_favorite: bool = false
+  @export var creation_date: String = ""
+  
+  # Initialize with default values
+  func _init():
+  	creation_date = Time.get_datetime_string_from_system(false, true)
+  
+  # Convert to dictionary format (for backwards compatibility)
+  func to_dictionary() -> Dictionary:
+  	return {
+  		"beard": beard,
+  		"lipstick": lipstick,
+  		"eyes": eyes,
+  		"shoes": shoes,
+  		"earrings": earrings,
+  		"hats": hat,
+  		"glasses": glasses,
+  		"clothes_down": clothes_down,
+  		"clothes_up": clothes_up,
+  		"clothes_complete": clothes_complete,
+  		"bodies": body,
+  		"hair": hair
+  	}
+  
+  # Create from dictionary (for backwards compatibility)
+  func from_dictionary(dict: Dictionary) -> PlayerOutfitResource:
+  	beard = dict.get("beard", "none")
+  	lipstick = dict.get("lipstick", "none")
+  	eyes = dict.get("eyes", "1")
+  	shoes = dict.get("shoes", "1")
+  	earrings = dict.get("earrings", "none")
+  	hat = dict.get("hats", "none")
+  	glasses = dict.get("glasses", "none")
+  	clothes_down = dict.get("clothes_down", "1")
+  	clothes_up = dict.get("clothes_up", "1")
+  	clothes_complete = dict.get("clothes_complete", "none")
+  	body = dict.get("bodies", "1")
+  	hair = dict.get("hair", "1")
+  	return self
+  
+  # Check if a component is visible
+  func is_visible(component: String) -> bool:
+  	match component:
+  		"beard", "lipstick", "earrings", "hat", "glasses", "clothes_complete":
+  			return get(component) != "none"
+  		_:
+  			return true
+  
+  # Check if this is a complete outfit (has all required elements)
+  func is_complete() -> bool:
+  	return body != "none" and eyes != "none"
+  
+  # Reset to default values
+  func reset() -> void:
+  	beard = "none"
+  	lipstick = "none"
+  	eyes = "1"
+  	shoes = "1"
+  	earrings = "none"
+  	hat = "none"
+  	glasses = "none"
+  	clothes_down = "1"
+  	clothes_up = "1"
+  	clothes_complete = "none"
+  	body = "1"
+  	hair = "1"
+  	outfit_name = "Default Outfit"
+  	is_favorite = false
+  	creation_date = Time.get_datetime_string_from_system(false, true)
+  
+  # Create a randomized outfit
+  func randomize_outfit() -> PlayerOutfitResource:
+  	# Use true randomization
+  	randomize()
+  
+  	# Always set essential parts
+  	body = str(randi_range(1, 10))  # Assuming there are 10 body options
+  	eyes = str(randi_range(1, 14))  # Assuming there are 14 eye options
+  
+  	# Randomly decide for all other parts
+  	beard = _random_part(["none", "1", "2", "3"], 0.7)  # 70% chance for none
+  	lipstick = _random_part(["none", "1", "2", "3"], 0.8)  # 80% chance for none
+  	shoes = str(randi_range(1, 10))  # Assuming there are 10 shoe options
+  	earrings = _random_part(["none", "1", "2", "3"], 0.8)  # 80% chance for none
+  	hat = _random_part(["none", "1", "2", "3", "4"], 0.6)  # 60% chance for none
+  	glasses = _random_part(["none", "1", "2"], 0.9)  # 90% chance for none
+  
+  	# Either use separate top/bottom or complete outfit
+  	if randf() > 0.3:  # 70% chance for separate clothes
+  		clothes_down = str(randi_range(1, 10))
+  		clothes_up = str(randi_range(1, 10))
+  		clothes_complete = "none"
+  	else:  # 30% chance for complete outfit
+  		clothes_down = "none"
+  		clothes_up = "none"
+  		clothes_complete = str(randi_range(1, 5))  # Assuming there are 5 complete outfit options
+  
+  	# Hair is important for character look
+  	hair = str(randi_range(1, 14))  # Assuming there are 14 hair options
+  
+  	outfit_name = "Random Outfit"
+  	creation_date = Time.get_datetime_string_from_system(false, true)
+  
+  	return self
+  
+  # Helper for randomizing parts with "none" option
+  func _random_part(options: Array, none_chance: float) -> String:
+  	if randf() < none_chance:
+  		return "none"
+  
+  	var valid_options = options.duplicate()
+  	valid_options.erase("none")
+  	return valid_options[randi() % valid_options.size()]
+  
+  # Create a duplicate of this outfit
+  func duplicate_outfit() -> PlayerOutfitResource:
+  	var new_outfit = PlayerOutfitResource.new()
+  	new_outfit.beard = beard
+  	new_outfit.lipstick = lipstick
+  	new_outfit.eyes = eyes
+  	new_outfit.shoes = shoes
+  	new_outfit.earrings = earrings
+  	new_outfit.hat = hat
+  	new_outfit.glasses = glasses
+  	new_outfit.clothes_down = clothes_down
+  	new_outfit.clothes_up = clothes_up
+  	new_outfit.clothes_complete = clothes_complete
+  	new_outfit.body = body
+  	new_outfit.hair = hair
+  	new_outfit.outfit_name = outfit_name + " (Copy)"
+  	new_outfit.is_favorite = is_favorite
+  	new_outfit.creation_date = Time.get_datetime_string_from_system(false, true)
+  	return new_outfit
+  
+  # Create a new default outfit resource
+  static func create_default() -> PlayerOutfitResource:
+  	return PlayerOutfitResource.new()
+  
+  # Check for equality with another outfit
+  func equals(other: PlayerOutfitResource) -> bool:
+  	return (
+  		beard == other.beard and
+  		lipstick == other.lipstick and
+  		eyes == other.eyes and
+  		shoes == other.shoes and
+  		earrings == other.earrings and
+  		hat == other.hat and
+  		glasses == other.glasses and
+  		clothes_down == other.clothes_down and
+  		clothes_up == other.clothes_up and
+  		clothes_complete == other.clothes_complete and
+  		body == other.body and
+  		hair == other.hair
+  	)
+  
+  # Apply this outfit to character sprites
+  func apply_to_sprites(character_sprites: Node2D) -> void:
+  	var outfit_dict = to_dictionary()
+  
+  	for category in outfit_dict:
+  		if character_sprites.has_node(category):
+  			var sprite = character_sprites.get_node(category)
+  			var value = outfit_dict[category]
+  
+  			if value == "none":
+  				sprite.visible = false
+  			else:
+  				sprite.visible = true
+  				sprite.animation = value
+  				sprite.frame = 1
+
+========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\ui\character_customizer\customizer_controller.gd:
 ========================================
   class_name CustomizerController
@@ -2067,8 +4559,10 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scri
   var selected_outfit_category = ""
   var player_animations
   var options_per_category = {}
-  var config_path = "user://settings.cfg"
   var has_unsaved_changes = false  # Neue Variable für ungespeicherte Änderungen
+  
+  # Resource-basiertes Outfit System
+  var current_outfit_resource: PlayerOutfitResource = null
   
   # Signal für Debugging
   signal debug_message(message)
@@ -2078,6 +4572,11 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scri
   	get_node("character_sprites/masks").visible = false
   	player_outfit = get_node("character_sprites").default_outfit
   	player_animations = get_node("character_sprites").animation_frames
+  
+  	# Create outfit resource
+  	current_outfit_resource = PlayerOutfitResource.new()
+  
+  	# Connect to PopupManager
   	PopupManager.dialog_confirmed.connect(_on_dialog_confirmed)
   
   	# UI-Elemente für jede Outfit-Kategorie erstellen
@@ -2167,6 +4666,14 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scri
   	if old_value != new_value:
   		player_outfit[selected_outfit_category] = new_value
   		has_unsaved_changes = true
+  
+  		# Update outfit resource
+  		if selected_outfit_category == "bodies":
+  			current_outfit_resource.body = new_value
+  		elif selected_outfit_category == "hats":
+  			current_outfit_resource.hat = new_value
+  		elif current_outfit_resource.get(selected_outfit_category) != null:
+  			current_outfit_resource.set(selected_outfit_category, new_value)
   	else:
   		player_outfit[selected_outfit_category] = new_value
   
@@ -2179,57 +4686,58 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scri
   
   # Generiert ein zufälliges Outfit
   func _random_button_pressed():
-  	var old_outfit = player_outfit.duplicate()
+  	current_outfit_resource.randomize_outfit()
+  	var outfit_dict = current_outfit_resource.to_dictionary()
   	var had_changes = false
   
-  	for category in player_outfit:
-  		if category == "bodies":
-  			# Körper sollte immer sichtbar sein
-  			var random_body = randi() % options_per_category[category] + 1
-  			if player_outfit[category] != str(random_body):
-  				player_outfit[category] = str(random_body)
+  	# Update the player_outfit from the resource
+  	for category in outfit_dict:
+  		if player_outfit.has(category):
+  			var new_value = outfit_dict[category]
+  			if player_outfit[category] != new_value:
+  				player_outfit[category] = new_value
   				had_changes = true
-  		else:
-  			# Für andere Kategorien, entscheide zufällig, ob sie sichtbar sein sollen
-  			if randf() > 0.3: # 70% Chance, dass ein Item angezeigt wird
-  				var random_item = randi() % options_per_category[category] + 1
-  				if player_outfit[category] != str(random_item):
-  					player_outfit[category] = str(random_item)
-  					had_changes = true
-  				get_node("character_sprites/" + category).visible = true
+  
+  			# Update sprite visibility
+  			var animated_sprite = get_node("character_sprites/" + category)
+  			if new_value == "none":
+  				animated_sprite.visible = false
   			else:
-  				if player_outfit[category] != "none":
-  					player_outfit[category] = "none"
-  					had_changes = true
-  				get_node("character_sprites/" + category).visible = false
+  				animated_sprite.visible = true
   
   	if had_changes:
   		has_unsaved_changes = true
   
   # Speichert das aktuelle Outfit
   func _save_button_pressed():
-  	var config = ConfigFile.new()
+  	# Update the outfit resource
+  	current_outfit_resource.from_dictionary(player_outfit)
+  	current_outfit_resource.outfit_name = "Last Saved Outfit"
   
-  	# Versuche zuerst die vorhandene Konfigurationsdatei zu laden
-  	var err = config.load(config_path)
+  	# Save to both the favorites and the player's current outfit
+  	SaveManager.save_outfit(player_outfit, "Last Saved Outfit")
   
-  	# Speichere das Outfit, unabhängig davon, ob die Datei existiert
-  	config.set_value("settings", "outfit", player_outfit)
+  	# Ensure the current save data has the outfit
+  	if SaveManager.current_save_data:
+  		SaveManager.current_save_data.player_outfit = player_outfit.duplicate(true)
   
-  	err = config.save(config_path)
-  	if err != OK:
-  		emit_signal("debug_message", "Fehler beim Speichern der Einstellungen: " + str(err))
-  		show_message("Fehler beim Speichern!", Color(1, 0.3, 0.3, 1))
-  	else:
-  		has_unsaved_changes = false  # Änderungen wurden gespeichert
-  		show_message("Outfit erfolgreich gespeichert!", Color(0.3, 1, 0.3, 1))
+  	# Save both settings and game data
+  	SaveManager.save_settings()
+  	SaveManager.save_game()  # Add this line to ensure full game save
+  
+  	has_unsaved_changes = false
+  	show_message("Outfit erfolgreich gespeichert!", Color(0.3, 1, 0.3, 1))
   
   # Setzt alle optionalen Teile des Outfits zurück
   func _reset_button_pressed():
+  	# Use the resource method to reset
+  	current_outfit_resource.reset()
+  	var outfit_dict = current_outfit_resource.to_dictionary()
   	var had_changes = false
   
-  	for category in player_outfit:
-  		if category != "bodies":
+  	# Apply the reset to player_outfit
+  	for category in outfit_dict:
+  		if player_outfit.has(category) and category != "bodies":
   			var animated_sprite = get_node("character_sprites/" + category)
   			animated_sprite.visible = false
   
@@ -2257,25 +4765,32 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scri
   
   # Lädt das gespeicherte Outfit, falls vorhanden
   func load_saved_outfit():
-  	var config = ConfigFile.new()
-  	var err = config.load(config_path)
+  	# First try to load from current save data
+  	if SaveManager.current_save_data and SaveManager.current_save_data.player_outfit:
+  		var saved_outfit = SaveManager.current_save_data.player_outfit
   
-  	if err == OK:
-  		var saved_outfit = config.get_value("settings", "outfit", null)
-  		if saved_outfit:
-  			# Aktualisiere das Outfit mit den gespeicherten Werten
-  			for category in saved_outfit:
-  				if player_outfit.has(category):
-  					# Konvertiere den Wert zu String
-  					var outfit_value = str(saved_outfit[category])
-  					player_outfit[category] = outfit_value
+  		# Log for debugging
+  		print("Loading outfit from save data: ", saved_outfit)
   
-  					# Aktualisiere die Sichtbarkeit
-  					var animated_sprite = get_node("character_sprites/" + category)
-  					if outfit_value == "none":
-  						animated_sprite.visible = false
-  					else:
-  						animated_sprite.visible = true
+  		# Update the outfit resource
+  		current_outfit_resource.from_dictionary(saved_outfit)
+  
+  		# Update the UI
+  		for category in saved_outfit:
+  			if player_outfit.has(category):
+  				var outfit_value = str(saved_outfit[category])
+  				player_outfit[category] = outfit_value
+  
+  				# Update visibility
+  				var animated_sprite = get_node("character_sprites/" + category)
+  				if outfit_value == "none":
+  					animated_sprite.visible = false
+  				else:
+  					animated_sprite.visible = true
+  
+  		print("Outfit loaded successfully")
+  	else:
+  		print("No saved outfit found in save data")
   
   
   func _on_back_pressed() -> void:
@@ -3023,24 +5538,44 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scri
   
   	load_hearts()
   
+  	# Notify GameManager when coins are collected
+  	get_tree().create_timer(0.1).timeout.connect(func():
+  		Global.collected_coins = coins
+  	)
+  
   func coin_collected():
   	coins = coins + 1
   	$LabelCoinSum.text = str(coins)
   
+  	# Notify GameManager
+  	Global.collect_coin()
+  	_update_coin_display()
+  
+  # Function to update coin display
+  func _update_coin_display():
+  	$LabelCoinSum.text = str(coins)
   
   func load_hearts():
   	$HeartsFull.size.x = lifes * inital_heart_size.x
   	$HeartsFull.position.x= initial_heart_position.x - ((lifes-1) * inital_heart_size.x)
   
   func change_life(amount):
-  	if  lifes + amount < 0:
+  	if lifes + amount < 0:
   		lifes = 0
   
-  	elif  lifes + amount > 3:
-  		lifes = 3
+  		# Notify GameManager of player death if health reaches 0
+  		if lifes <= 0:
+  			Global.player_death()
+  	elif lifes + amount > max_lifes:
+  		lifes = max_lifes
   	else:
   		lifes = lifes + amount
+  
   	load_hearts()
+  
+  	# Update SaveManager with new health value
+  	if SaveManager.current_save_data:
+  		SaveManager.current_save_data.health = lifes
 
 ========================================
 Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\ui\main_menu\camera.gd:
@@ -3197,3 +5732,161 @@ Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scri
   func _on_timer_timeout():
   	Engine.time_scale = 1.0
   	get_tree().reload_current_scene()
+
+========================================
+Contents of c:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\utils\save_data.gd:
+========================================
+  class_name SaveData
+  extends Resource
+  
+  ## Data structure for saved games in The Little Saint
+  ## Stores player stats, game progress, and settings
+  
+  # Version for compatibility checks
+  @export var save_version: int = 1
+  
+  # Save metadata
+  @export var save_date: String = ""
+  @export var playtime_seconds: int = 0
+  
+  # Player position and level
+  @export var player_position: Vector2 = Vector2.ZERO
+  @export var current_level: String = ""
+  
+  # Player stats
+  @export var health: float = 3.0
+  @export var coins: int = 0
+  @export var player_speed: float = Constants.PLAYER_DEFAULT_SPEED
+  @export var player_jump_velocity: float = Constants.PLAYER_DEFAULT_JUMP_VELOCITY
+  @export var player_fly_velocity: float = Constants.PLAYER_DEFAULT_FLY_VELOCITY
+  @export var player_gravity: float = Constants.PLAYER_DEFAULT_GRAVITY
+  
+  # Player state
+  @export var player_mode: String = "normal"
+  @export var player_passed_fly_time: float = 0.0
+  @export var player_jump_counter: int = 0
+  @export var player_ready_for_jump: bool = true
+  @export var player_allowed_jumps: int = 1
+  
+  # Player appearance
+  @export var player_outfit: Dictionary = {}
+  
+  # Game progress
+  @export var collected_coins: int = 0
+  @export var unlocked_levels: Array = []
+  @export var completed_quests: Array = []
+  
+  # Initialize with default values
+  func _init():
+  	save_date = Time.get_datetime_string_from_system(false, true)
+  
+  	# Set default player outfit if none exists
+  	if player_outfit.is_empty():
+  		# Create a default outfit
+  		player_outfit = {
+  			"beard": "none",
+  			"lipstick": "none",
+  			"eyes": "1",
+  			"shoes": "1",
+  			"earrings": "none",
+  			"hats": "none",
+  			"glasses": "none",
+  			"clothes_down": "1",
+  			"clothes_up": "1",
+  			"clothes_complete": "none",
+  			"bodies": "1",
+  			"hair": "1"
+  		}
+  
+  # Validate the save data to ensure it's not corrupted
+  func validate() -> bool:
+  	# Basic validation to ensure critical fields are present
+  	if player_speed <= 0 or player_gravity <= 0:
+  		return false
+  
+  	# Check that outfit dictionary has expected keys
+  	var required_outfit_keys = [
+  		"beard", "lipstick", "eyes", "shoes", "earrings",
+  		"hats", "glasses", "clothes_down", "clothes_up",
+  		"clothes_complete", "bodies", "hair"
+  	]
+  
+  	for key in required_outfit_keys:
+  		if not player_outfit.has(key):
+  			return false
+  
+  	return true
+  
+  # Create a dictionary representation of the save data for debug purposes
+  func to_dict() -> Dictionary:
+  	return {
+  		"save_version": save_version,
+  		"save_date": save_date,
+  		"playtime_seconds": playtime_seconds,
+  		"player_position": {"x": player_position.x, "y": player_position.y},
+  		"current_level": current_level,
+  		"health": health,
+  		"coins": coins,
+  		"player_speed": player_speed,
+  		"player_jump_velocity": player_jump_velocity,
+  		"player_fly_velocity": player_fly_velocity,
+  		"player_gravity": player_gravity,
+  		"player_mode": player_mode,
+  		"player_passed_fly_time": player_passed_fly_time,
+  		"player_jump_counter": player_jump_counter,
+  		"player_ready_for_jump": player_ready_for_jump,
+  		"player_allowed_jumps": player_allowed_jumps,
+  		"player_outfit": player_outfit,
+  		"collected_coins": collected_coins,
+  		"unlocked_levels": unlocked_levels,
+  		"completed_quests": completed_quests
+  	}
+  
+  # Return a string representation for debugging
+  func _to_string() -> String:
+  	return JSON.stringify(to_dict(), "\t")
+  
+  # Update playtime
+  func update_playtime(seconds_to_add: int) -> void:
+  	playtime_seconds += seconds_to_add
+  
+  # Get formatted playtime as string
+  func get_playtime_string() -> String:
+  	var hours = playtime_seconds / 3600
+  	var minutes = (playtime_seconds % 3600) / 60
+  	var seconds = playtime_seconds % 60
+  
+  	return "%02d:%02d:%02d" % [hours, minutes, seconds]
+  
+  # Create a deep copy of this save data
+  func duplicate_data() -> SaveData:
+  	var new_data = SaveData.new()
+  
+  	new_data.save_version = save_version
+  	new_data.save_date = save_date
+  	new_data.playtime_seconds = playtime_seconds
+  	new_data.player_position = player_position
+  	new_data.current_level = current_level
+  	new_data.health = health
+  	new_data.coins = coins
+  	new_data.player_speed = player_speed
+  	new_data.player_jump_velocity = player_jump_velocity
+  	new_data.player_fly_velocity = player_fly_velocity
+  	new_data.player_gravity = player_gravity
+  	new_data.player_mode = player_mode
+  	new_data.player_passed_fly_time = player_passed_fly_time
+  	new_data.player_jump_counter = player_jump_counter
+  	new_data.player_ready_for_jump = player_ready_for_jump
+  	new_data.player_allowed_jumps = player_allowed_jumps
+  	new_data.player_outfit = player_outfit.duplicate(true)
+  	new_data.collected_coins = collected_coins
+  	new_data.unlocked_levels = unlocked_levels.duplicate()
+  	new_data.completed_quests = completed_quests.duplicate()
+  
+  	return new_data
+  
+  # Create a new save with default values
+  static func create_new_save() -> SaveData:
+  	var save = SaveData.new()
+  	save.save_date = Time.get_datetime_string_from_system(false, true)
+  	return save

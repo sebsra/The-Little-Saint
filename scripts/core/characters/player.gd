@@ -2,227 +2,218 @@ class_name Player
 extends CharacterBody2D
 
 @export var joystick_right: VirtualJoystick
+@export var debug_mode: bool = false
 
-# envrionment variables
-var SPEED
-var JUMP_VELOCITY
-var FLY_VELOCITY
-var GRAVITY
+# Environment variables - use constants from Constants singleton
+var SPEED = Constants.PLAYER_DEFAULT_SPEED
+var JUMP_VELOCITY = Constants.PLAYER_DEFAULT_JUMP_VELOCITY
+var FLY_VELOCITY = Constants.PLAYER_DEFAULT_FLY_VELOCITY
+var GRAVITY = Constants.PLAYER_DEFAULT_GRAVITY
 
-# character mode variables
-var mode
-var passed_fly_time
-var jump_counter
-var ready_for_jump
-var allowed_jumps
+# Character mode variables
+var mode = "normal"
+var passed_fly_time = 0.0
+var jump_counter = 0
+var ready_for_jump = true
+var allowed_jumps = Constants.PLAYER_MAX_JUMPS
 
-# character health
+# Character health reference
 var hud
 
-#character design variables
+# Character design variables
 var player_animations
-var current_animation
+var current_animation = Constants.ANIMATION_IDLE
 var player_outfit
-var play_attack_animation 
-var attack_animation
+var play_attack_animation = false
+var attack_animation = Constants.ANIMATION_ATTACK
 
-var config = ConfigFile.new() # Create a new ConfigFile instance
+# Resource-based outfit system
+var current_outfit: PlayerOutfitResource = null
+
+# Reference to the state machine
+@onready var state_machine = $StateMachine
 
 func _ready() -> void:
 	# Initialize your global variables here
-	hud = get_node("../../HUD")
-	SPEED = 200.0
-	JUMP_VELOCITY = -250.0
-	FLY_VELOCITY = -150.0
-	GRAVITY = 300
-	mode = "normal"
-	passed_fly_time = 0.0
-	jump_counter = 0
-	ready_for_jump = true
+	hud = get_node_or_null("../../HUD")
 	player_animations = get_node("character_sprites").animation_frames
-	current_animation = "idle"
-	allowed_jumps = 1
-	play_attack_animation = false
-	attack_animation = "idle"
-	
+
+	# Initialize outfit with defaults
 	var default_player_outfit = get_node("character_sprites").default_outfit
 	get_node("character_sprites/masks").visible = false
-	player_outfit = default_player_outfit
+	player_outfit = default_player_outfit.duplicate(true)
 
-	# Load the ConfigFile if it exists
-	var err = config.load("user://settings.cfg")
-	if err == OK: # If the ConfigFile loaded successfully
-		# Get the values from the ConfigFile
-		SPEED = config.get_value("settings", "SPEED", 200.0)
-		JUMP_VELOCITY = config.get_value("settings", "JUMP_VELOCITY", -250.0)
-		FLY_VELOCITY = config.get_value("settings", "FLY_VELOCITY", -150.0)
-		GRAVITY = config.get_value("settings", "GRAVITY", 500)
-		# mode = config.get_value("settings", "mode", "normal")
-		passed_fly_time = config.get_value("settings", "passed_fly_time", 0.0)
-		jump_counter = config.get_value("settings", "jump_counter", 0)
-		ready_for_jump = config.get_value("settings", "ready_for_jump", true)
-		#allowed_jumps = config.get_value("settings", "allowed_jumps", 1)
-		player_outfit = config.get_value("settings", "outfit", default_player_outfit)
-		# TO-DO: load dict wheaether category is visible or not
+	# Create outfit resource
+	current_outfit = PlayerOutfitResource.new()
 
+	# Register with GameManager
+	if get_node_or_null("/root/Global"):
+		Global.register_player(self)
+
+	# Connect to SaveManager signals
+	if get_node_or_null("/root/SaveManager"):
+		SaveManager.connect("load_completed", Callable(self, "_on_save_loaded"))
+		SaveManager.connect("settings_loaded", Callable(self, "_on_settings_loaded"))
+		
+		# Load settings from SaveManager
+		if SaveManager.current_save_data:
+			update_from_save_data()
+	
+	if debug_mode:
+		print("Player ready, State Machine initialized")
+		print("Initial player stats: Speed=", SPEED, ", Jump=", JUMP_VELOCITY,
+			  ", Fly=", FLY_VELOCITY, ", Gravity=", GRAVITY)
+
+# Save current player settings
 func save_settings():
-	# Set the values in the ConfigFile
-	config.set_value("settings", "SPEED", SPEED)
-	config.set_value("settings", "JUMP_VELOCITY", JUMP_VELOCITY)
-	config.set_value("settings", "FLY_VELOCITY", FLY_VELOCITY)
-	config.set_value("settings", "GRAVITY", GRAVITY)
-	config.set_value("settings", "mode", mode)
-	config.set_value("settings", "passed_fly_time", passed_fly_time)
-	config.set_value("settings", "jump_counter", jump_counter)
-	config.set_value("settings", "ready_for_jump", ready_for_jump)
-	config.set_value("settings", "allowed_jumps", allowed_jumps)
-	config.set_value("settings", "outfit", player_outfit, )
+	if get_node_or_null("/root/SaveManager"):
+		SaveManager.save_settings()
 
-	# Save the ConfigFile to the disk
-	config.save("user://settings.cfg")
+# New methods for SaveManager integration
+func _on_save_loaded(success, message):
+	if success:
+		update_from_save_data()
 
-func _process(delta):
-	# Add the gravity.
-	Engine.physics_ticks_per_second = 240
-	# In case of Death
-	if hud.lifes == 0:
-		death()
-	# Read the joystick input 
-	var x_input = Input.get_axis("left", "right")
-	var y_input = Input.get_axis("down", "up")
-	if Input.is_action_just_pressed("attack"):
-		print("attack")
-		play_attack_animation = true
-	if Input.is_action_just_pressed("defend"):
-		print("defend")
-	if Input.is_action_just_pressed("Menu"):
-		get_tree().change_scene_to_file("res://scenes/ui/main_menu/main_menu.tscn")
-	# All Modes.
-	velocity.y += GRAVITY * delta
+func _on_settings_loaded(success):
+	if success:
+		update_from_save_data()
 
-	if x_input != 0:
-		velocity.x = x_input * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, 30)
+func update_from_save_data():
+	if not get_node_or_null("/root/SaveManager") or not SaveManager.current_save_data:
+		print("No save data available to update from")
+		return
 
-	if is_on_floor():
-		jump_counter = 0
-		ready_for_jump = true
-		passed_fly_time = 0.0
-		
-	elif jump_counter == 0	:
-		ready_for_jump = false
+	var save_data = SaveManager.current_save_data
 	
-	if y_input > 0.4 && jump_counter < allowed_jumps:
-		if ready_for_jump:
-			velocity.y = JUMP_VELOCITY * y_input
-			jump_counter += 1
-			ready_for_jump = false
-	elif y_input < 0.4:
-		ready_for_jump = true
-		
-
-	if mode == "fly":
-		allowed_jumps = 1
-
-		# Check if elixir is available
-		if hud.elixir_fill_level > 0.0:
-			if passed_fly_time < 4:
-				passed_fly_time += delta
-				
-				# Allow movement in the air while flying
-				if y_input != 0:
-					velocity.y = FLY_VELOCITY * y_input
-
-			# Reduce elixir by 25% every time fly mode is triggered
-			if passed_fly_time >= 4.0:  
-				hud.use_softpower()  # Drain 25% elixir
-				passed_fly_time = 0.0  # Reset flight time counter
-
-		else:
-			# If no elixir left, return to normal mode
-			mode = "normal"
-			print("Elixir empty! Returning to normal mode.")
-
-	# Ensure the player can only fly again after landing
-	if is_on_floor() and mode == "normal":
-		allowed_jumps = 1  # Reset jumps when the player lands
-
-
-
-	move_and_slide()
-
-	# Set Animation
-	if x_input == 0 && y_input == 0 && current_animation != "dead":
-		current_animation = "idle"
-	elif x_input != 0 && y_input <= 0.4:
-		current_animation = "animation3"
-	elif y_input > 0.4 or y_input < - 0.4:
-		current_animation = "idle"
+	# Update movement parameters
+	SPEED = save_data.player_speed
+	JUMP_VELOCITY = save_data.player_jump_velocity
+	FLY_VELOCITY = save_data.player_fly_velocity
+	GRAVITY = save_data.player_gravity
 	
-	if play_attack_animation:
-		current_animation = attack_animation
-		
+	# Update state
+	mode = save_data.player_mode
+	passed_fly_time = save_data.player_passed_fly_time
+	jump_counter = save_data.player_jump_counter
+	ready_for_jump = save_data.player_ready_for_jump
+	allowed_jumps = save_data.player_allowed_jumps
 
-	# Set Outfit
-	for outfit in player_outfit:
-		var animated_sprite = get_node("character_sprites/"+ outfit)
-		var selected_outfit = player_outfit[outfit]
-		
-		if str(selected_outfit) == "none":
-			animated_sprite.visible = false
+	# Apply outfit if available
+	if save_data.player_outfit and not save_data.player_outfit.is_empty():
+		# Update resource and dictionary
+		if current_outfit:
+			current_outfit.from_dictionary(save_data.player_outfit)
 		else:
-			animated_sprite.play(str(selected_outfit))
-			animated_sprite.speed_scale = 2.0
-			animated_sprite.flip_h = x_input > 0
-			if animated_sprite.frame >= player_animations[current_animation][-1]:
-				play_attack_animation = false
-				
-			if (animated_sprite.frame < player_animations[current_animation][0] or
-				animated_sprite.frame >= player_animations[current_animation][ - 1]):
-					animated_sprite.frame = player_animations[current_animation][0]
+			current_outfit = PlayerOutfitResource.new().from_dictionary(save_data.player_outfit)
 
+		# Apply current outfit to character
+		player_outfit = save_data.player_outfit.duplicate(true)
+		_update_outfit_visuals()
+		
+	if debug_mode:
+		print("Updated player from save data: Speed=", SPEED, ", Jump=", JUMP_VELOCITY)
+		print("Outfit loaded:", player_outfit)
+
+# Update outfit sprite visibility and animations
+func _update_outfit_visuals():
+	for category in player_outfit:
+		if has_node("character_sprites/" + category):
+			var sprite = get_node("character_sprites/" + category)
+			var value = player_outfit[category]
+			
+			if value == "none":
+				sprite.visible = false
+			else:
+				sprite.visible = true
+				sprite.animation = value
+				sprite.frame = 1
+
+# Helper method to play animations
+func play_animation(anim_name: String):
+	current_animation = anim_name
+
+# Return gravity as a Vector2 to avoid conflicts with PhysicsBody2D
+func calculate_gravity() -> Vector2:
+	return Vector2(0, GRAVITY)
+
+# Keep portal handlers and other methods
 func _on_test_portal_entered(_body):
-	get_tree().change_scene_to_file("res://scenes/ui/main_menu/main_menu.tscn")
+	if get_node_or_null("/root/Global"):
+		Global.change_scene(Constants.MAIN_MENU_SCENE)
 	mode = "fly"
 	save_settings()
 
 func _on_elias_portal_entered(_body):
 	print("Elias")
-	save_settings() # Replace with function body.
+	save_settings()
 
 func _on_ardit_portal_entered(_body):
-	get_tree().change_scene_to_file("res://Arrogance.tscn")
-	save_settings() # Replace with function body.
+	if get_node_or_null("/root/Global"):
+		Global.change_scene("res://Arrogance.tscn")
+	save_settings()
 
 func _on_sebastian_portal_entered(_body):
 	mode = "normal"
-	get_tree().change_scene_to_file("res://scenes/levels/sebastian_levels/level_1.tscn")
-	save_settings() # Replace with function body.
-
-func _on_prince_portal_entered(_body):
-	get_tree().change_scene_to_file("res://scenes/levels/prince_levels/platform.tscn")
+	if get_node_or_null("/root/Global"):
+		Global.change_scene("res://scenes/levels/sebastian_levels/level_1.tscn")
 	save_settings()
 
-		#current_animation = "dead"
-		#current_animation = "hurt"
+func _on_prince_portal_entered(_body):
+	if get_node_or_null("/root/Global"):
+		Global.change_scene("res://scenes/levels/prince_levels/platform.tscn")
+	save_settings()
 
 func _on_fallzone_body_entered(_body):
-	get_tree().change_scene_to_file("res://scenes/levels/ardit_levels/arrogance.tscn")
+	if get_node_or_null("/root/Global"):
+		Global.change_scene("res://scenes/levels/ardit_levels/arrogance.tscn")
 
 func _on_life_up_body_entered(_body):
-	get_parent().get_node("HUD").change_life(0.25)
+	if hud:
+		hud.change_life(0.25)
 
 func _on_life_down_body_entered(_body):
-		get_parent().get_node("HUD").change_life(-0.25)
-		
+	if hud:
+		hud.change_life(-0.25)
+
 func death():
 	$CollisionShape2D.disabled = true
-	current_animation = "death"
-	self.queue_free()
-	get_tree().change_scene_to_file("res://scenes/ui/main_menu/main_menu.tscn")
-	
+	current_animation = "dead"
 
+	# Notify GameManager of player death
+	if get_node_or_null("/root/Global"):
+		Global.player_death()
+
+	self.queue_free()
+	
+	if get_node_or_null("/root/Global"):
+		Global.go_to_main_menu()
 
 func _on_test_portal_body_entered(_body):
-	get_tree().change_scene_to_file("res://scenes/levels/adventure_mode/adventure_level.tscn")
+	if get_node_or_null("/root/Global"):
+		Global.change_scene("res://scenes/levels/adventure_mode/adventure_level.tscn")
+
+# New methods for gameplay enhancement
+func set_movement_mode(new_mode: String) -> void:
+	mode = new_mode
+
+	if new_mode == "fly":
+		passed_fly_time = 0.0
+
+	if debug_mode:
+		print("Movement mode changed to: ", new_mode)
+
+func enable_attack(enable: bool) -> void:
+	play_attack_animation = enable
+
+func set_attack_animation(anim_name: String) -> void:
+	attack_animation = anim_name
+
+func add_extra_jumps(extra_jumps: int) -> void:
+	allowed_jumps += extra_jumps
+
+func take_damage(amount: float) -> void:
+	if hud:
+		hud.change_life(-amount / 100.0)
+
+func bounce() -> void:
+	velocity.y = JUMP_VELOCITY * 0.7 # Less powerful than a regular jump

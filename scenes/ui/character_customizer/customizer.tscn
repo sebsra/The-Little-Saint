@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bfup2p6wpte44"]
 
-[ext_resource type="Script"  path="res://scripts/ui/character_customizer/customizer_controller.gd" id="1_4gdiv"]
-[ext_resource type="PackedScene"  path="res://scenes/core/character/character_sprites.tscn" id="2_rx7te"]
+[ext_resource type="Script" uid="uid://dggvxe2lclbxb" path="res://scripts/ui/character_customizer/customizer_controller.gd" id="1_4gdiv"]
+[ext_resource type="PackedScene" uid="uid://cubtrfejltu51" path="res://scenes/core/character/character_sprites.tscn" id="2_rx7te"]
 
 [node name="Node2D" type="Node2D"]
 

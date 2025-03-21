@@ -1,109 +1,116 @@
-# The Little Saint - Refactoring TODO List
+# The Little Saint - Adjusted Refactoring Plan
 
-## 1. Core Architecture Refactoring
+Based on your current project state, I've adjusted the refactoring plan for the remaining tasks (19-75). I've observed that you've successfully implemented:
 
-### 1.2 Implement State Machines
-14. [NEW] `scripts/core/state_machine/state_machine.gd` - Create state machine framework
-15. [NEW] `scripts/core/state_machine/state.gd` - Create base state class
-16. [NEW] `scripts/core/state_machine/player_states/` - Create folder for player states
-17. [NEW] `scripts/core/state_machine/enemy_states/` - Create folder for enemy states
-18. [MODIFY] `scripts/core/characters/player.gd` - Integrate state machine for player
+- Base classes (BaseEnemy, BasePowerUp, BaseProjectile)
+- State machine framework
+- Player and enemy state classes
+- Modified existing scripts to work with the new architecture
 
-## 2. Enhanced Game Management
+Here's the adjusted plan with proper sequencing to prevent duplicate file modifications:
 
-### 2.1 Expand Game Manager
-19. [MODIFY] `scripts/autoload/game_manager.gd` - Develop the empty manager with game state handling
-20. [NEW] `scripts/autoload/scene_manager.gd` - Create manager for scene transitions
-21. [NEW] `scripts/autoload/event_bus.gd` - Create centralized event system
+## Phase 1: Core Infrastructure & Game Management (Foundation
+ First)
 
-### 2.2 Improve Save System
-22. [NEW] `scripts/autoload/save_manager.gd` - Create dedicated save manager
-23. [NEW] `scripts/utils/save_data.gd` - Create data structure for saved games
-24. [MODIFY] `scripts/ui/character_customizer/customizer_controller.gd` - Use SaveManager instead of ConfigFile
-25. [MODIFY] `scripts/core/characters/player.gd` - Use SaveManager instead of ConfigFile
+1. [NEW] `scripts/utils/constants.gd` (Task 68) - Create global constants file for game settings
+2. [MODIFY] `scripts/autoload/game_manager.gd` (Task 19) - Develop the empty manager with:
+   - Game state tracking (menu, playing, paused, game over)
+   - Scene management functionality
+   - Global event handling
+3. [NEW] `scripts/autoload/save_manager.gd` (Task 22) - Create dedicated save manager that:
+   - Handles saving/loading player data
+   - Manages outfit configurations
+   - Includes error handling and validation
+4. [NEW] `scripts/utils/save_data.gd` (Task 23) - Create data structure for saved games
+5. [NEW] `scripts/resources/player_outfit_resource.gd` (Task 31) - Create resource-based outfit system
 
-## 3. Player System Improvements
+## Phase 2: Player System Enhancements (Building on State Machine)
 
-### 3.1 Refactor Player Controller
-26. [MODIFY] `scripts/core/characters/player.gd` - Major refactoring for cleaner structure
-27. [NEW] `scripts/core/characters/player_movement.gd` - Extract movement logic
-28. [NEW] `scripts/core/characters/player_animation.gd` - Extract animation logic
-29. [NEW] `scripts/core/characters/player_outfit.gd` - Extract outfit management
-30. [NEW] `scripts/core/characters/player_input.gd` - Create input handler
+6. [MODIFY] `scripts/core/characters/player.gd` (Tasks 25, 26, 63) - Complete refactoring by:
+   - Integrating with SaveManager (replace ConfigFile usage)
+   - Optimizing signal connections
+   - Ensuring proper state machine integration
+7. [MODIFY] `scripts/ui/character_customizer/customizer_controller.gd` (Tasks 24, 32) - Improve by:
+   - Using SaveManager instead of ConfigFile
+   - Implementing resource-based outfit system
+8. [MODIFY] `scripts/ui/character_customizer/preview_helper.gd` (Task 34) - Optimize preview generation
+9. [MODIFY] `scripts/ui/character_customizer/outfit_showcase.gd` (Task 33) - Improve UI feedback
 
-### 3.2 Enhance Character Customization
-31. [NEW] `scripts/resources/player_outfit_resource.gd` - Create outfit resource type
-32. [MODIFY] `scripts/ui/character_customizer/customizer_controller.gd` - Use resource-based system
-33. [MODIFY] `scripts/ui/character_customizer/outfit_showcase.gd` - Improve UI feedback
-34. [MODIFY] `scripts/ui/character_customizer/preview_helper.gd` - Optimize preview generation
+## Phase 3: UI Framework & Dialog Enhancements
 
-## 4. Enemy System Enhancements
+10. [NEW] `scripts/ui/theme/ui_theme.gd` (Task 45) - Create consistent UI theme
+11. [MODIFY] `scripts/ui/dialogs/popup_dialog.gd` (Task 54) - Enhance with animations and polish
+12. [NEW] `scripts/ui/dialogs/conversation_system.gd` (Task 55) - Create NPC conversation system
+13. [NEW] `scripts/ui/dialogs/dialog_tree.gd` (Task 56) - Implement branching dialogs
+14. [NEW] `scripts/ui/components/button_with_sound.gd` (Task 47) - Create button with sound effects
+15. [NEW] `scripts/ui/transitions/screen_transition.gd` (Task 48) - Create screen transition effects
 
-### 4.1 Standardize Enemy Behavior
-35. [NEW] `scripts/core/enemies/behaviors/patrol_behavior.gd` - Create modular patrol behavior
-36. [NEW] `scripts/core/enemies/behaviors/chase_behavior.gd` - Create modular chase behavior
-37. [NEW] `scripts/core/enemies/behaviors/attack_behavior.gd` - Create modular attack behavior
-38. [NEW] `scripts/core/enemies/behaviors/ranged_attack.gd` - Create ranged attack component
-39. [NEW] `scripts/core/enemies/behaviors/melee_attack.gd` - Create melee attack component
-40. [NEW] `scripts/managers/enemy_manager.gd` - Create manager for enemy spawning and waves
+## Phase 4: HUD & User Experience
 
-### 4.2 Improve Combat System
-41. [NEW] `scripts/core/combat/damage_system.gd` - Create system for damage handling
-42. [NEW] `scripts/core/combat/hit_effect.gd` - Create visual effects for hits
-43. [NEW] `scripts/core/combat/screen_shake.gd` - Add screen shake effect
-44. [MODIFY] `scripts/ui/hud/hud_controller.gd` - Improve damage feedback
+16. [MODIFY] `scripts/ui/hud/hud_controller.gd` (Tasks 44, 50) - Enhance with:
+    - Improved health display
+    - Better damage feedback
+    - Animations for UI changes
+17. [NEW] `scripts/ui/hud/mini_map.gd` (Task 51) - Add mini-map component
+18. [NEW] `scripts/ui/hud/objective_tracker.gd` (Task 52) - Add objective tracking
+19. [MODIFY] `scenes/ui/hud/hud.tscn` (Task 53) - Update with new components
+20. [MODIFY] `scenes/ui/main_menu/main_menu.tscn` (Task 49) - Update with new UI components
 
-## 5. UI and User Experience
+## Phase 5: Combat System & Enemy Behaviors
 
-### 5.1 Enhance UI Framework
-45. [NEW] `scripts/ui/theme/ui_theme.gd` - Create consistent UI theme
-46. [NEW] `scripts/ui/components/` - Create folder for reusable UI components
-47. [NEW] `scripts/ui/components/button_with_sound.gd` - Create button with sound effects
-48. [NEW] `scripts/ui/transitions/screen_transition.gd` - Create screen transition effects
-49. [MODIFY] `scenes/ui/main_menu/main_menu.tscn` - Update with new UI components
+21. [NEW] `scripts/core/combat/damage_system.gd` (Task 41) - Create system for damage handling
+22. [NEW] `scripts/core/combat/hit_effect.gd` (Task 42) - Create visual effects for hits
+23. [NEW] `scripts/core/combat/screen_shake.gd` (Task 43) - Add screen shake effect
+24. [NEW] `scripts/core/enemies/behaviors/patrol_behavior.gd` (Task 35) - Create modular patrol behavior
+25. [NEW] `scripts/core/enemies/behaviors/chase_behavior.gd` (Task 36) - Create modular chase behavior
+26. [NEW] `scripts/core/enemies/behaviors/attack_behavior.gd` (Task 37) - Create modular attack behavior
+27. [NEW] `scripts/core/enemies/behaviors/ranged_attack.gd` (Task 38) - Create ranged attack component
+28. [NEW] `scripts/core/enemies/behaviors/melee_attack.gd` (Task 39) - Create melee attack component
+29. [NEW] `scripts/managers/enemy_manager.gd` (Task 40) - Create manager for enemy spawning and waves
 
-### 5.2 Improve HUD
-50. [MODIFY] `scripts/ui/hud/hud_controller.gd` - Enhance health display and animations
-51. [NEW] `scripts/ui/hud/mini_map.gd` - Add mini-map component
-52. [NEW] `scripts/ui/hud/objective_tracker.gd` - Add objective tracking
-53. [MODIFY] `scenes/ui/hud/hud.tscn` - Update with new components
+## Phase 6: Performance Optimization & Resource Management
 
-### 5.3 Dialog System
-54. [MODIFY] `scripts/ui/dialogs/popup_dialog.gd` - Enhance with animations
-55. [NEW] `scripts/ui/dialogs/conversation_system.gd` - Create NPC conversation system
-56. [NEW] `scripts/ui/dialogs/dialog_tree.gd` - Implement branching dialogs
-57. [NEW] `scripts/ui/dialogs/quest_tracker.gd` - Add quest tracking
+30. [NEW] `scripts/utils/resource_preloader.gd` (Task 58) - Create resource preloading manager
+31. [NEW] `scripts/utils/object_pool.gd` (Task 59) - Implement object pooling system
+32. [NEW] `scripts/utils/performance_monitor.gd` (Task 64) - Add monitoring capabilities
+33. [MODIFY] `scripts/core/projectiles/mage_ball.gd` (Task 60) - Use object pooling
+34. [MODIFY] `scripts/core/projectiles/rock.gd` (Task 61) - Use object pooling
 
-## 6. Performance Optimization
+## Phase 7: Audio System Enhancements
 
-### 6.1 Resource Management
-58. [NEW] `scripts/utils/resource_preloader.gd` - Create resource preloading manager
-59. [NEW] `scripts/utils/object_pool.gd` - Implement object pooling system
-60. [MODIFY] `scripts/core/projectiles/mage_ball.gd` - Use object pooling
-61. [MODIFY] `scripts/core/projectiles/rock.gd` - Use object pooling
+35. [MODIFY] `scripts/autoload/audio_manager.gd` (Task 72) - Expand with:
+    - Audio categories (Music, SFX, UI, Ambient)
+    - Volume control
+    - Sound effect management
+36. [NEW] `scripts/audio/adaptive_music_system.gd` (Task 73) - Create dynamic music system
+37. [NEW] `scripts/audio/sound_effect.gd` (Task 74) - Create enhanced sound effect class
+38. [MODIFY] `scenes/managers/audio_manager.tscn` (Task 75) - Update with new audio buses
 
-### 6.2 Code Optimization
-62. [REVIEW] All scripts with _process methods - Optimize heavy processing
-63. [MODIFY] `scripts/core/characters/player.gd` - Optimize signal connections
-64. [NEW] `scripts/utils/performance_monitor.gd` - Add monitoring capabilities
+## Phase 8: Development Tools & Documentation
 
-## 7. Development Tooling
+39. [NEW] `scripts/utils/debug_console.gd` (Task 65) - Implement in-game debug console
+40. [NEW] `scripts/utils/performance_display.gd` (Task 66) - Add FPS and memory display
+41. [NEW] `scripts/utils/cheat_system.gd` (Task 67) - Add cheat code functionality
+42. [NEW] `docs/code_standards.md` (Task 70) - Create coding standards document
+43. [NEW] `docs/architecture.md` (Task 71) - Document project architecture
+44. [REVIEW] (Task 62) - Optimize heavy processing in _process methods
+45. [REVIEW] (Task 69) - Standardize class_name usage across all scripts
 
-### 7.1 Create Debug Tools
-65. [NEW] `scripts/utils/debug_console.gd` - Implement in-game debug console
-66. [NEW] `scripts/utils/performance_display.gd` - Add FPS and memory display
-67. [NEW] `scripts/utils/cheat_system.gd` - Add cheat code functionality
+## Implementation Strategy
 
-### 7.2 Improve Project Structure
-68. [NEW] `scripts/utils/constants.gd` - Create global constants file
-69. [REVIEW] All scripts - Standardize class_name usage
-70. [NEW] `docs/code_standards.md` - Create coding standards document
-71. [NEW] `docs/architecture.md` - Document project architecture
+1. **Focus on core infrastructure first** - Ensure the game manager, event system, and save system are robust before moving on.
+2. **Implement one phase at a time** - Complete each phase before moving to the next to maintain code stability.
+3. **Test frequently** - Run the game after each significant change to catch issues early.
+4. **Document as you go** - Update documentation in parallel with code changes.
+5. **Leverage state machine** - Use the existing state machine for new behaviors instead of creating parallel systems.
 
-## 8. Audio System Enhancements
+## Priority Order
 
-### 8.1 Expand Audio Manager
-72. [MODIFY] `scripts/autoload/audio_manager.gd` - Expand with categories and spatial audio
-73. [NEW] `scripts/audio/adaptive_music_system.gd` - Create dynamic music system
-74. [NEW] `scripts/audio/sound_effect.gd` - Create enhanced sound effect class
-75. [MODIFY] `scenes/managers/audio_manager.tscn` - Update with new audio buses
+If you need to prioritize certain improvements:
+
+1. Game Manager & Save System (Phase 1)
+2. UI Framework & HUD Improvements (Phases 3 & 4)
+3. Combat System & Enemy Behaviors (Phase 5)
+4. Audio System Enhancements (Phase 7)
+5. Performance Optimization (Phase 6)
+6. Development Tools (Phase 8)

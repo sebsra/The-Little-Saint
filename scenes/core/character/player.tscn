@@ -1,7 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://ds83orkh8d6l"]
+[gd_scene load_steps=13 format=3 uid="uid://ds83orkh8d6l"]
 
 [ext_resource type="Script" uid="uid://c8y36uq5jpl07" path="res://scripts/core/characters/player.gd" id="1_lc4bu"]
 [ext_resource type="PackedScene" uid="uid://cubtrfejltu51" path="res://scenes/core/character/character_sprites.tscn" id="1_ycdme"]
+[ext_resource type="Script" uid="uid://bym8bq5e6a2md" path="res://scripts/core/state_machine/state_machine.gd" id="3_l4iyu"]
+[ext_resource type="Script" uid="uid://cfneoshgt1lu8" path="res://scripts/core/state_machine/player_states/player_idle_state.gd" id="4_dyeow"]
+[ext_resource type="Script" uid="uid://tpfi51nbql5c" path="res://scripts/core/state_machine/player_states/player_walk_state.gd" id="5_w0cs5"]
+[ext_resource type="Script" uid="uid://dlyn8hs1t3gfo" path="res://scripts/core/state_machine/player_states/player_jump_state.gd" id="6_5grw7"]
+[ext_resource type="Script" uid="uid://kdrcx4lmt5d1" path="res://scripts/core/state_machine/player_states/player_fall_state.gd" id="7_55tti"]
+[ext_resource type="Script" uid="uid://dtrk1kgvfjubt" path="res://scripts/core/state_machine/player_states/player_attack_state.gd" id="8_e8iv0"]
+[ext_resource type="Script" uid="uid://f1664l1rv2k1" path="res://scripts/core/state_machine/player_states/player_hurt_state.gd" id="9_73ab5"]
+[ext_resource type="Script" uid="uid://bwnmp1l50187q" path="res://scripts/core/state_machine/player_states/player_death_state.gd" id="10_nmyox"]
+[ext_resource type="Script" uid="uid://sp2vsuxkk8c4" path="res://scripts/core/state_machine/player_states/player_fly_state.gd" id="11_33maa"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l53bs"]
 radius = 7.5
@@ -11,10 +20,37 @@ height = 24.0
 collision_layer = 3
 script = ExtResource("1_lc4bu")
 
-[node name="character_sprites" parent="." instance=ExtResource("1_ycdme")]
-scale = Vector2(2, 2)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 9)
 scale = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_l53bs")
+
+[node name="character_sprites" parent="." instance=ExtResource("1_ycdme")]
+scale = Vector2(2, 2)
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_l4iyu")
+
+[node name="PlayerIdleState" type="Node" parent="StateMachine"]
+script = ExtResource("4_dyeow")
+
+[node name="PlayerWalkState" type="Node" parent="StateMachine"]
+script = ExtResource("5_w0cs5")
+
+[node name="PlayerJumpState" type="Node" parent="StateMachine"]
+script = ExtResource("6_5grw7")
+
+[node name="PlayerFallState" type="Node" parent="StateMachine"]
+script = ExtResource("7_55tti")
+
+[node name="PlayerAttackState" type="Node" parent="StateMachine"]
+script = ExtResource("8_e8iv0")
+
+[node name="PlayerHurtState" type="Node" parent="StateMachine"]
+script = ExtResource("9_73ab5")
+
+[node name="PlayerDeathState" type="Node" parent="StateMachine"]
+script = ExtResource("10_nmyox")
+
+[node name="PlayerFlyState" type="Node" parent="StateMachine"]
+script = ExtResource("11_33maa")
