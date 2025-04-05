@@ -75,7 +75,7 @@ Project -> Project Settings -> General -> Input Devices
 
 ### The joystick doesn't work when using Input.get_vector():
 ⚠ **This has been fixed in Godot Engine!**  
-Unfortunately, this a bug in the Godot engine, so the only solution for now is using Input.get_axis:  
+Unfortunately, this a bug in the Godot engine, so the only current solution for now is using Input.get_axis:  
 This doesn't work:
 ```gdscript
 input_vector := Input.get_vector("ui_left","ui_right","ui_up","ui_down")
