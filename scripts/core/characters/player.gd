@@ -190,7 +190,7 @@ func death():
 
 func _on_test_portal_body_entered(_body):
 	if get_node_or_null("/root/Global"):
-		Global.change_scene("res://scenes/levels/adventure_mode/adventure_level.tscn")
+		Global.change_scene("res://scenes/levels/adventure_mode/MainMap.tscn")
 
 # New methods for gameplay enhancement
 func set_movement_mode(new_mode: String) -> void:

@@ -3,18 +3,22 @@ extends Node2D
 
 @onready var room1 = preload("res://scenes/levels/adventure_mode/enemy_room_1.tscn")
 @onready var room2 = preload("res://scenes/levels/adventure_mode/enemy_room_2.tscn")
+@onready var start_room = preload("res://scenes/levels/adventure_mode/Starting_Room.tscn")
+@onready var end_room = preload("res://scenes/levels/adventure_mode/End_Room.tscn")
 @onready var ExitBlock = preload("res://scenes/levels/adventure_mode/exit_block.tscn")
 
 # Constants for room dimensions and number of rooms
 const ROOM_WIDTH = 960  # Room width
 const ROOM_HEIGHT = 480  # Room height
-const NUM_ROOMS = 8  # Number of rooms
+const NUM_ROOMS = 4  # Number of rooms
 const HIGH_EXIT_OFFSET = 320  # Vertical offset for high exit (move up)
 const LOW_EXIT_OFFSET = -320  # Vertical offset for low exit (move down)
 
 func _ready():
-	var previous_position = Vector2(0, 0)  # Starting position for the first room
-	
+	var previous_position = Vector2(960, 0)  # Starting position for the first room
+	var start_room_instance = start_room.instantiate()
+	add_child(start_room_instance)
+	var end = (NUM_ROOMS-1)
 	for i in range(NUM_ROOMS):
 		# Randomly choose room1 or room2
 		var room_instance
@@ -27,11 +31,13 @@ func _ready():
 		var rand1 = randi() % 2  # Random 0 or 1
 		print("  Random 0 or 1: ", rand1)
 		print("  Random 0 to 8: ", randRoom)
-		
-		if randi() % 2 == 0:
-			room_instance = room1.instantiate()
+		if i == end:
+				room_instance = end_room.instantiate()
 		else:
-			room_instance = room2.instantiate()
+			if randi() % 2 == 0:
+				room_instance = room1.instantiate()
+			else:
+				room_instance = room2.instantiate()
 			
 		# Set the position of the current room
 		room_instance.position = previous_position
