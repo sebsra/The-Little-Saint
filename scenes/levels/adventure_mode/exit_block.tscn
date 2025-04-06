@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://n824l0763ifn"]
+
+[ext_resource type="TileSet" uid="uid://c0m7nsbyu5twe" path="res://scenes/levels/adventure_mode/adventure_level.tres" id="1_oxq7a"]
+
+[node name="ExitBlock" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_oxq7a")
+format = 2
+layer_0/name = "Deco"
+layer_1/name = "Real"
+layer_1/tile_data = PackedInt32Array(-65536, 65539, 34, -131072, 3, 30, -196608, 65539, 805306402)

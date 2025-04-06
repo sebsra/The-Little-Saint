@@ -1,0 +1,101 @@
+[gd_scene load_steps=9 format=3 uid="uid://dr7ntorp0cef"]
+
+[ext_resource type="Script" uid="uid://bdour4osjj6cu" path="res://scenes/levels/adventure_mode/main_map.gd" id="1_h2yiu"]
+[ext_resource type="PackedScene" uid="uid://ds83orkh8d6l" path="res://scenes/core/character/player.tscn" id="2_cd3bd"]
+[ext_resource type="PackedScene" uid="uid://bvht273076lxf" path="res://scenes/ui/controls/gui.tscn" id="4_20wic"]
+[ext_resource type="Texture2D" uid="uid://pvcifviuoert" path="res://assets/sprites/environment/sunny-land-files/Sunny-land-files/Graphical Assets/environment/Background/back.png" id="5_3t8mi"]
+[ext_resource type="PackedScene" uid="uid://brvsjhwye311q" path="res://scenes/ui/hud/hud.tscn" id="5_xmquj"]
+[ext_resource type="Texture2D" uid="uid://cfltej707mdlt" path="res://assets/sprites/environment/Industrial/bg.png" id="6_e7mkn"]
+[ext_resource type="Texture2D" uid="uid://crilrgk0gtkn8" path="res://assets/sprites/environment/Industrial/buildings.png" id="7_icxnx"]
+[ext_resource type="Texture2D" uid="uid://b71w2qavtssep" path="res://assets/sprites/environment/Industrial/skill-foreground.png" id="8_ka5f1"]
+
+[node name="MapContainer" type="Node2D"]
+script = ExtResource("1_h2yiu")
+
+[node name="GUI2" parent="." instance=ExtResource("4_20wic")]
+
+[node name="HUD2" parent="." instance=ExtResource("5_xmquj")]
+
+[node name="Player" type="Node2D" parent="."]
+
+[node name="Player" parent="Player" instance=ExtResource("2_cd3bd")]
+top_level = true
+position = Vector2(18, -108)
+
+[node name="Camera2D" type="Camera2D" parent="Player/Player"]
+position = Vector2(7, 31)
+offset = Vector2(0, -40)
+zoom = Vector2(0.4, 0.4)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="ParallaxBackground3" type="ParallaxBackground" parent="."]
+
+[node name="Sky (far distance)" type="ParallaxLayer" parent="ParallaxBackground3"]
+position = Vector2(-79, -1603)
+scale = Vector2(0.457167, 0.916776)
+motion_scale = Vector2(0.2, 1)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ParallaxBackground3/Sky (far distance)"]
+texture_repeat = 2
+offset_left = -6199.05
+offset_top = -4535.46
+offset_right = -3725.05
+offset_bottom = -4186.46
+scale = Vector2(15.6388, 19.6979)
+texture = ExtResource("5_3t8mi")
+region_rect = Rect2(0, 0, 384, 175)
+patch_margin_bottom = 174
+axis_stretch_horizontal = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="BackgroundGreen (far distance)2" type="ParallaxLayer" parent="ParallaxBackground3"]
+position = Vector2(-117, -259)
+scale = Vector2(0.457167, 0.916776)
+motion_scale = Vector2(0.2, 1)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ParallaxBackground3/BackgroundGreen (far distance)2"]
+texture_repeat = 2
+offset_left = 34864.7
+offset_top = 6992.98
+offset_right = 37338.7
+offset_bottom = 7341.98
+rotation = 3.14159
+scale = Vector2(15.6388, 19.6979)
+texture = ExtResource("6_e7mkn")
+region_rect = Rect2(0, 0, 384, 175)
+patch_margin_bottom = 115
+axis_stretch_horizontal = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Skyscraper (near distance)" type="ParallaxLayer" parent="ParallaxBackground3"]
+position = Vector2(-155, 44)
+motion_scale = Vector2(0.5, 1)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ParallaxBackground3/Skyscraper (near distance)"]
+texture_repeat = 2
+offset_left = -1711.0
+offset_top = -1357.0
+offset_right = 3933.0
+offset_bottom = -1241.0
+scale = Vector2(5.77588, 11.9774)
+texture = ExtResource("7_icxnx")
+patch_margin_top = 80
+axis_stretch_horizontal = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Houses (middle)" type="ParallaxLayer" parent="ParallaxBackground3"]
+position = Vector2(-155, 44)
+motion_scale = Vector2(0.8, 1)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ParallaxBackground3/Houses (middle)"]
+texture_repeat = 2
+offset_left = -586.0
+offset_top = -505.0
+offset_right = 5058.0
+offset_bottom = -389.0
+scale = Vector2(2.92476, 3.99256)
+texture = ExtResource("8_ka5f1")
+patch_margin_top = 80
+axis_stretch_horizontal = 1
+metadata/_edit_use_anchors_ = true
