@@ -76,13 +76,14 @@ expand_mode = 1
 stretch_mode = 1
 
 [node name="HeartsFull" type="TextureRect" parent="."]
-offset_left = 1162.0
+offset_left = 1161.0
 offset_top = 56.0
-offset_right = 1215.0
+offset_right = 1214.0
 offset_bottom = 101.0
 texture = ExtResource("4_i601r")
 expand_mode = 1
 stretch_mode = 1
+flip_h = true
 
 [node name="Adler" type="TextureRect" parent="."]
 offset_left = 921.0
