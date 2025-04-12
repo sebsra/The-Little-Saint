@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://caj62g8ud3mln"]
 
-[ext_resource type="Script"  path="res://scripts/core/projectiles/rock.gd" id="1_bjyf8"]
-[ext_resource type="Texture2D"  path="res://assets/sprites/enemies/4 Goblin_Range/Rock.png" id="2_48b0b"]
+[ext_resource type="Script" uid="uid://pcgmgkajauvv" path="res://scripts/core/projectiles/rock.gd" id="1_bjyf8"]
+[ext_resource type="Texture2D" uid="uid://cgimr02y2gshf" path="res://assets/sprites/enemies/4 Goblin_Range/Rock.png" id="2_48b0b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ti0b"]
 atlas = ExtResource("2_48b0b")

@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bvht273076lxf" path="res://scenes/ui/controls/gui.tscn" id="7_t4ryr"]
 [ext_resource type="PackedScene" uid="uid://brvsjhwye311q" path="res://scenes/ui/hud/hud.tscn" id="8_3q4ql"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qgwgp"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wcqnu"]
 texture = ExtResource("5_acmls")
 texture_region_size = Vector2i(48, 48)
 0:0/0 = 0
@@ -1067,7 +1067,7 @@ texture_region_size = Vector2i(48, 48)
 7:77/0 = 0
 8:77/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vv6s4"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mdnms"]
 texture = ExtResource("6_rc55t")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -1456,8 +1456,8 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_r0yip"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
-sources/2 = SubResource("TileSetAtlasSource_qgwgp")
-sources/3 = SubResource("TileSetAtlasSource_vv6s4")
+sources/2 = SubResource("TileSetAtlasSource_wcqnu")
+sources/3 = SubResource("TileSetAtlasSource_mdnms")
 
 [node name="AdventureLevel" type="Node2D"]
 
@@ -1500,29 +1500,26 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Monsters" type="Node2D" parent="."]
 
-[node name="Goblin_Archer" parent="Monsters" instance=ExtResource("3_pj8cf")]
+[node name="Goblin_Archer" parent="Monsters" groups=["enemy"] instance=ExtResource("3_pj8cf")]
 position = Vector2(-243, 314)
 
-[node name="Goblin_Archer2" parent="Monsters" instance=ExtResource("3_pj8cf")]
+[node name="Goblin_Archer2" parent="Monsters" groups=["enemy"] instance=ExtResource("3_pj8cf")]
 position = Vector2(1404, 289)
 
-[node name="Goblin_Archer3" parent="Monsters" instance=ExtResource("3_pj8cf")]
+[node name="Goblin_Archer3" parent="Monsters" groups=["enemy"] instance=ExtResource("3_pj8cf")]
 position = Vector2(-310, 313)
 
-[node name="Goblin_Melee" parent="Monsters" instance=ExtResource("4_gfy07")]
+[node name="Goblin_Melee" parent="Monsters" groups=["enemy"] instance=ExtResource("4_gfy07")]
 position = Vector2(-33, 321)
 
-[node name="Goblin_Melee2" parent="Monsters" instance=ExtResource("4_gfy07")]
+[node name="Goblin_Melee2" parent="Monsters" groups=["enemy"] instance=ExtResource("4_gfy07")]
 position = Vector2(-122, 317)
 
-[node name="Goblin_Melee3" parent="Monsters" instance=ExtResource("4_gfy07")]
+[node name="Goblin_Melee3" parent="Monsters" groups=["enemy"] instance=ExtResource("4_gfy07")]
 position = Vector2(-193, 319)
 
-[node name="Goblin_Mage" parent="Monsters" instance=ExtResource("5_aprwh")]
+[node name="Goblin_Mage" parent="Monsters" groups=["enemy"] instance=ExtResource("5_aprwh")]
 position = Vector2(817, 317)
-
-[node name="Goblin_Mage2" parent="Monsters" instance=ExtResource("5_aprwh")]
-position = Vector2(1628, 196)
 
 [node name="elixir" parent="Monsters" instance=ExtResource("6_wcqnu")]
 position = Vector2(1197, 308)
@@ -1533,18 +1530,18 @@ position = Vector2(1669, -4)
 [node name="coins" parent="Monsters" instance=ExtResource("7_mdnms")]
 position = Vector2(1644, -6)
 
-[node name="Player" type="Node2D" parent="."]
-
-[node name="Player" parent="Player" instance=ExtResource("4_x4bdv")]
+[node name="Player" parent="Monsters" instance=ExtResource("4_x4bdv")]
 top_level = true
 position = Vector2(266, 219)
 
-[node name="Camera2D" type="Camera2D" parent="Player/Player"]
+[node name="Camera2D" type="Camera2D" parent="Monsters/Player"]
 position = Vector2(7, 31)
 offset = Vector2(0, -40)
 zoom = Vector2(2.5, 2.5)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
+
+[node name="Player" type="Node2D" parent="."]
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(271, 407)
@@ -1558,9 +1555,6 @@ layer_0/tile_data = PackedInt32Array(-131072, 3, 2, -65538, 3, 2, -65540, 3, 2, 
 
 [node name="elixir" parent="." instance=ExtResource("6_wcqnu")]
 position = Vector2(409, 312)
-
-[node name="coins" parent="." instance=ExtResource("7_mdnms")]
-position = Vector2(152, 312)
 
 [node name="coins2" parent="." instance=ExtResource("7_mdnms")]
 position = Vector2(623, 320)

@@ -525,6 +525,7 @@ scale = Vector2(0.757734, 0.711886)
 shape = SubResource("RectangleShape2D_e5ipr")
 
 [node name="HUD" parent="." instance=ExtResource("20_74f61")]
+script = null
 
 [node name="character_sprites" parent="." instance=ExtResource("21_qnudb")]
 visible = false
