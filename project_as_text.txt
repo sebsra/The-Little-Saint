@@ -1,6 +1,6 @@
 CORE SCRIPTS SCAN REPORT
 ==================================================
-Date: 2025-04-12 12:21:52
+Date: 2025-04-12 12:31:44
 Scanned directories:
 - scripts/core/projectiles
 - scripts/core/base_classes
@@ -13,7 +13,7 @@ Scanned directories:
 ##############################
 
 Directory: C:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\projectiles
-Date: 2025-04-12 12:21:52
+Date: 2025-04-12 12:31:44
 Filter mode: include
 Included file types: .cfg, .cs, .gd, .gdshader, .json, .shader, .tres, .tscn
 
@@ -274,7 +274,8 @@ Contents of scripts\core\projectiles\rock.gd:
   # Überschriebene Kollisionsmethode für verbesserte Abprall-Logik
   func _on_collision(collision):
   	var collider = collision.get_collider()
-  	
+  	if collider == null:
+  		return
   	# Zusätzliche Prüfung auf gültige Gruppen
   	var is_player = collider.is_in_group("player") if collider.has_method("is_in_group") else false
   	var is_enemy = collider.is_in_group("enemy") if collider.has_method("is_in_group") else false
@@ -430,14 +431,14 @@ Contents of scripts\core\projectiles\rock.gd:
   	current_dust_particles.clear()
 
 ==================================================
-Scan completed at 2025-04-12 12:21:52
+Scan completed at 2025-04-12 12:31:44
 
 ##############################
 # scripts/core/base_classes
 ##############################
 
 Directory: C:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\base_classes
-Date: 2025-04-12 12:21:52
+Date: 2025-04-12 12:31:44
 Filter mode: include
 Included file types: .cfg, .cs, .gd, .gdshader, .json, .shader, .tres, .tscn
 
@@ -922,13 +923,10 @@ Contents of scripts\core\base_classes\base_projectile.gd:
   		print("FEHLER: Spieler hat keine take_damage Methode!")
   	
   	# Update HUD if available
-  	var hud = get_node_or_null("../HUD") or get_tree().get_root().find_child("HUD", true, false)
-  	if hud and hud.has_method("change_life"):
-  		hud.change_life(-damage)  # Keine Skalierung - HUD erwartet bereits den richtigen Wert (0.5 für halbes Herz)
-  		print("HUD aktualisiert mit Schaden: ", damage)
-  	else:
-  		print("WARNUNG: HUD nicht gefunden oder hat keine change_life Methode")
-  	
+  	var hud = get_tree().get_root().find_child("HUD", true, false)
+  	hud.change_life(-damage)  # Keine Skalierung - HUD erwartet bereits den richtigen Wert (0.5 für halbes Herz)
+  	print("HUD aktualisiert mit Schaden: ", damage)
+  
   	# Spawn hit effect if available
   	_spawn_hit_effect(hit_position)
   
@@ -1282,14 +1280,14 @@ Contents of scripts\core\base_classes\state_machine\state_machine.gd:
   	return null
 
 ==================================================
-Scan completed at 2025-04-12 12:21:52
+Scan completed at 2025-04-12 12:31:44
 
 ##############################
 # scripts/core/enemies
 ##############################
 
 Directory: C:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\enemies
-Date: 2025-04-12 12:21:52
+Date: 2025-04-12 12:31:44
 Filter mode: include
 Included file types: .cfg, .cs, .gd, .gdshader, .json, .shader, .tres, .tscn
 
@@ -4499,4 +4497,4 @@ Contents of scripts\core\enemies\states\melee\rage_state.gd:
       return ""
 
 ==================================================
-Scan completed at 2025-04-12 12:21:52
+Scan completed at 2025-04-12 12:31:44

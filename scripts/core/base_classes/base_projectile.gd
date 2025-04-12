@@ -68,7 +68,7 @@ func _physics_process(delta):
 	var collision = move_and_collide(velocity * delta)
 	
 	# Zusätzlicher Raycast für schnelle Projektile, die möglicherweise Objekte "überspringen"
-	if not collision and velocity.length() > 200:
+	if not collision and velocity.length() > 0: # Temporary fix cause collisions not registered for unnkown reason
 		var space_state = get_world_2d().direct_space_state
 		var end_pos = start_pos + velocity * delta
 		var query = PhysicsRayQueryParameters2D.create(start_pos, end_pos)
@@ -156,6 +156,8 @@ func _setup_trail():
 # Process collisions
 func _on_collision(collision):
 	var collider = collision.get_collider()
+	if collider == null:
+		return
 	
 	# Zusätzliche Prüfung auf gültige Gruppen
 	var is_player = collider.is_in_group("player") if collider.has_method("is_in_group") else false
