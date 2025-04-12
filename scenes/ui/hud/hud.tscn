@@ -86,27 +86,29 @@ stretch_mode = 1
 flip_h = true
 
 [node name="Adler" type="TextureRect" parent="."]
-offset_left = 921.0
-offset_top = 106.0
-offset_right = 984.0
-offset_bottom = 153.0
+z_index = 1
+offset_left = 936.0
+offset_top = 97.0
+offset_right = 1026.0
+offset_bottom = 164.0
 texture = ExtResource("6_todbw")
 expand_mode = 1
 
-[node name="DoubleJump" type="TextureRect" parent="."]
-offset_left = 919.0
-offset_top = 163.0
-offset_right = 987.0
-offset_bottom = 213.0
+[node name="DoubleJump" type="TextureRect" parent="Adler"]
+visible = false
+offset_left = 107.0
+offset_top = 26.0
+offset_right = 203.0
+offset_bottom = 94.0
 texture = ExtResource("7_e7gie")
 expand_mode = 1
 
 [node name="bottle" type="Sprite2D" parent="."]
-position = Vector2(1083, 132.5)
+position = Vector2(955.375, 182.5)
 scale = Vector2(0.124179, 0.0895296)
 texture = ExtResource("8_a660p")
 
 [node name="elixir" type="Sprite2D" parent="."]
-position = Vector2(1083, 141.75)
+position = Vector2(955.375, 191.75)
 scale = Vector2(0.124179, 0.0950855)
 texture = ExtResource("10_a660p")

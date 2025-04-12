@@ -1275,8 +1275,8 @@ Contents of scripts\autoload\save_manager.gd:
   
   	if player:
   		# Update player data
-  		current_save_data.health = player.hud.lifes if player.hud else Constants.PLAYER_DEFAULT_MAX_HEALTH
-  		current_save_data.coins = player.hud.coins if player.hud else 0
+  		current_save_data.health = GlobalHUD.lifes if GlobalHUD else Constants.PLAYER_DEFAULT_MAX_HEALTH
+  		current_save_data.coins = GlobalHUD.coins if GlobalHUD else 0
   		current_save_data.player_position = player.global_position
   		current_save_data.current_level = get_node("/root/Global").current_level
   
@@ -1344,11 +1344,11 @@ Contents of scripts\autoload\save_manager.gd:
   			player.current_outfit.from_dictionary(current_save_data.player_outfit)
   
   	# Set HUD data if available
-  	if player.hud:
-  		player.hud.lifes = current_save_data.health
-  		player.hud.coins = current_save_data.coins
-  		player.hud.load_hearts()
-  		player.hud._update_coin_display()
+  	if GlobalHUD:
+  		GlobalHUD.lifes = current_save_data.health
+  		GlobalHUD.coins = current_save_data.coins
+  		GlobalHUD.load_hearts()
+  		GlobalHUD._update_coin_display()
   
   # Settings management - Using player defaults from Constants
   func save_settings() -> bool:
@@ -6555,14 +6555,14 @@ Contents of scripts\core\player\player_states\player_base_state.gd:
   # Function to check life and handle death
   func check_life():
   	# Check for player health in the HUD
-  	if player.hud:
+  	if GlobalHUD:
   		var health_value = 0
   		
   		# Try to get health using the current API or the legacy API
-  		if "current_health" in player.hud:
-  			health_value = player.hud.current_health
-  		elif "lifes" in player.hud:
-  			health_value = player.hud.lifes
+  		if "current_health" in GlobalHUD:
+  			health_value = GlobalHUD.current_health
+  		elif "lifes" in GlobalHUD:
+  			health_value = GlobalHUD.lifes
   			
   		if health_value <= 0:
   			return "PlayerDeathState"
@@ -6727,9 +6727,9 @@ Contents of scripts\core\player\player_states\player_fly_state.gd:
   	elixir_drain_timer += delta
   	if elixir_drain_timer >= drain_interval:
   		elixir_drain_timer = 0.0  # Reset timer
-  		player.hud.use_softpower()
+  		GlobalHUD.use_softpower()
   	
-  	if player.hud.elixir_fill_level <= 0:
+  	if GlobalHUD.elixir_fill_level <= 0:
   		player.mode = "normal"
   		
   	
@@ -6753,7 +6753,7 @@ Contents of scripts\core\player\player_states\player_fly_state.gd:
   		return "PlayerAttackState"
   	
   	# Check elixir level - transition to fall if empty
-  	if player.hud.elixir_fill_level <= 0:
+  	if GlobalHUD.elixir_fill_level <= 0:
   		player.passed_fly_time = 0.0  # Reset fly time
   		return "PlayerFallState"
   	
@@ -6976,14 +6976,14 @@ Contents of scripts\core\player\player_states\player_state.gd:
   # Function to check life and handle death
   func check_life():
   	# Check for player health in the HUD
-  	if player.hud:
+  	if GlobalHUD:
   		var health_value = 0
   		
   		# Try to get health using the current API or the legacy API
-  		if "current_health" in player.hud:
-  			health_value = player.hud.current_health
-  		elif "lifes" in player.hud:
-  			health_value = player.hud.lifes
+  		if "current_health" in GlobalHUD:
+  			health_value = GlobalHUD.current_health
+  		elif "lifes" in GlobalHUD:
+  			health_value = GlobalHUD.lifes
   			
   		if health_value <= 0:
   			return "PlayerDeathState"

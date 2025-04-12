@@ -8,7 +8,7 @@ var current_state: Constants.GameState = Constants.GameState.MENU
 var previous_state: Constants.GameState = Constants.GameState.MENU
 
 # Player reference
-var player = null
+var player: Player = null
 
 # Current level
 var current_level: String = ""
@@ -181,6 +181,7 @@ func collect_coin() -> void:
 	emit_signal("coin_collected", collected_coins)
 
 func player_death() -> void:
+	player.death()
 	change_state(Constants.GameState.GAME_OVER)
 	emit_signal("player_died")
 

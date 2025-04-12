@@ -38,14 +38,14 @@ func update_outfit():
 # Function to check life and handle death
 func check_life():
 	# Check for player health in the HUD
-	if player.hud:
+	if GlobalHUD:
 		var health_value = 0
 		
 		# Try to get health using the current API or the legacy API
-		if "current_health" in player.hud:
-			health_value = player.hud.current_health
-		elif "lifes" in player.hud:
-			health_value = player.hud.lifes
+		if "current_health" in GlobalHUD:
+			health_value = GlobalHUD.current_health
+		elif "lifes" in GlobalHUD:
+			health_value = GlobalHUD.lifes
 			
 		if health_value <= 0:
 			return "PlayerDeathState"

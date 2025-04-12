@@ -118,21 +118,30 @@ func load_game() -> bool:
 	emit_signal("load_completed", false, "No save data found or data corrupted")
 	return false
 
-# Update the save data with current game state
 func _update_save_data() -> void:
 	# Get player reference from GameManager
 	var player = null
 	if get_node_or_null("/root/Global") and get_node("/root/Global").player:
 		player = get_node("/root/Global").player
 
+	# Check if GlobalHUD exists
+	var global_hud = get_node_or_null("/root/GlobalHUD")
+
 	if player:
 		# Update player data
-		current_save_data.health = player.hud.lifes if player.hud else Constants.PLAYER_DEFAULT_MAX_HEALTH
-		current_save_data.coins = player.hud.coins if player.hud else 0
+		if global_hud:
+			# Use GlobalHUD for health and coins
+			current_save_data.health = global_hud.current_health
+			current_save_data.coins = global_hud.coins
+		else:
+			# Fallback to player's HUD
+			current_save_data.health = GlobalHUD.lifes if GlobalHUD else Constants.PLAYER_DEFAULT_MAX_HEALTH
+			current_save_data.coins = GlobalHUD.coins if GlobalHUD else 0
+			
 		current_save_data.player_position = player.global_position
 		current_save_data.current_level = get_node("/root/Global").current_level
 
-		# Update player stats and settings - Use constants rather than hardcoded values
+		# Update player stats and settings
 		current_save_data.player_speed = player.SPEED
 		current_save_data.player_jump_velocity = player.JUMP_VELOCITY
 		current_save_data.player_fly_velocity = player.FLY_VELOCITY
@@ -159,8 +168,11 @@ func _update_save_data() -> void:
 	# Update playtime
 	current_save_data.playtime_seconds += 1  # Add at least 1 second each time
 
-# Apply loaded save data to the game
+# Update to SaveManager._apply_save_data method
 func _apply_save_data() -> void:
+	if not current_save_data:
+		return
+		
 	# Update GameManager data
 	if get_node_or_null("/root/Global"):
 		get_node("/root/Global").collected_coins = current_save_data.collected_coins
@@ -168,9 +180,13 @@ func _apply_save_data() -> void:
 		get_node("/root/Global").completed_quests = current_save_data.completed_quests.duplicate()
 		get_node("/root/Global").current_level = current_save_data.current_level
 
-	# We will apply player-specific data when the player is instantiated
-	# or when we change to the appropriate scene
-
+	# Update GlobalHUD if available
+	var global_hud = get_node_or_null("/root/GlobalHUD")
+	if global_hud:
+		global_hud.current_health = current_save_data.health
+		global_hud.coins = current_save_data.coins
+		global_hud.sync_hud_with_global()
+		
 # Apply save data to the player (called when player is instantiated)
 func apply_save_data_to_player(player) -> void:
 	if not current_save_data or not player:
@@ -196,11 +212,11 @@ func apply_save_data_to_player(player) -> void:
 			player.current_outfit.from_dictionary(current_save_data.player_outfit)
 
 	# Set HUD data if available
-	if player.hud:
-		player.hud.lifes = current_save_data.health
-		player.hud.coins = current_save_data.coins
-		player.hud.load_hearts()
-		player.hud._update_coin_display()
+	if GlobalHUD:
+		GlobalHUD.lifes = current_save_data.health
+		GlobalHUD.coins = current_save_data.coins
+		GlobalHUD.load_hearts()
+		GlobalHUD._update_coin_display()
 
 # Settings management - Using player defaults from Constants
 func save_settings() -> bool:

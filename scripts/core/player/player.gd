@@ -66,7 +66,7 @@ func _ready() -> void:
 		print("Player ready, State Machine initialized")
 		print("Initial player stats: Speed=", SPEED, ", Jump=", JUMP_VELOCITY,
 			  ", Fly=", FLY_VELOCITY, ", Gravity=", GRAVITY)
-
+			
 # Setup the state machine and initialize all player states
 func _setup_state_machine():
 	# Check if StateMachine node exists
@@ -229,19 +229,6 @@ func _on_life_down_body_entered(_body):
 	if hud:
 		hud.change_life(-0.25)
 
-func death():
-	$CollisionShape2D.disabled = true
-	current_animation = "dead"
-
-	# Notify GameManager of player death
-	if get_node_or_null("/root/Global"):
-		Global.player_death()
-
-	self.queue_free()
-	
-	if get_node_or_null("/root/Global"):
-		Global.go_to_main_menu()
-
 func _on_test_portal_body_entered(_body):
 	if get_node_or_null("/root/Global"):
 		Global.change_scene("res://scenes/levels/adventure_mode/MainMap.tscn")
@@ -265,9 +252,16 @@ func set_attack_animation(anim_name: String) -> void:
 func add_extra_jumps(extra_jumps: int) -> void:
 	allowed_jumps += extra_jumps
 
-func take_damage(amount: float) -> void:
-	if hud:
-		hud.change_life(-amount / 100.0)
 
+# Modified player take_damage function
+func take_damage(amount: float) -> void:
+	GlobalHUD.change_health(-amount / 100.0)
+
+# Modified player bounce function
 func bounce() -> void:
 	velocity.y = JUMP_VELOCITY * 0.7 # Less powerful than a regular jump
+
+# Modified player death function
+func death():
+	state_machine.change_state("PlayerDeathState")
+#	self.queue_free()

@@ -56,7 +56,7 @@ func _ready():
 	_detect_specialized_enemy_type()
 	
 	# Enable debug mode in development builds only
-	debug_mode = OS.has_feature("debug")
+	debug_mode = false #OS.has_feature("debug")
 	print("EnemyStateMachine initialized for: " + owner_node.name + " with type: " + specialized_enemy_type)
 
 func _physics_process(delta):

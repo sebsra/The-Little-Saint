@@ -29,8 +29,6 @@ func physics_process(delta: float):
 		velocity.y = player.JUMP_VELOCITY * y_input
 		player.jump_counter += 1
 		player.ready_for_jump = false
-	elif y_input < 0.4:
-		player.ready_for_jump = true
 		
 	set_velocity(velocity)
 	
@@ -68,9 +66,9 @@ func get_next_state() -> String:
 			return "PlayerIdleState"
 			
 	# Double jump transition
-	var y_input = Input.get_axis("down", "up")
-	if y_input > 0.4 && player.jump_counter < player.allowed_jumps && player.ready_for_jump:
-		return "PlayerJumpState"
+	#var y_input = Input.get_axis("down", "up")
+	#if y_input > 0.4 && player.jump_counter < player.allowed_jumps && player.ready_for_jump:
+	#	return "PlayerJumpState"
 	
 	# Stay in fall state
 	return ""
