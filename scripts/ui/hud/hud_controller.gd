@@ -15,7 +15,7 @@ func get_lifes() -> float:
 	
 func set_lifes(value: float) -> void:
 	current_health = value
-	_update_health_display()
+	_update_hearts_full()
 
 # Make sure legacy code can access lifes directly
 var lifes: float:
@@ -31,10 +31,12 @@ var active_power_ups: Array = []
 var power_up_timers: Dictionary = {}
 
 # HUD Components reference
-@onready var health_display = $HeartsFull
+@onready var hearts_full = $HeartsFull
 @onready var coins_label = $LabelCoinSum
 @onready var elixir_container = $bottle
 @onready var elixir_fill = $elixir
+@onready var inital_heart_size = $HeartsFull.size
+@onready var initial_heart_position = $HeartsFull.position
 
 # Optional components
 @onready var objective_display = $ObjectiveTracker if has_node("ObjectiveTracker") else null
@@ -60,8 +62,8 @@ func _ready():
 	current_health = initial_health
 	lifes = current_health  # Update legacy property
 	
-	if health_display:
-		_update_health_display()
+	if hearts_full:
+		_update_hearts_full()
 	
 	# Initialize coins display
 	if coins_label:
@@ -101,7 +103,7 @@ func _process(delta):
 func set_max_health(new_max: float) -> void:
 	max_health = max(1.0, new_max)
 	current_health = min(current_health, max_health)
-	_update_health_display()
+	_update_hearts_full()
 	emit_signal("health_changed", current_health, max_health)
 
 func change_health(amount: float) -> void:
@@ -109,7 +111,7 @@ func change_health(amount: float) -> void:
 	current_health = clamp(current_health + amount, 0, max_health)
 	
 	if current_health != old_health:
-		_update_health_display()
+		_update_hearts_full()
 		emit_signal("health_changed", current_health, max_health)
 		
 		# Handle death
@@ -122,10 +124,10 @@ func change_health(amount: float) -> void:
 		elif amount < 0:
 			_show_damage_effect()
 
-func _update_health_display() -> void:
-	if health_display:
-		# Scale heart display based on current health
-		health_display.size.x = (current_health / max_health) * health_display.texture.get_width()
+func _update_hearts_full() -> void:
+	if hearts_full:
+		hearts_full.size.x = lifes * inital_heart_size.x
+		hearts_full.position.x= initial_heart_position.x - ((lifes-1) * inital_heart_size.x)
 
 # Coin Management
 func add_coins(amount: int = 1) -> void:
@@ -368,7 +370,7 @@ func change_life(amount: float) -> void:
 	change_health(amount)
 
 func load_hearts() -> void:
-	_update_health_display()
+	_update_hearts_full()
 
 func coin_collected() -> void:
 	add_coins(1)
