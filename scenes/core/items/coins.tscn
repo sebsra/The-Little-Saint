@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://bq1h5147ej8ka"]
 
-[ext_resource type="Script"  path="res://scripts/core/items/coins.gd" id="1_17fm3"]
-[ext_resource type="Texture2D"  path="res://scenes/levels/ardit_levels/GameItemsAnims-Sheet.png" id="2_6tilb"]
+[ext_resource type="Script" uid="uid://clo67crjfkmbk" path="res://scripts/core/items/coins.gd" id="1_17fm3"]
+[ext_resource type="Texture2D" uid="uid://cr7jvj5pf3qvb" path="res://scenes/levels/ardit_levels/GameItemsAnims-Sheet.png" id="2_6tilb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rqm4w"]
 radius = 18.0278
@@ -140,7 +140,7 @@ frame_progress = 0.972546
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_1wsg7")
+&"": SubResource("AnimationLibrary_1wsg7")
 }
 
 [connection signal="body_entered" from="." to="." method="_on_coins_body_entered"]

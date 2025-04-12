@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfdu5qaytkhqx"]
+
+[ext_resource type="Texture2D" uid="uid://cqgrjgdofv4qg" path="res://assets/sprites/unsorted/princefotos/Burgturm.png" id="1_w1ecy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jb8pt"]
+size = Vector2(133, 248)
+
+[node name="Burgturm" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(6.00001, -0.999985)
+scale = Vector2(0.544248, 0.464072)
+texture = ExtResource("1_w1ecy")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-2.5, 28)
+shape = SubResource("RectangleShape2D_jb8pt")
