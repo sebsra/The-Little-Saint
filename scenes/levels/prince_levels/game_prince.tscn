@@ -1,19 +1,19 @@
 [gd_scene load_steps=34 format=3 uid="uid://cj15l5x85rbu"]
 
-[ext_resource type="Texture2D"  path="res://scenes/levels/prince_levels/Tiles/fourSeasonsPlatformer/midground_/spring_.png" id="2_6y1t7"]
-[ext_resource type="Texture2D"  path="res://scenes/levels/prince_levels/Tiles/fourSeasonsPlatformer/midground_/winter_.png" id="3_x5oa2"]
-[ext_resource type="Texture2D"  path="res://scenes/levels/prince_levels/Tiles/fourSeasonsPlatformer/objects_/items_.png" id="4_37ctr"]
-[ext_resource type="Texture2D"  path="res://scenes/levels/prince_levels/Tiles/fourSeasonsPlatformer/midground_/desertDungeon_.png" id="5_4n5kf"]
-[ext_resource type="Texture2D"  path="res://scenes/levels/prince_levels/Tiles/fourSeasonsPlatformer/background_/sky_.png" id="5_15583"]
-[ext_resource type="PackedScene"  path="res://scenes/core/character/player.tscn" id="6_3chjo"]
-[ext_resource type="PackedScene"  path="res://scenes/levels/prince_levels/platform.tscn" id="6_yga1y"]
-[ext_resource type="PackedScene"  path="res://scenes/core/items/power_jump.tscn" id="7_y1372"]
-[ext_resource type="PackedScene"  path="res://scenes/core/items/killzone.tscn" id="8_u4v8w"]
-[ext_resource type="PackedScene"  path="res://scenes/core/enemies/prince_enemy.tscn" id="10_p2llr"]
-[ext_resource type="PackedScene"  path="res://scenes/ui/controls/gui.tscn" id="11_yhyt2"]
-[ext_resource type="PackedScene"  path="res://scenes/ui/hud/hud.tscn" id="12_j1wmy"]
-[ext_resource type="PackedScene"  path="res://scenes/core/items/power_fly.tscn" id="13_8hp0w"]
-[ext_resource type="PackedScene"  path="res://scenes/core/items/coins.tscn" id="14_tt74o"]
+[ext_resource type="Texture2D" uid="uid://djc16qlf4kvt0" path="res://scenes/levels/prince_levels/Tiles/fourSeasonsPlatformer/midground_/spring_.png" id="2_6y1t7"]
+[ext_resource type="Texture2D" uid="uid://b7co7ebd78q3j" path="res://scenes/levels/prince_levels/Tiles/fourSeasonsPlatformer/midground_/winter_.png" id="3_x5oa2"]
+[ext_resource type="Texture2D" uid="uid://10d6xk2oif0q" path="res://scenes/levels/prince_levels/Tiles/fourSeasonsPlatformer/objects_/items_.png" id="4_37ctr"]
+[ext_resource type="Texture2D" uid="uid://pqyfa30oqiyp" path="res://scenes/levels/prince_levels/Tiles/fourSeasonsPlatformer/midground_/desertDungeon_.png" id="5_4n5kf"]
+[ext_resource type="Texture2D" uid="uid://duiycg4tadqtw" path="res://scenes/levels/prince_levels/Tiles/fourSeasonsPlatformer/background_/sky_.png" id="5_15583"]
+[ext_resource type="PackedScene" uid="uid://ds83orkh8d6l" path="res://scenes/core/character/player.tscn" id="6_3chjo"]
+[ext_resource type="PackedScene" uid="uid://dto57atpx2lw0" path="res://scenes/levels/prince_levels/platform.tscn" id="6_yga1y"]
+[ext_resource type="PackedScene" uid="uid://bvodoquin8gd6" path="res://scenes/core/items/power_jump.tscn" id="7_y1372"]
+[ext_resource type="PackedScene" uid="uid://c0alsp8f0al5p" path="res://scenes/core/items/killzone.tscn" id="8_u4v8w"]
+[ext_resource type="PackedScene" path="res://scenes/core/enemies/prince_enemy.tscn" id="10_p2llr"]
+[ext_resource type="PackedScene" uid="uid://bvht273076lxf" path="res://scenes/ui/controls/gui.tscn" id="11_yhyt2"]
+[ext_resource type="PackedScene" uid="uid://brvsjhwye311q" path="res://scenes/ui/hud/hud.tscn" id="12_j1wmy"]
+[ext_resource type="PackedScene" uid="uid://x3juxjynguey" path="res://scenes/core/items/power_fly.tscn" id="13_8hp0w"]
+[ext_resource type="PackedScene" uid="uid://bq1h5147ej8ka" path="res://scenes/core/items/coins.tscn" id="14_tt74o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wvy57"]
 texture = ExtResource("2_6y1t7")
@@ -1292,7 +1292,7 @@ position = Vector2(504, 37)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="platforms/platform2"]
 libraries = {
-"": SubResource("AnimationLibrary_gfn4l")
+&"": SubResource("AnimationLibrary_gfn4l")
 }
 autoplay = "move"
 
@@ -1301,7 +1301,7 @@ position = Vector2(663, 37)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="platforms/platform3"]
 libraries = {
-"": SubResource("AnimationLibrary_scweb")
+&"": SubResource("AnimationLibrary_scweb")
 }
 autoplay = "move"
 
@@ -1310,7 +1310,7 @@ position = Vector2(903, -203)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="platforms/platform4"]
 libraries = {
-"": SubResource("AnimationLibrary_aixwb")
+&"": SubResource("AnimationLibrary_aixwb")
 }
 autoplay = "RESET"
 
@@ -1319,7 +1319,7 @@ position = Vector2(1029, -203)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="platforms/platform5"]
 libraries = {
-"": SubResource("AnimationLibrary_td6mj")
+&"": SubResource("AnimationLibrary_td6mj")
 }
 
 [node name="softpower" type="Node" parent="."]
@@ -1347,6 +1347,7 @@ position = Vector2(1022, 162)
 
 [node name="killzone" parent="." instance=ExtResource("8_u4v8w")]
 position = Vector2(129, 155)
+script = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="killzone"]
 visibility_layer = 3
@@ -1357,6 +1358,7 @@ shape = SubResource("WorldBoundaryShape2D_dbh6x")
 position = Vector2(196, -11)
 
 [node name="Gegner1" parent="Gegner" instance=ExtResource("10_p2llr")]
+script = null
 
 [node name="GUI" parent="." instance=ExtResource("11_yhyt2")]
 

@@ -2,6 +2,7 @@ class_name ObjectPool
 extends Node
 
 ## A generic object pooling system for reusing objects instead of creating and destroying them
+## Improved to work better with the state-driven architecture
 
 # The scene to create objects from
 var scene: PackedScene
@@ -20,6 +21,10 @@ var parent_node: Node = null
 signal object_spawned(object)
 # Signal emitted when an object is returned to the pool
 signal object_recycled(object)
+# Signal emitted when the pool is resized
+signal pool_resized(new_size)
+# Signal emitted when the pool is cleared
+signal pool_cleared
 
 ## Create a new object pool with the specified scene
 func _init(object_scene: PackedScene, pool_size: int = 10, auto_resize_pool: bool = true):
@@ -27,11 +32,17 @@ func _init(object_scene: PackedScene, pool_size: int = 10, auto_resize_pool: boo
 	max_size = pool_size
 	auto_resize = auto_resize_pool
 	
+	# Check if scene is valid before pre-populating
+	if scene == null:
+		push_error("ObjectPool: Cannot initialize with null scene")
+		return
+	
 	# Pre-populate the pool with objects
 	for i in range(pool_size):
 		var obj = _create_object()
-		inactive_objects.append(obj)
-		all_objects.append(obj)
+		if obj != null:
+			inactive_objects.append(obj)
+			all_objects.append(obj)
 
 ## Set the parent node for all pooled objects
 func set_parent(parent: Node):
@@ -45,6 +56,11 @@ func set_parent(parent: Node):
 
 ## Get an object from the pool, or create a new one if the pool is empty
 func get_object() -> Node:
+	# First check if the scene is valid
+	if scene == null:
+		push_error("ObjectPool: Cannot get object from pool with null scene")
+		return null
+		
 	var obj = null
 	
 	if inactive_objects.size() > 0:
@@ -53,19 +69,23 @@ func get_object() -> Node:
 	elif auto_resize:
 		# Create a new object if we're allowed to resize the pool
 		obj = _create_object()
-		all_objects.append(obj)
+		if obj != null:
+			all_objects.append(obj)
 	else:
 		push_error("Object pool is empty and auto-resize is disabled!")
 		return null
 	
-	if obj.has_method("_on_spawn_from_pool"):
-		obj._on_spawn_from_pool()
+	if obj != null:
+		# Call spawn method if available
+		if obj.has_method("_on_spawn_from_pool"):
+			obj._on_spawn_from_pool()
+		
+		# Ensure the object is visible and active
+		obj.visible = true
+		obj.process_mode = Node.PROCESS_MODE_INHERIT
+		
+		emit_signal("object_spawned", obj)
 	
-	# Ensure the object is visible and active
-	obj.visible = true
-	obj.process_mode = Node.PROCESS_MODE_INHERIT
-	
-	emit_signal("object_spawned", obj)
 	return obj
 
 ## Return an object to the pool for reuse
@@ -103,6 +123,8 @@ func clear_pool() -> void:
 	
 	inactive_objects.clear()
 	all_objects.clear()
+	
+	emit_signal("pool_cleared")
 
 ## Resize the pool to the specified size
 func resize(new_size: int) -> void:
@@ -120,10 +142,12 @@ func resize(new_size: int) -> void:
 		# Need to grow the pool
 		for i in range(new_size - inactive_objects.size()):
 			var obj = _create_object()
-			inactive_objects.append(obj)
-			all_objects.append(obj)
+			if obj != null:
+				inactive_objects.append(obj)
+				all_objects.append(obj)
 	
 	max_size = new_size
+	emit_signal("pool_resized", new_size)
 
 ## Get the current number of active objects
 func active_count() -> int:
@@ -139,6 +163,10 @@ func total_count() -> int:
 
 ## Create a new object and set it up for the pool
 func _create_object() -> Node:
+	if scene == null:
+		push_error("ObjectPool: Cannot instantiate from null scene")
+		return null
+
 	var obj = scene.instantiate()
 	
 	# Set up parent if specified
@@ -149,4 +177,26 @@ func _create_object() -> Node:
 	obj.visible = false
 	obj.process_mode = Node.PROCESS_MODE_DISABLED
 	
+	# Set is_from_pool property if object has it
+	if "is_from_pool" in obj:
+		obj.is_from_pool = true
+	
 	return obj
+
+## Get all active objects from the pool
+func get_active_objects() -> Array:
+	var active = []
+	for obj in all_objects:
+		if not inactive_objects.has(obj):
+			active.append(obj)
+	return active
+
+## Recycle all active objects
+func recycle_all() -> void:
+	var active = get_active_objects()
+	for obj in active:
+		recycle(obj)
+
+## Check if an object belongs to this pool
+func owns_object(obj: Node) -> bool:
+	return all_objects.has(obj)
