@@ -7,7 +7,7 @@ func _ready():
 	# Set power-up properties
 	power_up_name = "Magic Elixir"
 	description = "Grants temporary flying ability"
-	effect_duration = 20.0  # 20 seconds of flight
+	effect_duration = 5.0  # 20 seconds of flight
 	destroy_on_pickup = true
 	
 	# Set animation properties (optional: tweak to differentiate visually from Angel Wings)
@@ -36,9 +36,9 @@ func apply_effect(player):
 		hud.collect_softpower()  # This will add 25% elixir
 
 	# Show notification to player
-	var popup_manager = get_node_or_null("/root/PopupManager")
-	if popup_manager:
-		popup_manager.info("Elixir Power", "You've drunk the magic elixir! You can fly for " + str(effect_duration) + " seconds.")
+	#var popup_manager = get_node_or_null("/root/PopupManager")
+	#if popup_manager:
+	#	popup_manager.info("Elixir Power", "You've drunk the magic elixir! You can fly for " + str(effect_duration) + " seconds.")
 	
 	# Add a visible timer to the HUD if available
 	if hud and hud.has_method("show_ability_timer"):

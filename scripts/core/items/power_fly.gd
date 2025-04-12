@@ -32,9 +32,9 @@ func apply_effect(player):
 	print("Player gained flight ability")
 	
 	# Show notification to player
-	var popup_manager = get_node_or_null("/root/PopupManager")
-	if popup_manager:
-		popup_manager.info("New Ability", "You've acquired angel wings! You can now fly for " + str(effect_duration) + " seconds.")
+	#var popup_manager = get_node_or_null("/root/PopupManager")
+	#if popup_manager:
+		#popup_manager.info("New Ability", "You've acquired angel wings! You can now fly for " + str(effect_duration) + " seconds.")
 	
 	# Add a visible timer to the HUD if available
 	var hud = get_node_or_null("../../HUD")
