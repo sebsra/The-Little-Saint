@@ -36,7 +36,7 @@ var current_outfit: PlayerOutfitResource = null
 func _ready() -> void:
 	add_to_group("player") 
 	# Initialize your global variables here
-	hud = get_node_or_null("../../HUD")
+	hud = get_node_or_null("../HUD")
 	player_animations = get_node("character_sprites").animation_frames
 
 	# Initialize outfit with defaults
