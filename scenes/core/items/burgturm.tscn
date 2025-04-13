@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c05n7erq10tgl"]
+[gd_scene load_steps=5 format=3 uid="uid://dfdu5qaytkhqx"]
 
 [ext_resource type="Texture2D" uid="uid://cqgrjgdofv4qg" path="res://assets/sprites/unsorted/princefotos/Burgturm.png" id="1_w1ecy"]
 [ext_resource type="Script" uid="uid://c6p3p877hhofb" path="res://scripts/core/NPCs/tower_guard.gd" id="2_8abf1"]
