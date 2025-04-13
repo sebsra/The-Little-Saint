@@ -21,9 +21,9 @@ texture = ExtResource("1_w1ecy")
 position = Vector2(-2.5, 28)
 shape = SubResource("RectangleShape2D_jb8pt")
 
-[node name="Node (NPC)" type="Node" parent="."]
+[node name="TowerGuard" type="CharacterBody2D" parent="."]
 script = ExtResource("2_8abf1")
 
-[node name="character_sprites" parent="Node (NPC)" instance=ExtResource("2_jb8pt")]
+[node name="character_sprites" parent="TowerGuard" instance=ExtResource("2_jb8pt")]
 position = Vector2(557, 269)
 scale = Vector2(2, 2)

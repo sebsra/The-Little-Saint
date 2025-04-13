@@ -18,9 +18,6 @@ func physics_process(delta: float):
 
 func get_next_state() -> String:
 	# Scene transition after death animation
-	if death_timer >= death_duration:
-		player.queue_free()
-		get_tree().change_scene_to_file("res://scenes/ui/main_menu/main_menu.tscn")
 	
 	# Stay in death state
 	return ""

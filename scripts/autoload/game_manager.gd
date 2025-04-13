@@ -181,9 +181,7 @@ func collect_coin() -> void:
 	emit_signal("coin_collected", collected_coins)
 
 func player_death() -> void:
-	player.death()
 	change_state(Constants.GameState.GAME_OVER)
-	GlobalHUD.reset_to_defaults()
 	emit_signal("player_died")
 
 # Event handling
