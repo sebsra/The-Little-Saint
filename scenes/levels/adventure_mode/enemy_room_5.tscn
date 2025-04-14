@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://25sqdfus6xfs"]
+
+[ext_resource type="TileSet" uid="uid://c0m7nsbyu5twe" path="res://scenes/levels/adventure_mode/adventure_level.tres" id="1_2fvkx"]
+[ext_resource type="PackedScene" uid="uid://bq1h5147ej8ka" path="res://scenes/core/items/coins.tscn" id="2_eclm6"]
+[ext_resource type="PackedScene" uid="uid://dfkw3squ32gx8" path="res://scenes/core/enemies/goblin_melee.tscn" id="3_toyy7"]
+
+[node name="EnemyRoom_5" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_2fvkx")
+format = 2
+layer_0/name = "Deco"
+layer_1/name = "Real"
+layer_1/tile_data = PackedInt32Array(-65536, 3, 23, -65535, 3, 23, -65534, 3, 23, -65533, 3, 23, -65532, 3, 23, -65531, 3, 23, -65530, 3, 23, -65529, 3, 23, -65528, 3, 23, -65527, 3, 23, -65526, 3, 23, -65525, 3, 23, -65524, 3, 23, -65523, 3, 23, -65522, 3, 23, -65521, 3, 23, -65520, 3, 23, -65519, 3, 23, -65518, 3, 23, -65517, 3, 23, -65516, 3, 23, -65515, 3, 23, -65514, 3, 23, -65513, 3, 23, -65512, 3, 23, -65511, 3, 23, -65510, 3, 23, -65509, 3, 23, -65508, 3, 23, -65507, 3, 23, -983040, 3, 23, -983039, 3, 23, -983038, 3, 23, -983037, 3, 23, -983036, 3, 23, -983035, 3, 23, -983034, 3, 23, -983033, 3, 23, -983032, 3, 23, -983031, 3, 23, -983030, 3, 23, -983029, 3, 23, -983028, 3, 23, -983027, 3, 23, -983026, 3, 23, -983025, 3, 23, -983024, 3, 23, -983023, 3, 23, -983022, 3, 23, -983021, 3, 23, -983020, 3, 23, -983019, 3, 23, -983018, 3, 23, -983017, 3, 23, -983016, 3, 23, -983015, 3, 23, -983014, 3, 23, -983013, 3, 23, -983012, 3, 23, -983011, 3, 23, -720867, 65539, 30, -720896, 65539, 30, -393187, 65539, 26, -327651, 65539, 30, -458723, 65539, 26, -524259, 65539, 26, -589795, 65539, 26, -655331, 65539, 26, -655360, 65539, 26, -589824, 65539, 26, -524288, 65539, 26, -458752, 65539, 26, -393216, 65539, 26, -327680, 65539, 30, -327679, 3, 23, -327678, 3, 23, -327677, 3, 23, -327676, 3, 23, -327675, 3, 23, -327674, 3, 23, -327673, 3, 23, -327672, 3, 23, -327671, 3, 23, -720895, 3, 23, -720894, 3, 23, -720893, 3, 23, -720892, 3, 23, -720891, 3, 23, -720890, 3, 23, -720889, 3, 23, -720888, 3, 23, -720887, 3, 23, -720886, 3, 23, -327670, 65539, 30, -327652, 3, 23, -327653, 3, 23, -327654, 3, 23, -327655, 3, 23, -327656, 3, 23, -327657, 3, 23, -327658, 3, 23, -327659, 3, 23, -327660, 3, 23, -327661, 65539, 30, -720877, 3, 23, -720876, 3, 23, -720875, 3, 23, -720874, 3, 23, -720873, 3, 23, -720872, 3, 23, -720871, 3, 23, -720870, 3, 23, -720869, 3, 23, -720868, 3, 23, -196596, 65539, 30, -196591, 65539, 30, -327666, 65539, 30, -327665, 65539, 30, -327664, 3, 23, -327667, 3, 23, -524271, 3, 23, -524272, 3, 23, -524275, 3, 23, -524276, 3, 23, -393206, 3, 23, -589807, 3, 23, -589812, 3, 23)
+
+[node name="coins3" parent="." instance=ExtResource("2_eclm6")]
+position = Vector2(59.0001, -180)
+
+[node name="coins4" parent="." instance=ExtResource("2_eclm6")]
+position = Vector2(561, -302)
+
+[node name="coins8" parent="." instance=ExtResource("2_eclm6")]
+position = Vector2(564, -113)
+
+[node name="coins9" parent="." instance=ExtResource("2_eclm6")]
+position = Vector2(400, -114)
+
+[node name="coins5" parent="." instance=ExtResource("2_eclm6")]
+position = Vector2(399, -306)
+
+[node name="coins6" parent="." instance=ExtResource("2_eclm6")]
+position = Vector2(907, -180)
+
+[node name="coins7" parent="." instance=ExtResource("2_eclm6")]
+position = Vector2(478, -178)
+
+[node name="Goblin_Melee" parent="." groups=["enemy"] instance=ExtResource("3_toyy7")]
+position = Vector2(149, -186)
+
+[node name="Goblin_Melee2" parent="." groups=["enemy"] instance=ExtResource("3_toyy7")]
+position = Vector2(694, -57)
+
+[node name="Goblin_Melee5" parent="." groups=["enemy"] instance=ExtResource("3_toyy7")]
+position = Vector2(211, -380)
+
+[node name="Goblin_Melee6" parent="." groups=["enemy"] instance=ExtResource("3_toyy7")]
+position = Vector2(741, -377)
+
+[node name="Goblin_Melee3" parent="." groups=["enemy"] instance=ExtResource("3_toyy7")]
+position = Vector2(822, -186)
+
+[node name="Goblin_Melee4" parent="." groups=["enemy"] instance=ExtResource("3_toyy7")]
+position = Vector2(258, -57)
