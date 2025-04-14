@@ -96,6 +96,7 @@ expand_mode = 1
 
 [node name="DoubleJump" type="TextureRect" parent="Adler"]
 visible = false
+layout_mode = 0
 offset_left = 107.0
 offset_top = 26.0
 offset_right = 203.0

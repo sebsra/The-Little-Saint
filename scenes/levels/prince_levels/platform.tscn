@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dto57atpx2lw0"]
 
-[ext_resource type="Texture2D"  path="res://scenes/levels/prince_levels/Tiles/fourSeasonsPlatformer/midground_/spring_.png" id="1_e5p6v"]
+[ext_resource type="Texture2D" uid="uid://djc16qlf4kvt0" path="res://scenes/levels/prince_levels/Tiles/fourSeasonsPlatformer/midground_/spring_.png" id="1_e5p6v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mt1yc"]
 size = Vector2(46, 7)
