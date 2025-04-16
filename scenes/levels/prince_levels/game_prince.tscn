@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cj15l5x85rbu"]
+[gd_scene load_steps=41 format=3 uid="uid://cj15l5x85rbu"]
 
 [ext_resource type="Script" uid="uid://ch53jgwhj72k7" path="res://scenes/levels/prince_levels/game_prince.gd" id="1_cy6ot"]
 [ext_resource type="Texture2D" uid="uid://blekbooony6ko" path="res://assets/sprites/Foresttiles/oak_woods_tileset.png" id="2_o3ar0"]
@@ -22,6 +22,10 @@
 [ext_resource type="Texture2D" uid="uid://bh3gpp60q1t4c" path="res://assets/sprites/Wassertiles/background/background_layer_1.png" id="20_ub6dr"]
 [ext_resource type="PackedScene" uid="uid://ddgj1n6jn8im3" path="res://scenes/NPCs/beggar_child.tscn" id="21_t6m41"]
 [ext_resource type="PackedScene" uid="uid://dfdu5qaytkhqx" path="res://scenes/core/items/burgturm.tscn" id="22_ub6dr"]
+[ext_resource type="PackedScene" uid="uid://dfkw3squ32gx8" path="res://scenes/core/enemies/goblin_melee.tscn" id="23_ayua1"]
+[ext_resource type="PackedScene" uid="uid://bghwylog5wnec" path="res://scenes/core/enemies/goblin_mage.tscn" id="24_l5de1"]
+[ext_resource type="PackedScene" uid="uid://bq1h5147ej8ka" path="res://scenes/core/items/coins.tscn" id="25_lx58d"]
+[ext_resource type="PackedScene" uid="uid://x3juxjynguey" path="res://scenes/core/items/power_fly.tscn" id="26_b4l67"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ndii1"]
 texture = ExtResource("2_o3ar0")
@@ -4164,6 +4168,21 @@ position = Vector2(2068, -303)
 
 [node name="BeggarChild" parent="." instance=ExtResource("21_t6m41")]
 position = Vector2(-760, 33)
+
+[node name="Goblin_Melee" parent="." instance=ExtResource("23_ayua1")]
+position = Vector2(-4125, -619)
+
+[node name="Goblin_Mage" parent="." instance=ExtResource("24_l5de1")]
+position = Vector2(-3946, -486)
+
+[node name="coins" parent="." instance=ExtResource("25_lx58d")]
+position = Vector2(-3219, -32)
+
+[node name="coins2" parent="." instance=ExtResource("25_lx58d")]
+position = Vector2(-2406, 254)
+
+[node name="softpowerFly" parent="." instance=ExtResource("26_b4l67")]
+position = Vector2(-688, -4)
 
 [connection signal="body_entered" from="SetBackZone" to="." method="_on_set_back_zone_body_entered"]
 [connection signal="body_entered" from="water" to="." method="_on_water_body_entered"]
