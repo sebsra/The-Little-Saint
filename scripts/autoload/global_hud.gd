@@ -4,6 +4,7 @@ extends Node
 var max_health: float = 3.0
 var current_health: float = 3.0
 var coins: int = 0
+var heaven_coins: int = 0
 var elixir_fill_level: float = 0.0
 
 # Power-up tracking
@@ -16,6 +17,7 @@ var hud_instance = null
 # Signals
 signal health_changed(new_health, max_health)
 signal coins_changed(new_amount)
+signal heaven_coins_changed(new_amount)
 signal elixir_changed(new_level)
 signal power_up_activated(power_up_name, duration)
 signal power_up_deactivated(power_up_name)
@@ -41,6 +43,7 @@ func notify_hud_of_all_values():
 	# Tell the HUD to update its visuals with our values
 	hud_instance.update_health_display(current_health, max_health)
 	hud_instance.update_coins_display(coins)
+	hud_instance.update_heaven_coins_display(heaven_coins)
 	hud_instance.update_elixir_display(elixir_fill_level)
 	
 	# Sync power-ups if needed
@@ -52,6 +55,7 @@ func notify_hud_of_all_values():
 func reset_to_defaults():
 	current_health = max_health
 	coins = 0
+	heaven_coins = 0
 	elixir_fill_level = 0.0
 	active_power_ups.clear()
 	power_up_timers.clear()
@@ -96,6 +100,16 @@ func add_coins(amount: int = 1):
 	emit_signal("coins_changed", coins)
 	save_state()
 
+func add_heaven_coins(amount: int = 1):
+	heaven_coins += amount
+	
+	if hud_instance:
+		hud_instance.update_heaven_coins_display(heaven_coins)
+		hud_instance.play_heaven_coin_effect()
+		
+	emit_signal("heaven_coins_changed", heaven_coins)
+	save_state()
+
 func set_coins(amount: int):
 	coins = max(0, amount)
 	
@@ -103,6 +117,15 @@ func set_coins(amount: int):
 		hud_instance.update_coins_display(coins)
 		
 	emit_signal("coins_changed", coins)
+	save_state()
+	
+func set_heaven_coins(amount: int):
+	heaven_coins = max(0, amount)
+	
+	if hud_instance:
+		hud_instance.update_heaven_coins_display(heaven_coins)
+		
+	emit_signal("heaven_coins_changed", heaven_coins)
 	save_state()
 
 # Elixir
@@ -144,6 +167,7 @@ func save_state():
 	if get_node_or_null("/root/SaveManager") and SaveManager.current_save_data:
 		SaveManager.current_save_data.health = current_health
 		SaveManager.current_save_data.coins = coins
+		SaveManager.current_save_data.heaven_coins = 1
 		# Any other HUD state to save
 
 # Load state from SaveManager
@@ -151,6 +175,7 @@ func load_state():
 	if get_node_or_null("/root/SaveManager") and SaveManager.current_save_data:
 		current_health = SaveManager.current_save_data.health
 		coins = SaveManager.current_save_data.coins
+		heaven_coins = SaveManager.current_save_data.heaven_coins
 		# Any other HUD state to load
 		
 		if hud_instance:
@@ -164,6 +189,9 @@ func change_life(amount: float):
 
 func coin_collected():
 	add_coins(1)
+
+func heaven_coin_collected():
+	add_heaven_coins(1)
 
 func collect_softpower(amount: float = 0.25):
 	update_elixir_fill(amount)

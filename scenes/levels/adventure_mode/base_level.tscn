@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=4 uid="uid://ct8x24tqf8r7s"]
+[gd_scene load_steps=42 format=4 uid="uid://ct8x24tqf8r7s"]
 
 [ext_resource type="Script" uid="uid://xntbldgvemkg" path="res://scripts/levels/base_level.gd" id="1_7c88c"]
 [ext_resource type="PackedScene" uid="uid://ds83orkh8d6l" path="res://scenes/core/character/player.tscn" id="1_t8cdm"]
@@ -25,7 +25,8 @@
 [ext_resource type="PackedScene" uid="uid://x3juxjynguey" path="res://scenes/core/items/power_fly.tscn" id="23_o8x5g"]
 [ext_resource type="PackedScene" uid="uid://bvodoquin8gd6" path="res://scenes/core/items/power_jump.tscn" id="24_2ydox"]
 [ext_resource type="PackedScene" uid="uid://cwltbuuif0nqd" path="res://scenes/core/items/elixir.tscn" id="25_u6bqp"]
-[ext_resource type="PackedScene" uid="uid://c05n7erq10tgl" path="res://scenes/core/items/burgturm.tscn" id="26_cdvhh"]
+[ext_resource type="PackedScene" uid="uid://dfdu5qaytkhqx" path="res://scenes/core/items/burgturm.tscn" id="26_cdvhh"]
+[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/heavenly_coin.tscn" id="27_cwhse"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_opnxn"]
 texture = ExtResource("15_msxd7")
@@ -569,6 +570,15 @@ position = Vector2(458, 313)
 
 [node name="Burgturm" parent="." instance=ExtResource("26_cdvhh")]
 position = Vector2(2056, 184)
+
+[node name="HeavenlyCoin" parent="." instance=ExtResource("27_cwhse")]
+position = Vector2(-198, 320)
+
+[node name="HeavenlyCoin2" parent="." instance=ExtResource("27_cwhse")]
+position = Vector2(-254, 319)
+
+[node name="HeavenlyCoin3" parent="." instance=ExtResource("27_cwhse")]
+position = Vector2(-138, 320)
 
 [connection signal="body_entered" from="Elements/Prince_Area2D" to="Player" method="_on_prince_portal_entered"]
 [connection signal="body_entered" from="Elements/Sebastian_Area2D" to="Player" method="_on_sebastian_portal_entered"]

@@ -1,0 +1,126 @@
+[gd_scene load_steps=16 format=3 uid="uid://c5usa30swnhit"]
+
+[ext_resource type="Texture2D" uid="uid://cpb306wbkhjwc" path="res://assets/sprites/unsorted/princefotos/Heavenly_Coin.png" id="1_e6nji"]
+[ext_resource type="Script" uid="uid://cb75ojsn3fnfk" path="res://scenes/core/items/heavenly_coin.gd" id="1_jly4h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rqm4w"]
+radius = 11.4286
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jly4h"]
+atlas = ExtResource("1_e6nji")
+region = Rect2(0, 0, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tlv7j"]
+atlas = ExtResource("1_e6nji")
+region = Rect2(16, 0, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjko5"]
+atlas = ExtResource("1_e6nji")
+region = Rect2(32, 0, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xnaml"]
+atlas = ExtResource("1_e6nji")
+region = Rect2(48, 0, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfd1y"]
+atlas = ExtResource("1_e6nji")
+region = Rect2(64, 0, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dl2s3"]
+atlas = ExtResource("1_e6nji")
+region = Rect2(80, 0, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jit16"]
+atlas = ExtResource("1_e6nji")
+region = Rect2(96, 0, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0msh7"]
+atlas = ExtResource("1_e6nji")
+region = Rect2(112, 0, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5lac"]
+atlas = ExtResource("1_e6nji")
+region = Rect2(128, 0, 16, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vtapg"]
+animations = [{
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_jly4h")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_tlv7j")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_gjko5")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_xnaml")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_wfd1y")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_dl2s3")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_jit16")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_0msh7")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_r5lac")
+}],
+"loop": true,
+"name": &"spin",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_c04vi"]
+resource_name = "bounce"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, -1), Vector2(0, -74), Vector2(0, -13)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1wsg7"]
+_data = {
+&"bounce": SubResource("Animation_c04vi")
+}
+
+[node name="HeavenlyCoin" type="Area2D"]
+visibility_layer = 2
+scale = Vector2(0.7, 0.7)
+collision_layer = 0
+script = ExtResource("1_jly4h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visibility_layer = 2
+position = Vector2(7.10543e-15, 0)
+shape = SubResource("CircleShape2D_rqm4w")
+one_way_collision_margin = 0.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -1)
+sprite_frames = SubResource("SpriteFrames_vtapg")
+animation = &"spin"
+autoplay = "spin"
+frame_progress = 0.365981
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1wsg7")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_heaven_coins_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

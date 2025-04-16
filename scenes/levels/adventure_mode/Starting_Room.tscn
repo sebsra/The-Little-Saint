@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cytaikq4e15gf"]
+[gd_scene load_steps=4 format=3 uid="uid://cytaikq4e15gf"]
 
 [ext_resource type="TileSet" uid="uid://c0m7nsbyu5twe" path="res://scenes/levels/adventure_mode/adventure_level.tres" id="1_kt1r7"]
 [ext_resource type="PackedScene" uid="uid://bq1h5147ej8ka" path="res://scenes/core/items/coins.tscn" id="2_h5etb"]
+[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/heavenly_coin.tscn" id="3_77x1v"]
 
 [node name="EnemyRoom_2" type="Node2D"]
 
@@ -24,3 +25,12 @@ position = Vector2(499, -183)
 
 [node name="coins11" parent="." instance=ExtResource("2_h5etb")]
 position = Vector2(95.0001, -409)
+
+[node name="HeavenlyCoin2" parent="." instance=ExtResource("3_77x1v")]
+position = Vector2(537, -48)
+
+[node name="HeavenlyCoin3" parent="." instance=ExtResource("3_77x1v")]
+position = Vector2(399, -83)
+
+[node name="HeavenlyCoin4" parent="." instance=ExtResource("3_77x1v")]
+position = Vector2(298, -46)
