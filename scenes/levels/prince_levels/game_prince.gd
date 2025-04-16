@@ -18,3 +18,12 @@ func _on_player_died() -> void:
 	$Player.state_machine.change_state("PlayerIdleState")
 	GlobalHUD.reset_to_defaults()
 	
+
+func _on_water_body_entered(body):
+	if body.name == "Player" or body.is_in_group("Player"):
+		body.state_machine.change_state("PlayerSwimState")
+
+
+func _on_water_body_exited(body):
+	if body.name == "Player" or body.is_in_group("Player"):
+		body.state_machine.change_state("PlayerIdleState")

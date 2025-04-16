@@ -17,6 +17,9 @@ var jump_counter = 0
 var ready_for_jump = true
 var allowed_jumps = Constants.PLAYER_MAX_JUMPS
 
+# Wasser-Variable
+var is_in_water = false
+
 # Character health reference
 var hud
 
@@ -66,6 +69,12 @@ func _ready() -> void:
 		print("Player ready, State Machine initialized")
 		print("Initial player stats: Speed=", SPEED, ", Jump=", JUMP_VELOCITY,
 			  ", Fly=", FLY_VELOCITY, ", Gravity=", GRAVITY)
+
+func _physics_process(delta):
+	# Prüfe ob der Spieler im Wasser ist
+	check_water()
+	
+	# Weitere vorhandene Logik kannst du hier ergänzen...
 			
 # Setup the state machine and initialize all player states
 func _setup_state_machine():
@@ -100,7 +109,8 @@ func _add_player_states():
 		"PlayerAttackState": PlayerAttackState,
 		"PlayerFlyState": PlayerFlyState,
 		"PlayerHurtState": PlayerHurtState,
-		"PlayerDeathState": PlayerDeathState
+		"PlayerDeathState": PlayerDeathState,
+		"PlayerSwimState": PlayerSwimState  # Neu hinzugefügter Schwimm-State
 	}
 	
 	# Add each state as a child node
@@ -117,6 +127,34 @@ func _add_player_states():
 	
 	if debug_mode:
 		print("Player states added to StateMachine:", state_machine.states.keys())
+
+# Wasser-Erkennung
+func check_water():
+	# TileMap-Referenz holen
+	var tilemap = get_node_or_null("../TileMap")
+	if not tilemap:
+		return false
+	
+	# Spielerposition in Kartenkoordinaten umwandeln
+	var tile_pos = tilemap.local_to_map(global_position)
+	
+	# Speichere den vorherigen Status für Vergleich
+	var was_in_water = is_in_water
+	
+	# Prüfen, ob der Spieler auf einem Wassertile steht
+	var cell_data = tilemap.get_cell_tile_data(2, tile_pos)  # Layer-Index anpassen falls nötig
+	
+	if cell_data != null and cell_data.get_custom_data("Water"):
+		is_in_water = true
+	else:
+		is_in_water = false
+	
+	# Wenn der Status sich ändert und wir ins Wasser eintreten
+	if is_in_water and not was_in_water:
+		# Wechsle in den Schwimm-Zustand
+		state_machine.change_state("PlayerSwimState")
+	
+	return is_in_water
 
 # Save current player settings
 func save_settings():
@@ -264,4 +302,3 @@ func bounce() -> void:
 # Modified player death function
 func death():
 	state_machine.change_state("PlayerDeathState")
-#	self.queue_free()

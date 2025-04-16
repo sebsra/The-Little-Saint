@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5phr3k12w4gl"]
+
+[ext_resource type="Script" uid="uid://c6p3p877hhofb" path="res://scripts/core/NPCs/tower_guard.gd" id="1_xywhk"]
+[ext_resource type="PackedScene" uid="uid://cubtrfejltu51" path="res://scenes/core/character/character_sprites.tscn" id="1_ycdme"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l53bs"]
+radius = 7.5
+height = 24.0
+
+[node name="TowerGuard" type="CharacterBody2D"]
+collision_layer = 3
+script = ExtResource("1_xywhk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_l53bs")
+
+[node name="character_sprites" parent="." instance=ExtResource("1_ycdme")]
+scale = Vector2(2, 2)
