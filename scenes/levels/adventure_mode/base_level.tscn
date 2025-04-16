@@ -26,7 +26,6 @@
 [ext_resource type="PackedScene" uid="uid://bvodoquin8gd6" path="res://scenes/core/items/power_jump.tscn" id="24_2ydox"]
 [ext_resource type="PackedScene" uid="uid://cwltbuuif0nqd" path="res://scenes/core/items/elixir.tscn" id="25_u6bqp"]
 [ext_resource type="PackedScene" uid="uid://dfdu5qaytkhqx" path="res://scenes/core/items/burgturm.tscn" id="26_cdvhh"]
-[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/heavenly_coin.tscn" id="27_cwhse"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_opnxn"]
 texture = ExtResource("15_msxd7")
