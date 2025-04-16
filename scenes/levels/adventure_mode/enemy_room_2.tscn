@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://pkchs4urw4x3"]
+[gd_scene load_steps=5 format=3 uid="uid://pkchs4urw4x3"]
 
 [ext_resource type="TileSet" uid="uid://c0m7nsbyu5twe" path="res://scenes/levels/adventure_mode/adventure_level.tres" id="1_p3yxn"]
+[ext_resource type="PackedScene" uid="uid://dfkw3squ32gx8" path="res://scenes/core/enemies/goblin_melee.tscn" id="2_0us7t"]
+[ext_resource type="PackedScene" uid="uid://bghwylog5wnec" path="res://scenes/core/enemies/goblin_mage.tscn" id="3_ksmo5"]
+[ext_resource type="PackedScene" uid="uid://bq1h5147ej8ka" path="res://scenes/core/items/coins.tscn" id="4_sgs5x"]
 
 [node name="EnemyRoom_2" type="Node2D"]
 
@@ -10,3 +13,28 @@ format = 2
 layer_0/name = "Deco"
 layer_1/name = "Real"
 layer_1/tile_data = PackedInt32Array(-65536, 3, 12, -65535, 3, 12, -65534, 3, 12, -458752, 3, 12, -65533, 3, 12, -65532, 3, 12, -65531, 3, 12, -65530, 3, 12, -65529, 3, 12, -65528, 3, 12, -131063, 3, 12, -65527, 3, 12, -65526, 3, 12, -65525, 3, 12, -65524, 3, 12, -65523, 3, 12, -65522, 3, 12, -65521, 3, 12, -65520, 3, 12, -65519, 3, 12, -65518, 3, 12, -65517, 3, 12, -65516, 3, 12, -65515, 3, 12, -65514, 3, 12, -65513, 3, 12, -65512, 3, 12, -65511, 3, 12, -65510, 3, 12, -65509, 3, 12, -65508, 3, 12, -65507, 3, 12, -131048, 3, 12, -131049, 3, 12, -131050, 3, 12, -131051, 3, 12, -131052, 3, 12, -983040, 3, 12, -983039, 3, 12, -983038, 3, 12, -983037, 3, 12, -983036, 3, 12, -983035, 3, 12, -983034, 3, 12, -983033, 3, 12, -983032, 3, 12, -983031, 3, 12, -983030, 3, 12, -983029, 3, 12, -983028, 3, 12, -983027, 3, 12, -983026, 3, 12, -983025, 3, 12, -983024, 3, 12, -983023, 3, 12, -983022, 3, 12, -983021, 3, 12, -983020, 3, 12, -983019, 3, 12, -983018, 3, 12, -983017, 3, 12, -983016, 3, 12, -983015, 3, 12, -983014, 3, 12, -983013, 3, 12, -983012, 3, 12, -983011, 3, 12, -720867, 3, 12, -720868, 3, 12, -720869, 3, 12, -720870, 3, 12, -720871, 3, 12, -655336, 65539, 1, -655337, 3, 12, -655338, 3, 12, -655339, 3, 12, -655340, 3, 12, -655341, 3, 12, -655342, 3, 12, -655343, 3, 12, -655344, 3, 12, -720896, 3, 12, -720895, 3, 12, -720894, 3, 12, -262132, 3, 12, -262131, 3, 12, -262130, 3, 12, -589817, 3, 12, -589818, 3, 12, -589819, 3, 12, -393199, 3, 12, -393198, 3, 12, -393197, 3, 12, -196602, 3, 12, -131066, 3, 12, -131067, 3, 12, -393192, 65539, 10, -393191, 3, 11, -393190, 3, 11, -393189, 3, 11, -393188, 3, 11, -393187, 65539, 11, -327651, 3, 12, -327652, 3, 12, -327653, 3, 12, -327680, 3, 12, -327679, 3, 12, -393216, 3, 12, -524288, 3, 12, -589824, 3, 12, -655360, 3, 12, -458723, 3, 7, -524259, 3, 7, -589795, 3, 7, -655331, 65539, 2, -655334, 3, 2, -655332, 3, 2, -655333, 3, 2, -393215, 3, 12, -393214, 3, 12, -393213, 3, 12, -458743, 3, 12, -458742, 3, 12, -458741, 3, 12, -458740, 3, 12, -458739, 3, 12, -458738, 3, 12, -131065, 3, 12, -131064, 3, 12, -196601, 3, 12, -655335, 3, 2, -458728, 3, 22)
+
+[node name="Goblin_Melee3" parent="." groups=["enemy"] instance=ExtResource("2_0us7t")]
+position = Vector2(490, -58)
+
+[node name="Goblin_Mage" parent="." groups=["enemy"] instance=ExtResource("3_ksmo5")]
+position = Vector2(374, -245)
+
+[node name="Goblin_Melee4" parent="." groups=["enemy"] instance=ExtResource("2_0us7t")]
+position = Vector2(598, -354)
+scale = Vector2(1.69, 1.69)
+
+[node name="coins2" parent="." instance=ExtResource("4_sgs5x")]
+position = Vector2(854, -214)
+
+[node name="coins3" parent="." instance=ExtResource("4_sgs5x")]
+position = Vector2(223, -116)
+
+[node name="coins4" parent="." instance=ExtResource("4_sgs5x")]
+position = Vector2(729, -88)
+
+[node name="coins5" parent="." instance=ExtResource("4_sgs5x")]
+position = Vector2(880, -371)
+
+[node name="coins6" parent="." instance=ExtResource("4_sgs5x")]
+position = Vector2(207, -307)

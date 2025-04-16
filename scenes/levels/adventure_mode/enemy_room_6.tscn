@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://bpm88h2duux2r"]
+
+[ext_resource type="TileSet" uid="uid://c0m7nsbyu5twe" path="res://scenes/levels/adventure_mode/adventure_level.tres" id="1_5hfmw"]
+[ext_resource type="PackedScene" uid="uid://bq1h5147ej8ka" path="res://scenes/core/items/coins.tscn" id="2_1fko6"]
+[ext_resource type="PackedScene" uid="uid://b4eyyu131yt6h" path="res://scenes/core/enemies/goblin_archer.tscn" id="3_ndyey"]
+[ext_resource type="PackedScene" uid="uid://bghwylog5wnec" path="res://scenes/core/enemies/goblin_mage.tscn" id="4_hpxyo"]
+[ext_resource type="PackedScene" uid="uid://dfkw3squ32gx8" path="res://scenes/core/enemies/goblin_melee.tscn" id="5_80wyk"]
+
+[node name="EnemyRoom_6" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_5hfmw")
+format = 2
+layer_0/name = "Deco"
+layer_0/tile_data = PackedInt32Array(-131068, 65539, 34, -196604, 65539, 805306402, -131047, 65539, 34, -196583, 65539, 805306402)
+layer_1/name = "Real"
+layer_1/tile_data = PackedInt32Array(-65536, 65539, 38, -65535, 65539, 38, -65534, 65539, 38, -65533, 65539, 38, -65532, 65539, 38, -65531, 65539, 38, -65530, 65539, 38, -65529, 65539, 38, -65528, 65539, 38, -65527, 65539, 38, -65526, 65539, 38, -65525, 65539, 38, -65524, 65539, 38, -65523, 65539, 38, -65522, 65539, 38, -65521, 65539, 38, -65520, 65539, 38, -65519, 65539, 38, -65518, 65539, 38, -65517, 65539, 38, -65516, 65539, 38, -65515, 65539, 38, -65514, 65539, 38, -65513, 65539, 38, -65512, 65539, 38, -65511, 65539, 38, -65510, 65539, 38, -65509, 65539, 38, -65508, 65539, 38, -65507, 65539, 38, -983040, 65539, 805306406, -983039, 65539, 805306406, -983038, 65539, 805306406, -983037, 65539, 805306406, -983036, 65539, 805306406, -983035, 65539, 805306406, -983034, 65539, 805306406, -983033, 65539, 805306406, -983032, 65539, 805306406, -983031, 65539, 805306406, -983030, 65539, 805306406, -983029, 65539, 805306406, -983028, 65539, 805306406, -983027, 65539, 805306406, -983026, 65539, 805306406, -983025, 65539, 805306406, -983024, 65539, 805306406, -983023, 65539, 805306406, -983022, 65539, 805306406, -983021, 65539, 805306406, -983020, 65539, 805306406, -983019, 65539, 805306406, -983018, 65539, 805306406, -983017, 65539, 805306406, -983016, 65539, 805306406, -983015, 65539, 805306406, -983014, 65539, 805306406, -983013, 65539, 805306406, -983012, 65539, 805306406, -983011, 65539, 805306406, -720867, 65539, 17, -720896, 65539, 17, -393187, 3, 30, -327651, 65539, 805306385, -458723, 3, 30, -524259, 3, 30, -589795, 65539, 1342177297, -655331, 3, 30, -655360, 3, 30, -589824, 65539, 1610612753, -524288, 3, 30, -458752, 3, 30, -393216, 3, 30, -327680, 65539, 805306385, -196602, 3, 30, -262138, 3, 30, -131066, 65539, 34, -327674, 65539, 805306402, -458743, 65539, 805306402, -393207, 3, 30, -327671, 3, 30, -262135, 65539, 34, -327657, 65539, 805306402, -262121, 3, 30, -196585, 3, 30, -131049, 65539, 34, -458732, 65539, 805306402, -393196, 3, 30, -327660, 3, 30, -262124, 65539, 34, -589820, 65539, 1610612770, -589821, 3, 1342177310, -589822, 3, 1342177310, -589823, 3, 1342177310, -589797, 3, 1342177310, -589798, 3, 1342177310, -589799, 65539, 1342177314, -393203, 65539, 1610612770, -393204, 3, 1342177310, -393205, 3, 1342177310, -393206, 65539, 1342177314, -393197, 65539, 1610612770, -393198, 3, 1342177310, -393199, 3, 1342177310, -393200, 65539, 1342177314, -655347, 65539, 1610612770, -655348, 3, 1342177310, -655349, 3, 1342177310, -655350, 65539, 1342177314, -655341, 65539, 1610612770, -655342, 3, 1342177310, -655343, 3, 1342177310, -655344, 65539, 1342177314, -589796, 3, 1342177310)
+
+[node name="coins7" parent="." instance=ExtResource("2_1fko6")]
+position = Vector2(381, -208)
+
+[node name="coins8" parent="." instance=ExtResource("2_1fko6")]
+position = Vector2(587, -335)
+
+[node name="coins11" parent="." instance=ExtResource("2_1fko6")]
+position = Vector2(208, -182)
+
+[node name="coins13" parent="." instance=ExtResource("2_1fko6")]
+position = Vector2(90, -304)
+
+[node name="coins14" parent="." instance=ExtResource("2_1fko6")]
+position = Vector2(883, -301)
+
+[node name="Goblin_Archer3" parent="coins14" groups=["enemy"] instance=ExtResource("3_ndyey")]
+position = Vector2(-772.857, -54.2857)
+
+[node name="Goblin_Archer4" parent="coins14" groups=["enemy"] instance=ExtResource("3_ndyey")]
+position = Vector2(-478.571, -52.8572)
+
+[node name="Goblin_Mage" parent="coins14" groups=["enemy"] instance=ExtResource("4_hpxyo")]
+position = Vector2(-51.4284, -2.85715)
+
+[node name="Goblin_Mage2" parent="coins14" groups=["enemy"] instance=ExtResource("4_hpxyo")]
+position = Vector2(-1085.71, -1.42858)
+
+[node name="coins12" parent="." instance=ExtResource("2_1fko6")]
+position = Vector2(752, -178)
+
+[node name="coins9" parent="." instance=ExtResource("2_1fko6")]
+position = Vector2(384, -338)
+
+[node name="coins10" parent="." instance=ExtResource("2_1fko6")]
+position = Vector2(587, -208)
+
+[node name="Goblin_Melee2" parent="." groups=["enemy"] instance=ExtResource("5_80wyk")]
+position = Vector2(337, -56)
+
+[node name="Goblin_Melee2" parent="Goblin_Melee2" groups=["enemy"] instance=ExtResource("5_80wyk")]
+position = Vector2(198.462, -6.15384)

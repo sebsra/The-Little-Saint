@@ -1,9 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cytaikq4e15gf"]
+[gd_scene load_steps=3 format=3 uid="uid://cytaikq4e15gf"]
 
 [ext_resource type="TileSet" uid="uid://c0m7nsbyu5twe" path="res://scenes/levels/adventure_mode/adventure_level.tres" id="1_kt1r7"]
 [ext_resource type="PackedScene" uid="uid://bq1h5147ej8ka" path="res://scenes/core/items/coins.tscn" id="2_h5etb"]
-[ext_resource type="PackedScene" uid="uid://bvht273076lxf" path="res://scenes/ui/controls/gui.tscn" id="3_mbm7e"]
-[ext_resource type="PackedScene" uid="uid://brvsjhwye311q" path="res://scenes/ui/hud/hud.tscn" id="4_2p72x"]
 
 [node name="EnemyRoom_2" type="Node2D"]
 
@@ -24,12 +22,5 @@ position = Vector2(320, -407)
 [node name="coins9" parent="." instance=ExtResource("2_h5etb")]
 position = Vector2(499, -183)
 
-[node name="coins10" parent="." instance=ExtResource("2_h5etb")]
-position = Vector2(802, -212)
-
 [node name="coins11" parent="." instance=ExtResource("2_h5etb")]
 position = Vector2(95.0001, -409)
-
-[node name="GUI" parent="." instance=ExtResource("3_mbm7e")]
-
-[node name="HUD" parent="." instance=ExtResource("4_2p72x")]
