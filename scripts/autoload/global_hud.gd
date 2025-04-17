@@ -167,7 +167,6 @@ func save_state():
 	if get_node_or_null("/root/SaveManager") and SaveManager.current_save_data:
 		SaveManager.current_save_data.health = current_health
 		SaveManager.current_save_data.coins = coins
-		SaveManager.current_save_data.heaven_coins = 1
 		# Any other HUD state to save
 
 # Load state from SaveManager
