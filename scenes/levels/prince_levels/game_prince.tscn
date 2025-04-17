@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cj15l5x85rbu"]
+[gd_scene load_steps=36 format=3 uid="uid://cj15l5x85rbu"]
 
 [ext_resource type="Script" uid="uid://ch53jgwhj72k7" path="res://scenes/levels/prince_levels/game_prince.gd" id="1_cy6ot"]
 [ext_resource type="Texture2D" uid="uid://blekbooony6ko" path="res://assets/sprites/Foresttiles/oak_woods_tileset.png" id="2_o3ar0"]
@@ -21,7 +21,6 @@
 [ext_resource type="PackedScene" uid="uid://b5phr3k12w4gl" path="res://scenes/NPCs/tower_guard.tscn" id="20_ndii1"]
 [ext_resource type="Texture2D" uid="uid://bh3gpp60q1t4c" path="res://assets/sprites/Wassertiles/background/background_layer_1.png" id="20_ub6dr"]
 [ext_resource type="PackedScene" uid="uid://ddgj1n6jn8im3" path="res://scenes/NPCs/beggar_child.tscn" id="21_t6m41"]
-[ext_resource type="PackedScene" uid="uid://dfdu5qaytkhqx" path="res://scenes/core/items/burgturm.tscn" id="22_ub6dr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ndii1"]
 texture = ExtResource("2_o3ar0")
@@ -4149,9 +4148,6 @@ offset_top = -467.0
 offset_right = 9135.0
 offset_bottom = 1824.0
 texture = ExtResource("20_ub6dr")
-
-[node name="Burgturm" parent="." instance=ExtResource("22_ub6dr")]
-position = Vector2(2137, -144)
 
 [node name="water" type="Area2D" parent="."]
 

@@ -17,4 +17,4 @@ scale = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_l53bs")
 
 [node name="character_sprites" parent="." instance=ExtResource("1_ycdme")]
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)

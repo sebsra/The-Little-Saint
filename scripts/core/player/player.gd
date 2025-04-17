@@ -24,6 +24,7 @@ var is_in_water = false
 var hud
 
 # Character design variables
+var character_sprites
 var player_animations
 var current_animation = Constants.ANIMATION_IDLE
 var player_outfit
@@ -40,10 +41,13 @@ func _ready() -> void:
 	add_to_group("player") 
 	# Initialize your global variables here
 	hud = get_node_or_null("../HUD")
-	player_animations = get_node("character_sprites").animation_frames
+	
+	# Initialize character_sprites reference
+	character_sprites = get_node("character_sprites")
+	player_animations = character_sprites.animation_frames
 
 	# Initialize outfit with defaults
-	var default_player_outfit = get_node("character_sprites").default_outfit
+	var default_player_outfit = character_sprites.default_outfit
 	get_node("character_sprites/masks").visible = false
 	player_outfit = default_player_outfit.duplicate(true)
 
@@ -75,7 +79,7 @@ func _physics_process(delta):
 	check_water()
 	
 	# Weitere vorhandene Logik kannst du hier ergänzen...
-			
+
 # Setup the state machine and initialize all player states
 func _setup_state_machine():
 	# Check if StateMachine node exists
@@ -207,20 +211,11 @@ func update_from_save_data():
 		print("Outfit loaded:", player_outfit)
 
 # Update outfit sprite visibility and animations
+# This is kept for backward compatibility, now delegates to CharacterSprites
 func _update_outfit_visuals():
-	for category in player_outfit:
-		if has_node("character_sprites/" + category):
-			var sprite = get_node("character_sprites/" + category)
-			var value = str(player_outfit[category])
-			
-			if value == "none":
-				sprite.visible = false
-			else:
-				sprite.visible = true
-				sprite.animation = value
-				sprite.frame = 1
+	character_sprites.update_outfit_visuals(player_outfit)
 
-# Helper method to play animations
+# Helper method to play animations - preserved for states that might call it directly
 func play_animation(anim_name: String):
 	current_animation = anim_name
 
@@ -228,10 +223,18 @@ func play_animation(anim_name: String):
 func calculate_gravity() -> Vector2:
 	return Vector2(0, GRAVITY)
 
+# Interface to new CharacterSprites functions - called by PlayerState.update_outfit()
+func update_outfit_sprites():
+	var x_input = Input.get_axis("left", "right")
+	if x_input != 0:
+		character_sprites.flip_h = x_input > 0
+	character_sprites.update_outfit(player_outfit, current_animation)
+
 # Keep portal handlers and other methods
-func _on_test_portal_entered(_body):
-	if get_node_or_null("/root/Global"):
-		Global.change_scene(Constants.MAIN_MENU_SCENE)
+func _on_test_portal_entered(body):
+	if body.name == "Player":
+		if get_node_or_null("/root/Global"):
+			Global.change_scene(Constants.MAIN_MENU_SCENE)
 	mode = "fly"
 	save_settings()
 
@@ -239,25 +242,29 @@ func _on_elias_portal_entered(_body):
 	print("Elias")
 	save_settings()
 
-func _on_ardit_portal_entered(_body):
-	if get_node_or_null("/root/Global"):
-		Global.change_scene("res://Arrogance.tscn")
+func _on_ardit_portal_entered(body):
+	if body.name == "Player":
+		if get_node_or_null("/root/Global"):
+			Global.change_scene("res://Arrogance.tscn")
 	save_settings()
 
-func _on_sebastian_portal_entered(_body):
+func _on_sebastian_portal_entered(body):
 	mode = "normal"
-	if get_node_or_null("/root/Global"):
-		Global.change_scene("res://scenes/levels/sebastian_levels/level_1.tscn")
+	if body.name == "Player":
+		if get_node_or_null("/root/Global"):
+			Global.change_scene("res://scenes/levels/sebastian_levels/level_1.tscn")
 	save_settings()
 
-func _on_prince_portal_entered(_body):
-	if get_node_or_null("/root/Global"):
-		Global.change_scene("res://scenes/levels/prince_levels/platform.tscn")
+func _on_prince_portal_entered(body):
+	if body.name == "Player":
+		if get_node_or_null("/root/Global"):
+			Global.change_scene("res://scenes/levels/prince_levels/platform.tscn")
 	save_settings()
 
-func _on_fallzone_body_entered(_body):
-	if get_node_or_null("/root/Global"):
-		Global.change_scene("res://scenes/levels/ardit_levels/arrogance.tscn")
+func _on_fallzone_body_entered(body):
+	if body.name == "Player":
+		if get_node_or_null("/root/Global"):
+			Global.change_scene("res://scenes/levels/ardit_levels/arrogance.tscn")
 
 func _on_life_up_body_entered(_body):
 	if hud:
@@ -267,9 +274,10 @@ func _on_life_down_body_entered(_body):
 	if hud:
 		hud.change_life(-0.25)
 
-func _on_test_portal_body_entered(_body):
-	if get_node_or_null("/root/Global"):
-		Global.change_scene("res://scenes/levels/adventure_mode/MainMap.tscn")
+func _on_test_portal_body_entered(body):
+	if body.name == "Player":
+		if get_node_or_null("/root/Global"):
+			Global.change_scene("res://scenes/levels/adventure_mode/MainMap.tscn")
 
 # New methods for gameplay enhancement
 func set_movement_mode(new_mode: String) -> void:
@@ -289,7 +297,6 @@ func set_attack_animation(anim_name: String) -> void:
 
 func add_extra_jumps(extra_jumps: int) -> void:
 	allowed_jumps += extra_jumps
-
 
 # Modified player take_damage function
 func take_damage(amount: float) -> void:

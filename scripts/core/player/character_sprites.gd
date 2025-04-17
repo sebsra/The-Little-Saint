@@ -1,6 +1,9 @@
 class_name CharacterSprites
 extends Node2D
 
+# Reference to the player
+var player
+
 var animation_frames = {
   "idle": [0, 1, 2, 3, 4, 5, 6, 7],
   "idle_back": [8, 9, 10, 11, 12, 13, 14, 15],
@@ -10,7 +13,7 @@ var animation_frames = {
   "look_left": [40, 41, 42, 43, 44],
   "look_right": [48, 49, 50, 51, 52],
   "look_down": [56, 57, 58, 59, 60],
-  "turn_right": [64, 65, 66, 67, 68],
+  "frontal_hands_up": [64, 65, 66, 67, 68],
   "turn_left": [72, 73, 74, 75, 76],
   "turn_up": [80, 81, 82, 83, 84], #10
   "turn_down": [88, 89, 90, 91, 92],
@@ -68,3 +71,39 @@ var default_outfit = {
 	"bodies": 1,
 	"hair": 1
 }
+
+func _ready():
+	# Get reference to the player node (parent)
+	player = get_parent()
+
+# Function to update outfit based on current animation
+# This will be called by PlayerState's update_outfit() method via a delegate in Player class
+func update_outfit(player_outfit, current_animation):
+	for outfit in player_outfit:
+		var animated_sprite = get_node(outfit)
+		var selected_outfit = player_outfit[outfit]
+
+		if str(selected_outfit) == "none":
+			animated_sprite.visible = false
+		else:
+			animated_sprite.visible = true
+			animated_sprite.play(str(selected_outfit))
+			animated_sprite.speed_scale = 2.0
+			# Frame management
+			if current_animation in animation_frames:
+				if animated_sprite.frame < animation_frames[current_animation][0] or animated_sprite.frame >= animation_frames[current_animation][-1]:
+					animated_sprite.frame = animation_frames[current_animation][0]
+
+# Update outfit sprite visibility based on player outfit dictionary
+func update_outfit_visuals(outfit_dict):
+	for category in outfit_dict:
+		if has_node(category):
+			var sprite = get_node(category)
+			var value = str(outfit_dict[category])
+			
+			if value == "none":
+				sprite.visible = false
+			else:
+				sprite.visible = true
+				sprite.animation = value
+				sprite.frame = 1

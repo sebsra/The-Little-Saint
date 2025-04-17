@@ -16,22 +16,27 @@ func confirm(title: String, message: String,
 	# Generiere eine eindeutige ID, falls keine angegeben wurde
 	var id = dialog_id if dialog_id else _generate_id()
 	
+	# Vermeide Duplikate, falls Dialog bereits existiert
+	if _active_popups.has(id):
+		close_dialog(id)
+	
 	# Erstelle und zeige das Popup an
 	var popup = _create_popup()
 	popup.setup(title, message, cancel_text, confirm_text)
 	
-	# Verbinde Signale, um weiterzuleiten
-	popup.confirmed.connect(func(): 
-		emit_signal("dialog_confirmed", id)
-		_active_popups.erase(id)
-	)
-	popup.canceled.connect(func(): 
-		emit_signal("dialog_canceled", id)
-		_active_popups.erase(id)
-	)
+	# Verbinde Signale
+	var confirmed_callable = Callable(self, "_on_popup_confirmed").bind(id)
+	var canceled_callable = Callable(self, "_on_popup_canceled").bind(id)
 	
-	# Speichere das Popup für spätere Referenz
-	_active_popups[id] = popup
+	popup.confirmed.connect(confirmed_callable)
+	popup.canceled.connect(canceled_callable)
+	
+	# Speichere das Popup und Callback-Referenzen für spätere Reinigung
+	_active_popups[id] = {
+		"popup": popup,
+		"confirmed_callable": confirmed_callable,
+		"canceled_callable": canceled_callable
+	}
 	
 	# Zeige das Popup an
 	popup.popup()
@@ -53,16 +58,17 @@ func warning(title: String, message: String, button_text: String = "OK") -> Stri
 	)
 	
 	# Verbinde Signale
-	popup.confirmed.connect(func():
-		emit_signal("dialog_confirmed", id)
-		_active_popups.erase(id)
-	)
+	var confirmed_callable = Callable(self, "_on_popup_confirmed").bind(id)
+	popup.confirmed.connect(confirmed_callable)
 	
 	# Verstecke den Abbrechen-Button
 	popup.cancel_button.visible = false
 	
 	# Speichere und zeige an
-	_active_popups[id] = popup
+	_active_popups[id] = {
+		"popup": popup,
+		"confirmed_callable": confirmed_callable
+	}
 	popup.popup()
 	
 	return id
@@ -82,16 +88,17 @@ func error(title: String, message: String, button_text: String = "OK") -> String
 	)
 	
 	# Verbinde Signale
-	popup.confirmed.connect(func():
-		emit_signal("dialog_confirmed", id)
-		_active_popups.erase(id)
-	)
+	var confirmed_callable = Callable(self, "_on_popup_confirmed").bind(id)
+	popup.confirmed.connect(confirmed_callable)
 	
 	# Verstecke den Abbrechen-Button
 	popup.cancel_button.visible = false
 	
 	# Speichere und zeige an
-	_active_popups[id] = popup
+	_active_popups[id] = {
+		"popup": popup,
+		"confirmed_callable": confirmed_callable
+	}
 	popup.popup()
 	
 	return id
@@ -111,16 +118,17 @@ func info(title: String, message: String, button_text: String = "OK") -> String:
 	)
 	
 	# Verbinde Signale
-	popup.confirmed.connect(func():
-		emit_signal("dialog_confirmed", id)
-		_active_popups.erase(id)
-	)
+	var confirmed_callable = Callable(self, "_on_popup_confirmed").bind(id)
+	popup.confirmed.connect(confirmed_callable)
 	
 	# Verstecke den Abbrechen-Button
 	popup.cancel_button.visible = false
 	
 	# Speichere und zeige an
-	_active_popups[id] = popup
+	_active_popups[id] = {
+		"popup": popup,
+		"confirmed_callable": confirmed_callable
+	}
 	popup.popup()
 	
 	return id
@@ -128,21 +136,47 @@ func info(title: String, message: String, button_text: String = "OK") -> String:
 # Schließt einen bestimmten Dialog
 func close_dialog(dialog_id: String) -> bool:
 	if _active_popups.has(dialog_id):
-		_active_popups[dialog_id].close()
+		var dialog_data = _active_popups[dialog_id]
+		var popup = dialog_data["popup"]
+		
+		# Trenne Signalverbindungen
+		if dialog_data.has("confirmed_callable") and popup.confirmed.is_connected(dialog_data["confirmed_callable"]):
+			popup.confirmed.disconnect(dialog_data["confirmed_callable"])
+			
+		if dialog_data.has("canceled_callable") and popup.canceled.is_connected(dialog_data["canceled_callable"]):
+			popup.canceled.disconnect(dialog_data["canceled_callable"])
+		
+		# Schließe das Popup und entferne es
+		popup.close()
+		popup.queue_free()
 		_active_popups.erase(dialog_id)
 		return true
 	return false
 
 # Schließt alle aktiven Dialoge
 func close_all_dialogs():
-	for id in _active_popups:
-		_active_popups[id].close()
-	_active_popups.clear()
+	var dialogs_to_close = _active_popups.keys().duplicate()
+	for dialog_id in dialogs_to_close:
+		close_dialog(dialog_id)
+
+# Interne Methode: Handler für Dialog-Bestätigung
+func _on_popup_confirmed(dialog_id: String):
+	# Signal emittieren bevor Dialog geschlossen wird
+	emit_signal("dialog_confirmed", dialog_id)
+	# Dialog schließen und aufräumen
+	close_dialog(dialog_id)
+
+# Interne Methode: Handler für Dialog-Abbruch
+func _on_popup_canceled(dialog_id: String):
+	# Signal emittieren bevor Dialog geschlossen wird
+	emit_signal("dialog_canceled", dialog_id)
+	# Dialog schließen und aufräumen
+	close_dialog(dialog_id)
 
 # Erstellt eine neue Popup-Instanz
 func _create_popup():
 	var popup_script = load("res://scripts/ui/dialogs/popup_dialog.gd")
-	# Hier ist die Korrektur: Wir erstellen einen CanvasLayer statt eines Node
+	# Wir erstellen einen CanvasLayer
 	var popup_instance = CanvasLayer.new()
 	popup_instance.set_script(popup_script)
 	add_child(popup_instance)
