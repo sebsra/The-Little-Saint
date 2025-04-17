@@ -133,10 +133,12 @@ func _update_save_data() -> void:
 			# Use GlobalHUD for health and coins
 			current_save_data.health = global_hud.current_health
 			current_save_data.coins = global_hud.coins
+			current_save_data.heaven_coins = global_hud.heaven_coins
 		else:
 			# Fallback to player's HUD
 			current_save_data.health = GlobalHUD.lifes if GlobalHUD else Constants.PLAYER_DEFAULT_MAX_HEALTH
 			current_save_data.coins = GlobalHUD.coins if GlobalHUD else 0
+			current_save_data.heaven_coins = GlobalHUD.heaven_coins if GlobalHUD else 0
 			
 		current_save_data.player_position = player.global_position
 		current_save_data.current_level = get_node("/root/Global").current_level
@@ -162,6 +164,7 @@ func _update_save_data() -> void:
 	# Add global game state
 	if get_node_or_null("/root/Global"):
 		current_save_data.collected_coins = get_node("/root/Global").collected_coins
+		current_save_data.collected_heaven_coins = get_node("/root/Global").collected_heaven_coins
 		current_save_data.unlocked_levels = get_node("/root/Global").unlocked_levels.duplicate()
 		current_save_data.completed_quests = get_node("/root/Global").completed_quests.duplicate()
 		
@@ -176,6 +179,7 @@ func _apply_save_data() -> void:
 	# Update GameManager data
 	if get_node_or_null("/root/Global"):
 		get_node("/root/Global").collected_coins = current_save_data.collected_coins
+		get_node("/root/Global").collected_heaven_coins = current_save_data.collected_heaven_coins
 		get_node("/root/Global").unlocked_levels = current_save_data.unlocked_levels.duplicate()
 		get_node("/root/Global").completed_quests = current_save_data.completed_quests.duplicate()
 		get_node("/root/Global").current_level = current_save_data.current_level
@@ -185,6 +189,7 @@ func _apply_save_data() -> void:
 	if global_hud:
 		global_hud.current_health = current_save_data.health
 		global_hud.coins = current_save_data.coins
+		global_hud.heaven_coins = current_save_data.heaven_coins
 		global_hud.sync_hud_with_global()
 		
 # Apply save data to the player (called when player is instantiated)
@@ -215,8 +220,10 @@ func apply_save_data_to_player(player) -> void:
 	if GlobalHUD:
 		GlobalHUD.lifes = current_save_data.health
 		GlobalHUD.coins = current_save_data.coins
+		GlobalHUD.heaven_coins = current_save_data.heaven_coins
 		GlobalHUD.load_hearts()
 		GlobalHUD._update_coin_display()
+		GlobalHUD._update_heaven_coin_display()
 
 # Settings management - Using player defaults from Constants
 func save_settings() -> bool:

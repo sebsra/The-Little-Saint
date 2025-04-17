@@ -4,6 +4,7 @@ extends CanvasLayer
 # HUD Components reference
 @onready var hearts_full = $HeartsFull
 @onready var coins_label = $LabelCoinSum
+@onready var heaven_coins_label = $LabelHeavenCoinSum
 @onready var bottle = $bottle
 @onready var elixir_fill = $elixir
 @onready var initial_heart_size = $HeartsFull.size
@@ -31,6 +32,7 @@ func _ready():
 		# Connect to GlobalHUD signals
 		GlobalHUD.health_changed.connect(_on_global_health_changed)
 		GlobalHUD.coins_changed.connect(_on_global_coins_changed)
+		GlobalHUD.heaven_coins_changed.connect(_on_global_heaven_coins_changed)
 		GlobalHUD.elixir_changed.connect(_on_global_elixir_changed)
 		GlobalHUD.power_up_activated.connect(_on_global_power_up_activated)
 		GlobalHUD.power_up_deactivated.connect(_on_global_power_up_deactivated)
@@ -46,6 +48,10 @@ func update_health_display(current_health: float, max_health: float) -> void:
 func update_coins_display(amount: int) -> void:
 	if coins_label:
 		coins_label.text = str(amount)
+
+func update_heaven_coins_display(amount: int) -> void:
+	if heaven_coins_label:
+		heaven_coins_label.text = str(amount)
 
 func update_elixir_display(fill_level: float) -> void:
 	if elixir_fill and bottle:
@@ -111,6 +117,12 @@ func play_coin_effect() -> void:
 		var tween = create_tween()
 		tween.tween_property(coins_label, "modulate", Color(1, 1, 0, 1), 0.1)
 		tween.tween_property(coins_label, "modulate", Color(1, 1, 1, 1), 0.2)
+		
+func play_heaven_coin_effect() -> void:
+	if heaven_coins_label:
+		var tween = create_tween()
+		tween.tween_property(heaven_coins_label, "modulate", Color(1, 1, 0, 1), 0.1)
+		tween.tween_property(heaven_coins_label, "modulate", Color(1, 1, 1, 1), 0.2)
 
 func play_elixir_effect() -> void:
 	if elixir_fill:
@@ -125,6 +137,9 @@ func _on_global_health_changed(new_health, _max_health):
 
 func _on_global_coins_changed(new_amount):
 	update_coins_display(new_amount)
+	
+func _on_global_heaven_coins_changed(new_amount):
+	update_heaven_coins_display(new_amount)
 
 func _on_global_elixir_changed(new_level):
 	update_elixir_display(new_level)
@@ -143,6 +158,8 @@ func _apply_theme() -> void:
 		# Apply theme to various HUD elements
 		if coins_label:
 			coins_label.add_theme_color_override("font_color", ui_theme.get_color("accent"))
+		if heaven_coins_label:
+			heaven_coins_label.add_theme_color_override("font_color", ui_theme.get_color("accent"))
 
 # --- LEGACY API (Forwards to GlobalHUD) ---
 
@@ -171,14 +188,26 @@ func change_health(amount: float) -> void:
 func add_coins(amount: int = 1) -> void:
 	if get_node_or_null("/root/GlobalHUD"):
 		GlobalHUD.add_coins(amount)
-
+		
+func add_heaven_coins(amount: int = 1) -> void:
+	if get_node_or_null("/root/GlobalHUD"):
+		GlobalHUD.add_heaven_coins(amount)
+		
 func set_coins(amount: int) -> void:
 	if get_node_or_null("/root/GlobalHUD"):
 		GlobalHUD.set_coins(amount)
-
+		
+func set_heaven_coins(amount: int) -> void:
+	if get_node_or_null("/root/GlobalHUD"):
+		GlobalHUD.set_heaven_coins(amount)
+		
 func coin_collected() -> void:
 	if get_node_or_null("/root/GlobalHUD"):
 		GlobalHUD.coin_collected()
+		
+func heaven_coin_collected() -> void:
+	if get_node_or_null("/root/GlobalHUD"):
+		GlobalHUD.heaven_coin_collected()
 
 func set_elixir_fill(level: float) -> void:
 	if get_node_or_null("/root/GlobalHUD"):
