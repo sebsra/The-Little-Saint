@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://c5usa30swnhit"]
 
 [ext_resource type="Texture2D" uid="uid://cpb306wbkhjwc" path="res://assets/sprites/unsorted/princefotos/Heavenly_Coin.png" id="1_e6nji"]
-[ext_resource type="Script" uid="uid://cb75ojsn3fnfk" path="res://scenes/core/items/heavenly_coin.gd" id="1_jly4h"]
+[ext_resource type="Script" path="res://scenes/core/items/heavenly_coin.gd" id="1_jly4h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rqm4w"]
 radius = 15.7791
@@ -101,7 +101,6 @@ _data = {
 [node name="HeavenlyCoin" type="Area2D"]
 visibility_layer = 2
 scale = Vector2(0.7, 0.7)
-collision_layer = 0
 script = ExtResource("1_jly4h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

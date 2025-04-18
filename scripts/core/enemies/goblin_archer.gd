@@ -290,7 +290,7 @@ func _on_died():
 func _drop_loot():
 	# Loot table
 	var loot_table = [
-		{"item": "res://scenes/core/items/coins.tscn", "chance": 0.8},
+		{"item": "res://scenes/core/items/heavennly_coins.tscn", "chance": 0.8},
 		{"item": "res://scenes/core/items/power_jump.tscn", "chance": 0.2}
 	]
 	

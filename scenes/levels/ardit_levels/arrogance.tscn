@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D"  path="res://scenes/levels/ardit_levels/Free/all_hieroglyphs.png" id="5_8wca3"]
 [ext_resource type="PackedScene"  path="res://scenes/ui/controls/gui.tscn" id="6_1igf7"]
 [ext_resource type="PackedScene"  path="res://scenes/core/character/player.tscn" id="7_04b44"]
-[ext_resource type="PackedScene"  path="res://scenes/core/items/coins.tscn" id="8_wpsmt"]
+[ext_resource type="PackedScene"  path="res://scenes/core/items/heavennly_coins.tscn" id="8_wpsmt"]
 [ext_resource type="PackedScene"  path="res://scenes/ui/hud/hud.tscn" id="9_cedl2"]
 [ext_resource type="PackedScene"  path="res://scenes/core/enemies/ardit_enemy.tscn" id="10_t7s4c"]
 

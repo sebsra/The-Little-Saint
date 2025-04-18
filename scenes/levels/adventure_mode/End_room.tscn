@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://3ih42riq46rh"]
 
 [ext_resource type="TileSet" uid="uid://c0m7nsbyu5twe" path="res://scenes/levels/adventure_mode/adventure_level.tres" id="1_js67v"]
-[ext_resource type="PackedScene" uid="uid://bq1h5147ej8ka" path="res://scenes/core/items/coins.tscn" id="2_rbgmc"]
+[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/heavennly_coins.tscn" id="2_rbgmc"]
 
 [node name="EnemyRoom_1" type="Node2D"]
 

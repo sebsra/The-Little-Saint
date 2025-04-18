@@ -5059,7 +5059,7 @@ Contents of scripts\core\enemies\goblin_archer.gd:
   
   # Loot-Tabelle
   var loot_table = [
-  	{"item": "res://scenes/core/items/coins.tscn", "chance": 0.8},
+  	{"item": "res://scenes/core/items/heavennly_coins.tscn", "chance": 0.8},
   	{"item": "res://scenes/core/items/power_jump.tscn", "chance": 0.2}
   ]
   
@@ -5509,7 +5509,7 @@ Contents of scripts\core\enemies\goblin_mage.gd:
   
   # Loot-Tabelle
   var loot_table = [
-  	{"item": "res://scenes/core/items/coins.tscn", "chance": 0.7},
+  	{"item": "res://scenes/core/items/heavennly_coins.tscn", "chance": 0.7},
   	{"item": "res://scenes/core/items/elixir.tscn", "chance": 0.3},
   	{"item": "res://scenes/core/items/power_fly.tscn", "chance": 0.1}
   ]
@@ -5733,7 +5733,7 @@ Contents of scripts\core\enemies\goblin_melee.gd:
   
   # Loot-Tabelle
   var loot_table = [
-  	{"item": "res://scenes/core/items/coins.tscn", "chance": 0.7},
+  	{"item": "res://scenes/core/items/heavennly_coins.tscn", "chance": 0.7},
   	{"item": "res://scenes/core/items/elixir.tscn", "chance": 0.1},
   	{"item": "res://scenes/core/items/power_attack.tscn", "chance": 0.05}
   ]

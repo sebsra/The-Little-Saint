@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://25sqdfus6xfs"]
 
 [ext_resource type="TileSet" uid="uid://c0m7nsbyu5twe" path="res://scenes/levels/adventure_mode/adventure_level.tres" id="1_2fvkx"]
-[ext_resource type="PackedScene" uid="uid://bq1h5147ej8ka" path="res://scenes/core/items/coins.tscn" id="2_eclm6"]
+[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/heavennly_coins.tscn" id="2_eclm6"]
 [ext_resource type="PackedScene" uid="uid://dfkw3squ32gx8" path="res://scenes/core/enemies/goblin_melee.tscn" id="3_toyy7"]
 
 [node name="EnemyRoom_5" type="Node2D"]

@@ -3,7 +3,7 @@
 [ext_resource type="TileSet" uid="uid://c0m7nsbyu5twe" path="res://scenes/levels/adventure_mode/adventure_level.tres" id="1_cmywx"]
 [ext_resource type="PackedScene" uid="uid://dfkw3squ32gx8" path="res://scenes/core/enemies/goblin_melee.tscn" id="2_vbn4a"]
 [ext_resource type="PackedScene" uid="uid://bghwylog5wnec" path="res://scenes/core/enemies/goblin_mage.tscn" id="3_m350j"]
-[ext_resource type="PackedScene" uid="uid://bq1h5147ej8ka" path="res://scenes/core/items/coins.tscn" id="4_0nmu0"]
+[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/heavennly_coins.tscn" id="4_0nmu0"]
 
 [node name="EnemyRoom_3" type="Node2D"]
 

@@ -426,7 +426,7 @@ func _create_death_explosion():
 func _drop_loot():
 	# Loot table
 	var loot_table = [
-		{"item": "res://scenes/core/items/coins.tscn", "chance": 0.7},
+		{"item": "res://scenes/core/items/heavennly_coins.tscn", "chance": 0.7},
 		{"item": "res://scenes/core/items/elixir.tscn", "chance": 0.3},
 		{"item": "res://scenes/core/items/power_fly.tscn", "chance": 0.1}
 	]
