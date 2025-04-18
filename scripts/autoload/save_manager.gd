@@ -41,7 +41,7 @@ func _process(delta):
 # Initialize auto-save
 func _init_auto_save():
 	# Default is disabled
-	auto_save_enabled = false
+	auto_save_enabled = true
 	time_since_last_save = 0.0
 	# Ensure process is called
 	set_process(true)

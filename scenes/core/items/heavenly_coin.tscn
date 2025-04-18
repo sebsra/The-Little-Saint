@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cb75ojsn3fnfk" path="res://scenes/core/items/heavenly_coin.gd" id="1_jly4h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rqm4w"]
-radius = 11.4286
+radius = 15.7791
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jly4h"]
 atlas = ExtResource("1_e6nji")
@@ -111,7 +111,8 @@ shape = SubResource("CircleShape2D_rqm4w")
 one_way_collision_margin = 0.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, -1)
+position = Vector2(4.76837e-07, -4.76837e-07)
+scale = Vector2(1.59821, 1.57619)
 sprite_frames = SubResource("SpriteFrames_vtapg")
 animation = &"spin"
 autoplay = "spin"
