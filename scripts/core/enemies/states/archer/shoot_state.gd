@@ -1,12 +1,14 @@
 class_name ShootState
 extends ArcherState
 
-var shoot_timer: float = 0.0
+# Diese Werte werden nun vom GoblinArcher überschrieben
 var shoot_duration: float = 0.6  # Time for the complete shoot action
 var shoot_cooldown: float = 0.5  # Time between shots
+var max_shots: int = 3  # Maximum shots per attack sequence
+
+var shoot_timer: float = 0.0
 var current_cooldown: float = 0.0
 var shots_fired: int = 0
-var max_shots: int = 3  # Maximum shots per attack sequence
 var has_aimed: bool = false
 var is_firing: bool = false
 
@@ -16,6 +18,16 @@ func _init():
 func enter():
 	super.enter()
 	play_animation("attack")
+	
+	# Werte vom Archer einlesen, falls nicht bereits gesetzt
+	var archer = enemy as GoblinArcher
+	if archer:
+		if archer.shoot_duration > 0:
+			shoot_duration = archer.shoot_duration
+		if archer.shoot_cooldown > 0:
+			shoot_cooldown = archer.shoot_cooldown
+		if archer.max_shots > 0:
+			max_shots = archer.max_shots
 	
 	# Reset state variables
 	shoot_timer = 0.0
@@ -30,7 +42,8 @@ func enter():
 	# Face the target
 	flip_to_target()
 	
-	print(enemy.name + " entered shoot state")
+	print(enemy.name + " entered shoot state with duration=" + str(shoot_duration) + 
+		  ", cooldown=" + str(shoot_cooldown) + ", max_shots=" + str(max_shots))
 
 func physics_process(delta: float):
 	shoot_timer += delta
@@ -39,7 +52,7 @@ func physics_process(delta: float):
 	update_target()
 	
 	# Aim at target (slight delay before first shot)
-	if not has_aimed and shoot_timer >= 0.2:
+	if not has_aimed and shoot_timer >= shoot_duration * 0.3:
 		# Face the target
 		flip_to_target()
 		has_aimed = true

@@ -1,0 +1,3214 @@
+PROJECT STRUCTURE SCAN
+==================================================
+Directory: C:\Users\Stidium\Downloads\Studienarbeit\Godot\The-Little-Saint\scripts\core\enemies
+Date: 2025-04-18 21:43:00
+Filter mode: include
+Included file types: .gd, .godot
+
+Document Support Status:
+- PDF: Enabled (Available)
+- Word: Enabled (Not available - install python-docx)
+- Excel: Enabled (Not available - install openpyxl)
+- PowerPoint: Enabled (Available)
+==================================================
+DIRECTORY STRUCTURE
+------------------
+
+[DIR] behaviors
+  - attack_behavior.gd
+  - chase_behavior.gd
+  - patrol_behavior.gd
+- enemy_state_machine.gd
+- goblin_archer.gd
+- goblin_mage.gd
+- goblin_melee.gd
+[DIR] states
+  [DIR] archer
+    - archer_state.gd
+    - positioning_state.gd
+    - reload_state.gd
+    - retreat_state.gd
+    - shoot_state.gd
+  [DIR] common
+    - attack_state.gd
+    - chase_state.gd
+    - death_state.gd
+    - enemy_state.gd
+    - hurt_state.gd
+    - patrol_state.gd
+  [DIR] mage
+    - cast_state.gd
+    - mage_state.gd
+    - positioning_state.gd
+    - shield_state.gd
+    - teleport_state.gd
+  [DIR] melee
+    - charge_state.gd
+    - melee_state.gd
+    - rage_chase_state.gd
+    - rage_state.gd
+
+FILE CONTENTS
+-------------
+
+
+========================================
+Contents of behaviors\attack_behavior.gd:
+========================================
+  class_name AttackBehavior
+  extends Node
+  
+  ## A modular component for enemy attack behavior
+  
+  # Attack types
+  enum AttackType {
+  	MELEE,    # Close range attack
+  	RANGED,   # Projectile attack
+  	AREA      # Area of effect attack
+  }
+  
+  # The type of attack
+  @export var attack_type: AttackType = AttackType.MELEE
+  # Base damage for the attack
+  @export var base_damage: float = 10.0
+  # Cooldown between attacks (seconds)
+  @export var cooldown: float = 1.0
+  # Range at which attack can be performed
+  @export var attack_range: float = 50.0
+  # For ranged attacks, the projectile scene
+  @export var projectile_scene: PackedScene = null
+  # For area attacks, the area shape
+  @export var area_shape: Shape2D = null
+  # For area attacks, the area size
+  @export var area_size: Vector2 = Vector2(100, 100)
+  # Animation to play when attacking
+  @export var attack_animation: String = "attack"
+  # Whether to face the target when attacking
+  @export var face_target: bool = true
+  # For ranged attacks, the spawn offset
+  @export var projectile_spawn_offset: Vector2 = Vector2(0, 0)
+  # Path to the animated sprite (if not direct child)
+  @export var animated_sprite_path: String = "AnimatedSprite2D"
+  # Whether this attack is currently available
+  @export var can_attack: bool = true
+  
+  # Reference to the character this behavior belongs to
+  var character = null
+  # Current attack target
+  var target = null
+  # Current cooldown timer
+  var cooldown_timer: float = 0.0
+  # Reference to the damage system (optional)
+  var damage_system = null
+  
+  # Signals
+  signal attack_started(target)
+  signal attack_finished(target, hit)
+  signal attack_cooldown_started(time)
+  signal attack_cooldown_finished()
+  
+  func _ready():
+  	# Get the owner character (parent node)
+  	character = get_parent()
+  	
+  	# Try to get damage system reference
+  	damage_system = get_node_or_null("/root/DamageSystem")
+  
+  func _process(delta):
+  	# Handle cooldown
+  	if not can_attack:
+  		cooldown_timer -= delta
+  		if cooldown_timer <= 0:
+  			can_attack = true
+  			emit_signal("attack_cooldown_finished")
+  
+  ## Check if a target is in attack range
+  func is_target_in_range(check_target) -> bool:
+  	if not check_target:
+  		return false
+  	
+  	var distance = character.global_position.distance_to(check_target.global_position)
+  	return distance <= attack_range
+  
+  ## Set a new attack target
+  func set_target(new_target):
+  	target = new_target
+  
+  ## Perform an attack against the current target
+  func attack() -> bool:
+  	if not can_attack or not target:
+  		return false
+  	
+  	if not is_target_in_range(target):
+  		return false
+  	
+  	# Face the target if enabled
+  	if face_target:
+  		_face_target(target)
+  	
+  	# Play attack animation
+  	if character.has_method("play_animation"):
+  		character.play_animation(attack_animation)
+  	elif character.has_node(animated_sprite_path):
+  		var sprite = character.get_node(animated_sprite_path)
+  		if sprite.has_method("play"):
+  			sprite.play(attack_animation)
+  	
+  	emit_signal("attack_started", target)
+  	
+  	# Handle different attack types
+  	var hit = false
+  	
+  	match attack_type:
+  		AttackType.MELEE:
+  			hit = _perform_melee_attack()
+  		AttackType.RANGED:
+  			hit = _perform_ranged_attack()
+  		AttackType.AREA:
+  			# This is a coroutine, so we need to use await
+  			hit = await _perform_area_attack()
+  	
+  	# Start cooldown
+  	can_attack = false
+  	cooldown_timer = cooldown
+  	emit_signal("attack_cooldown_started", cooldown)
+  	
+  	# Wait for animation to finish
+  	if character.has_node(animated_sprite_path):
+  		var sprite = character.get_node(animated_sprite_path)
+  		await sprite.animation_finished
+  	else:
+  		await get_tree().create_timer(0.5).timeout
+  	
+  	emit_signal("attack_finished", target, hit)
+  	return hit
+  
+  ## Perform a melee attack
+  func _perform_melee_attack() -> bool:
+  	# If we have a damage system, use it
+  	if damage_system:
+  		return damage_system.process_attack(character, target, base_damage)
+  	
+  	# Otherwise use direct damage application
+  	if target.has_method("take_damage"):
+  		target.take_damage(base_damage)
+  		return true
+  	elif "current_health" in target:
+  		target.current_health -= base_damage
+  		return true
+  	
+  	return false
+  
+  ## Perform a ranged attack by spawning a projectile
+  func _perform_ranged_attack() -> bool:
+  	if not projectile_scene:
+  		push_error("Projectile scene is not set for ranged attack!")
+  		return false
+  	
+  	# Get spawn position
+  	var spawn_pos = character.global_position + projectile_spawn_offset
+  	
+  	# Get direction to target
+  	var direction = (target.global_position - spawn_pos).normalized()
+  	
+  	# Check if we have an object pool
+  	var projectile_pool = character.get_node_or_null("ProjectilePool")
+  	
+  	if projectile_pool and projectile_pool is ObjectPool:
+  		# Get a projectile from the pool
+  		var projectile = projectile_pool.get_object()
+  		if projectile:
+  			if projectile.has_method("setup"):
+  				projectile.setup(direction, spawn_pos, character.global_rotation, character)
+  			return true
+  	else:
+  		# Create a new projectile
+  		var projectile = projectile_scene.instantiate()
+  		get_tree().get_root().add_child(projectile)
+  		
+  		if projectile.has_method("setup"):
+  			projectile.setup(direction, spawn_pos, character.global_rotation, character)
+  		elif "direction" in projectile:
+  			projectile.direction = direction
+  			projectile.global_position = spawn_pos
+  			projectile.source_node = character
+  		
+  		return true
+  	
+  	return false
+  
+  ## Perform an area attack affecting all targets in an area
+  func _perform_area_attack() -> bool:
+  	var hit_something = false
+  	
+  	# Create area for attack
+  	var area = Area2D.new()
+  	var collision_shape = CollisionShape2D.new()
+  	
+  	# Configure shape
+  	if area_shape:
+  		collision_shape.shape = area_shape
+  	else:
+  		# Default to rectangle
+  		var rect_shape = RectangleShape2D.new()
+  		rect_shape.size = area_size
+  		collision_shape.shape = rect_shape
+  	
+  	area.add_child(collision_shape)
+  	character.add_child(area)
+  	
+  	# Check for bodies in the area
+  	await get_tree().process_frame
+  	var bodies = area.get_overlapping_bodies()
+  	
+  	for body in bodies:
+  		if body != character and body.is_in_group("damageable"):
+  			# If we have a damage system, use it
+  			if damage_system:
+  				damage_system.process_attack(character, body, base_damage)
+  			# Otherwise use direct damage application
+  			elif body.has_method("take_damage"):
+  				body.take_damage(base_damage)
+  			elif "current_health" in body:
+  				body.current_health -= base_damage
+  			
+  			hit_something = true
+  	
+  	# Clean up
+  	area.queue_free()
+  	return hit_something
+  
+  ## Face the character towards the target
+  func _face_target(face_target):
+  	if not face_target:
+  		return
+  	
+  	var direction = (face_target.global_position - character.global_position).normalized()
+  	
+  	# Handle sprite flipping
+  	var sprite = character.get_node_or_null(animated_sprite_path)
+  	if sprite and "flip_h" in sprite:
+  		sprite.flip_h = direction.x < 0
+
+========================================
+Contents of behaviors\chase_behavior.gd:
+========================================
+  class_name ChaseBehavior
+  extends Node
+  
+  ## A modular component for enemy chase behavior
+  
+  # Reference to the character this behavior belongs to
+  var character = null
+  # The target being chased
+  var target = null
+  # Speed while chasing
+  @export var chase_speed: float = 100.0
+  # Maximum chase distance before giving up
+  @export var max_chase_distance: float = 300.0
+  # Minimum distance to maintain from target
+  @export var min_distance: float = 10.0
+  # Whether to use prediction for moving targets
+  @export var use_prediction: bool = false
+  # How far ahead to predict target movement (0-1)
+  @export var prediction_factor: float = 0.5
+  # Whether to check for line of sight
+  @export var check_line_of_sight: bool = true
+  # Collision layer to check for line of sight (walls, obstacles)
+  @export_flags_2d_physics var line_of_sight_mask: int = 1
+  # Animation to play while chasing
+  @export var chase_animation: String = "walk"
+  # Path to the animated sprite (if not direct child)
+  @export var animated_sprite_path: String = "AnimatedSprite2D"
+  # Whether the chase is currently active
+  @export var is_active: bool = false
+  
+  # Last known position of the target
+  var last_known_position: Vector2 = Vector2.ZERO
+  # Direction to the target
+  var chase_direction: Vector2 = Vector2.ZERO
+  # Time spent chasing without line of sight
+  var lost_sight_time: float = 0.0
+  # Maximum time to chase without line of sight
+  @export var max_lost_sight_time: float = 2.0
+  
+  # Signals
+  signal chase_started(target)
+  signal chase_ended()
+  signal chase_target_reached(target)
+  signal target_lost()
+  signal line_of_sight_lost()
+  signal line_of_sight_regained()
+  
+  func _ready():
+  	# Get the owner character (parent node)
+  	character = get_parent()
+  
+  func _physics_process(delta):
+  	if not is_active or not target:
+  		return
+  	
+  	if not is_instance_valid(target):
+  		end_chase()
+  		return
+  	
+  	# Get positions
+  	var character_pos = character.global_position
+  	var target_pos = target.global_position
+  	
+  	# Check max chase distance
+  	var distance_to_target = character_pos.distance_to(target_pos)
+  	if distance_to_target > max_chase_distance:
+  		emit_signal("target_lost")
+  		end_chase()
+  		return
+  	
+  	# Check line of sight if needed
+  	var has_line_of_sight = true
+  	if check_line_of_sight:
+  		has_line_of_sight = _check_line_of_sight(target)
+  		
+  		if not has_line_of_sight:
+  			lost_sight_time += delta
+  			if lost_sight_time > max_lost_sight_time:
+  				emit_signal("target_lost")
+  				end_chase()
+  				return
+  		else:
+  			if lost_sight_time > 0:
+  				emit_signal("line_of_sight_regained")
+  			lost_sight_time = 0
+  			last_known_position = target_pos
+  	
+  	# Calculate target position (with prediction if enabled)
+  	var chase_target_pos = target_pos
+  	if use_prediction and "velocity" in target and target.velocity.length() > 0:
+  		chase_target_pos += target.velocity * prediction_factor
+  	
+  	# Calculate direction and distance
+  	chase_direction = (chase_target_pos - character_pos).normalized()
+  	
+  	# Check if we've reached minimum distance
+  	if distance_to_target <= min_distance:
+  		emit_signal("chase_target_reached", target)
+  		if "velocity" in character:
+  			character.velocity.x = 0
+  		return
+  	
+  	# Apply movement
+  	if "velocity" in character:
+  		character.velocity.x = chase_direction.x * chase_speed
+  	
+  	# Update animation and facing
+  	_update_animation(chase_direction)
+  
+  ## Start chasing a target
+  func start_chase(new_target) -> bool:
+  	if not new_target:
+  		return false
+  	
+  	target = new_target
+  	is_active = true
+  	lost_sight_time = 0
+  	last_known_position = target.global_position
+  	
+  	emit_signal("chase_started", target)
+  	return true
+  
+  ## End the current chase
+  func end_chase():
+  	if is_active:
+  		emit_signal("chase_ended")
+  	
+  	is_active = false
+  	target = null
+  	lost_sight_time = 0
+  	
+  	# Stop movement
+  	if "velocity" in character:
+  		character.velocity.x = 0
+  
+  ## Check if the character has line of sight to the target
+  func _check_line_of_sight(check_target) -> bool:
+  	if not check_target:
+  		return false
+  	
+  	var space_state = character.get_world_2d().direct_space_state
+  	var params = PhysicsRayQueryParameters2D.new()
+  	params.from = character.global_position
+  	params.to = check_target.global_position
+  	params.collision_mask = line_of_sight_mask
+  	params.exclude = [character]
+  	
+  	var result = space_state.intersect_ray(params)
+  	
+  	if result and result.collider != check_target:
+  		if lost_sight_time == 0:
+  			emit_signal("line_of_sight_lost")
+  		return false
+  	return true
+  
+  ## Get the current distance to the target
+  func get_distance_to_target() -> float:
+  	if not target:
+  		return INF
+  	return character.global_position.distance_to(target.global_position)
+  
+  ## Update character animation and direction based on movement
+  func _update_animation(direction: Vector2):
+  	# Play chase animation
+  	if character.has_method("play_animation"):
+  		character.play_animation(chase_animation)
+  	
+  	# Handle sprite flipping
+  	var sprite = character.get_node_or_null(animated_sprite_path)
+  	if sprite and "flip_h" in sprite:
+  		sprite.flip_h = direction.x < 0
+
+========================================
+Contents of behaviors\patrol_behavior.gd:
+========================================
+  class_name PatrolBehavior
+  extends Node
+  
+  ## A modular component for enemy patrol behavior
+  
+  # Patrol modes
+  enum PatrolMode {
+  	BACK_AND_FORTH,  # Move between start and end points
+  	LOOP,            # Move in a loop through all points
+  	RANDOM           # Choose random points to patrol to
+  }
+  
+  # Patrol points - Vector2 positions for the patrol path
+  @export var patrol_points: Array[Vector2] = []
+  # Current patrol mode
+  @export var mode: PatrolMode = PatrolMode.BACK_AND_FORTH
+  # Speed while patrolling
+  @export var patrol_speed: float = 60.0
+  # Wait time at each patrol point (seconds)
+  @export var wait_time: float = 1.0
+  # Whether to use global coordinates or local coordinates
+  @export var use_global_coordinates: bool = true
+  # Whether the enemy should flip when changing direction
+  @export var flip_on_direction_change: bool = true
+  # Flip method (sprite or node)
+  @export var flip_method: String = "sprite" # "sprite" or "node"
+  # Whether patrol is currently active
+  @export var is_active: bool = true
+  
+  # Reference to the owner character
+  var character = null
+  # Current target patrol point index
+  var current_point_index: int = 0
+  # Direction of travel for back-and-forth mode (1 = forwards, -1 = backwards)
+  var travel_direction: int = 1
+  # Whether we're currently waiting at a patrol point
+  var is_waiting: bool = false
+  # Wait timer
+  var wait_timer: float = 0.0
+  # Path to the animated sprite (if not direct child)
+  @export var animated_sprite_path: String = "AnimatedSprite2D"
+  # Animation to play while patrolling
+  @export var patrol_animation: String = "walk"
+  
+  # Signals
+  signal point_reached(point_index)
+  signal patrol_completed()
+  signal direction_changed(new_direction)
+  
+  func _ready():
+  	# Get the owner character (parent node)
+  	character = get_parent()
+  	
+  	# Initialize with first patrol point if available
+  	if patrol_points.size() > 0:
+  		current_point_index = 0
+  	else:
+  		# Add the character's current position as the first patrol point
+  		if use_global_coordinates:
+  			patrol_points.append(character.global_position)
+  		else:
+  			patrol_points.append(character.position)
+  
+  func _physics_process(delta):
+  	if not is_active or patrol_points.size() < 2:
+  		return
+  	
+  	if is_waiting:
+  		# Handle waiting at patrol points
+  		wait_timer -= delta
+  		if wait_timer <= 0:
+  			is_waiting = false
+  			_move_to_next_point()
+  		return
+  	
+  	# Get current target point
+  	var target_position = patrol_points[current_point_index]
+  	if use_global_coordinates:
+  		target_position = target_position
+  	
+  	# Get current position
+  	var current_position = character.global_position if use_global_coordinates else character.position
+  	
+  	# Check if we've reached the target point
+  	var distance_to_target = current_position.distance_to(target_position)
+  	if distance_to_target < 10.0:  # Within 10 pixels considered as "reached"
+  		_on_point_reached()
+  		return
+  	
+  	# Move towards the target point
+  	var direction = (target_position - current_position).normalized()
+  	
+  	# Apply movement
+  	if "velocity" in character:
+  		character.velocity.x = direction.x * patrol_speed
+  	
+  	# Handle animation and flipping
+  	_update_animation(direction)
+  
+  ## Start patrolling
+  func start():
+  	is_active = true
+  	is_waiting = false
+  
+  ## Stop patrolling
+  func stop():
+  	is_active = false
+  	if "velocity" in character:
+  		character.velocity.x = 0
+  
+  ## Add a new patrol point
+  func add_patrol_point(point: Vector2):
+  	patrol_points.append(point)
+  
+  ## Clear all patrol points
+  func clear_patrol_points():
+  	patrol_points.clear()
+  	current_point_index = 0
+  
+  ## Set new patrol points
+  func set_patrol_points(points: Array[Vector2]):
+  	patrol_points = points
+  	current_point_index = 0
+  
+  ## Set the patrol mode
+  func set_patrol_mode(new_mode: PatrolMode):
+  	mode = new_mode
+  	
+  ## Get the current patrol target position
+  func get_current_target() -> Vector2:
+  	if patrol_points.size() > current_point_index:
+  		return patrol_points[current_point_index]
+  	return Vector2.ZERO
+  
+  ## Called when a patrol point is reached
+  func _on_point_reached():
+  	emit_signal("point_reached", current_point_index)
+  	
+  	# Start waiting
+  	is_waiting = true
+  	wait_timer = wait_time
+  	
+  	# Stop horizontal movement
+  	if "velocity" in character:
+  		character.velocity.x = 0
+  
+  ## Move to the next patrol point based on the patrol mode
+  func _move_to_next_point():
+  	match mode:
+  		PatrolMode.BACK_AND_FORTH:
+  			# Change direction at endpoints
+  			if current_point_index == patrol_points.size() - 1:
+  				travel_direction = -1
+  				emit_signal("direction_changed", travel_direction)
+  			elif current_point_index == 0:
+  				travel_direction = 1
+  				emit_signal("direction_changed", travel_direction)
+  			
+  			current_point_index += travel_direction
+  			
+  		PatrolMode.LOOP:
+  			# Move to next point, wrap around to beginning
+  			current_point_index = (current_point_index + 1) % patrol_points.size()
+  			
+  			if current_point_index == 0:
+  				emit_signal("patrol_completed")
+  				
+  		PatrolMode.RANDOM:
+  			# Choose a random point different from the current one
+  			var new_index = current_point_index
+  			while new_index == current_point_index and patrol_points.size() > 1:
+  				new_index = randi() % patrol_points.size()
+  			current_point_index = new_index
+  
+  ## Update character animation and direction based on movement
+  func _update_animation(direction: Vector2):
+  	# Play patrol animation
+  	if character.has_method("play_animation"):
+  		character.play_animation(patrol_animation)
+  	
+  	# Handle flipping
+  	if flip_on_direction_change:
+  		var sprite = null
+  		
+  		if flip_method == "sprite":
+  			sprite = character.get_node_or_null(animated_sprite_path)
+  			if sprite and "flip_h" in sprite:
+  				sprite.flip_h = direction.x < 0
+  		elif flip_method == "node":
+  			# Flip the entire character node
+  			character.scale.x = abs(character.scale.x) * sign(direction.x)
+
+========================================
+Contents of enemy_state_machine.gd:
+========================================
+  class_name EnemyStateMachine
+  extends StateMachine
+  
+  ## Eine verbesserte State Machine speziell für Gegner
+  ## Verbesserte Version mit besserer Target-Erkennung und Zustandsübergängen
+  
+  # Signals for key events
+  signal player_detected(player)
+  signal player_lost()
+  signal action_completed(action_name)
+  
+  # Enemy sensing properties - used by all states
+  var detection_range: float = 200.0
+  var attack_range: float = 50.0
+  var patrol_range: float = 100.0
+  var can_see_through_walls: bool = false
+  
+  # Current target
+  var target = null
+  
+  # Original position for patrols
+  var initial_position: Vector2
+  
+  # Target tracking properties
+  var target_visible_time: float = 0.0
+  var target_lost_time: float = 0.0
+  var minimum_detection_time: float = 0.1  # Time to confirm detection
+  var maximum_lost_time: float = 0.5  # Time before target is considered lost
+  
+  # Enemy type-specific attributes
+  var attack_state_name: String = "Attack"  # Default, will be overridden by specialized enemies
+  var use_specialized_states: bool = false
+  var specialized_enemy_type: String = "Generic"
+  
+  # Verbessertes Targeting
+  var last_known_position: Vector2
+  var prediction_enabled: bool = true  # Bewegungsvorhersage für Fernkampf
+  var memory_duration: float = 3.0  # Wie lange der Gegner sich die letzte Position merkt
+  
+  func _ready():
+  	super._ready()
+  	
+  	# Set initial position for patrol patterns
+  	initial_position = owner_node.global_position
+  	last_known_position = initial_position
+  	
+  	# Update range values from the owner
+  	_update_ranges_from_owner()
+  	
+  	# Connect to owner signals
+  	if owner_node is BaseEnemy:
+  		owner_node.damaged.connect(_on_owner_damaged)
+  		owner_node.died.connect(_on_owner_died)
+  	
+  	# Check for specialized enemy types and set appropriate attack state
+  	_detect_specialized_enemy_type()
+  	
+  	# Enable debug mode in development builds only
+  	debug_mode = false #OS.has_feature("debug")
+  	print("EnemyStateMachine initialized for: " + owner_node.name + " with type: " + specialized_enemy_type)
+  
+  func _physics_process(delta):
+  	super._physics_process(delta)
+  	
+  	# Check for target consistently
+  	_update_target_detection(delta)
+  
+  # Transfer configuration from owner to state machine
+  func _update_ranges_from_owner():
+  	var enemy = owner_node as BaseEnemy
+  	if enemy:
+  		detection_range = enemy.detection_radius
+  		attack_range = enemy.attack_radius
+  		patrol_range = enemy.patrol_distance
+  
+  # Detect what kind of enemy we're attached to and configure accordingly
+  func _detect_specialized_enemy_type():
+  	if owner_node is GoblinArcher:
+  		specialized_enemy_type = "Archer"
+  		attack_state_name = "Shoot"
+  		use_specialized_states = true
+  		# Bogenschützen haben bessere Vorhersage
+  		prediction_enabled = true
+  		memory_duration = 4.0
+  	elif owner_node is GoblinMage:
+  		specialized_enemy_type = "Mage"
+  		attack_state_name = "Cast"
+  		use_specialized_states = true
+  		# Magier haben längere Erinnerung
+  		memory_duration = 5.0
+  	elif owner_node is GoblinMelee:
+  		specialized_enemy_type = "Melee"
+  		attack_state_name = "Attack"  # Standard attack for melee
+  		use_specialized_states = true
+  		# Nahkämpfer haben kürzere Erinnerung
+  		memory_duration = 2.0
+  		
+  	print("Detected enemy type: " + specialized_enemy_type + " with attack state: " + attack_state_name)
+  
+  # Initialize the state machine with the starting state
+  func initialize(initial_state_name: String = ""):
+  	# Default to first state if none specified
+  	if initial_state_name.is_empty() and states.size() > 0:
+  		initial_state_name = states.keys()[0]
+  	# Change to initial state
+  	if states.has(initial_state_name):
+  		change_state(initial_state_name)
+  	else:
+  		push_error("State machine could not initialize with state: " + initial_state_name)
+  
+  # A more reliable target detection system
+  func _update_target_detection(delta):
+  	var player = _find_player()
+  	var can_see_player = false
+  	
+  	if player:
+  		# Check distance
+  		var distance = owner_node.global_position.distance_to(player.global_position)
+  		
+  		if distance <= detection_range:
+  			# Line of sight check
+  			if can_see_through_walls or _has_line_of_sight(player):
+  				can_see_player = true
+  				
+  				# Tracking for consistent detection
+  				target_visible_time += delta
+  				target_lost_time = 0
+  				
+  				# Confirm detection after minimum time
+  				if target_visible_time >= minimum_detection_time:
+  					if target != player:
+  						print(owner_node.name + " detected player at distance " + str(distance))
+  						set_target(player)
+  					
+  					# Aktualisiere zuletzt bekannte Position
+  					last_known_position = player.global_position
+  			else:
+  				can_see_player = false
+  		else:
+  			can_see_player = false
+  	
+  	# Handle losing sight of target
+  	if !can_see_player and target:
+  		target_visible_time = 0
+  		target_lost_time += delta
+  		
+  		# Clear target after max lost time
+  		if target_lost_time >= maximum_lost_time:
+  			# Verbessertes Verhalten: Je nach Gegnertyp unterschiedliche Reaktionen
+  			if specialized_enemy_type == "Archer":
+  				# Archer behält Target länger für Schüsse auf letzte bekannte Position
+  				if target_lost_time >= maximum_lost_time * 2.0:
+  					clear_target()
+  			elif specialized_enemy_type == "Mage":
+  				# Mage hat ähnliches Verhalten wie Archer aber mit anderen Timing
+  				if target_lost_time >= maximum_lost_time * 1.5:
+  					clear_target()
+  			else:
+  				# Standard-Verhalten: Clear target after max lost time
+  				clear_target()
+  
+  # Find player in the scene
+  func _find_player() -> Node:
+  	# First check the Global singleton for player reference
+  	if get_node_or_null("/root/Global") and get_node("/root/Global").has_method("get_player"):
+  		return get_node("/root/Global").get_player()
+  	
+  	# Alternative: check for player in groups
+  	var player = get_tree().get_first_node_in_group("player")
+  	if not player:
+  		# Last resort - search by name
+  		player = get_tree().get_root().find_child("Player", true, false)
+  	
+  	return player
+  
+  # Check if there's a clear line of sight to the target
+  func _has_line_of_sight(to_node: Node) -> bool:
+  	if not is_instance_valid(to_node):
+  		return false
+  		
+  	# Setup raycast
+  	var space_state = owner_node.get_world_2d().direct_space_state
+  	var query = PhysicsRayQueryParameters2D.create(
+  		owner_node.global_position, 
+  		to_node.global_position,
+  		1, # Collision layer for obstacles 
+  		[owner_node] # Exclude self from collision check
+  	)
+  	
+  	var result = space_state.intersect_ray(query)
+  	
+  	# If nothing hit or hit the target, we have line of sight
+  	return !result or result.collider == to_node
+  
+  # Set current target and notify states
+  func set_target(new_target):
+  	if new_target == target:
+  		return
+  		
+  	var had_no_target = (target == null)
+  	target = new_target
+  	
+  	if new_target and had_no_target:
+  		emit_signal("player_detected", new_target)
+  		
+  		# Force state change based on distance if in Patrol state
+  		if current_state and current_state.name == "Patrol":
+  			if is_target_in_attack_range():
+  				change_state(attack_state_name)  # Use appropriate attack state based on enemy type
+  			elif specialized_enemy_type == "Archer":
+  				change_state("Positioning")  # Archer goes to positioning
+  			elif specialized_enemy_type == "Mage":
+  				change_state("MagePositioning")  # Mage goes to positioning
+  			else:
+  				# Nahkämpfer verhalten sich wie bisher
+  				change_state("Chase")
+  
+  # Clear current target
+  func clear_target():
+  	if target:
+  		print(owner_node.name + " lost sight of player")
+  		emit_signal("player_lost")
+  		
+  		# Return to patrol if we're in a state that needs a target
+  		if current_state:
+  			if specialized_enemy_type == "Archer":
+  				if current_state.name in ["Shoot", "Positioning", "Retreat"]:
+  					change_state("Patrol")
+  			elif specialized_enemy_type == "Mage":
+  				if current_state.name in ["Cast", "MagePositioning"]:
+  					change_state("Patrol")
+  			else:
+  				if current_state.name in ["Chase", "Attack"]:
+  					change_state("Patrol")
+  	
+  	target = null
+  
+  # Is target within attack range?
+  func is_target_in_attack_range() -> bool:
+  	if not target:
+  		return false
+  	
+  	var distance = owner_node.global_position.distance_to(target.global_position)
+  	return distance <= attack_range
+  
+  # Direction to current target
+  func get_direction_to_target() -> Vector2:
+  	if not target:
+  		return Vector2.ZERO
+  	
+  	return (target.global_position - owner_node.global_position).normalized()
+  
+  # Direction to last known position
+  func get_direction_to_last_known_position() -> Vector2:
+  	return (last_known_position - owner_node.global_position).normalized()
+  
+  # Handle owner taking damage
+  func _on_owner_damaged(amount, attacker):
+  	# Transition to hurt state if not dead
+  	if current_state and current_state.name != "Death" and current_state.name != "Hurt":
+  		change_state("Hurt")
+  
+  # Handle owner death
+  func _on_owner_died():
+  	# Transition to death state
+  	change_state("Death")
+
+========================================
+Contents of goblin_archer.gd:
+========================================
+  class_name GoblinArcher
+  extends BaseEnemy
+  
+  ## Goblin Archer - Ranged enemy that shoots arrows/stones at the player
+  ## Maintains distance and reloads after a certain number of shots
+  
+  # Archer-specific attributes
+  @export_group("Archer Properties")
+  @export var projectile_scene: PackedScene = preload("res://scenes/core/projectiles/rock.tscn")
+  @export var quiver_size: int = 5  # Number of arrows before reload
+  @export var reload_time: float = 2.0  # Time to reload in seconds
+  @export var shooting_accuracy: float = 0.9  # 1.0 = perfect, lower = less accurate
+  @export var optimal_distance: float = 150.0  # Optimal distance to player
+  
+  # Archer state tracking
+  var arrows_remaining: int
+  var is_reloading: bool = false
+  
+  # Projectile pool for arrows
+  var projectile_pool: ObjectPool
+  
+  # Signals specific to archer
+  signal arrow_shot
+  signal quiver_empty
+  signal reload_complete
+  
+  func _ready():
+  	# Call parent ready
+  	super._ready()
+  	
+  	# Set default values
+  	max_health = 70.0
+  	current_health = max_health
+  	speed = 60.0  # Etwas schneller für bessere Positionierung
+  	chase_speed = 60.0
+  	attack_damage = 50.0  # Ensuring this gives 0.5 damage after scaling
+  	attack_cooldown = 1.0
+  	detection_radius = 350.0
+  	attack_radius = 300.0
+  	
+  	# Initialize arrows
+  	arrows_remaining = quiver_size
+  	
+  	# Connect signals
+  	damaged.connect(_on_damaged)
+  	died.connect(_on_died)
+  	
+  	# Make sure this node is in the enemy group
+  	if not is_in_group("enemy"):
+  		add_to_group("enemy")
+  	
+  	# Initialize projectile pool
+  	_setup_projectile_pool()
+  	
+  	# Setup the state machine with archer states
+  	setup_state_machine()
+  	_setup_archer_states()
+  
+  # Initialize projectile pool
+  func _setup_projectile_pool():
+  	# Check if projectile_scene is valid
+  	if projectile_scene == null:
+  		push_error("GoblinArcher: projectile_scene is null. Trying direct load...")
+  		projectile_scene = load("res://scenes/core/projectiles/rock.tscn")
+  		
+  	if projectile_scene == null:
+  		push_error("GoblinArcher: Could not load projectile_scene. Pool not created.")
+  		return
+  		
+  	# Create projectile pool for better performance
+  	projectile_pool = ObjectPool.new(projectile_scene, 10, true)
+  	projectile_pool.name = "ProjectilePool"
+  	add_child(projectile_pool)
+  
+  # Improved setup for archer-specific states
+  func _setup_archer_states():
+  	# Add all states to the state machine - KEINE CHASE STATE!
+  	state_machine.add_state(PatrolState.new())
+  	state_machine.add_state(PositioningState.new())  # Neuer Positionierungsstate statt Chase
+  	state_machine.add_state(ShootState.new())
+  	state_machine.add_state(RetreatState.new())
+  	state_machine.add_state(ReloadState.new())
+  	state_machine.add_state(HurtState.new())
+  	state_machine.add_state(DeathState.new())
+  	
+  	# Configure the specialized state machine behavior for archer
+  	_configure_state_machine()
+  	
+  	# Initialize with patrol state
+  	state_machine.initialize("Patrol")
+  	print(name + " initialized with archer state machine")
+  
+  # Configure specialized transitions for archer state machine
+  func _configure_state_machine():
+  	# Connect to key state machine signals
+  	state_machine.player_detected.connect(_on_player_detected)
+  	state_machine.player_lost.connect(_on_player_lost)
+  	
+  	# Override the default attack range to ensure it works for shooting
+  	state_machine.attack_range = attack_radius
+  	
+  	# Update the state machine to use the specialized attack state
+  	var machine = state_machine as EnemyStateMachine
+  	if machine:
+  		machine.attack_state_name = "Shoot"
+  
+  # Handle player detection specifically for archer
+  func _on_player_detected(player):
+  	if not state_machine:
+  		return
+  		
+  	var distance = global_position.distance_to(player.global_position)
+  	
+  	# Logische Entscheidung basierend auf der Situation
+  	if distance <= attack_radius and arrows_remaining > 0:
+  		state_machine.change_state("Shoot")
+  	elif distance < optimal_distance * 0.7:  # Too close
+  		state_machine.change_state("Retreat")
+  	else:
+  		# Anstatt Chase verwenden wir nun Positioning
+  		state_machine.change_state("Positioning")
+  
+  # Handle player lost
+  func _on_player_lost():
+  	if state_machine:
+  		state_machine.change_state("Patrol")
+  
+  # Shoot a projectile - called by Shoot state
+  func shoot() -> bool:
+  	if is_dead or is_reloading or arrows_remaining <= 0:
+  		print(name + " can't shoot: " + 
+  			("is dead" if is_dead else 
+  			"is reloading" if is_reloading else 
+  			"no arrows left"))
+  		emit_signal("quiver_empty")
+  		return false
+  	
+  	# Get target through state machine
+  	var target = state_machine.target
+  	if not target:
+  		print(name + " can't shoot: no target")
+  		return false
+  	
+  	# Determine direction with accuracy variation
+  	var direction = (target.global_position - global_position).normalized()
+  	if shooting_accuracy < 1.0:
+  		# Add random deviation
+  		var deviation = (1.0 - shooting_accuracy) * 0.2  # Max 20% deviation
+  		direction = direction.rotated(randf_range(-deviation, deviation))
+  	
+  	# Determine spawn position - slightly offset in front of the enemy
+  	var spawn_pos = global_position
+  	spawn_pos.y -= 5  # Slightly above the enemy
+  	var facing_direction = 1 if animated_sprite.flip_h else -1
+  	spawn_pos.x += facing_direction * 15  # Offset in facing direction
+  	
+  	# Get projectile from pool or create a new one
+  	var projectile = null
+  	if projectile_pool:
+  		projectile = projectile_pool.get_object()
+  	
+  	# If no projectile from pool, instantiate directly
+  	if projectile == null:
+  		if projectile_scene:
+  			projectile = projectile_scene.instantiate()
+  			get_tree().current_scene.add_child(projectile)
+  		else:
+  			print(name + " ERROR: Could not create projectile!")
+  			return false
+  	
+  	# Stelle sicher, dass das Projektil ordnungsgemäß aus dem Pool zurückgesetzt wurde
+  	projectile.set_physics_process(true)
+  	
+  	# Configure projectile - Make sure it's visible and active first
+  	projectile.visible = true
+  	if "process_mode" in projectile:
+  		projectile.process_mode = Node.PROCESS_MODE_INHERIT
+  	
+  	# Move to correct position before setting up
+  	projectile.global_position = spawn_pos
+  	
+  	# Configure using setup method if available
+  	if projectile.has_method("setup"):
+  		projectile.setup(direction, spawn_pos, 0, self)
+  		
+  		# Stelle sicher, dass die Geschwindigkeit korrekt ist
+  		if "speed" in projectile:
+  			projectile.velocity = direction * projectile.speed
+  	else:
+  		# Direct property setting as fallback
+  		if "direction" in projectile:
+  			projectile.direction = direction
+  		if "velocity" in projectile:
+  			projectile.velocity = direction * (projectile.speed if "speed" in projectile else 200.0)
+  		if "source_node" in projectile:
+  			projectile.source_node = self
+  	
+  	# Make sure the projectile is in the scene tree
+  	if not projectile.is_inside_tree():
+  		get_tree().current_scene.add_child.call_deferred(projectile)
+  	
+  	# Visual and audio feedback
+  	_play_shoot_effects(spawn_pos)
+  	
+  	# Reduce arrows and emit signal
+  	arrows_remaining -= 1
+  	emit_signal("arrow_shot")
+  	
+  	# Start reloading if no arrows left
+  	if arrows_remaining <= 0:
+  		start_reloading()
+  	
+  	print(name + " successfully shot a projectile with speed: " + str(projectile.velocity.length()))
+  	return true
+  
+  # Add visual/audio effects for shooting
+  func _play_shoot_effects(position):
+  	# Small particle burst
+  	var particles = CPUParticles2D.new()
+  	particles.emitting = true
+  	particles.one_shot = true
+  	particles.explosiveness = 1.0
+  	particles.amount = 5
+  	particles.lifetime = 0.3
+  	particles.direction = Vector2(0, -1)
+  	particles.spread = 45.0
+  	particles.initial_velocity_min = 20.0
+  	particles.initial_velocity_max = 40.0
+  	particles.color = Color(0.7, 0.7, 0.5, 0.7)  # Dust color
+  	
+  	get_tree().current_scene.add_child(particles)
+  	particles.global_position = position
+  	
+  	# Remove after lifetime
+  	await get_tree().create_timer(particles.lifetime * 1.5).timeout
+  	if is_instance_valid(particles):
+  		particles.queue_free()
+  		
+  # Start reloading process
+  func start_reloading():
+  	if is_reloading:
+  		return
+  		
+  	is_reloading = true
+  	
+  	# Play reload animation if available
+  	if animated_sprite and animated_sprite.sprite_frames.has_animation("reload"):
+  		animated_sprite.play("reload")
+  	else:
+  		play_animation("idle")
+  	
+  	# Emit signal
+  	emit_signal("quiver_empty")
+  	print(name + " started reloading...")
+  	
+  	# Create timer to finish reloading
+  	get_tree().create_timer(reload_time).timeout.connect(_reload_complete)
+  
+  # Reloading completed
+  func _reload_complete():
+  	is_reloading = false
+  	arrows_remaining = quiver_size
+  	
+  	# Emit signal
+  	emit_signal("reload_complete")
+  	print(name + " reloading complete, arrows: " + str(arrows_remaining))
+  	
+  	# Nach dem Nachladen Entscheidung für nächsten State
+  	if state_machine.target:
+  		var distance = global_position.distance_to(state_machine.target.global_position)
+  		
+  		if distance <= attack_radius:
+  			state_machine.change_state("Shoot")
+  		elif distance < optimal_distance * 0.7:
+  			state_machine.change_state("Retreat") 
+  		else:
+  			state_machine.change_state("Positioning")
+  
+  # Handle damage
+  func _on_damaged(amount, attacker):
+  	# Archers might want to retreat when damaged
+  	if state_machine and state_machine.target and randf() > 0.3:  # 70% chance to retreat when hit
+  		state_machine.change_state("Retreat")
+  
+  # Handle death
+  func _on_died():
+  	_drop_loot()
+  
+  # Drop random loot
+  func _drop_loot():
+  	# Loot table
+  	var loot_table = [
+  		{"item": "res://scenes/core/items/heavennly_coins.tscn", "chance": 0.8},
+  		{"item": "res://scenes/core/items/power_jump.tscn", "chance": 0.2}
+  	]
+  	
+  	randomize()
+  	
+  	for loot in loot_table:
+  		if randf() <= loot.chance:
+  			var item_scene = load(loot.item)
+  			if item_scene:
+  				var item = item_scene.instantiate()
+  				item.global_position = global_position
+  				get_tree().current_scene.add_child(item)
+  				break
+
+========================================
+Contents of goblin_mage.gd:
+========================================
+  class_name GoblinMage
+  extends BaseEnemy
+  
+  ## Goblin Mage - Caster enemy with teleportation and shield abilities
+  ## Focuses on unique attributes and setup, delegates behavior to state machine
+  
+  # Mage-specific attributes
+  @export_group("Magic Properties")
+  @export var projectile_scene: PackedScene = preload("res://scenes/core/projectiles/mage_ball.tscn")
+  @export var max_mana: float = 100.0
+  @export var mana_regen_rate: float = 8.0  # Mana per second
+  @export var spell_mana_cost: float = 20.0  # Mana cost per spell
+  @export var teleport_mana_cost: float = 30.0  # Mana cost for teleportation
+  @export var shield_mana_cost: float = 40.0  # Mana cost for shield
+  
+  # Mage state tracking
+  var current_mana: float
+  var is_teleporting: bool = false
+  var is_shielding: bool = false
+  var teleport_cooldown: float = 3.0
+  var last_teleport_time: float = 0.0
+  
+  # Projectile pool for spell casting
+  var projectile_pool: ObjectPool
+  
+  # Signals specific to mage
+  signal spell_cast(spell_name)
+  signal mana_depleted
+  signal teleported
+  signal shield_activated
+  signal shield_deactivated
+  
+  func _ready():
+  	# Call parent ready
+  	super._ready()
+  	
+  	# Set default values
+  	max_health = 60.0
+  	current_health = max_health
+  	speed = 50.0
+  	chase_speed = 50.0
+  	attack_damage = 50.0  # For consistent 0.5 heart damage
+  	attack_cooldown = 2.0
+  	detection_radius = 350.0
+  	attack_radius = 300.0
+  	patrol_distance = 80.0
+  	
+  	# Initialize mana
+  	current_mana = max_mana
+  	
+  	# Make sure this node is in the enemy group
+  	if not is_in_group("enemy"):
+  		add_to_group("enemy")
+  	
+  	# Connect signals
+  	damaged.connect(_on_damaged)
+  	died.connect(_on_died)
+  	
+  	# Initialize projectile pool
+  	_setup_projectile_pool()
+  	
+  	# Setup the state machine with mage states
+  	setup_state_machine()
+  	_setup_mage_states()
+  
+  func _physics_process(delta):
+  	# Parent physics first
+  	super._physics_process(delta)
+  	
+  	# Mana regeneration
+  	if current_mana < max_mana:
+  		current_mana = min(current_mana + mana_regen_rate * delta, max_mana)
+  	
+  	# Teleport cooldown update
+  	if last_teleport_time > 0:
+  		last_teleport_time = max(0, last_teleport_time - delta)
+  
+  # Initialize projectile pool
+  func _setup_projectile_pool():
+  	# Check if projectile_scene is valid
+  	if projectile_scene == null:
+  		push_error("GoblinMage: projectile_scene is null. Trying direct load...")
+  		projectile_scene = load("res://scenes/core/projectiles/mage_ball.tscn")
+  		
+  	if projectile_scene == null:
+  		push_error("GoblinMage: Could not load projectile_scene. Pool not created.")
+  		return
+  		
+  	# Create projectile pool for better performance
+  	projectile_pool = ObjectPool.new(projectile_scene, 8, true)
+  	projectile_pool.name = "ProjectilePool"
+  	add_child(projectile_pool)
+  
+  # Verbesserte Einrichtung der Mage-spezifischen States
+  func _setup_mage_states():
+  	if not state_machine:
+  		push_error("No state machine found for " + name)
+  		return
+  	
+  	# KEIN Chase-State mehr! Stattdessen MagePositioningState
+  	state_machine.add_state(PatrolState.new())
+  	state_machine.add_state(MagePositioningState.new())  # Neuer State statt Chase
+  	state_machine.add_state(CastState.new())
+  	state_machine.add_state(TeleportState.new())
+  	state_machine.add_state(ShieldState.new())
+  	state_machine.add_state(HurtState.new())
+  	state_machine.add_state(DeathState.new())
+  	
+  	# Configure the specialized state machine behavior for mage
+  	_configure_state_machine()
+  	
+  	# Initialize with patrol state
+  	state_machine.initialize("Patrol")
+  	print(name + " initialized with mage state machine")
+  
+  # Configure specialized transitions for mage state machine
+  func _configure_state_machine():
+  	# Connect to key state machine signals
+  	state_machine.player_detected.connect(_on_player_detected)
+  	state_machine.player_lost.connect(_on_player_lost)
+  	
+  	# Override the default attack range to ensure it works for casting
+  	state_machine.attack_range = attack_radius
+  	
+  	# Update the state machine to use the specialized attack state
+  	var machine = state_machine as EnemyStateMachine
+  	if machine:
+  		machine.attack_state_name = "Cast"
+  
+  # Handle player detection specifically for mage
+  func _on_player_detected(player):
+  	if not state_machine:
+  		return
+  		
+  	var distance = global_position.distance_to(player.global_position)
+  	
+  	# Verbesserte Entscheidungslogik
+  	if distance <= attack_radius and current_mana >= spell_mana_cost:
+  		# Cast spell if in range and has mana
+  		state_machine.change_state("Cast")
+  	elif distance < 80:  # Too close
+  		# Teleport if too close
+  		if current_mana >= teleport_mana_cost and last_teleport_time <= 0:
+  			state_machine.change_state("Teleport")
+  		elif current_mana >= shield_mana_cost:
+  			# Shield if can't teleport
+  			state_machine.change_state("Shield")
+  		else:
+  			# Positionieren anstatt Chase
+  			state_machine.change_state("MagePositioning")
+  	else:
+  		# Positionieren anstatt Chase
+  		state_machine.change_state("MagePositioning")
+  
+  # Handle player lost
+  func _on_player_lost():
+  	if state_machine:
+  		state_machine.change_state("Patrol")
+  
+  # Cast a spell - called by Cast state
+  func cast_spell(spell_name: String = "fireball") -> bool:
+  	if is_dead or current_mana < spell_mana_cost:
+  		print(name + " can't cast: " + 
+  			("is dead" if is_dead else "not enough mana (" + str(current_mana) + "/" + str(spell_mana_cost) + ")"))
+  		emit_signal("mana_depleted")
+  		return false
+  	
+  	# Get target through state machine
+  	var target = state_machine.target
+  	if not target:
+  		print(name + " can't cast: no target")
+  		return false
+  	
+  	# Determine direction - targeting slightly ahead of player for prediction
+  	var target_pos = target.global_position
+  	if "velocity" in target and target.velocity.length() > 0:
+  		# Simple prediction - add a fraction of target's velocity
+  		target_pos += target.velocity * 0.5
+  	
+  	var direction = (target_pos - global_position).normalized()
+  	
+  	# Determine spawn position - offset in front of the mage
+  	var spawn_pos = global_position
+  	spawn_pos.y -= 8  # Slightly above the enemy
+  	var facing_direction = 1 if animated_sprite.flip_h else -1
+  	spawn_pos.x += facing_direction * 20  # Offset in facing direction
+  	
+  	# Get projectile from pool or create a new one
+  	var projectile = null
+  	if projectile_pool:
+  		projectile = projectile_pool.get_object()
+  	
+  	# If no projectile from pool, instantiate directly
+  	if projectile == null:
+  		if projectile_scene:
+  			projectile = projectile_scene.instantiate()
+  			get_tree().current_scene.add_child(projectile)
+  		else:
+  			print(name + " ERROR: Could not create projectile!")
+  			return false
+  	
+  	# Make sure projectile is visible and active
+  	projectile.visible = true
+  	if "process_mode" in projectile:
+  		projectile.process_mode = Node.PROCESS_MODE_INHERIT
+  	
+  	# Move to correct position before setup
+  	projectile.global_position = spawn_pos
+  	
+  	# Configure projectile
+  	if projectile.has_method("setup"):
+  		projectile.setup(direction, spawn_pos, 0, self)
+  	else:
+  		# Direct property setting as fallback
+  		if "direction" in projectile:
+  			projectile.direction = direction
+  		if "velocity" in projectile:
+  			projectile.velocity = direction * (projectile.speed if "speed" in projectile else 200.0)
+  		if "source_node" in projectile:
+  			projectile.source_node = self
+  		
+  		# For mage ball specific properties
+  		if projectile is MageBall:
+  			if "homing_strength" in projectile:
+  				projectile.homing_strength = 0.3  # Enable slight homing for magic
+  	
+  	# Make sure the projectile is in the scene tree
+  	if not projectile.is_inside_tree():
+  		get_tree().current_scene.add_child.call_deferred(projectile)
+  	
+  	# Visual and audio feedback
+  	_show_cast_effect(spawn_pos)
+  	
+  	# Reduce mana and emit signal
+  	current_mana -= spell_mana_cost
+  	emit_signal("spell_cast", spell_name)
+  	
+  	print(name + " successfully cast " + spell_name + ", remaining mana: " + str(current_mana))
+  	return true
+  # Teleport to a new position - called by Teleport state
+  func teleport() -> bool:
+  	if is_dead or current_mana < teleport_mana_cost or last_teleport_time > 0:
+  		print(name + " can't teleport: " + 
+  			("is dead" if is_dead else 
+  			"not enough mana" if current_mana < teleport_mana_cost else
+  			"on cooldown"))
+  		return false
+  	
+  	is_teleporting = true
+  	
+  	# Find target position
+  	var teleport_pos = _find_teleport_position()
+  	
+  	# Fade-out effect
+  	var tween = create_tween()
+  	tween.tween_property(self, "modulate:a", 0.0, 0.2)
+  	
+  	# Wait for tween to finish
+  	await tween.finished
+  	
+  	# Teleport
+  	global_position = teleport_pos
+  	
+  	# Fade-in effect
+  	tween = create_tween()
+  	tween.tween_property(self, "modulate:a", 1.0, 0.2)
+  	
+  	# Reduce mana
+  	current_mana -= teleport_mana_cost
+  	
+  	# Set cooldown
+  	last_teleport_time = teleport_cooldown
+  	
+  	# Signal
+  	emit_signal("teleported")
+  	
+  	is_teleporting = false
+  	print(name + " teleported to " + str(teleport_pos))
+  	
+  	# Überarbeitete State-Übergänge nach Teleport
+  	if state_machine.target:
+  		var distance = global_position.distance_to(state_machine.target.global_position)
+  		if distance <= attack_radius and current_mana >= spell_mana_cost:
+  			state_machine.change_state("Cast")
+  		else:
+  			state_machine.change_state("MagePositioning")
+  			
+  	return true
+  
+  # Find a good teleport position
+  func _find_teleport_position() -> Vector2:
+  	var target = state_machine.target
+  	var possible_positions = []
+  	
+  	# If no target, teleport randomly around current position
+  	if not target:
+  		for i in range(4):
+  			var angle = randf() * 2 * PI
+  			var distance = randf_range(80, 120)
+  			possible_positions.append(global_position + Vector2(cos(angle), sin(angle)) * distance)
+  	else:
+  		# Teleport to positions with optimal distance from player
+  		for i in range(4):
+  			var angle = randf() * 2 * PI
+  			var distance = randf_range(120, 180)  # Vergrößerte Teleport-Distanz
+  			possible_positions.append(target.global_position + Vector2(cos(angle), sin(angle)) * distance)
+  	
+  	# Choose random position
+  	return possible_positions[randi() % possible_positions.size()]
+  
+  # Activate magic shield - called by Shield state
+  func activate_shield() -> bool:
+  	if is_dead or current_mana < shield_mana_cost or is_shielding:
+  		print(name + " can't activate shield: " + 
+  			("is dead" if is_dead else 
+  			"not enough mana" if current_mana < shield_mana_cost else
+  			"shield already active"))
+  		return false
+  	
+  	is_shielding = true
+  	
+  	# Create shield effect
+  	var shield = Node2D.new()
+  	shield.name = "MagicShield"
+  	add_child(shield)
+  	
+  	# Create shield sprite
+  	var shield_sprite = Sprite2D.new()
+  	shield_sprite.texture = load("res://icon.png")  # Replace with actual shield texture
+  	shield_sprite.scale = Vector2(1.5, 1.5)
+  	shield_sprite.modulate = Color(0.3, 0.7, 1.0, 0.5)
+  	shield.add_child(shield_sprite)
+  	
+  	# Reduce mana
+  	current_mana -= shield_mana_cost
+  	
+  	# Signal
+  	emit_signal("shield_activated")
+  	
+  	# Make enemy temporarily invulnerable
+  	is_invulnerable = true
+  	
+  	print(name + " activated shield")
+  	return true
+  
+  # Deactivate shield
+  func deactivate_shield():
+  	if not is_shielding:
+  		return
+  	
+  	is_shielding = false
+  	
+  	# Remove shield node
+  	if has_node("MagicShield"):
+  		$MagicShield.queue_free()
+  	
+  	# Disable invulnerability
+  	is_invulnerable = false
+  	
+  	# Signal
+  	emit_signal("shield_deactivated")
+  	print(name + " deactivated shield")
+  
+  # Show cast effect
+  func _show_cast_effect(position):
+  	# Create spell circle effect
+  	var effect = CPUParticles2D.new()
+  	effect.position = position - global_position  # Relative to mage position
+  	effect.emitting = true
+  	effect.one_shot = true
+  	effect.explosiveness = 0.8
+  	effect.amount = 16
+  	effect.lifetime = 0.5
+  	effect.emission_shape = CPUParticles2D.EMISSION_SHAPE_SPHERE
+  	effect.emission_sphere_radius = 5.0
+  	effect.color = Color(0.5, 0.1, 0.9, 0.8)
+  	add_child(effect)
+  	
+  	# Remove after lifetime
+  	get_tree().create_timer(effect.lifetime * 1.5).timeout.connect(func():
+  		effect.queue_free()
+  	)
+  
+  # Override damage to check for shield
+  func _on_damaged(amount, attacker):
+  	# If shield active, absorb damage and continue
+  	if is_shielding:
+  		return
+  	
+  	# Low health behavior
+  	if current_health < max_health * 0.3:
+  		# Try to teleport away if hurt badly
+  		if current_mana >= teleport_mana_cost and last_teleport_time <= 0:
+  			state_machine.change_state("Teleport")
+  		# Or activate shield
+  		elif current_mana >= shield_mana_cost and not is_shielding:
+  			state_machine.change_state("Shield")
+  
+  # Handle death
+  func _on_died():
+  	_drop_loot()
+  	_create_death_explosion()
+  
+  # Create death explosion effect
+  func _create_death_explosion():
+  	# Create particle explosion
+  	var explosion = CPUParticles2D.new()
+  	explosion.position = global_position
+  	explosion.emitting = true
+  	explosion.one_shot = true
+  	explosion.explosiveness = 1.0
+  	explosion.amount = 32
+  	explosion.lifetime = 0.8
+  	explosion.spread = 180.0
+  	explosion.initial_velocity_min = 50.0
+  	explosion.initial_velocity_max = 100.0
+  	explosion.color = Color(0.8, 0.2, 0.9, 0.8)
+  	get_tree().current_scene.add_child(explosion)
+  	
+  	# Remove after animation
+  	get_tree().create_timer(explosion.lifetime * 1.5).timeout.connect(func():
+  		explosion.queue_free()
+  	)
+  
+  # Drop random loot
+  func _drop_loot():
+  	# Loot table
+  	var loot_table = [
+  		{"item": "res://scenes/core/items/heavennly_coins.tscn", "chance": 0.7},
+  		{"item": "res://scenes/core/items/elixir.tscn", "chance": 0.3},
+  		{"item": "res://scenes/core/items/power_fly.tscn", "chance": 0.1}
+  	]
+  	
+  	randomize()
+  	
+  	for loot in loot_table:
+  		if randf() <= loot.chance:
+  			var item_scene = load(loot.item)
+  			if item_scene:
+  				var item = item_scene.instantiate()
+  				item.global_position = global_position
+  				get_tree().current_scene.add_child(item)
+  				break
+
+========================================
+Contents of goblin_melee.gd:
+========================================
+  class_name GoblinMelee
+  extends BaseEnemy
+  
+  ## Goblin Melee - Aggressive melee enemy that becomes enraged when wounded
+  ## Gains combat bonuses in rage mode
+  
+  # Melee-specific attributes
+  @export_group("Rage Properties")
+  @export var rage_threshold: float = 0.3  # Rage at 30% health
+  @export var rage_damage_bonus: float = 1.5  # 50% more damage in rage
+  @export var rage_speed_bonus: float = 1.3  # 30% more speed in rage
+  
+  # Rage state tracking
+  var is_enraged: bool = false
+  var base_speed: float
+  var base_attack_damage: float
+  
+  # Signal for rage mode
+  signal entered_rage_mode
+  
+  func _ready():
+  	# Call parent ready FIRST
+  	super._ready()
+  	
+  	# Set default values
+  	max_health = 100.0
+  	current_health = max_health
+  	speed = 60.0
+  	chase_speed = 80.0
+  	attack_damage = 50.0  # Für 0.5 Herzen Schaden
+  	attack_cooldown = 1.5
+  	detection_radius = 150.0
+  	attack_radius = 40.0
+  	patrol_distance = 120.0
+  	
+  	# Store base values for rage calculations
+  	base_speed = speed
+  	base_attack_damage = attack_damage
+  	
+  	# Connect signals to handle damage
+  	damaged.connect(_on_damaged)
+  	died.connect(_on_died)
+  	
+  	# EXPLIZITES SETUP DER STATE MACHINE - neuer Ansatz
+  	setup_state_machine()
+  	_setup_melee_states()
+  
+  # Explizite Einrichtung der Melee-spezifischen States
+  func _setup_melee_states():
+  	if not state_machine:
+  		push_error("No state machine found for " + name)
+  		return
+  	
+  	# Füge Melee-spezifische States hinzu
+  	var patrol_state = PatrolState.new()
+  	var chase_state = ChaseState.new()
+  	var attack_state = AttackState.new()
+  	var rage_state = RageState.new()
+  	var rage_chase_state = RageChaseState.new()
+  	var charge_state = ChargeState.new()
+  	var hurt_state = HurtState.new()
+  	var death_state = DeathState.new()
+  	
+  	# Füge alle States zur State Machine hinzu
+  	state_machine.add_state(patrol_state)
+  	state_machine.add_state(chase_state)
+  	state_machine.add_state(attack_state)
+  	state_machine.add_state(rage_state)
+  	state_machine.add_state(rage_chase_state)
+  	state_machine.add_state(charge_state)
+  	state_machine.add_state(hurt_state)
+  	state_machine.add_state(death_state)
+  	
+  	# Initialisiere mit dem ersten State
+  	state_machine.initialize("Patrol")
+  
+  # Handle damage events - check for rage threshold
+  func _on_damaged(amount, attacker):
+  	# Check if rage threshold reached
+  	if not is_enraged and current_health <= max_health * rage_threshold:
+  		enter_rage_mode()
+  
+  # Rage mode activation - just sets attributes
+  func enter_rage_mode():
+  	if is_enraged:
+  		return
+  		
+  	is_enraged = true
+  	
+  	# Apply stat bonuses
+  	speed = base_speed * rage_speed_bonus
+  	chase_speed = speed * 1.2
+  	attack_damage = base_attack_damage * rage_damage_bonus
+  	
+  	# Visual effect
+  	modulate = Color(1.3, 0.7, 0.7)
+  	
+  	# Create rage particles if needed
+  	if not has_node("RageParticles"):
+  		var particles = CPUParticles2D.new()
+  		particles.name = "RageParticles"
+  		particles.amount = 10
+  		particles.lifetime = 0.5
+  		particles.emission_shape = CPUParticles2D.EMISSION_SHAPE_SPHERE
+  		particles.emission_sphere_radius = 10.0
+  		particles.gravity = Vector2(0, -20)
+  		particles.initial_velocity_min = 10.0
+  		particles.initial_velocity_max = 20.0
+  		particles.color = Color(1.0, 0.3, 0.1, 0.7)
+  		add_child(particles)
+  		particles.emitting = true
+  	
+  	# Emit signal - states listen for this
+  	emit_signal("entered_rage_mode")
+  	
+  	print(name + " entered rage mode!")
+  
+  # Handle death
+  func _on_died():
+  	_drop_loot()
+  
+  # Drop random loot
+  func _drop_loot():
+  	# Loot table
+  	var loot_table = [
+  		{"item": "res://scenes/core/items/heavennly_coins.tscn", "chance": 0.7},
+  		{"item": "res://scenes/core/items/elixir.tscn", "chance": 0.1},
+  		{"item": "res://scenes/core/items/power_attack.tscn", "chance": 0.05}
+  	]
+  	
+  	randomize()
+  	
+  	for loot in loot_table:
+  		if randf() <= loot.chance:
+  			var item_scene = load(loot.item)
+  			if item_scene:
+  				var item = item_scene.instantiate()
+  				item.global_position = global_position
+  				get_tree().current_scene.add_child(item)
+  				break
+
+========================================
+Contents of states\archer\archer_state.gd:
+========================================
+  class_name ArcherState
+  extends EnemyState
+  
+  ## Base class for specialized Goblin Archer enemy states
+  
+  func _init():
+  	name = "ArcherState"
+
+========================================
+Contents of states\archer\positioning_state.gd:
+========================================
+  class_name PositioningState
+  extends ArcherState
+  
+  ## Spezieller State für Bogenschützen, der sie in optimaler Schussdistanz positioniert
+  ## Ersetzt den generischen ChaseState für bessere Fernkampftaktiken
+  
+  var optimal_distance: float = 150.0
+  var position_timer: float = 0.0
+  var positioning_timeout: float = 3.0  # Maximale Zeit für Positionierung
+  var movement_pause_timer: float = 0.0
+  var movement_pause_duration: float = 0.5  # Kurze Pausen während der Positionierung
+  
+  func _init():
+  	name = "Positioning"
+  
+  func enter():
+  	super.enter()
+  	play_animation("walk")
+  	position_timer = 0.0
+  	movement_pause_timer = 0.0
+  	
+  	# Nutze die vom Archer definierte optimale Distanz
+  	var archer = enemy as GoblinArcher
+  	if archer and "optimal_distance" in archer:
+  		optimal_distance = archer.optimal_distance
+  	
+  	print(enemy.name + " entered positioning state")
+  
+  func physics_process(delta: float):
+  	position_timer += delta
+  	
+  	# Ziel aktualisieren
+  	update_target()
+  	
+  	if not target:
+  		enemy.velocity.x = 0
+  		return
+  	
+  	# Abstand zum Ziel berechnen
+  	var distance = get_distance_to_target()
+  	
+  	# Optimale Positionierung: Gelegentliche Pausen für realistischeres Verhalten
+  	movement_pause_timer -= delta
+  	if movement_pause_timer <= 0:
+  		var direction = target.global_position.x - enemy.global_position.x
+  		var normalized_dir = sign(direction)
+  		
+  		# Positionierungslogik
+  		if distance < optimal_distance * 0.8:  # Zu nah
+  			enemy.velocity.x = -normalized_dir * enemy.speed  # Wegbewegen
+  		elif distance > optimal_distance * 1.2:  # Zu weit
+  			enemy.velocity.x = normalized_dir * enemy.speed  # Annähern
+  		else:
+  			# Im optimalen Bereich - anhalten und ausrichten
+  			enemy.velocity.x = 0
+  			movement_pause_timer = movement_pause_duration  # Kurze Pause
+  		
+  		# Zum Ziel drehen, egal in welche Richtung wir uns bewegen
+  		if enemy.animated_sprite:
+  			enemy.animated_sprite.flip_h = direction > 0
+  	else:
+  		# Während der Pause nicht bewegen, aber zum Ziel ausrichten
+  		enemy.velocity.x = 0
+  		if enemy.animated_sprite and target:
+  			var direction = target.global_position.x - enemy.global_position.x
+  			enemy.animated_sprite.flip_h = direction > 0
+  
+  func get_next_state() -> String:
+  	var next = super.get_next_state()
+  	if next:
+  		return next
+  		
+  	# Kein Ziel - zurück zur Patrouille
+  	if not target:
+  		return "Patrol"
+  	
+  	var archer = enemy as GoblinArcher
+  	if not archer:
+  		return "Patrol"
+  	
+  	# Schießen, wenn gute Position erreicht und Pfeile vorhanden
+  	var distance = get_distance_to_target()
+  	if distance >= optimal_distance * 0.8 and distance <= optimal_distance * 1.2:
+  		if archer.arrows_remaining > 0:
+  			return "Shoot"
+  	
+  	# Wenn zu nah am Spieler, zurückziehen
+  	if distance < optimal_distance * 0.5:
+  		return "Retreat"
+  	
+  	# Timeout für die Positionierung
+  	if position_timer > positioning_timeout:
+  		# Nach Timeout versuchen zu schießen, auch wenn nicht perfekt positioniert
+  		if archer.arrows_remaining > 0:
+  			return "Shoot"
+  	
+  	return ""
+
+========================================
+Contents of states\archer\reload_state.gd:
+========================================
+  class_name ReloadState
+  extends ArcherState
+  
+  var reload_timer: float = 0.0
+  var reload_time: float = 2.0
+  
+  func _init():
+  	name = "Reload"
+  
+  func enter():
+  	super.enter()
+  	play_animation("idle")
+  	
+  	# Stop while reloading
+  	enemy.velocity.x = 0
+  		
+  	reload_timer = 0.0
+  	
+  	# Start reloading
+  	var archer = enemy as GoblinArcher
+  	if archer:
+  		archer.start_reloading()
+  		reload_time = archer.reload_time
+  		
+  	print(enemy.name + " entered reload state")
+  
+  func physics_process(delta: float):
+  	reload_timer += delta
+  	
+  	# Update target
+  	update_target()
+  
+  func get_next_state() -> String:
+  	var next = super.get_next_state()
+  	if next:
+  		return next
+  	
+  	# After reload completes
+  	if reload_timer >= reload_time:
+  		var archer = enemy as GoblinArcher
+  		if not archer:
+  			return "Patrol"
+  		
+  		# Retreat if player is close
+  		if target and get_distance_to_target() < 100:
+  			return "Retreat"
+  		
+  		# Otherwise chase or patrol
+  		if target:
+  			return "Chase"
+  		else:
+  			return "Patrol"
+  	
+  	return ""
+
+========================================
+Contents of states\archer\retreat_state.gd:
+========================================
+  class_name RetreatState
+  extends ArcherState
+  
+  var retreat_timer: float = 0.0
+  var retreat_duration: float = 1.5
+  var optimal_distance: float = 150.0
+  
+  func _init():
+  	name = "Retreat"
+  
+  func enter():
+  	super.enter()
+  	play_animation("walk")
+  	retreat_timer = 0.0
+  	
+  	# Get optimal distance from the archer
+  	var archer = enemy as GoblinArcher
+  	if archer and "optimal_distance" in archer:
+  		optimal_distance = archer.optimal_distance
+  	
+  	print(enemy.name + " entered retreat state")
+  
+  func physics_process(delta: float):
+  	retreat_timer += delta
+  	
+  	# Update target reference
+  	update_target()
+  	
+  	if not target:
+  		return
+  	
+  	var distance = get_distance_to_target()
+  	var direction = enemy.global_position.x - target.global_position.x
+  	var normalized_dir = sign(direction)
+  	
+  	# Move away if too close
+  	if distance < optimal_distance:
+  		enemy.velocity.x = normalized_dir * enemy.speed
+  		
+  		if enemy.animated_sprite:
+  			enemy.animated_sprite.flip_h = normalized_dir < 0
+  	else:
+  		enemy.velocity.x = 0
+  		
+  		# Face player but don't move
+  		var look_dir = target.global_position.x - enemy.global_position.x
+  		if enemy.animated_sprite:
+  			enemy.animated_sprite.flip_h = look_dir > 0
+  
+  func get_next_state() -> String:
+  	var next = super.get_next_state()
+  	if next:
+  		return next
+  		
+  	# Return to patrol if no target
+  	if not target:
+  		return "Patrol"
+  	
+  	# After retreat time, shoot
+  	if retreat_timer >= retreat_duration:
+  		var archer = enemy as GoblinArcher
+  		var distance = get_distance_to_target()
+  		
+  		if archer and distance >= optimal_distance and archer.arrows_remaining > 0:
+  			return "Shoot"
+  		elif archer and archer.arrows_remaining <= 0:
+  			return "Reload"
+  	
+  	return ""
+
+========================================
+Contents of states\archer\shoot_state.gd:
+========================================
+  class_name ShootState
+  extends ArcherState
+  
+  var shoot_timer: float = 0.0
+  var shoot_duration: float = 0.6  # Time for the complete shoot action
+  var shoot_cooldown: float = 0.5  # Time between shots
+  var current_cooldown: float = 0.0
+  var shots_fired: int = 0
+  var max_shots: int = 3  # Maximum shots per attack sequence
+  var has_aimed: bool = false
+  var is_firing: bool = false
+  
+  func _init():
+  	name = "Shoot"
+  
+  func enter():
+  	super.enter()
+  	play_animation("attack")
+  	
+  	# Reset state variables
+  	shoot_timer = 0.0
+  	current_cooldown = 0.0
+  	shots_fired = 0
+  	has_aimed = false
+  	is_firing = false
+  	
+  	# Stop movement when shooting
+  	enemy.velocity.x = 0
+  	
+  	# Face the target
+  	flip_to_target()
+  	
+  	print(enemy.name + " entered shoot state")
+  
+  func physics_process(delta: float):
+  	shoot_timer += delta
+  	
+  	# Update target tracking
+  	update_target()
+  	
+  	# Aim at target (slight delay before first shot)
+  	if not has_aimed and shoot_timer >= 0.2:
+  		# Face the target
+  		flip_to_target()
+  		has_aimed = true
+  	
+  	# Manage cooldown between shots
+  	if current_cooldown > 0:
+  		current_cooldown -= delta
+  	
+  	# Fire sequence
+  	if has_aimed and current_cooldown <= 0 and shots_fired < max_shots:
+  		if not is_firing:
+  			is_firing = true
+  			_fire_projectile()
+  			
+  			# Reset for next shot
+  			current_cooldown = shoot_cooldown
+  			shots_fired += 1
+  			is_firing = false
+  
+  func _fire_projectile():
+  	var archer = enemy as GoblinArcher
+  	if not archer:
+  		return
+  	
+  	# Call the archer's shoot method
+  	var success = archer.shoot()
+  	
+  	if success:
+  		# Play shoot sound if available
+  		if enemy.has_node("ShootSound"):
+  			var sound = enemy.get_node("ShootSound")
+  			sound.play()
+  		
+  		print(enemy.name + " fired a projectile at " + target.name + " (shot " + str(shots_fired + 1) + "/" + str(max_shots) + ")")
+  
+  func get_next_state() -> String:
+  	var next = super.get_next_state()
+  	if next:
+  		return next
+  	
+  	# Return to patrol if target lost
+  	if not target:
+  		return "Patrol"
+  	
+  	# Check if we need to reload
+  	var archer = enemy as GoblinArcher
+  	if archer and archer.arrows_remaining <= 0:
+  		return "Reload"
+  	
+  	# Complete shooting sequence after max shots or if target out of range
+  	if shots_fired >= max_shots or not is_target_in_attack_range():
+  		# Check distance to determine next state
+  		var distance = get_distance_to_target()
+  		
+  		if archer and distance < archer.optimal_distance * 0.7:
+  			return "Retreat"  # Too close, back up
+  		elif not is_target_in_attack_range():
+  			return "Positioning"  # Not in range, reposition
+  		else:
+  			# Could transition back to positioning or stay in shoot based on arrow count
+  			if archer and archer.arrows_remaining <= 1:
+  				return "Reload"  # Almost out of arrows, reload now
+  			elif distance >= archer.optimal_distance * 0.8 and distance <= archer.optimal_distance * 1.2:
+  				return ""  # Stay in shoot state if at optimal distance with arrows left
+  			else:
+  				return "Positioning"  # Reposition for better shot
+  	
+  	return ""  # Stay in shoot state if none of the above conditions are met
+
+========================================
+Contents of states\common\attack_state.gd:
+========================================
+  class_name AttackState
+  extends EnemyState
+  
+  var attack_timer: float = 0.0
+  var attack_duration: float = 0.5
+  var has_dealt_damage: bool = false
+  
+  func _init():
+      name = "Attack"
+      
+  func enter():
+      super.enter()
+      play_animation("attack")
+      
+      attack_timer = 0.0
+      has_dealt_damage = false
+      
+      # Stop movement during attack
+      enemy.velocity.x = 0
+      
+      # Face target
+      flip_to_target()
+          
+      print(enemy.name + " entered attack state")
+  
+  func physics_process(delta: float):
+      attack_timer += delta
+      
+      # Deal damage in middle of animation
+      if not has_dealt_damage and attack_timer >= attack_duration * 0.5:
+          deal_damage()
+          has_dealt_damage = true
+  
+  func deal_damage():
+      if not target or not is_target_in_attack_range():
+          return
+      
+      # Use enemy's execute_attack method
+      enemy.execute_attack(target, enemy.attack_damage)
+      
+      print(enemy.name + " dealt damage to " + target.name)
+  
+  func get_next_state() -> String:
+      var next = super.get_next_state()
+      if next:
+          return next
+          
+      # After attack is complete
+      if attack_timer >= attack_duration:
+          # If target out of range, chase
+          if not is_target_in_attack_range():
+              return "Chase"
+          # If target in range but can't attack yet
+          elif not enemy.can_attack:
+              return "Chase"
+          # If target in range and we can attack, stay in attack state
+      
+      return ""
+
+========================================
+Contents of states\common\chase_state.gd:
+========================================
+  class_name ChaseState
+  extends EnemyState
+  
+  func _init():
+      name = "Chase"
+      
+  func enter():
+      super.enter()
+      play_animation("walk")
+      print(enemy.name + " entered chase state")
+  
+  func physics_process(delta: float):
+      # Update target
+      update_target()
+      
+      if not target:
+          enemy.velocity.x = 0
+          return
+      
+      # Direction to player
+      var direction = target.global_position.x - enemy.global_position.x
+      var normalized_dir = sign(direction)
+      
+      # Set velocity using chase speed
+      enemy.velocity.x = normalized_dir * enemy.chase_speed
+      
+      # Flip sprite
+      if enemy.animated_sprite:
+          enemy.animated_sprite.flip_h = normalized_dir > 0
+  
+  func get_next_state() -> String:
+      var next = super.get_next_state()
+      if next:
+          return next
+          
+      # Return to patrol if no target
+      if not target:
+          return "Patrol"
+      
+      # Switch to attack if in range
+      if is_target_in_attack_range() and enemy.can_attack:
+          return "Attack"
+      
+      return ""
+
+========================================
+Contents of states\common\death_state.gd:
+========================================
+  class_name DeathState
+  extends EnemyState
+  
+  var death_timer: float = 0.0
+  var death_duration: float = 1.0
+  
+  func _init():
+  	name = "Death"
+  	
+  func enter():
+  	super.enter()
+  	play_animation("death")
+  	
+  	# Stop movement
+  	enemy.velocity = Vector2.ZERO
+  	
+  	# Disable collision
+  	if enemy.collision_shape:
+  		enemy.collision_shape.set_deferred("disabled", true)
+  	
+  	death_timer = 0.0
+  	print(enemy.name + " entered death state")
+  
+  func physics_process(delta: float):
+  	death_timer += delta
+  	
+  	# Remove entity after animation completes
+  	if death_timer >= death_duration and is_instance_valid(enemy):
+  		enemy.queue_free()
+  
+  func get_next_state() -> String:
+  	# Never leave death state
+  	return ""
+
+========================================
+Contents of states\common\enemy_state.gd:
+========================================
+  class_name EnemyState
+  extends State
+  
+  ## Base class for all enemy states
+  ## Provides common functionality and utility methods
+  
+  # Get properly typed references
+  var enemy: BaseEnemy = null
+  var target = null
+  
+  # Get the current state machine properly typed
+  var enemy_machine: EnemyStateMachine:
+  	get: return state_machine as EnemyStateMachine
+  
+  func _init():
+  	# This is called when the object is first created
+  	name = "EnemyState"
+  
+  func enter():
+  	# Ensure enemy reference is valid
+  	enemy = owner_node as BaseEnemy
+  	
+  	if not enemy:
+  		push_error("Enemy state attached to non-BaseEnemy object!")
+  		return
+  	
+  	# Get current target from state machine
+  	if enemy_machine:
+  		target = enemy_machine.target
+  
+  func exit():
+  	pass
+  
+  func get_next_state() -> String:
+  	# Check for death - highest priority transition
+  	if enemy and (enemy.is_dead or enemy.current_health <= 0):
+  		return "Death"
+  	
+  	# No transition by default
+  	return ""
+  
+  # Common utility functions
+  func play_animation(anim_name: String):
+  	if enemy:
+  		enemy.play_animation(anim_name)
+  
+  func flip_to_target():
+  	if not target or not enemy:
+  		return
+  		
+  	if enemy.animated_sprite:
+  		var direction = target.global_position.x - enemy.global_position.x
+  		enemy.animated_sprite.flip_h = direction > 0
+  
+  # Distance to current target
+  func get_distance_to_target() -> float:
+  	if not target or not enemy:
+  		return 9999.0
+  	
+  	return enemy.global_position.distance_to(target.global_position)
+  
+  # Is target in attack range?
+  func is_target_in_attack_range() -> bool:
+  	if enemy and "attack_radius" in enemy:
+  		return get_distance_to_target() <= enemy.attack_radius
+  	else:
+  		return get_distance_to_target() <= 50.0  # Default
+  
+  # Is target in detection range?
+  func is_target_in_detection_range() -> bool:
+  	if enemy and "detection_radius" in enemy:
+  		return get_distance_to_target() <= enemy.detection_radius
+  	else:
+  		return get_distance_to_target() <= 200.0  # Default
+  
+  # Update target reference
+  func update_target():
+  	if enemy_machine:
+  		target = enemy_machine.target
+
+========================================
+Contents of states\common\hurt_state.gd:
+========================================
+  class_name HurtState
+  extends EnemyState
+  
+  var hurt_timer: float = 0.0
+  var hurt_duration: float = 0.3
+  
+  func _init():
+      name = "Hurt"
+      
+  func enter():
+      super.enter()
+      play_animation("hurt")
+      
+      # Stop movement
+      enemy.velocity.x = 0
+          
+      hurt_timer = 0.0
+      print(enemy.name + " entered hurt state")
+  
+  func physics_process(delta: float):
+      hurt_timer += delta
+  
+  func get_next_state() -> String:
+      var next = super.get_next_state()
+      if next:
+          return next
+          
+      # After hurt animation
+      if hurt_timer >= hurt_duration:
+          if target:
+              if is_target_in_attack_range() and enemy.can_attack:
+                  return "Attack"
+              else:
+                  return "Chase"
+          else:
+              return "Patrol"
+      
+      return ""
+
+========================================
+Contents of states\common\patrol_state.gd:
+========================================
+  class_name PatrolState
+  extends EnemyState
+  
+  var patrol_timer: float = 0.0
+  var wait_time: float = 1.0
+  var is_waiting: bool = false
+  var direction: int = 1
+  var patrol_points: Array = []
+  
+  func _init():
+  	name = "Patrol"
+  
+  func enter():
+  	super.enter()
+  	play_animation("idle")
+  	
+  	# Set up patrol points if needed
+  	if patrol_points.size() == 0 and enemy_machine:
+  		var start_pos = enemy_machine.initial_position
+  		patrol_points = [
+  			start_pos,
+  			start_pos + Vector2(enemy.patrol_distance, 0)
+  		]
+  	
+  	patrol_timer = 0.0
+  	is_waiting = false
+  	print(enemy.name + " entered patrol state")
+  
+  func physics_process(delta: float):
+  	patrol_timer += delta
+  	
+  	# Check for player - handled by state machine automatically
+  	update_target()
+  	
+  	if is_waiting:
+  		# Wait at patrol point
+  		if patrol_timer >= wait_time:
+  			is_waiting = false
+  			patrol_timer = 0.0
+  			# Reverse direction
+  			direction *= -1
+  			if enemy.animated_sprite:
+  				enemy.animated_sprite.flip_h = direction > 0
+  		return
+  	
+  	# Apply patrol movement
+  	enemy.velocity.x = enemy.speed * direction
+  	
+  	# Play walk animation
+  	play_animation("walk")
+  	
+  	# Check if patrol points are set up
+  	if patrol_points.size() < 2:
+  		return
+  		
+  	# Check if we've reached a boundary
+  	if direction > 0 and enemy.global_position.x >= patrol_points[1].x:
+  		enemy.global_position.x = patrol_points[1].x
+  		handle_patrol_point_reached()
+  	elif direction < 0 and enemy.global_position.x <= patrol_points[0].x:
+  		enemy.global_position.x = patrol_points[0].x
+  		handle_patrol_point_reached()
+  
+  func handle_patrol_point_reached():
+  	enemy.velocity.x = 0
+  	play_animation("idle")
+  	is_waiting = true
+  	patrol_timer = 0.0
+  
+  func get_next_state() -> String:
+  	var next = super.get_next_state()
+  	if next:
+  		return next
+  		
+  	# Transition to chase if target detected - handled automatically by state machine
+  	if target:
+  		return "Chase"
+  	
+  	return ""
+
+========================================
+Contents of states\mage\cast_state.gd:
+========================================
+  class_name CastState
+  extends MageState
+  
+  var cast_timer: float = 0.0
+  var cast_duration: float = 0.8  # Time for the complete cast action
+  var cast_cooldown: float = 1.2   # Time between spell casts
+  var current_cooldown: float = 0.0
+  var spells_cast: int = 0
+  var max_spells: int = 2  # Maximum spells per cast sequence
+  var is_charging: bool = false
+  var charge_complete: bool = false
+  var is_casting: bool = false
+  var spell_type: String = "fireball"  # Default spell type
+  
+  # Visual effects
+  var charge_particles: CPUParticles2D = null
+  var cast_effect_active: bool = false
+  
+  func _init():
+  	name = "Cast"
+  
+  func enter():
+  	super.enter()
+  	play_animation("cast")
+  	
+  	# Reset state variables
+  	cast_timer = 0.0
+  	current_cooldown = 0.0
+  	spells_cast = 0
+  	is_charging = false
+  	charge_complete = false
+  	is_casting = false
+  	cast_effect_active = false
+  	
+  	# Stop movement when casting
+  	enemy.velocity.x = 0
+  	
+  	# Face the target
+  	flip_to_target()
+  	
+  	# Begin charging spell
+  	_start_spell_charge()
+  	
+  	print(enemy.name + " entered cast state")
+  
+  func exit():
+  	super.exit()
+  	
+  	# Clean up any active effects
+  	_cleanup_effects()
+  
+  func physics_process(delta: float):
+  	cast_timer += delta
+  	
+  	# Update target tracking
+  	update_target()
+  	
+  	# Charge spell (visual buildup before first cast)
+  	if is_charging and not charge_complete and cast_timer >= 0.4:
+  		charge_complete = true
+  		_complete_spell_charge()
+  	
+  	# Manage cooldown between casts
+  	if current_cooldown > 0:
+  		current_cooldown -= delta
+  	
+  	# Cast sequence
+  	if charge_complete and current_cooldown <= 0 and spells_cast < max_spells:
+  		if not is_casting:
+  			is_casting = true
+  			_cast_spell()
+  			
+  			# Reset for next cast
+  			current_cooldown = cast_cooldown
+  			spells_cast += 1
+  			is_casting = false
+  
+  func _start_spell_charge():
+  	is_charging = true
+  	
+  	# Create charge-up effect
+  	var mage = enemy as GoblinMage
+  	if not mage:
+  		return
+  	
+  	# Create magical charging particles
+  	charge_particles = CPUParticles2D.new()
+  	charge_particles.name = "ChargeParticles"
+  	charge_particles.emitting = true
+  	charge_particles.amount = 16
+  	charge_particles.lifetime = 0.5
+  	charge_particles.explosiveness = 0.3
+  	charge_particles.emission_shape = CPUParticles2D.EMISSION_SHAPE_SPHERE
+  	charge_particles.emission_sphere_radius = 12.0
+  	charge_particles.direction = Vector2(0, -1)
+  	charge_particles.spread = 180.0
+  	charge_particles.gravity = Vector2(0, -20)
+  	charge_particles.initial_velocity_min = 5.0
+  	charge_particles.initial_velocity_max = 15.0
+  	charge_particles.color = Color(0.5, 0.2, 0.9, 0.7)  # Purple magic color
+  	
+  	enemy.add_child(charge_particles)
+  	cast_effect_active = true
+  
+  func _complete_spell_charge():
+  	# Visual effect for completed charge
+  	if charge_particles:
+  		# Pulse effect
+  		var tween = enemy.create_tween()
+  		tween.tween_property(charge_particles, "scale", Vector2(1.5, 1.5), 0.2)
+  		tween.tween_property(charge_particles, "scale", Vector2(0.8, 0.8), 0.1)
+  		
+  		# Change particle color
+  		charge_particles.color = Color(0.7, 0.3, 1.0, 0.8)  # Brighter magic color
+  
+  func _cast_spell():
+  	var mage = enemy as GoblinMage
+  	if not mage:
+  		return
+  	
+  	# Call the mage's cast_spell method
+  	var success = mage.cast_spell(spell_type)
+  	
+  	if success:
+  		# Visual feedback
+  		if charge_particles:
+  			charge_particles.emitting = false
+  			
+  			# Create new emission burst
+  			var burst = CPUParticles2D.new()
+  			burst.name = "SpellBurst"
+  			burst.emitting = true
+  			burst.one_shot = true
+  			burst.explosiveness = 1.0
+  			burst.amount = 24
+  			burst.lifetime = 0.5
+  			burst.direction = Vector2(0, -1)
+  			burst.spread = 180.0
+  			burst.initial_velocity_min = 30.0
+  			burst.initial_velocity_max = 60.0
+  			burst.color = Color(0.7, 0.3, 1.0, 0.8)
+  			
+  			enemy.add_child(burst)
+  			
+  			# Remove after effect completes
+  			await enemy.get_tree().create_timer(burst.lifetime * 1.5).timeout
+  			if is_instance_valid(burst):
+  				burst.queue_free()
+  		
+  		print(enemy.name + " cast a spell at " + target.name + " (spell " + str(spells_cast) + "/" + str(max_spells) + ")")
+  
+  func _cleanup_effects():
+  	# Remove any active particles
+  	if charge_particles and is_instance_valid(charge_particles):
+  		charge_particles.queue_free()
+  		charge_particles = null
+  	
+  	cast_effect_active = false
+  
+  func get_next_state() -> String:
+  	var next = super.get_next_state()
+  	if next:
+  		return next
+  	
+  	# Return to patrol if target lost
+  	if not target:
+  		return "Patrol"
+  	
+  	# Check mana
+  	var mage = enemy as GoblinMage
+  	if mage and mage.current_mana < mage.spell_mana_cost:
+  		# Not enough mana for another spell
+  		return "MagePositioning"  # Reposition and wait for mana regen
+  	
+  	# Complete casting sequence after max spells or if target out of range
+  	if spells_cast >= max_spells or not is_target_in_attack_range():
+  		# Check distance to determine next state
+  		var distance = get_distance_to_target()
+  		
+  		if distance < 80:
+  			# Too close, try teleport or shield
+  			if mage.current_mana >= mage.teleport_mana_cost and mage.last_teleport_time <= 0:
+  				return "Teleport"
+  			elif mage.current_mana >= mage.shield_mana_cost:
+  				return "Shield"
+  			else:
+  				return "MagePositioning"
+  		elif not is_target_in_attack_range():
+  			return "MagePositioning"  # Not in range, reposition
+  		else:
+  			# Could stay in cast state if we have enough mana for another sequence
+  			if mage and mage.current_mana >= mage.spell_mana_cost * 2:
+  				return ""  # Stay in cast state with enough mana
+  			else:
+  				return "MagePositioning"  # Reposition and regenerate mana
+  	
+  	return ""  # Stay in cast state if none of the above conditions are met
+
+========================================
+Contents of states\mage\mage_state.gd:
+========================================
+  class_name MageState
+  extends EnemyState
+  
+  ## Base class for specialized Goblin Melee enemy states
+  
+  func _init():
+  	name = "MeleeState"
+  "res://scripts/core/enemies/states/melee/melee_state.gd"
+
+========================================
+Contents of states\mage\positioning_state.gd:
+========================================
+  class_name MagePositioningState
+  extends MageState
+  
+  ## Spezieller State für Magier, der sie in optimaler Zauber-Distanz positioniert
+  ## Ersetzt den generischen ChaseState für bessere Fernkampftaktiken
+  
+  var optimal_distance: float = 180.0  # Magier bevorzugen größere Distanz als Bogenschützen
+  var position_timer: float = 0.0
+  var positioning_timeout: float = 3.0  # Maximale Zeit für Positionierung
+  var movement_pause_timer: float = 0.0
+  var movement_pause_duration: float = 0.7  # Längere Pausen für Magier (bedächtiger)
+  var low_mana_threshold: float = 0.3  # Schwellwert für niedrigen Manavorrat (30%)
+  
+  func _init():
+  	name = "MagePositioning"
+  
+  func enter():
+  	super.enter()
+  	play_animation("walk")
+  	position_timer = 0.0
+  	movement_pause_timer = 0.0
+  	
+  	print(enemy.name + " entered mage positioning state")
+  
+  func physics_process(delta: float):
+  	position_timer += delta
+  	
+  	# Ziel aktualisieren
+  	update_target()
+  	
+  	if not target:
+  		enemy.velocity.x = 0
+  		return
+  	
+  	# Abstand zum Ziel berechnen
+  	var distance = get_distance_to_target()
+  	
+  	# Optimale Positionierung: Gelegentliche Pausen für realistischeres Verhalten
+  	movement_pause_timer -= delta
+  	if movement_pause_timer <= 0:
+  		var direction = target.global_position.x - enemy.global_position.x
+  		var normalized_dir = sign(direction)
+  		
+  		# Mage hat andere Positionierungslogik als Archer
+  		var mage = enemy as GoblinMage
+  		var mana_ratio = 1.0  # Standardwert
+  		if mage:
+  			mana_ratio = mage.current_mana / mage.max_mana
+  		
+  		# Positionierungslogik basierend auf Mana und Distanz
+  		if mana_ratio < low_mana_threshold:
+  			# Bei niedrigem Mana größeren Abstand halten
+  			if distance < optimal_distance * 1.2:
+  				enemy.velocity.x = -normalized_dir * enemy.speed  # Mehr Abstand gewinnen
+  			else:
+  				enemy.velocity.x = 0
+  				movement_pause_timer = movement_pause_duration
+  		else:
+  			# Normale Positionierung
+  			if distance < optimal_distance * 0.7:  # Zu nah
+  				enemy.velocity.x = -normalized_dir * enemy.speed  # Wegbewegen
+  			elif distance > optimal_distance * 1.3:  # Zu weit
+  				enemy.velocity.x = normalized_dir * enemy.speed  # Annähern
+  			else:
+  				# Im optimalen Bereich - anhalten und ausrichten
+  				enemy.velocity.x = 0
+  				movement_pause_timer = movement_pause_duration
+  		
+  		# Zum Ziel drehen, unabhängig von der Bewegungsrichtung
+  		if enemy.animated_sprite:
+  			enemy.animated_sprite.flip_h = direction > 0
+  	else:
+  		# Während der Pause nicht bewegen, aber zum Ziel ausrichten
+  		enemy.velocity.x = 0
+  		if enemy.animated_sprite and target:
+  			var direction = target.global_position.x - enemy.global_position.x
+  			enemy.animated_sprite.flip_h = direction > 0
+  
+  func get_next_state() -> String:
+  	var next = super.get_next_state()
+  	if next:
+  		return next
+  		
+  	# Kein Ziel - zurück zur Patrouille
+  	if not target:
+  		return "Patrol"
+  	
+  	var mage = enemy as GoblinMage
+  	if not mage:
+  		return "Patrol"
+  	
+  	# Notfall-Teleport wenn zu nah und Mana verfügbar
+  	var distance = get_distance_to_target()
+  	if distance < 70 and mage.current_mana >= mage.teleport_mana_cost and mage.last_teleport_time <= 0:
+  		return "Teleport"
+  	
+  	# Schild aktivieren wenn zu nah und kein Teleport möglich
+  	if distance < 80 and mage.current_mana >= mage.shield_mana_cost and not mage.is_shielding:
+  		if mage.current_mana < mage.teleport_mana_cost or mage.last_teleport_time > 0:
+  			return "Shield"
+  	
+  	# Zauber, wenn gute Position erreicht und genug Mana
+  	if distance >= optimal_distance * 0.7 and distance <= optimal_distance * 1.5:
+  		if mage.current_mana >= mage.spell_mana_cost:
+  			return "Cast"
+  	
+  	# Timeout für die Positionierung
+  	if position_timer > positioning_timeout:
+  		# Nach Timeout versuchen zu zaubern, auch wenn nicht perfekt positioniert
+  		if mage.current_mana >= mage.spell_mana_cost:
+  			return "Cast"
+  	
+  	return ""
+
+========================================
+Contents of states\mage\shield_state.gd:
+========================================
+  class_name ShieldState
+  extends MageState
+  
+  var shield_timer: float = 0.0
+  var shield_duration: float = 5.0
+  
+  func _init():
+  	name = "Shield"
+  
+  func enter():
+  	super.enter()
+  	play_animation("idle")
+  	shield_timer = 0.0
+  	
+  	var mage = enemy as GoblinMage
+  	if mage:
+  		mage.activate_shield()
+  		
+  	print(enemy.name + " entered shield state")
+  
+  func exit():
+  	super.exit()
+  	
+  	# Deactivate shield on exit
+  	var mage = enemy as GoblinMage
+  	if mage:
+  		mage.deactivate_shield()
+  
+  func physics_process(delta: float):
+  	shield_timer += delta
+  	
+  	# Update target
+  	update_target()
+  	
+  	# Move slowly toward player with shield active
+  	if target:
+  		var direction = target.global_position.x - enemy.global_position.x
+  		var normalized_dir = sign(direction)
+  		enemy.velocity.x = normalized_dir * (enemy.speed * 0.5)  # Slower with shield
+  		
+  		if enemy.animated_sprite:
+  			enemy.animated_sprite.flip_h = normalized_dir > 0
+  	else:
+  		enemy.velocity.x = 0
+  
+  func get_next_state() -> String:
+  	var next = super.get_next_state()
+  	if next:
+  		return next
+  		
+  	if shield_timer >= shield_duration:
+  		var mage = enemy as GoblinMage
+  		if not mage:
+  			return "Patrol"
+  		
+  		# Cast if enough mana
+  		if target and mage.current_mana >= mage.spell_mana_cost:
+  			return "Cast"
+  		
+  		# Otherwise chase or patrol
+  		if target:
+  			return "Chase"
+  		else:
+  			return "Patrol"
+  	
+  	return ""
+
+========================================
+Contents of states\mage\teleport_state.gd:
+========================================
+  class_name TeleportState
+  extends MageState
+  
+  var teleport_timer: float = 0.0
+  var teleport_duration: float = 0.5
+  var has_teleported: bool = false
+  
+  func _init():
+      name = "Teleport"
+  
+  func enter():
+      super.enter()
+      play_animation("idle")
+      
+      enemy.velocity = Vector2.ZERO
+          
+      teleport_timer = 0.0
+      has_teleported = false
+      
+      print(enemy.name + " entered teleport state")
+  
+  func physics_process(delta: float):
+      teleport_timer += delta
+      
+      # Teleport halfway through state duration
+      if not has_teleported and teleport_timer >= teleport_duration * 0.5:
+          _perform_teleport()
+          has_teleported = true
+  
+  func _perform_teleport():
+      var mage = enemy as GoblinMage
+      if not mage:
+          return
+          
+      # Use mage's teleport method
+      mage.teleport()
+      
+      # Update target after teleport
+      update_target()
+  
+  func get_next_state() -> String:
+      var next = super.get_next_state()
+      if next:
+          return next
+          
+      # After teleport is complete
+      if has_teleported and teleport_timer >= teleport_duration:
+          var mage = enemy as GoblinMage
+          if not mage:
+              return "Patrol"
+          
+          # Return to appropriate state
+          if target:
+              # If enough mana to cast and in range, cast
+              if mage.current_mana >= mage.spell_mana_cost and get_distance_to_target() <= enemy.attack_radius:
+                  return "Cast"
+              else:
+                  return "Chase"
+          else:
+              return "Patrol"
+      
+      return ""
+
+========================================
+Contents of states\melee\charge_state.gd:
+========================================
+  class_name ChargeState
+  extends MeleeState
+  
+  var charge_timer: float = 0.0
+  var charge_duration: float = 0.75
+  var charge_speed_multiplier: float = 2.0
+  var has_started_charge: bool = false
+  
+  func _init():
+      name = "Charge"
+  
+  func enter():
+      super.enter()
+      play_animation("walk")
+      
+      charge_timer = 0.0
+      has_started_charge = false
+      
+      # Brief pause before charging
+      enemy.velocity.x = 0
+          
+      print(enemy.name + " entered charge state")
+  
+  func physics_process(delta: float):
+      charge_timer += delta
+      
+      # Start charge after brief delay
+      if not has_started_charge and charge_timer >= 0.2:
+          _start_charge()
+          has_started_charge = true
+      
+      # Update target
+      update_target()
+  
+  func _start_charge():
+      if not target:
+          return
+          
+      # Direction to player
+      var direction = target.global_position.x - enemy.global_position.x
+      var normalized_dir = sign(direction)
+      
+      # Apply charge speed
+      enemy.velocity.x = normalized_dir * enemy.speed * charge_speed_multiplier
+      
+      # Flip sprite
+      if enemy.animated_sprite:
+          enemy.animated_sprite.flip_h = normalized_dir > 0
+  
+  func get_next_state() -> String:
+      var next = super.get_next_state()
+      if next:
+          return next
+          
+      # After charge completes
+      if charge_timer >= charge_duration:
+          # Attack immediately if in range
+          if is_target_in_attack_range():
+              var melee = enemy as GoblinMelee
+              if melee and melee.is_enraged:
+                  return "Rage"
+              else:
+                  return "Attack"
+          else:
+              # Otherwise continue chasing
+              var melee = enemy as GoblinMelee
+              if melee and melee.is_enraged:
+                  return "RageChase" 
+              else:
+                  return "Chase"
+      
+      return ""
+
+========================================
+Contents of states\melee\melee_state.gd:
+========================================
+  class_name MeleeState
+  extends EnemyState
+  
+  ## Base class for specialized Goblin Melee enemy states
+  
+  func _init():
+  	name = "MeleeState"
+  "res://scripts/core/enemies/states/melee/melee_state.gd"
+
+========================================
+Contents of states\melee\rage_chase_state.gd:
+========================================
+  class_name RageChaseState
+  extends MeleeState
+  
+  func _init():
+      name = "RageChase"
+  
+  func enter():
+      super.enter()
+      play_animation("walk")
+      
+      print(enemy.name + " entered rage chase state")
+  
+  func physics_process(delta: float):
+      # Update target
+      update_target()
+      
+      if not target:
+          enemy.velocity.x = 0
+          return
+      
+      # Direction to player
+      var direction = target.global_position.x - enemy.global_position.x
+      var normalized_dir = sign(direction)
+      
+      # Use rage speed bonus
+      var melee = enemy as GoblinMelee
+      var speed_multiplier = melee.rage_speed_bonus if melee else 1.3
+      
+      # Apply movement with rage bonus
+      enemy.velocity.x = normalized_dir * enemy.chase_speed * speed_multiplier
+      
+      # Flip sprite
+      if enemy.animated_sprite:
+          enemy.animated_sprite.flip_h = normalized_dir > 0
+  
+  func get_next_state() -> String:
+      var next = super.get_next_state()
+      if next:
+          return next
+          
+      # Return to patrol if no target
+      if not target:
+          return "Patrol"
+      
+      # Switch to rage attack if in range
+      if is_target_in_attack_range() and enemy.can_attack:
+          return "Rage"
+      
+      return ""
+
+========================================
+Contents of states\melee\rage_state.gd:
+========================================
+  class_name RageState
+  extends MeleeState
+  
+  var rage_timer: float = 0.0
+  var rage_duration: float = 0.8  # Faster attack in rage mode
+  var has_dealt_damage: bool = false
+  
+  func _init():
+      name = "Rage"
+  
+  func enter():
+      super.enter()
+      play_animation("attack")
+      
+      # Stop movement during attack
+      enemy.velocity.x = 0
+          
+      rage_timer = 0.0
+      has_dealt_damage = false
+      
+      print(enemy.name + " entered rage attack state")
+  
+  func physics_process(delta: float):
+      rage_timer += delta
+      
+      # Deal damage faster than normal attack
+      if not has_dealt_damage and rage_timer >= rage_duration * 0.3:
+          deal_rage_damage()
+          has_dealt_damage = true
+  
+  func deal_rage_damage():
+      if not target or not is_target_in_attack_range():
+          return
+          
+      var melee = enemy as GoblinMelee
+      if not melee:
+          return
+          
+      # Execute attack with rage bonus
+      var rage_damage = enemy.attack_damage
+      enemy.execute_attack(target, rage_damage)
+      
+      print(enemy.name + " dealt RAGE damage to " + target.name)
+  
+  func get_next_state() -> String:
+      var next = super.get_next_state()
+      if next:
+          return next
+          
+      # After rage attack completes
+      if rage_timer >= rage_duration:
+          # Chase with rage speed if target not in range
+          if not is_target_in_attack_range():
+              return "RageChase"
+      
+      return ""
+
+==================================================
+Scan completed at 2025-04-18 21:43:00

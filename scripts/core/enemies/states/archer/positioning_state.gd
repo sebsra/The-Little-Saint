@@ -4,11 +4,13 @@ extends ArcherState
 ## Spezieller State für Bogenschützen, der sie in optimaler Schussdistanz positioniert
 ## Ersetzt den generischen ChaseState für bessere Fernkampftaktiken
 
+# Diese Werte werden nun vom GoblinArcher überschrieben
 var optimal_distance: float = 150.0
-var position_timer: float = 0.0
 var positioning_timeout: float = 3.0  # Maximale Zeit für Positionierung
-var movement_pause_timer: float = 0.0
 var movement_pause_duration: float = 0.5  # Kurze Pausen während der Positionierung
+
+var position_timer: float = 0.0
+var movement_pause_timer: float = 0.0
 
 func _init():
 	name = "Positioning"
@@ -19,12 +21,18 @@ func enter():
 	position_timer = 0.0
 	movement_pause_timer = 0.0
 	
-	# Nutze die vom Archer definierte optimale Distanz
+	# Werte vom Archer einlesen, falls nicht bereits gesetzt
 	var archer = enemy as GoblinArcher
-	if archer and "optimal_distance" in archer:
-		optimal_distance = archer.optimal_distance
+	if archer:
+		if archer.optimal_distance > 0:
+			optimal_distance = archer.optimal_distance
+		if archer.positioning_timeout > 0:
+			positioning_timeout = archer.positioning_timeout
+		if archer.movement_pause_duration > 0:
+			movement_pause_duration = archer.movement_pause_duration
 	
-	print(enemy.name + " entered positioning state")
+	print(enemy.name + " entered positioning state with optimal_distance=" + str(optimal_distance) + 
+		  ", timeout=" + str(positioning_timeout) + ", pause_duration=" + str(movement_pause_duration))
 
 func physics_process(delta: float):
 	position_timer += delta

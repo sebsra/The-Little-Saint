@@ -1,49 +1,67 @@
 class_name RageChaseState
 extends MeleeState
 
+# Dieser Wert wird nun vom GoblinMelee überschrieben
+var rage_duration: float = 0.8  # Faster attack in rage mode
+
+var rage_timer: float = 0.0
+var has_dealt_damage: bool = false
+
 func _init():
-    name = "RageChase"
+	name = "Rage"
 
 func enter():
-    super.enter()
-    play_animation("walk")
-    
-    print(enemy.name + " entered rage chase state")
+	super.enter()
+	play_animation("attack")
+	
+	# Wert vom GoblinMelee einlesen, falls nicht bereits gesetzt
+	var melee = enemy as GoblinMelee
+	if melee and melee.rage_attack_duration > 0:
+		rage_duration = melee.rage_attack_duration
+	
+	# Stop movement during attack
+	enemy.velocity.x = 0
+		
+	rage_timer = 0.0
+	has_dealt_damage = false
+	
+	print(enemy.name + " entered rage attack state with duration=" + str(rage_duration))
 
 func physics_process(delta: float):
-    # Update target
-    update_target()
-    
-    if not target:
-        enemy.velocity.x = 0
-        return
-    
-    # Direction to player
-    var direction = target.global_position.x - enemy.global_position.x
-    var normalized_dir = sign(direction)
-    
-    # Use rage speed bonus
-    var melee = enemy as GoblinMelee
-    var speed_multiplier = melee.rage_speed_bonus if melee else 1.3
-    
-    # Apply movement with rage bonus
-    enemy.velocity.x = normalized_dir * enemy.chase_speed * speed_multiplier
-    
-    # Flip sprite
-    if enemy.animated_sprite:
-        enemy.animated_sprite.flip_h = normalized_dir > 0
+	rage_timer += delta
+	
+	# Deal damage faster than normal attack
+	if not has_dealt_damage and rage_timer >= rage_duration * 0.3:
+		deal_rage_damage()
+		has_dealt_damage = true
+
+func deal_rage_damage():
+	if not target or not is_target_in_attack_range():
+		return
+		
+	var melee = enemy as GoblinMelee
+	if not melee:
+		return
+		
+	# Execute attack with rage bonus
+	var rage_damage = enemy.attack_damage
+	enemy.execute_attack(target, rage_damage)
+	
+	print(enemy.name + " dealt RAGE damage to " + target.name)
 
 func get_next_state() -> String:
-    var next = super.get_next_state()
-    if next:
-        return next
-        
-    # Return to patrol if no target
-    if not target:
-        return "Patrol"
-    
-    # Switch to rage attack if in range
-    if is_target_in_attack_range() and enemy.can_attack:
-        return "Rage"
-    
-    return ""
+	var next = super.get_next_state()
+	if next:
+		return next
+		
+	# After rage attack completes
+	if rage_timer >= rage_duration:
+		# Chase with rage speed if target not in range
+		if not is_target_in_attack_range():
+			return "RageChase"
+		else:
+			# Can immediately attack again if still in range and off cooldown
+			if enemy.can_attack:
+				return "" # Stay in this state for another attack
+	
+	return ""

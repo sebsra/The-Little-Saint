@@ -1,8 +1,10 @@
 class_name ShieldState
 extends MageState
 
-var shield_timer: float = 0.0
+# Dieser Wert wird nun vom GoblinMage überschrieben
 var shield_duration: float = 5.0
+
+var shield_timer: float = 0.0
 
 func _init():
 	name = "Shield"
@@ -12,11 +14,15 @@ func enter():
 	play_animation("idle")
 	shield_timer = 0.0
 	
+	# Wert vom Magier einlesen, falls nicht bereits gesetzt
 	var mage = enemy as GoblinMage
+	if mage and mage.shield_duration > 0:
+		shield_duration = mage.shield_duration
+	
 	if mage:
 		mage.activate_shield()
 		
-	print(enemy.name + " entered shield state")
+	print(enemy.name + " entered shield state with duration=" + str(shield_duration))
 
 func exit():
 	super.exit()
@@ -59,7 +65,7 @@ func get_next_state() -> String:
 		
 		# Otherwise chase or patrol
 		if target:
-			return "Chase"
+			return "MagePositioning"
 		else:
 			return "Patrol"
 	

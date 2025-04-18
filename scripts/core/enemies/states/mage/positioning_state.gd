@@ -4,11 +4,13 @@ extends MageState
 ## Spezieller State für Magier, der sie in optimaler Zauber-Distanz positioniert
 ## Ersetzt den generischen ChaseState für bessere Fernkampftaktiken
 
+# Diese Werte werden nun vom GoblinMage überschrieben
 var optimal_distance: float = 180.0  # Magier bevorzugen größere Distanz als Bogenschützen
-var position_timer: float = 0.0
 var positioning_timeout: float = 3.0  # Maximale Zeit für Positionierung
-var movement_pause_timer: float = 0.0
 var movement_pause_duration: float = 0.7  # Längere Pausen für Magier (bedächtiger)
+
+var position_timer: float = 0.0
+var movement_pause_timer: float = 0.0
 var low_mana_threshold: float = 0.3  # Schwellwert für niedrigen Manavorrat (30%)
 
 func _init():
@@ -20,7 +22,18 @@ func enter():
 	position_timer = 0.0
 	movement_pause_timer = 0.0
 	
-	print(enemy.name + " entered mage positioning state")
+	# Werte vom Magier einlesen, falls nicht bereits gesetzt
+	var mage = enemy as GoblinMage
+	if mage:
+		if mage.optimal_distance > 0:
+			optimal_distance = mage.optimal_distance
+		if mage.positioning_timeout > 0:
+			positioning_timeout = mage.positioning_timeout
+		if mage.movement_pause_duration > 0:
+			movement_pause_duration = mage.movement_pause_duration
+	
+	print(enemy.name + " entered mage positioning state with optimal_distance=" + 
+		  str(optimal_distance) + ", timeout=" + str(positioning_timeout))
 
 func physics_process(delta: float):
 	position_timer += delta

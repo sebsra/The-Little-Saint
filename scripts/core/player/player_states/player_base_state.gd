@@ -34,7 +34,6 @@ func update_outfit():
 			if current_animation in player_animations:
 				if animated_sprite.frame < player_animations[current_animation][0] or animated_sprite.frame >= player_animations[current_animation][-1]:
 					animated_sprite.frame = player_animations[current_animation][0]
-
 # Function to check life and handle death
 func check_life():
 	# Check for player health in the HUD

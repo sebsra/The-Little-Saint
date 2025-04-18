@@ -1,9 +1,11 @@
 class_name RetreatState
 extends ArcherState
 
-var retreat_timer: float = 0.0
+# Diese Werte werden nun vom GoblinArcher überschrieben
 var retreat_duration: float = 1.5
 var optimal_distance: float = 150.0
+
+var retreat_timer: float = 0.0
 
 func _init():
 	name = "Retreat"
@@ -13,12 +15,16 @@ func enter():
 	play_animation("walk")
 	retreat_timer = 0.0
 	
-	# Get optimal distance from the archer
+	# Werte vom Archer einlesen, falls nicht bereits gesetzt
 	var archer = enemy as GoblinArcher
-	if archer and "optimal_distance" in archer:
-		optimal_distance = archer.optimal_distance
+	if archer:
+		if archer.retreat_duration > 0:
+			retreat_duration = archer.retreat_duration
+		if archer.optimal_distance > 0:
+			optimal_distance = archer.optimal_distance
 	
-	print(enemy.name + " entered retreat state")
+	print(enemy.name + " entered retreat state with duration=" + str(retreat_duration) + 
+		  ", optimal_distance=" + str(optimal_distance))
 
 func physics_process(delta: float):
 	retreat_timer += delta
@@ -65,5 +71,7 @@ func get_next_state() -> String:
 			return "Shoot"
 		elif archer and archer.arrows_remaining <= 0:
 			return "Reload"
+		else:
+			return "Positioning"  # Reposition if conditions not right for shooting
 	
 	return ""

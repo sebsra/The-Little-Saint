@@ -12,6 +12,19 @@ extends BaseEnemy
 @export var shooting_accuracy: float = 0.9  # 1.0 = perfect, lower = less accurate
 @export var optimal_distance: float = 150.0  # Optimal distance to player
 
+# State-specific attributes for difficulty scaling
+@export_group("Shoot State Properties")
+@export var shoot_duration: float = 0.6
+@export var shoot_cooldown: float = 0.5
+@export var max_shots: int = 3
+
+@export_group("Positioning State Properties")
+@export var positioning_timeout: float = 3.0
+@export var movement_pause_duration: float = 0.5
+
+@export_group("Retreat State Properties")
+@export var retreat_duration: float = 1.5
+
 # Archer state tracking
 var arrows_remaining: int
 var is_reloading: bool = false
@@ -25,18 +38,18 @@ signal quiver_empty
 signal reload_complete
 
 func _ready():
-	# Call parent ready
-	super._ready()
-	
-	# Set default values
+	# Set default values - these are for EASY mode
 	max_health = 70.0
 	current_health = max_health
-	speed = 60.0  # Etwas schneller für bessere Positionierung
+	speed = 60.0  # Slightly faster for better positioning
 	chase_speed = 60.0
 	attack_damage = 50.0  # Ensuring this gives 0.5 damage after scaling
 	attack_cooldown = 1.0
 	detection_radius = 350.0
 	attack_radius = 300.0
+	
+	# Call parent ready which will apply difficulty scaling
+	super._ready()
 	
 	# Initialize arrows
 	arrows_remaining = quiver_size
@@ -55,6 +68,79 @@ func _ready():
 	# Setup the state machine with archer states
 	setup_state_machine()
 	_setup_archer_states()
+
+# Override apply_difficulty_scaling to handle archer-specific attributes
+func apply_difficulty_scaling():
+	# Call parent implementation to handle base attributes
+	super.apply_difficulty_scaling()
+	
+	if not Global:
+		return
+		
+	var difficulty = Global.get_difficulty()
+	
+	# Scale archer-specific attributes based on difficulty
+	match difficulty:
+		Global.Difficulty.EASY:
+			# Base values already set
+			quiver_size = 5
+			reload_time = 2.0
+			shooting_accuracy = 0.9
+			optimal_distance = 150.0
+			
+			# State-specific values for EASY
+			shoot_duration = 0.6
+			shoot_cooldown = 0.5
+			max_shots = 3
+			positioning_timeout = 3.0
+			movement_pause_duration = 0.5
+			retreat_duration = 1.5
+			
+		Global.Difficulty.NORMAL:
+			quiver_size = 6
+			reload_time = 1.8
+			shooting_accuracy = 0.92
+			optimal_distance = 160.0
+			
+			# State-specific values for NORMAL
+			shoot_duration = 0.55
+			shoot_cooldown = 0.45
+			max_shots = 3
+			positioning_timeout = 2.7
+			movement_pause_duration = 0.45
+			retreat_duration = 1.3
+			
+		Global.Difficulty.HARD:
+			quiver_size = 8
+			reload_time = 1.5
+			shooting_accuracy = 0.95
+			optimal_distance = 170.0
+			
+			# State-specific values for HARD
+			shoot_duration = 0.5
+			shoot_cooldown = 0.4
+			max_shots = 4
+			positioning_timeout = 2.5
+			movement_pause_duration = 0.4
+			retreat_duration = 1.2
+			
+		Global.Difficulty.NIGHTMARE:
+			quiver_size = 10
+			reload_time = 1.2
+			shooting_accuracy = 0.98
+			optimal_distance = 200.0
+			
+			# State-specific values for NIGHTMARE
+			shoot_duration = 0.4
+			shoot_cooldown = 0.3
+			max_shots = 5
+			positioning_timeout = 2.0
+			movement_pause_duration = 0.3
+			retreat_duration = 1.0
+	
+	# Update arrows remaining to match new quiver size (if not initialized yet)
+	if not has_been_initialized:
+		arrows_remaining = quiver_size
 
 # Initialize projectile pool
 func _setup_projectile_pool():
@@ -76,10 +162,32 @@ func _setup_projectile_pool():
 func _setup_archer_states():
 	# Add all states to the state machine - KEINE CHASE STATE!
 	state_machine.add_state(PatrolState.new())
-	state_machine.add_state(PositioningState.new())  # Neuer Positionierungsstate statt Chase
-	state_machine.add_state(ShootState.new())
-	state_machine.add_state(RetreatState.new())
-	state_machine.add_state(ReloadState.new())
+	
+	# Create positioning state with difficulty-scaled parameters
+	var positioning_state = PositioningState.new()
+	positioning_state.optimal_distance = optimal_distance
+	positioning_state.positioning_timeout = positioning_timeout
+	positioning_state.movement_pause_duration = movement_pause_duration
+	state_machine.add_state(positioning_state)
+	
+	# Create shoot state with difficulty-scaled parameters
+	var shoot_state = ShootState.new()
+	shoot_state.shoot_duration = shoot_duration
+	shoot_state.shoot_cooldown = shoot_cooldown
+	shoot_state.max_shots = max_shots
+	state_machine.add_state(shoot_state)
+	
+	# Create retreat state with difficulty-scaled parameters
+	var retreat_state = RetreatState.new()
+	retreat_state.retreat_duration = retreat_duration
+	retreat_state.optimal_distance = optimal_distance
+	state_machine.add_state(retreat_state)
+	
+	# Create reload state with difficulty-scaled parameters
+	var reload_state = ReloadState.new()
+	reload_state.reload_time = reload_time
+	state_machine.add_state(reload_state)
+	
 	state_machine.add_state(HurtState.new())
 	state_machine.add_state(DeathState.new())
 	
@@ -111,13 +219,13 @@ func _on_player_detected(player):
 		
 	var distance = global_position.distance_to(player.global_position)
 	
-	# Logische Entscheidung basierend auf der Situation
+	# Logical decision based on situation
 	if distance <= attack_radius and arrows_remaining > 0:
 		state_machine.change_state("Shoot")
 	elif distance < optimal_distance * 0.7:  # Too close
 		state_machine.change_state("Retreat")
 	else:
-		# Anstatt Chase verwenden wir nun Positioning
+		# Use positioning instead of chase
 		state_machine.change_state("Positioning")
 
 # Handle player lost
@@ -168,7 +276,7 @@ func shoot() -> bool:
 			print(name + " ERROR: Could not create projectile!")
 			return false
 	
-	# Stelle sicher, dass das Projektil ordnungsgemäß aus dem Pool zurückgesetzt wurde
+	# Make sure projectile is properly reset from pool
 	projectile.set_physics_process(true)
 	
 	# Configure projectile - Make sure it's visible and active first
@@ -183,7 +291,7 @@ func shoot() -> bool:
 	if projectile.has_method("setup"):
 		projectile.setup(direction, spawn_pos, 0, self)
 		
-		# Stelle sicher, dass die Geschwindigkeit korrekt ist
+		# Make sure speed is correct
 		if "speed" in projectile:
 			projectile.velocity = direction * projectile.speed
 	else:
@@ -265,7 +373,7 @@ func _reload_complete():
 	emit_signal("reload_complete")
 	print(name + " reloading complete, arrows: " + str(arrows_remaining))
 	
-	# Nach dem Nachladen Entscheidung für nächsten State
+	# After reloading, decide next state
 	if state_machine.target:
 		var distance = global_position.distance_to(state_machine.target.global_position)
 		

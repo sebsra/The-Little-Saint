@@ -297,10 +297,10 @@ func set_attack_animation(anim_name: String) -> void:
 
 func add_extra_jumps(extra_jumps: int) -> void:
 	allowed_jumps += extra_jumps
-
-# Modified player take_damage function
-func take_damage(amount: float) -> void:
+	
+func take_damage(amount: float, attacker = null) -> bool:
 	GlobalHUD.change_health(-amount / 100.0)
+	return true
 
 # Modified player bounce function
 func bounce() -> void:

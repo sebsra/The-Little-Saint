@@ -1,129 +1,178 @@
-class_name BaseEnemy
 extends CharacterBody2D
+class_name BaseEnemy
 
-## Base class for all enemies in the game
-## Provides basic attributes and functionality only
+# Base stats
+var max_health: float = 100.0
+var current_health: float = 100.0
+var speed: float = 60.0
+var chase_speed: float = 80.0
+var attack_damage: float = 10.0
+var attack_cooldown: float = 1.0
+var detection_radius: float = 200.0
+var attack_radius: float = 50.0
+var patrol_distance: float = 100.0
+var has_been_initialized: bool = false
 
-# Enemy properties - attributes only
-@export_category("Stats")
-@export var max_health: float = 100.0
-@export var speed: float = 80.0
-@export var chase_speed: float = 100.0
-@export var attack_damage: float = 50.0  # Geändert für konsistenten Schaden (0.5 Herzen)
-@export var attack_cooldown: float = 1.0
-@export var detection_radius: float = 200.0
-@export var attack_radius: float = 75.0
-@export var patrol_distance: float = 100.0
+# Cooldown tracking
+var can_attack: bool = true
+var attack_timer: float = 0.0
 
-# Current state - public attributes that states can modify
-var current_health: float
+# State
 var is_dead: bool = false
 var is_invulnerable: bool = false
-var can_attack: bool = true  # Can this enemy currently attack
+var is_attacking: bool = false
 
-# Components (to be assigned by extending classes)
-var animated_sprite: AnimatedSprite2D
-var collision_shape: CollisionShape2D
-var state_machine: EnemyStateMachine
+# Components
+var state_machine = null
+var collision_shape = null
+var animated_sprite = null
 
-# Signals - communicate with states instead of direct calls
+# Signals
 signal damaged(amount, attacker)
-signal died
+signal died()
 signal attack_executed(target, damage)
-signal attack_completed
-signal animation_finished(anim_name)
 
 func _ready():
-	# Initialize health
-	current_health = max_health
-	
-	# Find key components
-	animated_sprite = get_node_or_null("AnimatedSprite2D")
+	# Get nodes
 	collision_shape = get_node_or_null("CollisionShape2D")
+	animated_sprite = get_node_or_null("AnimatedSprite2D")
+	add_to_group("enemy") 
 	
-	# Connect to animation finished
-	if animated_sprite:
-		animated_sprite.animation_finished.connect(_on_animation_finished)
+	# Initialize with proper difficulty settings
+	apply_difficulty_scaling()
+	has_been_initialized = true
 	
-	# Make sure we're in the enemy group
-	if not is_in_group("enemy"):
-		add_to_group("enemy")
-	
-	# State machine now managed explicitly by child classes
-	state_machine = get_node_or_null("StateMachine") as EnemyStateMachine
-	
-	print(name + " initialized with " + str(current_health) + " health")
+	# Connect to difficulty changes
+	if Global:
+		Global.difficulty_changed.connect(_on_difficulty_changed)
 
 func _physics_process(delta):
-	# Apply gravity if not on floor
-	if not is_on_floor():
-		velocity.y += calculate_gravity() * delta
+	# Update attack cooldown
+	if not can_attack:
+		attack_timer += delta
+		if attack_timer >= attack_cooldown:
+			can_attack = true
+			attack_timer = 0.0
 	
-	# Core movement - states will set velocity.x
-	move_and_slide()
+	# Handle physics based on gravity
+	if not is_on_floor() and "velocity" in self:
+		velocity.y += ProjectSettings.get_setting("physics/2d/default_gravity") * delta
+	
+	# Apply movement
+	if "velocity" in self:
+		move_and_slide()
 
-func calculate_gravity():
-	return ProjectSettings.get_setting("physics/2d/default_gravity")
+# Create and setup state machine - called by child classes
+func setup_state_machine():
+	state_machine = EnemyStateMachine.new()
+	add_child(state_machine)
+	# No need to call setup() - EnemyStateMachine will get owner_node in its _ready()
 
-# Animation interface - states call this
-func play_animation(anim_name: String):
-	if animated_sprite and animated_sprite.sprite_frames and animated_sprite.sprite_frames.has_animation(anim_name):
-		animated_sprite.play(anim_name)
-	elif animated_sprite and animated_sprite.sprite_frames and animated_sprite.sprite_frames.has_animation("idle"):
-		animated_sprite.play("idle")
-		print("Animation not found for " + name + ": " + anim_name + ", using idle instead")
-
-# Handle animation completion - Notify states through signals
-func _on_animation_finished():
-	if animated_sprite:
-		emit_signal("animation_finished", animated_sprite.animation)
-
-# Damage interface - states handle effects of damage
-func take_damage(amount, attacker = null):
-	if is_dead or is_invulnerable:
+# Apply difficulty scaling - will be called on init and when difficulty changes
+func apply_difficulty_scaling():
+	if not Global:
 		return
+		
+	var difficulty = Global.get_difficulty()
+	
+	# This function adjusts base attributes based on difficulty
+	match difficulty:
+		Global.Difficulty.EASY:
+			# The base values are already set for EASY (default in your code)
+			pass
+			
+		Global.Difficulty.NORMAL:
+			max_health *= 1.3
+			attack_damage *= 1.2
+			speed *= 1.1
+			chase_speed *= 1.1
+			detection_radius *= 1.2
+			attack_cooldown *= 0.9  # Lower is faster
+			
+		Global.Difficulty.HARD:
+			max_health *= 1.7
+			attack_damage *= 1.5
+			speed *= 1.3
+			chase_speed *= 1.3
+			detection_radius *= 1.5
+			attack_radius *= 1.1
+			attack_cooldown *= 0.7
+			
+		Global.Difficulty.NIGHTMARE:
+			max_health *= 2.5
+			attack_damage *= 2.0
+			speed *= 1.5
+			chase_speed *= 1.5
+			detection_radius *= 2.0
+			attack_radius *= 1.3
+			attack_cooldown *= 0.5
+	
+	# Update current health to match new max health
+	if not has_been_initialized:
+		current_health = max_health
+	else:
+		# For existing enemies, maintain health percentage
+		var health_percent = current_health / max_health
+		current_health = max_health * health_percent
+
+# Handles difficulty changes during gameplay
+func _on_difficulty_changed(new_difficulty, old_difficulty):
+	# Re-apply scaling when difficulty changes
+	apply_difficulty_scaling()
+
+# Take damage from an attack
+func take_damage(amount: float, attacker = null):
+	if is_dead or is_invulnerable:
+		return false
 	
 	current_health -= amount
 	emit_signal("damaged", amount, attacker)
 	
-	print(name + " took " + str(amount) + " damage, health: " + str(current_health))
+	# Check for death
+	if current_health <= 0:
+		die()
+		return true
 	
-	if current_health <= 0 and not is_dead:
-		is_dead = true
-		emit_signal("died")
+	return true
 
-# Attack interface - Actual behavior in attack states
-func execute_attack(target, damage_amount = null):
-	var actual_damage = damage_amount if damage_amount != null else attack_damage
-	emit_signal("attack_executed", target, actual_damage)
+# Execute attack on a target
+func execute_attack(target, damage: float = -1):
+	if is_dead:
+		return false
 	
-	# Direkten Schaden auf Spieler anwenden
-	if target.is_in_group("player") and target.has_method("take_damage"):
-		target.take_damage(actual_damage)
+	# Use default damage if none specified
+	if damage < 0:
+		damage = attack_damage
 	
-	# HUD aktualisieren
-	if target.is_in_group("player"):
-		var hud = get_tree().get_root().find_child("HUD", true, false)
-		if hud and hud.has_method("change_life"):
-			hud.change_life(-actual_damage / 100)  # Skalierung für HUD (0.5 für halbes Herz)
+	is_attacking = true
 	
-	# Let states know when attack completes through signal
+	# Reset attack cooldown
 	can_attack = false
-	get_tree().create_timer(attack_cooldown).timeout.connect(func():
-		can_attack = true
-		emit_signal("attack_completed")
-	)
-
-# Hilfsmethode zum Einrichten einer neuen State Machine
-func setup_state_machine():
-	if state_machine:
-		return  # Bereits vorhanden
-		
-	state_machine = EnemyStateMachine.new()
-	state_machine.name = "StateMachine"
-	add_child(state_machine)
+	attack_timer = 0
 	
-	# Konfiguriere Erkennungsbereiche
-	state_machine.detection_range = detection_radius
-	state_machine.attack_range = attack_radius
-	state_machine.patrol_range = patrol_distance
+	# Deal damage if target has health system
+	var hit = false
+	if target and target.has_method("take_damage"):
+		hit = target.take_damage(damage, self)
+	
+	emit_signal("attack_executed", target, damage)
+	is_attacking = false
+	
+	return hit
+
+# Die function
+func die():
+	if is_dead:
+		return
+		
+	is_dead = true
+	emit_signal("died")
+	
+	# Set appropriate state
+	if state_machine:
+		state_machine.change_state("Death")
+
+# Play animation if it exists
+func play_animation(anim_name: String):
+	if animated_sprite and animated_sprite.sprite_frames.has_animation(anim_name):
+		animated_sprite.play(anim_name)

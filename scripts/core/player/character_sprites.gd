@@ -24,7 +24,7 @@ var animation_frames = {
   "pickup_right": [128, 129, 130, 131],
   "pickup_left": [136, 137, 138, 139],
   "attack_knife": [144, 145, 146, 147], #18 
-  "attack_knife_Right": [152, 153, 154, 155],
+  "attack_knife_right": [152, 153, 154, 155],
   "position1": [160], #20
   "position2": [168],
   "position3": [176],

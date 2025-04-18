@@ -1,11 +1,15 @@
 extends Node
 
-## Game Manager handles game state, scene transitions, and global events
+## Global handles game state, scene transitions, and global events
 ## Serves as the central controller for the game
 
 # Game state
 var current_state: Constants.GameState = Constants.GameState.MENU
 var previous_state: Constants.GameState = Constants.GameState.MENU
+
+# Difficulty settings - simple enum and current level only
+enum Difficulty {EASY, NORMAL, HARD, NIGHTMARE}
+var current_difficulty: Difficulty = Difficulty.HARD  # Default to EASY
 
 # Player reference
 var player: Player = null
@@ -35,11 +39,12 @@ signal game_saved()
 signal game_loaded()
 signal resources_loading_progress(progress, total)
 signal resources_loaded()
+signal difficulty_changed(new_difficulty, old_difficulty)
 
 # Initialization
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS # Game manager should run even when paused
-	print("Game Manager initialized")
+	print("Game Manager initialized with difficulty: ", Difficulty.keys()[current_difficulty])
 	
 	# Initialize the resource preloader
 	resource_preloader = GameResourcePreloader.new()
@@ -75,6 +80,37 @@ func is_state(state: Constants.GameState) -> bool:
 
 func resume_previous_state() -> void:
 	change_state(previous_state)
+
+# Difficulty management - simple getters and setters
+func set_difficulty(difficulty: int) -> void:
+	if difficulty != current_difficulty:
+		var old_difficulty = current_difficulty
+		current_difficulty = difficulty
+		emit_signal("difficulty_changed", current_difficulty, old_difficulty)
+		print("Game difficulty changed to: ", Difficulty.keys()[current_difficulty])
+
+func get_difficulty() -> int:
+	return current_difficulty
+
+func get_difficulty_name() -> String:
+	return Difficulty.keys()[current_difficulty]
+
+# Update save_game function to include difficulty
+func save_game() -> void:
+	if SaveManager:
+		# Ensure your SaveManager saves the difficulty
+		SaveManager.game_data.difficulty = current_difficulty
+		SaveManager.save_game()
+		emit_signal("game_saved")
+
+# Update load_game function to load difficulty
+func load_game() -> void:
+	if SaveManager:
+		SaveManager.load_game()
+		# Load difficulty from save
+		if "difficulty" in SaveManager.game_data:
+			set_difficulty(SaveManager.game_data.difficulty)
+		emit_signal("game_loaded")
 
 # Resource preloading
 func preload_resources_for_level(level_name: String) -> void:
@@ -159,17 +195,6 @@ func restart_level() -> void:
 
 func go_to_main_menu() -> void:
 	change_scene(Constants.MAIN_MENU_SCENE)
-
-# Save and load through SaveManager
-func save_game() -> void:
-	if SaveManager:
-		SaveManager.save_game()
-		emit_signal("game_saved")
-
-func load_game() -> void:
-	if SaveManager:
-		SaveManager.load_game()
-		emit_signal("game_loaded")
 
 # Player-related functions
 func register_player(player_instance) -> void:

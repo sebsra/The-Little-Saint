@@ -13,6 +13,20 @@ extends BaseEnemy
 @export var teleport_mana_cost: float = 30.0  # Mana cost for teleportation
 @export var shield_mana_cost: float = 40.0  # Mana cost for shield
 
+# State-specific attributes for difficulty scaling
+@export_group("Positioning State Properties")
+@export var optimal_distance: float = 180.0
+@export var positioning_timeout: float = 3.0
+@export var movement_pause_duration: float = 0.7
+
+@export_group("Cast State Properties")
+@export var cast_duration: float = 0.8
+@export var cast_cooldown: float = 1.2
+@export var max_spells: int = 2
+
+@export_group("Shield State Properties")
+@export var shield_duration: float = 5.0
+
 # Mage state tracking
 var current_mana: float
 var is_teleporting: bool = false
@@ -31,10 +45,7 @@ signal shield_activated
 signal shield_deactivated
 
 func _ready():
-	# Call parent ready
-	super._ready()
-	
-	# Set default values
+	# Set default values for EASY mode
 	max_health = 60.0
 	current_health = max_health
 	speed = 50.0
@@ -44,6 +55,9 @@ func _ready():
 	detection_radius = 350.0
 	attack_radius = 300.0
 	patrol_distance = 80.0
+	
+	# Call parent ready which will apply difficulty scaling
+	super._ready()
 	
 	# Initialize mana
 	current_mana = max_mana
@@ -62,6 +76,86 @@ func _ready():
 	# Setup the state machine with mage states
 	setup_state_machine()
 	_setup_mage_states()
+
+# Override apply_difficulty_scaling to handle mage-specific attributes
+func apply_difficulty_scaling():
+	# Call parent implementation to handle base attributes
+	super.apply_difficulty_scaling()
+	
+	if not Global:
+		return
+		
+	var difficulty = Global.get_difficulty()
+	
+	# Scale mage-specific attributes based on difficulty
+	match difficulty:
+		Global.Difficulty.EASY:
+			# Base values already set
+			max_mana = 100.0
+			mana_regen_rate = 8.0
+			teleport_cooldown = 3.0
+			
+			# State-specific values for EASY
+			optimal_distance = 180.0
+			positioning_timeout = 3.0
+			movement_pause_duration = 0.7
+			cast_duration = 0.8
+			cast_cooldown = 1.2
+			max_spells = 2
+			shield_duration = 5.0
+			
+		Global.Difficulty.NORMAL:
+			max_mana = 120.0
+			mana_regen_rate = 10.0
+			teleport_cooldown = 2.5
+			
+			# State-specific values for NORMAL
+			optimal_distance = 200.0  # Prefers to stay further back
+			positioning_timeout = 2.8  # Repositions slightly faster
+			movement_pause_duration = 0.6  # Slightly quicker decisions
+			cast_duration = 0.7  # Casts slightly faster
+			cast_cooldown = 1.0  # Less time between casts
+			max_spells = 2  # Same number of spells
+			shield_duration = 6.0  # Shield lasts longer
+			
+		Global.Difficulty.HARD:
+			max_mana = 150.0
+			mana_regen_rate = 15.0
+			spell_mana_cost = 18.0  # More efficient spells
+			teleport_cooldown = 2.0
+			
+			# State-specific values for HARD
+			optimal_distance = 220.0  # Even better positioning
+			positioning_timeout = 2.5  # Faster repositioning
+			movement_pause_duration = 0.5  # Quicker decisions
+			cast_duration = 0.6  # Faster casting
+			cast_cooldown = 0.8  # Much less time between casts
+			max_spells = 3  # Can cast more spells in sequence
+			shield_duration = 7.0  # Shield lasts even longer
+			
+		Global.Difficulty.NIGHTMARE:
+			max_mana = 200.0
+			mana_regen_rate = 25.0
+			spell_mana_cost = 15.0  # Much more efficient spells
+			teleport_mana_cost = 25.0  # More efficient teleport
+			teleport_cooldown = 1.5
+			
+			# State-specific values for NIGHTMARE
+			optimal_distance = 250.0  # Excellent tactical positioning
+			positioning_timeout = 2.0  # Very quick repositioning
+			movement_pause_duration = 0.4  # Very quick decisions
+			cast_duration = 0.5  # Very fast casting
+			cast_cooldown = 0.6  # Rapid successive casting
+			max_spells = 4  # Can cast many spells in sequence
+			shield_duration = 8.0  # Very long-lasting shield
+	
+	# Update current mana to match new max mana (if not initialized yet)
+	if not has_been_initialized:
+		current_mana = max_mana
+	else:
+		# For existing mages, maintain mana percentage
+		var mana_percent = current_mana / max_mana
+		current_mana = max_mana * mana_percent
 
 func _physics_process(delta):
 	# Parent physics first
@@ -91,18 +185,37 @@ func _setup_projectile_pool():
 	projectile_pool.name = "ProjectilePool"
 	add_child(projectile_pool)
 
-# Verbesserte Einrichtung der Mage-spezifischen States
+# Improved setup for mage-specific states
 func _setup_mage_states():
 	if not state_machine:
 		push_error("No state machine found for " + name)
 		return
 	
-	# KEIN Chase-State mehr! Stattdessen MagePositioningState
+	# NO Chase state! Use MagePositioningState instead
 	state_machine.add_state(PatrolState.new())
-	state_machine.add_state(MagePositioningState.new())  # Neuer State statt Chase
-	state_machine.add_state(CastState.new())
+	
+	# Create positioning state with difficulty-scaled parameters
+	var positioning_state = MagePositioningState.new()
+	positioning_state.optimal_distance = optimal_distance
+	positioning_state.positioning_timeout = positioning_timeout
+	positioning_state.movement_pause_duration = movement_pause_duration
+	state_machine.add_state(positioning_state)
+	
+	# Create cast state with difficulty-scaled parameters
+	var cast_state = CastState.new()
+	cast_state.cast_duration = cast_duration
+	cast_state.cast_cooldown = cast_cooldown
+	cast_state.max_spells = max_spells
+	state_machine.add_state(cast_state)
+	
+	# Create teleport state
 	state_machine.add_state(TeleportState.new())
-	state_machine.add_state(ShieldState.new())
+	
+	# Create shield state with difficulty-scaled parameters
+	var shield_state = ShieldState.new()
+	shield_state.shield_duration = shield_duration
+	state_machine.add_state(shield_state)
+	
 	state_machine.add_state(HurtState.new())
 	state_machine.add_state(DeathState.new())
 	
@@ -134,7 +247,7 @@ func _on_player_detected(player):
 		
 	var distance = global_position.distance_to(player.global_position)
 	
-	# Verbesserte Entscheidungslogik
+	# Improved decision logic
 	if distance <= attack_radius and current_mana >= spell_mana_cost:
 		# Cast spell if in range and has mana
 		state_machine.change_state("Cast")
@@ -146,10 +259,10 @@ func _on_player_detected(player):
 			# Shield if can't teleport
 			state_machine.change_state("Shield")
 		else:
-			# Positionieren anstatt Chase
+			# Position instead of chase
 			state_machine.change_state("MagePositioning")
 	else:
-		# Positionieren anstatt Chase
+		# Position instead of chase
 		state_machine.change_state("MagePositioning")
 
 # Handle player lost
@@ -237,6 +350,7 @@ func cast_spell(spell_name: String = "fireball") -> bool:
 	
 	print(name + " successfully cast " + spell_name + ", remaining mana: " + str(current_mana))
 	return true
+
 # Teleport to a new position - called by Teleport state
 func teleport() -> bool:
 	if is_dead or current_mana < teleport_mana_cost or last_teleport_time > 0:
@@ -277,7 +391,7 @@ func teleport() -> bool:
 	is_teleporting = false
 	print(name + " teleported to " + str(teleport_pos))
 	
-	# Überarbeitete State-Übergänge nach Teleport
+	# Revised state transitions after teleport
 	if state_machine.target:
 		var distance = global_position.distance_to(state_machine.target.global_position)
 		if distance <= attack_radius and current_mana >= spell_mana_cost:
@@ -302,7 +416,7 @@ func _find_teleport_position() -> Vector2:
 		# Teleport to positions with optimal distance from player
 		for i in range(4):
 			var angle = randf() * 2 * PI
-			var distance = randf_range(120, 180)  # Vergrößerte Teleport-Distanz
+			var distance = randf_range(120, 180)  # Increased teleport distance
 			possible_positions.append(target.global_position + Vector2(cos(angle), sin(angle)) * distance)
 	
 	# Choose random position
@@ -376,10 +490,7 @@ func _show_cast_effect(position):
 	effect.color = Color(0.5, 0.1, 0.9, 0.8)
 	add_child(effect)
 	
-	# Remove after lifetime
-	get_tree().create_timer(effect.lifetime * 1.5).timeout.connect(func():
-		effect.queue_free()
-	)
+
 
 # Override damage to check for shield
 func _on_damaged(amount, attacker):

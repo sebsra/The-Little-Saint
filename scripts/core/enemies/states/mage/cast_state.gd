@@ -1,12 +1,14 @@
 class_name CastState
 extends MageState
 
-var cast_timer: float = 0.0
+# Diese Werte werden nun vom GoblinMage überschrieben
 var cast_duration: float = 0.8  # Time for the complete cast action
 var cast_cooldown: float = 1.2   # Time between spell casts
+var max_spells: int = 2  # Maximum spells per cast sequence
+
+var cast_timer: float = 0.0
 var current_cooldown: float = 0.0
 var spells_cast: int = 0
-var max_spells: int = 2  # Maximum spells per cast sequence
 var is_charging: bool = false
 var charge_complete: bool = false
 var is_casting: bool = false
@@ -22,6 +24,16 @@ func _init():
 func enter():
 	super.enter()
 	play_animation("cast")
+	
+	# Werte vom Magier einlesen, falls nicht bereits gesetzt
+	var mage = enemy as GoblinMage
+	if mage:
+		if mage.cast_duration > 0:
+			cast_duration = mage.cast_duration
+		if mage.cast_cooldown > 0:
+			cast_cooldown = mage.cast_cooldown
+		if mage.max_spells > 0:
+			max_spells = mage.max_spells
 	
 	# Reset state variables
 	cast_timer = 0.0
@@ -41,7 +53,8 @@ func enter():
 	# Begin charging spell
 	_start_spell_charge()
 	
-	print(enemy.name + " entered cast state")
+	print(enemy.name + " entered cast state with duration=" + str(cast_duration) + 
+		  ", cooldown=" + str(cast_cooldown) + ", max_spells=" + str(max_spells))
 
 func exit():
 	super.exit()
@@ -56,7 +69,7 @@ func physics_process(delta: float):
 	update_target()
 	
 	# Charge spell (visual buildup before first cast)
-	if is_charging and not charge_complete and cast_timer >= 0.4:
+	if is_charging and not charge_complete and cast_timer >= cast_duration * 0.5:
 		charge_complete = true
 		_complete_spell_charge()
 	

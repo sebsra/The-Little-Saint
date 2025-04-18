@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bghwylog5wnec" path="res://scenes/core/enemies/goblin_mage.tscn" id="5_aprwh"]
 [ext_resource type="Texture2D" uid="uid://dwycdlfqdycje" path="res://assets/sprites/unsorted/industrial_Tile_Set.png" id="6_rc55t"]
 [ext_resource type="PackedScene" uid="uid://cwltbuuif0nqd" path="res://scenes/core/items/elixir.tscn" id="6_wcqnu"]
-[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/heavenly_coin.tscn" id="7_mdnms"]
+[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/coins.tscn" id="7_mdnms"]
 [ext_resource type="PackedScene" uid="uid://bvht273076lxf" path="res://scenes/ui/controls/gui.tscn" id="7_t4ryr"]
 [ext_resource type="PackedScene" uid="uid://brvsjhwye311q" path="res://scenes/ui/hud/hud.tscn" id="8_3q4ql"]
 

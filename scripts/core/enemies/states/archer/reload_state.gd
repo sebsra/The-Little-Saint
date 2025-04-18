@@ -2,7 +2,7 @@ class_name ReloadState
 extends ArcherState
 
 var reload_timer: float = 0.0
-var reload_time: float = 2.0
+var reload_time: float = 2.0  # Default, wird vom Archer überschrieben
 
 func _init():
 	name = "Reload"
@@ -16,13 +16,13 @@ func enter():
 		
 	reload_timer = 0.0
 	
-	# Start reloading
+	# Start reloading and get reload time from archer
 	var archer = enemy as GoblinArcher
 	if archer:
 		archer.start_reloading()
 		reload_time = archer.reload_time
 		
-	print(enemy.name + " entered reload state")
+	print(enemy.name + " entered reload state with reload_time=" + str(reload_time))
 
 func physics_process(delta: float):
 	reload_timer += delta
@@ -42,12 +42,12 @@ func get_next_state() -> String:
 			return "Patrol"
 		
 		# Retreat if player is close
-		if target and get_distance_to_target() < 100:
+		if target and get_distance_to_target() < archer.optimal_distance * 0.5:
 			return "Retreat"
 		
-		# Otherwise chase or patrol
+		# Otherwise position or patrol
 		if target:
-			return "Chase"
+			return "Positioning"
 		else:
 			return "Patrol"
 	

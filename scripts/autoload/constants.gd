@@ -43,7 +43,7 @@ const DEFAULT_GRAVITY: float = 980.0
 # Animation
 const ANIMATION_IDLE: String = "idle"
 const ANIMATION_WALKING: String = "walking"
-const ANIMATION_ATTACK: String = "walking6"  # Current attack animation
+const ANIMATION_ATTACK: String = "attack_knife_right"  # Current attack animation
 const ANIMATION_HURT: String = "hurt"
 const ANIMATION_DEATH: String = "dead"
 const ANIMATION_JUMP: String = "animation4"  # May need to be updated

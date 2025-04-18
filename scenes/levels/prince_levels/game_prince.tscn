@@ -4047,7 +4047,7 @@ _data = {
 size = Vector2(67020.9, 189.813)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o3ar0"]
-size = Vector2(1652.19, 553.156)
+size = Vector2(1652.19, 547.156)
 
 [node name="GamePrince" type="Node2D"]
 position = Vector2(4692, 1232)
@@ -4071,7 +4071,7 @@ layer_2/tile_data = PackedInt32Array(327521, 851978, 3, 393057, 851978, 3, 45859
 
 [node name="Player" parent="." instance=ExtResource("6_3chjo")]
 light_mask = 2
-position = Vector2(-4652, -858)
+position = Vector2(-4662, -691)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(7, 31)
@@ -4157,11 +4157,14 @@ texture = ExtResource("20_ub6dr")
 [node name="water" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="water"]
-position = Vector2(-1709.09, 356.578)
+position = Vector2(-1709.09, 359.578)
 shape = SubResource("RectangleShape2D_o3ar0")
 
 [node name="Goblin_Melee" parent="." instance=ExtResource("23_ayua1")]
 position = Vector2(-4125, -619)
+rage_threshold = null
+rage_damage_bonus = null
+rage_speed_bonus = null
 
 [node name="Goblin_Mage" parent="." instance=ExtResource("24_l5de1")]
 position = Vector2(-3946, -486)
