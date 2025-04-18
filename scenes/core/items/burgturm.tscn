@@ -1,22 +1,23 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfdu5qaytkhqx"]
+[gd_scene load_steps=6 format=3 uid="uid://dfdu5qaytkhqx"]
 
 [ext_resource type="Script" uid="uid://b5x38aya7vwlx" path="res://scripts/core/items/burgturm.gd" id="1_c5b1e"]
-[ext_resource type="PackedScene" uid="uid://ds83orkh8d6l" path="res://scenes/core/character/player.tscn" id="1_jb8pt"]
 [ext_resource type="Texture2D" uid="uid://brbt7higd80wn" path="res://assets/sprites/environment/tower.png" id="1_w1ecy"]
-[ext_resource type="Script" uid="uid://b2r1cyjrpjhii" path="res://scripts/ui/main_menu/camera.gd" id="2_8abf1"]
 [ext_resource type="Texture2D" uid="uid://vlqsr6lrjr7w" path="res://assets/sprites/environment/portcullis.png" id="2_qxdjr"]
 [ext_resource type="PackedScene" uid="uid://b5phr3k12w4gl" path="res://scenes/NPCs/tower_guard.tscn" id="5_qxdjr"]
-[ext_resource type="PackedScene" uid="uid://ddgj1n6jn8im3" path="res://scenes/NPCs/beggar_child.tscn" id="8_kfi11"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ksgn8"]
 size = Vector2(356.788, 572.374)
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8abf1"]
-distance = -115.0
-
 [node name="Burgturm" type="Node2D"]
-position = Vector2(9, -6)
 script = ExtResource("1_c5b1e")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+position = Vector2(1.0332, 59.5)
+scale = Vector2(0.274673, 0.227124)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(0, -4.4028)
+shape = SubResource("RectangleShape2D_ksgn8")
 
 [node name="Falltür" type="Sprite2D" parent="."]
 position = Vector2(1.0332, 59.5)
@@ -28,12 +29,6 @@ region_rect = Rect2(1172.53, 44.1001, 305.243, 450.766)
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Falltür/StaticBody2D"]
-position = Vector2(0, -4.4028)
-shape = SubResource("RectangleShape2D_ksgn8")
-
-[node name="GateArea" type="Area2D" parent="Falltür"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Falltür/GateArea"]
 position = Vector2(0, -4.4028)
 shape = SubResource("RectangleShape2D_ksgn8")
 
@@ -57,21 +52,5 @@ scale = Vector2(1.8374, 2.15484)
 build_mode = 1
 polygon = PackedVector2Array(-352, -178, -332, -184, -292, -187, -230, -187, -191, -184, -165, -175, -164, -146, -178, -122, -179, -86, 186, -85, 189, -124, 174, -144, 175, -178, 210, -187, 266, -188, 337, -187, 361, -177, 363, -146, 349.334, -122.848, 349.334, -85.6164, 93.8297, -85.6164, 78, 50, 64, 23, 33, 0, 6, -7, -20, -2, -42, 16, -52, 22, -63, 41, -66, 61, -100.993, -85.6164, -340.528, -82.2317, -335.737, -116.078, -354, -144)
 
-[node name="Player" parent="." instance=ExtResource("1_jb8pt")]
-position = Vector2(-251, 89)
-
-[node name="Camera" type="Camera2D" parent="Player"]
-script = ExtResource("2_8abf1")
-metadata/_custom_type_script = "uid://b2r1cyjrpjhii"
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0, 6)
-shape = SubResource("WorldBoundaryShape2D_8abf1")
-
 [node name="TowerGuard" parent="." instance=ExtResource("5_qxdjr")]
-position = Vector2(-206, -140)
-
-[node name="BeggarChild" parent="." instance=ExtResource("8_kfi11")]
-position = Vector2(-1051, -23)
+position = Vector2(-167, -139)

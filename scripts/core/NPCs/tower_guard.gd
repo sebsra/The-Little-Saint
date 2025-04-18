@@ -22,11 +22,17 @@ var gate_original_position = Vector2.ZERO
 var scene_transition_delay = 3.0
 var next_scene_path = "res://scenes/levels/heavenly_realm/heavenly_realm/heavenly_realm.tscn"
 
-# Patrol limits and jump positions
-var patrol_left_boundary = -207
-var patrol_right_boundary = 207
-var jump_left_position = -80
-var jump_right_position = 85
+# Patrol limits and jump positions (now relative offsets from parent position)
+var patrol_left_offset = -207
+var patrol_right_offset = 207
+var jump_left_offset = -80
+var jump_right_offset = 85
+
+# Calculated absolute positions
+var patrol_left_boundary = 0
+var patrol_right_boundary = 0
+var jump_left_position = 0
+var jump_right_position = 0
 
 # Bible quotes for dialog
 var bible_quote_helped = "Gesegnet sind die Barmherzigen, denn sie werden Barmherzigkeit erlangen."
@@ -35,45 +41,19 @@ var bible_quote_not_helped = "Was ihr getan habt einem von diesen meinen gerings
 # Approach speed when moving to player
 var APPROACH_SPEED = 150.0
 
+
 func _ready():
 	# Call parent ready function
 	super._ready()
 	
-	# Set patrol points
-	patrol_points = [patrol_left_boundary, patrol_right_boundary]
-	
-	# Set jump points
-	jump_points = [jump_left_position, jump_right_position]
+	# Calculate patrol boundaries based on parent position
+	calculate_patrol_boundaries()
 	
 	# Set default NPC values
 	SPEED = 80.0  # Normal patrol speed
 	
-	# Force debug mode on temporarily to diagnose issues
-	debug_mode = true
-	
-	# Find gate reference - now we're looking for the falltur node directly
-	gate_node = get_node_or_null("../Falltür")
-	
-	if gate_node:
-		print("Gate node found: " + str(gate_node.name))
-		gate_original_position = gate_node.global_position
-	else:
-		print("Gate node NOT found!")
-	
-	# Use the position of the gate for center position, or default to 0
-	if gate_node:
-		center_position_x = gate_node.global_position.x
-		print("Using gate position for center: " + str(center_position_x))
-	else:
-		center_position_x = 0
-		print("Gate not found, using center position: 0")
-	
-	# Set up the detection area if it doesn't exist
-	if not has_node("DetectionArea"):
-		create_detection_area()
-	
-	# Connect to area signal in the scene
-	connect_to_area_signal()
+	# Calculate center position for dialog
+	calculate_center_position()
 	
 	# Start in walking state
 	set_state(State.WALKING)
@@ -83,6 +63,60 @@ func _ready():
 	print("Jump positions: " + str(jump_points))
 	print("Center position for dialog: " + str(center_position_x))
 	print("Starting in WALKING state")
+	
+	# Make sure to connect to detection area if not already done by parent
+	connect_to_detection_area()
+
+# Explicitly calculate patrol boundaries based on parent position
+func calculate_patrol_boundaries():
+	# Find parent burgturm node
+	var parent_burgturm = get_parent()
+	if parent_burgturm:
+		# Calculate absolute positions based on parent's position
+		var parent_position_x = parent_burgturm.global_position.x
+		
+		# Calculate patrol boundaries
+		patrol_left_boundary = parent_position_x + patrol_left_offset
+		patrol_right_boundary = parent_position_x + patrol_right_offset
+		
+		# Calculate jump positions
+		jump_left_position = parent_position_x + jump_left_offset
+		jump_right_position = parent_position_x + jump_right_offset
+		
+		# Update patrol and jump points
+		patrol_points = [patrol_left_boundary, patrol_right_boundary]
+		jump_points = [jump_left_position, jump_right_position]
+		
+		print("Recalculated boundaries based on parent at " + str(parent_position_x))
+	else:
+		print("WARNING: Could not find parent node!")
+
+# Calculate center position for dialog
+func calculate_center_position():
+	# Find parent burgturm node
+	var parent_burgturm = get_parent()
+	
+	if parent_burgturm:
+		center_position_x = parent_burgturm.global_position.x
+		if debug_mode:
+			("coming to tower position: " + str(center_position_x))
+	else:
+		center_position_x = 0
+		if debug_mode:
+			print("Gate and parent not found, using center position: 0")
+
+# Connect to detection area if needed
+func connect_to_detection_area():
+	var detection_area = get_node_or_null("../DetectionArea")
+	if detection_area:
+		# Connect to the detection area signals if they exist
+		if not detection_area.is_connected("body_entered", Callable(self, "_on_area_body_entered")):
+			detection_area.connect("body_entered", Callable(self, "_on_area_body_entered"))
+			print("TowerGuard connected to DetectionArea body_entered")
+		
+		if not detection_area.is_connected("body_exited", Callable(self, "_on_detection_area_body_exited")):
+			detection_area.connect("body_exited", Callable(self, "_on_detection_area_body_exited"))
+			print("TowerGuard connected to DetectionArea body_exited")
 
 func _physics_process(delta):
 	# Handle player interaction immediately if player is at gate
@@ -122,26 +156,6 @@ func go_to_player_immediately(delta):
 	if debug_mode:
 		print("Moving directly to player: current=" + str(global_position.x) + 
 			  ", target=" + str(target_x) + ", distance=" + str(distance_to_target))
-
-# Create a detection area for player interaction
-func create_detection_area():
-	var area = Area2D.new()
-	area.name = "DetectionArea"
-	
-	var collision = CollisionShape2D.new()
-	var shape = CircleShape2D.new()
-	shape.radius = 100.0  # Detection radius
-	collision.shape = shape
-	
-	area.add_child(collision)
-	add_child(area)
-	
-	# Connect signals
-	area.connect("body_entered", Callable(self, "_on_detection_area_body_entered"))
-	area.connect("body_exited", Callable(self, "_on_detection_area_body_exited"))
-	
-	if debug_mode:
-		print("Created detection area for Tower Guard")
 
 # Move to center position for dialog
 func move_to_center_for_dialog(delta):
@@ -189,6 +203,12 @@ func continue_dialog():
 		return
 	
 	match dialog_stage:
+		1:
+			# Add handling for stage 1 - transition to next dialogue
+			dialog_stage = 2
+			# Move to center for continuing dialogue
+			calculate_center_position()
+			move_to_center_for_dialog(0)  # Call with minimal delta
 		2:
 			# Check if player helped Thomas and update the variable
 			has_player_helped_thomas = check_thomas_helped()
@@ -222,14 +242,17 @@ func continue_dialog():
 			# End dialog
 			dialog_initiated = false
 			dialog_stage = 0
-			
-			# Return to patrol if gate not opened
-			if not is_gate_open:
+
+			# Only return to patrol if gate not opened and player helped Thomas
+			if not is_gate_open and not has_player_helped_thomas:
 				set_state(State.WALKING)
-			
+			else:
+				# Stay in talking state if gate is being opened
+				set_state(State.TALKING)
+
 			if debug_mode:
 				print("Dialog ended, returning to patrol")
-		
+
 		_:
 			# End speech for any other stage
 			end_speech()
@@ -282,77 +305,55 @@ func _on_detection_area_body_entered(body):
 	if player_in_range and not dialog_initiated:
 		start_dialog()
 
+# Handler for when player enters the Burgturm's DetectionArea or any other area
+func _on_area_body_entered(body):
+	if debug_mode:
+		print("Detection area body entered: " + str(body.name))
+		
+	if body.is_in_group("player") and not player_entered_area:
+		player_entered_area = true
+		player_reference = body
+		player_in_range = true
+		
+		if debug_mode:
+			print("Player entered gate area, guard immediately stopping patrol to approach")
+		
+		# Immediately switch to go_to_player_immediately
+		if not dialog_initiated:
+			# Stop current movement
+			velocity = Vector2.ZERO
+			# Set player_entered_area flag
+			player_entered_area = true
+			
+			# Debug info
+			print("Detection area triggered, player_entered_area set to true")
+
+# Override detection area signal for when player leaves
+func _on_detection_area_body_exited(body):
+	super._on_detection_area_body_exited(body)
+	
+	# If player leaves during dialog, reset dialog state
+	if body.is_in_group("player"):
+		player_entered_area = false
+		player_in_range = false
+		
+		# Speech ending is handled in the parent class now
+		if dialog_initiated:
+			dialog_initiated = false
+			dialog_stage = 0
+			
+			# Return to patrol
+			set_state(State.WALKING)
+			
+			if debug_mode:
+				print("Player left during dialog, resetting dialog state")
+
 # Set the status of Thomas being helped (for testing)
 func set_thomas_helped(helped: bool):
 	has_player_helped_thomas = helped
 	
 	if debug_mode:
 		print("Thomas helped status set to: ", helped)
-		
-# Connect to the Area2D in the scene (for compatibility, but we'll use our own logic now)
-func connect_to_area_signal():
-	# Create our own area for gate interaction if needed
-	if gate_node and not gate_node.has_node("GateArea"):
-		create_gate_area()
-	
-	# GEÄNDERT: Suche nach "GateArea" statt "Area2D"
-	var area = get_node_or_null("../Falltür/GateArea")
-	if area:
-		# Connect to the body_entered signal
-		if not area.is_connected("body_entered", Callable(self, "_on_area_body_entered")):
-			area.connect("body_entered", Callable(self, "_on_area_body_entered"))
-			print("Connected to GateArea signal")
-	else:
-		print("GateArea not found, using our own detection logic")
-
-# Create an area for gate interaction if needed
-func create_gate_area():
-	if not gate_node:
-		print("Cannot create gate area: gate_node is null")
-		return
-		
-	var area = Area2D.new()
-	area.name = "GateArea"
-	
-	var collision = CollisionShape2D.new()
-	var shape = RectangleShape2D.new()
-	shape.size = Vector2(100, 50)  # Adjust size as needed
-	collision.shape = shape
-	
-	area.add_child(collision)
-	gate_node.add_child(area)
-	
-	# Connect signals
-	area.connect("body_entered", Callable(self, "_on_area_body_entered"))
-	
-	if debug_mode:
-		print("Created gate area for interaction")
-
-# Handler for when player enters the gate area
-func _on_area_body_entered(body):
-	if body.is_in_group("player") and not player_entered_area:
-		player_entered_area = true
-		player_reference = body
-		
-		# HINZUGEFÜGT: Sofort in go_to_player_immediately wechseln
-		if not dialog_initiated:
-			print("Player entered gate area, guard immediately stopping patrol to approach")
-			go_to_player_immediately(0.016)  # Ungefähr ein Frame-Delta
-
-# Handler for when player exits the detection area
-func _on_detection_area_body_exited(body):
-	super._on_detection_area_body_exited(body)
-	
-	# If player leaves during dialog, reset dialog state
-	if body.is_in_group("player") and dialog_initiated:
-		dialog_initiated = false
-		dialog_stage = 0
-		
-		# Return to patrol
-		set_state(State.WALKING)
-		
-		if debug_mode:
-			print("Player left during dialog, resetting dialog state")
 
 # Override to immediately respond when player is at gate
 func follow_patrol_path(delta):

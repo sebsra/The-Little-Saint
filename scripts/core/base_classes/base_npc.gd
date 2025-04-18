@@ -1,7 +1,7 @@
 class_name NPCBase
 extends CharacterBody2D
 
-# Physics constants - similar to player
+# Physics constants
 var SPEED = 100.0
 var JUMP_VELOCITY = -400.0
 var GRAVITY = 980.0
@@ -14,20 +14,22 @@ var current_state = State.IDLE
 var movement_direction = 1  # 1 = right, -1 = left
 var patrol_points = []
 var current_patrol_index = 0
-var target_position = Vector2.ZERO
 var jump_points = []  # Array of x positions where NPC should jump
 var wait_points = {}  # Dictionary of x positions and wait times {position: time}
 var wait_timer = 0.0
 
-# Speech bubble variables
-var active_speech_bubble = null
-var continue_button = null  # Reference to the continue button
-var speech_bubble_offset = Vector2(0, -100)
-var speech_bubble_duration = 3.0
-var speech_font_size = 16
+# Speech system variables
+var speech_bubble = null
+var continue_button = null
 var is_speaking = false
 var speech_queue = []
-var waiting_for_input = false  # Flag to indicate waiting for button click
+var waiting_for_input = false
+
+# Speech bubble properties
+var speech_bubble_duration = 3.0
+var speech_font_size = 16
+var speech_bubble_margin = 60  # Distance of bubble from NPC
+var bubble_is_below = false    # Tracks current bubble position
 
 # Animation variables
 var current_animation = "idle"
@@ -37,7 +39,6 @@ var flip_h = false
 
 # Debug mode
 @export var debug_mode: bool = true
-
 
 # NPC behavior variables
 var player_in_range = false
@@ -57,6 +58,9 @@ func _ready():
 		var patrol_node = get_node("PatrolPoints")
 		for child in patrol_node.get_children():
 			patrol_points.append(child.global_position.x)
+	
+	# Set up detection area
+	setup_detection_area()
 	
 	if debug_mode:
 		print("NPC initialized with ", patrol_points.size(), " patrol points")
@@ -99,11 +103,21 @@ func _physics_process(delta):
 	elif velocity.x < 0:
 		flip_h = false  # Not flipped when moving left
 	
-	# Apply outfit and animation
+	# Update outfit and animation
 	update_outfit_sprites()
 	
 	# Move the character
 	move_and_slide()
+
+func _process(delta):
+	# Check if speech bubble is active and player exists
+	if speech_bubble != null and player_reference != null and is_speaking:
+		# Simple check if player is above or below NPC
+		var player_is_above = player_reference.global_position.y > global_position.y
+		# If position , update bubble
+		if player_is_above != bubble_is_below:
+			bubble_is_below = player_is_above
+			update_speech_bubble_position()
 
 # Set NPC state
 func set_state(new_state):
@@ -122,8 +136,8 @@ func follow_patrol_path(delta):
 	var direction = sign(distance_to_target)
 	
 	# Debug output for patrol movement
-	if debug_mode and Engine.get_frames_drawn() % 60 == 0:  # Only print once per second
-		print("NPC at position: ", global_position.x, " target: ", target_x, " distance: ", distance_to_target)
+	if debug_mode and Engine.get_frames_drawn() % 60 == 0:
+		print("NPC at position: ", global_position.x, " target: ", target_x)
 	
 	# Check if we need to jump at this position
 	for jump_pos in jump_points:
@@ -139,35 +153,45 @@ func follow_patrol_path(delta):
 			wait_timer = wait_points[wait_pos]
 			set_state(State.WAITING)
 			if debug_mode:
-				print("Waiting at position: ", global_position.x, " for ", wait_timer, " seconds")
+				print("Waiting at position: ", global_position.x)
 			return
 	
 	# Move towards target
 	if abs(distance_to_target) < 5:  # Close enough to target
-		current_patrol_index = (current_patrol_index + 1) % patrol_points.size()  # Cycle through points
-		if debug_mode:
-			print("Reached patrol point, moving to index: ", current_patrol_index)
+		current_patrol_index = (current_patrol_index + 1) % patrol_points.size()
 	else:
 		velocity.x = direction * SPEED
 		movement_direction = direction
 
-# Display speech bubble
+# ---- Speech Bubble System ----
+
+# Display speech bubble with text
 func say(text: String, duration: float = 0.0):
+	# Only display speech bubble if player is in range
+	if not player_in_range:
+		speech_queue.append({"text": text, "duration": duration if duration > 0 else speech_bubble_duration})
+		return
+		
 	if duration > 0:
 		speech_bubble_duration = duration
 	
 	if is_speaking:
-		# Queue message for later
 		speech_queue.append({"text": text, "duration": speech_bubble_duration})
 		return
 	
 	# Create and display speech bubble
-	if active_speech_bubble:
-		active_speech_bubble.queue_free()
+	if speech_bubble:
+		speech_bubble.queue_free()
 	
-	active_speech_bubble = create_speech_bubble(text)
-	add_child(active_speech_bubble)
-	active_speech_bubble.position = speech_bubble_offset
+	# Check initial position - is player above or below NPC?
+	bubble_is_below = player_reference.global_position.y > global_position.y
+	
+	# Create bubble
+	speech_bubble = create_speech_bubble(text)
+	add_child(speech_bubble)
+	
+	# Set initial position
+	update_speech_bubble_position()
 	
 	set_state(State.TALKING)
 	is_speaking = true
@@ -177,8 +201,152 @@ func say(text: String, duration: float = 0.0):
 	create_continue_button()
 	
 	if debug_mode:
-		print("Speech started, waiting for button click")
+		print("Speech bubble created with text: " + text)
 
+# Create a speech bubble
+func create_speech_bubble(text: String) -> Node2D:
+	var bubble = Node2D.new()
+	bubble.name = "SpeechBubble"
+	bubble.z_index = 10
+	
+	# Create background
+	var background = ColorRect.new()
+	background.name = "Background"
+	background.size = Vector2(220, 100)
+	background.position = Vector2(-110, 0)
+	background.color = Color(0, 0, 0, 0.8)
+	bubble.add_child(background)
+	
+	# Add text
+	var label = RichTextLabel.new()
+	label.name = "Label"
+	label.bbcode_enabled = true
+	label.text = text
+	label.fit_content = true
+	label.scroll_active = false
+	label.custom_minimum_size = Vector2(200, 0)
+	label.size = Vector2(200, 80)
+	label.position = Vector2(-100, 10)
+	label.add_theme_font_size_override("normal_font_size", speech_font_size)
+	label.add_theme_color_override("default_color", Color(1, 1, 1, 1))
+	bubble.add_child(label)
+	
+	# Add a pointer triangle
+	var point = Polygon2D.new()
+	point.name = "Point"
+	point.color = Color(0, 0, 0, 0.8)
+	bubble.add_child(point)
+	
+	return bubble
+
+# Update speech bubble position - COMPLETELY SIMPLIFIED VERSION
+func update_speech_bubble_position():
+	if not speech_bubble:
+		return
+		
+	var background = speech_bubble.get_node("Background")
+	var point = speech_bubble.get_node("Point")
+	var label = speech_bubble.get_node("Label")
+	
+	if not background or not point or not label:
+		return
+	
+	# SIMPLE LOGIC: If bubble_is_below is true, position bubble below NPC
+	if bubble_is_below:
+		# Position bubble below NPC
+		speech_bubble.position = Vector2(0, speech_bubble_margin)
+		
+		# Position background at origin
+		background.position = Vector2(-110, 0)
+		
+		# Position text inside background
+		label.position = Vector2(-100, 10)
+		
+		# Triangle pointing UP
+		point.polygon = PackedVector2Array([Vector2(0, -10), Vector2(-10, 0), Vector2(10, 0)])
+		point.position = Vector2(0, -10)
+	else:
+		# Position bubble above NPC
+		speech_bubble.position = Vector2(0, -speech_bubble_margin)
+		
+		# Position background above origin point
+		background.position = Vector2(-110, -100)
+		
+		# Position text inside background
+		label.position = Vector2(-100, -90)
+		
+		# Triangle pointing DOWN
+		point.polygon = PackedVector2Array([Vector2(0, 10), Vector2(-10, 0), Vector2(10, 0)])
+		point.position = Vector2(0, 0)
+	
+	# Update continue button position
+	position_continue_button()
+
+# Create continue button
+func create_continue_button():
+	if continue_button:
+		continue_button.queue_free()
+	
+	continue_button = Control.new()
+	continue_button.name = "ContinueButton"
+	
+	# Add button
+	var button = Button.new()
+	button.text = "Weiter"
+	button.size = Vector2(100, 30)
+	button.add_theme_font_size_override("font_size", 14)
+	button.connect("pressed", Callable(self, "_on_continue_button_pressed"))
+	continue_button.add_child(button)
+	
+	add_child(continue_button)
+	continue_button.z_index = 11
+	
+	# Position the button
+	position_continue_button()
+	
+	if debug_mode:
+		print("Continue button created")
+
+# Position continue button below the speech bubble
+func position_continue_button():
+	if not continue_button or not speech_bubble:
+		return
+	
+	var background = speech_bubble.get_node("Background")
+	if not background:
+		return
+	
+	# ALWAYS position button below the speech bubble content
+	if bubble_is_below:
+		# Bubble is below NPC, so put button below bubble
+		continue_button.position = Vector2(-50, speech_bubble.position.y + background.size.y + 10)
+	else:
+		# Bubble is above NPC, so put button below bubble
+		continue_button.position = Vector2(-50, speech_bubble.position.y + 10)
+
+# Button click handler
+func _on_continue_button_pressed():
+	if waiting_for_input and is_speaking:
+		if debug_mode:
+			print("Continue button pressed")
+		waiting_for_input = false
+		
+		# End current speech to reset state properly
+		is_speaking = false
+		
+		if speech_bubble:
+			speech_bubble.queue_free()
+			speech_bubble = null
+		
+		if continue_button:
+			continue_button.queue_free()
+			continue_button = null
+		
+		# Keep the NPC in TALKING state
+		set_state(State.TALKING)
+		
+		# Call continue_dialog to progress the conversation
+		continue_dialog()
 # Continue dialog - should be overridden by child classes
 func continue_dialog():
 	end_speech()
@@ -188,130 +356,28 @@ func end_speech():
 	is_speaking = false
 	waiting_for_input = false
 	
-	remove_continue_button()
-	
-	if active_speech_bubble:
-		active_speech_bubble.queue_free()
-		active_speech_bubble = null
-	
-	# Check if there are more messages in queue
-	if not speech_queue.is_empty():
-		var next_speech = speech_queue.pop_front()
-		say(next_speech.text, next_speech.duration)
-	else:
-		# Return to previous state (usually walking or idle)
-		set_state(State.WALKING)
-		
-		if debug_mode:
-			print("Speech ended, returning to WALKING state")
-
-# Create a speech bubble
-func create_speech_bubble(text: String) -> Node2D:
-	# Root node
-	var bubble = Node2D.new()
-	bubble.name = "SpeechBubble"
-	bubble.z_index = 3  # Ensure it's on top
-	
-	# RichTextLabel for text
-	var label = RichTextLabel.new()
-	label.name = "Label"
-	label.text = text
-	label.bbcode_enabled = true
-	label.fit_content = true
-	label.scroll_active = false
-	label.custom_minimum_size = Vector2(220, 0)
-	label.size = Vector2(220, 0)  # Will be expanded automatically
-	label.position = Vector2(-110, -80)
-	label.add_theme_font_size_override("normal_font_size", speech_font_size)
-	label.add_theme_color_override("default_color", Color(1, 1, 1, 1))
-	bubble.add_child(label)
-	
-	# Update background after text size is determined
-	call_deferred("update_speech_bubble_background", bubble, label)
-	
-	return bubble
-
-# Add background to speech bubble after text size is known
-func update_speech_bubble_background(bubble: Node2D, label: RichTextLabel):
-	await get_tree().process_frame
-	
-	# Get text size
-	var text_height = label.size.y
-	var text_width = label.size.x
-	
-	# Create background
-	var background = ColorRect.new()
-	background.name = "Background"
-	background.size = Vector2(text_width + 20, text_height + 20)  # Add padding
-	background.position = Vector2(label.position.x - 10, label.position.y - 10)  # Offset for padding
-	background.color = Color(0.2, 0.2, 0.2, 0.8)
-	
-	# Add background behind label
-	bubble.add_child(background)
-	bubble.move_child(background, 0)
-	
-	# Add triangle pointer
-	var point = Polygon2D.new()
-	point.name = "Point"
-	point.polygon = PackedVector2Array([Vector2(0, 0), Vector2(-10, -10), Vector2(10, -10)])
-	point.color = Color(0.2, 0.2, 0.2, 0.8)
-	point.position = Vector2(0, background.position.y + background.size.y)
-	bubble.add_child(point)
-
-# Create continue button
-func create_continue_button():
-	if continue_button != null:
-		return
-		
-	continue_button = Control.new()
-	continue_button.name = "ContinueButton"
-	continue_button.position = Vector2(-50, 30) # Position below speech bubble
-	continue_button.z_index = 5 # Make sure it's on top
-	add_child(continue_button)
-	
-	# Add button
-	var button = Button.new()
-	button.text = "Weiter"
-	button.size = Vector2(100, 30)
-	button.add_theme_font_size_override("font_size", 14)
-	
-	# GEÄNDERT: Stellen Sie sicher, dass der Button korrekt verbunden ist
-	if not button.is_connected("pressed", Callable(self, "_on_continue_button_pressed")):
-		button.connect("pressed", Callable(self, "_on_continue_button_pressed"))
-	
-	continue_button.add_child(button)
-	
-	# HINZUGEFÜGT: Stellen Sie sicher, dass der Button sichtbar und bedienbar ist
-	button.mouse_filter = Control.MOUSE_FILTER_STOP
-	button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	
-	# Make sure the button is visible and on top
-	continue_button.show()
-	
-	if debug_mode:
-		print("Continue button created")
-
-# Remove continue button
-func remove_continue_button():
 	if continue_button:
 		continue_button.queue_free()
 		continue_button = null
-		
-		if debug_mode:
-			print("Continue button removed")
-
-# Button click handler
-func _on_continue_button_pressed():
-	if debug_mode:
-		print("Continue button pressed, waiting_for_input=", waiting_for_input, ", is_speaking=", is_speaking)
 	
-	# GEÄNDERT: Stellen wir sicher, dass es immer den Dialog fortsetzt
-	waiting_for_input = false
-	continue_dialog()
+	if speech_bubble:
+		speech_bubble.queue_free()
+		speech_bubble = null
 	
-	# HINZUGEFÜGT: Zusätzliches Debug-Logging
-	if debug_mode:
-		print("After button press - dialog state updated")
+	# Check if there are more messages in queue
+	if not speech_queue.is_empty() and player_in_range:
+		var next_speech = speech_queue.pop_front()
+		say(next_speech.text, next_speech.duration)
+	else:
+		# Return to previous state only if we're not in an ongoing dialogue
+		# This can be determined by the current_state
+		if current_state == State.TALKING:
+			# Stay in talking state if there's more dialogue to come
+			# Child classes can override this behavior
+			pass
+		else:
+			# Return to walking state by default
+			set_state(State.WALKING)
 
 # Update outfit sprites
 func update_outfit_sprites():
@@ -323,6 +389,70 @@ func update_outfit_sprites():
 		
 		# Update the outfit animations
 		character_sprites.update_outfit(npc_outfit, current_animation)
+
+# Set up the detection area
+func setup_detection_area():
+	if has_node("DetectionArea"):
+		# Connect signals to existing detection area
+		var area = get_node("DetectionArea")
+		
+		# Disconnect existing connections
+		if area.is_connected("body_entered", Callable(self, "_on_detection_area_body_entered")):
+			area.disconnect("body_entered", Callable(self, "_on_detection_area_body_entered"))
+		if area.is_connected("body_exited", Callable(self, "_on_detection_area_body_exited")):
+			area.disconnect("body_exited", Callable(self, "_on_detection_area_body_exited"))
+		
+		# Connect signals
+		area.connect("body_entered", Callable(self, "_on_detection_area_body_entered"))
+		area.connect("body_exited", Callable(self, "_on_detection_area_body_exited"))
+	else:
+		create_detection_area()
+
+# Create a detection area for player interaction
+func create_detection_area():
+	var area = Area2D.new()
+	area.name = "DetectionArea"
+	
+	var collision = CollisionShape2D.new()
+	var shape = CircleShape2D.new()
+	shape.radius = 100.0  # Detection radius
+	collision.shape = shape
+	
+	area.add_child(collision)
+	add_child(area)
+	
+	# Connect signals
+	area.connect("body_entered", Callable(self, "_on_detection_area_body_entered"))
+	area.connect("body_exited", Callable(self, "_on_detection_area_body_exited"))
+	
+	if debug_mode:
+		print("Created detection area for NPC")
+
+# Handle player entering interaction range
+func _on_detection_area_body_entered(body):
+	if body.is_in_group("player"):
+		player_in_range = true
+		player_reference = body
+		
+		# If there are queued messages, display them now
+		if not speech_queue.is_empty() and not is_speaking:
+			var next_speech = speech_queue.pop_front()
+			say(next_speech.text, next_speech.duration)
+			
+		if debug_mode:
+			print("Player entered detection area")
+
+# Handle player leaving interaction range
+func _on_detection_area_body_exited(body):
+	if body.is_in_group("player"):
+		player_in_range = false
+		
+		# End any active speech when player leaves
+		if is_speaking:
+			end_speech()
+			
+		if debug_mode:
+			print("Player exited detection area")
 
 # Check for player proximity
 func check_player_interaction():
@@ -336,40 +466,16 @@ func check_player_interaction():
 func set_patrol_path(points: Array):
 	patrol_points = points
 	current_patrol_index = 0
-	if debug_mode:
-		print("New patrol path set with ", points.size(), " points")
 
 # Set points where the NPC should jump
 func set_jump_points(points: Array):
 	jump_points = points
-	if debug_mode:
-		print("Jump points set: ", points)
 
 # Set wait points and durations
 func set_wait_points(points: Dictionary):
 	wait_points = points
-	if debug_mode:
-		print("Wait points set: ", points)
 
-# Handle player entering interaction range
-func _on_detection_area_body_entered(body):
-	if body.is_in_group("player"):
-		player_in_range = true
-		player_reference = body
-		if debug_mode:
-			print("Player entered detection area")
-
-# Handle player leaving interaction range
-func _on_detection_area_body_exited(body):
-	if body.is_in_group("player"):
-		player_in_range = false
-		waiting_for_input = false
-		remove_continue_button()
-		
-		if debug_mode:
-			print("Player exited detection area")
-
-# Virtual method for interaction
+# Virtual method for interaction - to be overridden by child classes
 func interact():
 	# Override in child class
 	pass

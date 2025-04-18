@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://cj15l5x85rbu"]
+[gd_scene load_steps=39 format=3 uid="uid://cj15l5x85rbu"]
 
 [ext_resource type="Script" uid="uid://ch53jgwhj72k7" path="res://scenes/levels/prince_levels/game_prince.gd" id="1_cy6ot"]
 [ext_resource type="Texture2D" uid="uid://blekbooony6ko" path="res://assets/sprites/Foresttiles/oak_woods_tileset.png" id="2_o3ar0"]
@@ -18,14 +18,12 @@
 [ext_resource type="Texture2D" uid="uid://ckykc8slouy0u" path="res://assets/sprites/Castle/Background/03 background B.png" id="17_ub6dr"]
 [ext_resource type="Texture2D" uid="uid://b7edqiy2pphsg" path="res://assets/sprites/Castle/Background/04 background.png" id="18_ndii1"]
 [ext_resource type="Texture2D" uid="uid://d30a4fn84uupo" path="res://assets/sprites/Castle/Background/05 background.png" id="19_t6m41"]
-[ext_resource type="PackedScene" uid="uid://b5phr3k12w4gl" path="res://scenes/NPCs/tower_guard.tscn" id="20_ndii1"]
 [ext_resource type="Texture2D" uid="uid://bh3gpp60q1t4c" path="res://assets/sprites/Wassertiles/background/background_layer_1.png" id="20_ub6dr"]
 [ext_resource type="PackedScene" uid="uid://ddgj1n6jn8im3" path="res://scenes/NPCs/beggar_child.tscn" id="21_t6m41"]
-[ext_resource type="PackedScene" uid="uid://dfdu5qaytkhqx" path="res://scenes/core/items/burgturm.tscn" id="22_ub6dr"]
 [ext_resource type="PackedScene" uid="uid://dfkw3squ32gx8" path="res://scenes/core/enemies/goblin_melee.tscn" id="23_ayua1"]
 [ext_resource type="PackedScene" uid="uid://bghwylog5wnec" path="res://scenes/core/enemies/goblin_mage.tscn" id="24_l5de1"]
+[ext_resource type="PackedScene" uid="uid://dfdu5qaytkhqx" path="res://scenes/core/items/burgturm.tscn" id="25_kchqw"]
 [ext_resource type="PackedScene" uid="uid://bq1h5147ej8ka" path="res://scenes/core/items/coins.tscn" id="25_lx58d"]
-[ext_resource type="PackedScene" uid="uid://x3juxjynguey" path="res://scenes/core/items/power_fly.tscn" id="26_b4l67"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ndii1"]
 texture = ExtResource("2_o3ar0")
@@ -4073,7 +4071,7 @@ layer_2/tile_data = PackedInt32Array(327521, 851978, 3, 393057, 851978, 3, 45859
 
 [node name="Player" parent="." instance=ExtResource("6_3chjo")]
 light_mask = 2
-position = Vector2(-4541, -1077)
+position = Vector2(1682, -91)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(7, 31)
@@ -4140,8 +4138,10 @@ texture = ExtResource("18_ndii1")
 metadata/_edit_use_anchors_ = true
 
 [node name="NinePatchRect5" type="NinePatchRect" parent="ParallaxBackground/ParallaxLayer"]
-offset_right = 2420.0
-offset_bottom = 1256.0
+offset_left = -10.0
+offset_top = 74.0
+offset_right = 2410.0
+offset_bottom = 1330.0
 texture = ExtResource("19_t6m41")
 metadata/_edit_use_anchors_ = true
 
@@ -4160,12 +4160,6 @@ texture = ExtResource("20_ub6dr")
 position = Vector2(-1709.09, 356.578)
 shape = SubResource("RectangleShape2D_o3ar0")
 
-[node name="TowerGuard" parent="." instance=ExtResource("20_ndii1")]
-position = Vector2(2068, -303)
-
-[node name="BeggarChild" parent="." instance=ExtResource("21_t6m41")]
-position = Vector2(-760, 33)
-
 [node name="Goblin_Melee" parent="." instance=ExtResource("23_ayua1")]
 position = Vector2(-4125, -619)
 
@@ -4173,13 +4167,35 @@ position = Vector2(-4125, -619)
 position = Vector2(-3946, -486)
 
 [node name="coins" parent="." instance=ExtResource("25_lx58d")]
-position = Vector2(-3219, -32)
+position = Vector2(1038, -141)
+
+[node name="coins" parent="coins" instance=ExtResource("25_lx58d")]
+position = Vector2(1055.71, -291.429)
+
+[node name="coins" parent="coins/coins" instance=ExtResource("25_lx58d")]
+position = Vector2(-1487.76, 408.163)
+
+[node name="coins" parent="coins/coins/coins" instance=ExtResource("25_lx58d")]
+position = Vector2(93.2947, -55.3936)
+
+[node name="coins" parent="coins/coins/coins/coins" instance=ExtResource("25_lx58d")]
+position = Vector2(-49.9784, 124.948)
+
+[node name="coins2" parent="coins/coins/coins/coins" instance=ExtResource("25_lx58d")]
+position = Vector2(83.2988, 54.1439)
+
+[node name="coins" parent="coins/coins/coins/coins/coins2" instance=ExtResource("25_lx58d")]
+position = Vector2(-49.9784, 124.948)
 
 [node name="coins2" parent="." instance=ExtResource("25_lx58d")]
 position = Vector2(-2406, 254)
 
-[node name="softpowerFly" parent="." instance=ExtResource("26_b4l67")]
-position = Vector2(-688, -4)
+[node name="BeggarChild" parent="." instance=ExtResource("21_t6m41")]
+position = Vector2(1122, -153)
+
+[node name="Burgturm" parent="." instance=ExtResource("25_kchqw")]
+z_index = -1
+position = Vector2(2118, -105)
 
 [connection signal="body_entered" from="SetBackZone" to="." method="_on_set_back_zone_body_entered"]
 [connection signal="body_entered" from="water" to="." method="_on_water_body_entered"]
