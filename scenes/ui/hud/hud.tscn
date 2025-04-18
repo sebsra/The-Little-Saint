@@ -37,28 +37,29 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_eh2a1")
 [node name="CoinSum" type="TextureRect" parent="."]
 anchors_preset = -1
 anchor_right = 0.031
-offset_left = 1051.0
-offset_top = 116.0
-offset_right = 1228.0
-offset_bottom = 276.0
+offset_left = 915.0
+offset_top = 55.0
+offset_right = 1092.0
+offset_bottom = 215.0
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_yfuy3")
 
 [node name="HeavenCoinSum" type="TextureRect" parent="."]
+visible = false
 anchors_preset = -1
 anchor_right = 0.031
-offset_left = 1063.0
-offset_top = 167.0
-offset_right = 1176.32
-offset_bottom = 304.0
+offset_left = 925.0
+offset_top = 58.0
+offset_right = 1038.32
+offset_bottom = 195.0
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_a660p")
 
 [node name="x" type="Label" parent="."]
-offset_left = 1122.0
-offset_top = 130.0
-offset_right = 1141.0
-offset_bottom = 181.0
+offset_left = 981.0
+offset_top = 70.0
+offset_right = 1000.0
+offset_bottom = 121.0
 theme_override_colors/font_color = Color(1, 0.776471, 0, 1)
 theme_override_fonts/font = ExtResource("3_6xw86")
 theme_override_font_sizes/font_size = 22
@@ -66,10 +67,11 @@ text = "x
 "
 
 [node name="x2" type="Label" parent="."]
-offset_left = 1123.0
-offset_top = 175.0
-offset_right = 1142.0
-offset_bottom = 226.0
+visible = false
+offset_left = 981.0
+offset_top = 70.0
+offset_right = 1000.0
+offset_bottom = 121.0
 theme_override_colors/font_color = Color(1, 0.776471, 0, 1)
 theme_override_fonts/font = ExtResource("3_6xw86")
 theme_override_font_sizes/font_size = 22
@@ -77,10 +79,10 @@ text = "x
 "
 
 [node name="LabelCoinSum" type="Label" parent="."]
-offset_left = 1146.0
-offset_top = 124.0
-offset_right = 1210.0
-offset_bottom = 235.0
+offset_left = 1003.0
+offset_top = 65.0
+offset_right = 1067.0
+offset_bottom = 176.0
 theme_override_colors/font_color = Color(1, 0.776471, 0, 1)
 theme_override_fonts/font = ExtResource("3_6xw86")
 theme_override_font_sizes/font_size = 33
@@ -89,10 +91,11 @@ text = "99
 "
 
 [node name="LabelHeavenCoinSum" type="Label" parent="."]
-offset_left = 1148.0
-offset_top = 173.0
-offset_right = 1212.0
-offset_bottom = 284.0
+visible = false
+offset_left = 1003.0
+offset_top = 65.0
+offset_right = 1067.0
+offset_bottom = 176.0
 theme_override_colors/font_color = Color(1, 0.776471, 0, 1)
 theme_override_fonts/font = ExtResource("3_6xw86")
 theme_override_font_sizes/font_size = 33
@@ -101,19 +104,19 @@ text = "99
 "
 
 [node name="HeartsEmpty" type="TextureRect" parent="."]
-offset_left = 1049.0
-offset_top = 56.0
-offset_right = 1208.0
-offset_bottom = 101.0
+offset_left = 1055.0
+offset_top = 57.0
+offset_right = 1214.0
+offset_bottom = 102.0
 texture = ExtResource("5_eddrx")
 expand_mode = 1
 stretch_mode = 1
 
 [node name="HeartsFull" type="TextureRect" parent="."]
-offset_left = 1154.0
-offset_top = 56.0
-offset_right = 1207.0
-offset_bottom = 101.0
+offset_left = 1160.0
+offset_top = 57.0
+offset_right = 1213.0
+offset_bottom = 102.0
 texture = ExtResource("4_i601r")
 expand_mode = 1
 stretch_mode = 1
@@ -121,29 +124,28 @@ flip_h = true
 
 [node name="Adler" type="TextureRect" parent="."]
 z_index = 1
-offset_left = 930.0
-offset_top = 159.0
-offset_right = 987.0
-offset_bottom = 206.0
+offset_left = 931.0
+offset_top = 125.0
+offset_right = 1004.0
+offset_bottom = 182.0
 texture = ExtResource("6_todbw")
 expand_mode = 1
 
 [node name="DoubleJump" type="TextureRect" parent="Adler"]
-visible = false
 layout_mode = 0
-offset_left = 60.0
-offset_top = 1.0
-offset_right = 122.0
-offset_bottom = 53.0
+offset_left = 167.0
+offset_top = 13.0
+offset_right = 229.0
+offset_bottom = 65.0
 texture = ExtResource("7_e7gie")
 expand_mode = 1
 
 [node name="bottle" type="Sprite2D" parent="."]
-position = Vector2(979, 88)
+position = Vector2(1047.37, 153.5)
 scale = Vector2(0.124179, 0.0895296)
 texture = ExtResource("8_a660p")
 
 [node name="elixir" type="Sprite2D" parent="."]
-position = Vector2(979, 97)
+position = Vector2(1047.37, 162.5)
 scale = Vector2(0.124179, 0.0950855)
 texture = ExtResource("10_a660p")
