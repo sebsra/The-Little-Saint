@@ -22,8 +22,8 @@
 [ext_resource type="PackedScene" uid="uid://ddgj1n6jn8im3" path="res://scenes/NPCs/beggar_child.tscn" id="21_t6m41"]
 [ext_resource type="PackedScene" uid="uid://dfkw3squ32gx8" path="res://scenes/core/enemies/goblin_melee.tscn" id="23_ayua1"]
 [ext_resource type="PackedScene" uid="uid://bghwylog5wnec" path="res://scenes/core/enemies/goblin_mage.tscn" id="24_l5de1"]
+[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/coins.tscn" id="24_t6m41"]
 [ext_resource type="PackedScene" uid="uid://dfdu5qaytkhqx" path="res://scenes/core/items/burgturm.tscn" id="25_kchqw"]
-[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/heavenly_coin.tscn" id="25_lx58d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ndii1"]
 texture = ExtResource("2_o3ar0")
@@ -4071,7 +4071,7 @@ layer_2/tile_data = PackedInt32Array(327521, 851978, 3, 393057, 851978, 3, 45859
 
 [node name="Player" parent="." instance=ExtResource("6_3chjo")]
 light_mask = 2
-position = Vector2(1682, -91)
+position = Vector2(-4652, -858)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(7, 31)
@@ -4166,36 +4166,27 @@ position = Vector2(-4125, -619)
 [node name="Goblin_Mage" parent="." instance=ExtResource("24_l5de1")]
 position = Vector2(-3946, -486)
 
-[node name="coins" parent="." instance=ExtResource("25_lx58d")]
-position = Vector2(1038, -141)
-
-[node name="coins" parent="coins" instance=ExtResource("25_lx58d")]
-position = Vector2(1055.71, -291.429)
-
-[node name="coins" parent="coins/coins" instance=ExtResource("25_lx58d")]
-position = Vector2(-1487.76, 408.163)
-
-[node name="coins" parent="coins/coins/coins" instance=ExtResource("25_lx58d")]
-position = Vector2(93.2947, -55.3936)
-
-[node name="coins" parent="coins/coins/coins/coins" instance=ExtResource("25_lx58d")]
-position = Vector2(-49.9784, 124.948)
-
-[node name="coins2" parent="coins/coins/coins/coins" instance=ExtResource("25_lx58d")]
-position = Vector2(83.2988, 54.1439)
-
-[node name="coins" parent="coins/coins/coins/coins/coins2" instance=ExtResource("25_lx58d")]
-position = Vector2(-49.9784, 124.948)
-
-[node name="coins2" parent="." instance=ExtResource("25_lx58d")]
-position = Vector2(-2406, 254)
-
 [node name="BeggarChild" parent="." instance=ExtResource("21_t6m41")]
-position = Vector2(1122, -153)
+position = Vector2(-579, 29)
 
 [node name="Burgturm" parent="." instance=ExtResource("25_kchqw")]
 z_index = -1
 position = Vector2(2146, -77)
+
+[node name="coins" parent="." instance=ExtResource("24_t6m41")]
+position = Vector2(669, -531)
+
+[node name="coins2" parent="." instance=ExtResource("24_t6m41")]
+position = Vector2(700, -526)
+
+[node name="coins3" parent="." instance=ExtResource("24_t6m41")]
+position = Vector2(686, -529)
+
+[node name="coins4" parent="." instance=ExtResource("24_t6m41")]
+position = Vector2(633, -532)
+
+[node name="coins5" parent="." instance=ExtResource("24_t6m41")]
+position = Vector2(656, -534)
 
 [connection signal="body_entered" from="SetBackZone" to="." method="_on_set_back_zone_body_entered"]
 [connection signal="body_entered" from="water" to="." method="_on_water_body_entered"]
