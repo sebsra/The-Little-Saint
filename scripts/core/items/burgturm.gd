@@ -23,7 +23,7 @@ func _ready():
 		push_error("Gate or TowerGuard not found in scene!")
 		
 	# Connect to BeggarChild's helped signal if it exists
-	var beggar_child = get_node_or_null("BeggarChild")
+	var beggar_child = get_node_or_null("../BeggarChild")
 	if beggar_child:
 		if not beggar_child.is_connected("helped", Callable(self, "_on_beggar_child_helped")):
 			beggar_child.connect("helped", Callable(self, "_on_beggar_child_helped"))

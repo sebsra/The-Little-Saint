@@ -1,3 +1,5 @@
+# Optimierte Version der base_npc.gd mit zuverlässiger Sprechblasen-Positionierung
+
 class_name NPCBase
 extends CharacterBody2D
 
@@ -24,12 +26,17 @@ var continue_button = null
 var is_speaking = false
 var speech_queue = []
 var waiting_for_input = false
+var speech_auto_continue_timer = 0.0  # Time remaining for auto-continue
+var use_auto_continue = false  # Flag to track if auto-continue is enabled
 
 # Speech bubble properties
 var speech_bubble_duration = 3.0
-var speech_font_size = 16
+var speech_font_size = 18  # Größerer Font wie im Popup-Dialog
 var speech_bubble_margin = 60  # Distance of bubble from NPC
 var bubble_is_below = false    # Tracks current bubble position
+var speech_bubble_max_width = 280  # Maximum width of the speech bubble
+var speech_bubble_padding = 20   # Padding inside the speech bubble
+var bubble_bg_color = Color(0.12, 0.12, 0.15, 0.85)  # Background color with transparency
 
 # Animation variables
 var current_animation = "idle"
@@ -112,12 +119,33 @@ func _physics_process(delta):
 func _process(delta):
 	# Check if speech bubble is active and player exists
 	if speech_bubble != null and player_reference != null and is_speaking:
-		# Simple check if player is above or below NPC
-		var player_is_above = player_reference.global_position.y > global_position.y
-		# If position , update bubble
-		if player_is_above != bubble_is_below:
-			bubble_is_below = player_is_above
+		# Check if player is below NPC (in Godot, higher Y value means lower on screen)
+		var player_below = player_reference.global_position.y > global_position.y
+		# If position changed, update bubble
+		if player_below != bubble_is_below:
+			bubble_is_below = player_below
 			update_speech_bubble_position()
+			if debug_mode:
+				print("Player position changed, updating bubble position. Player is below: ", bubble_is_below)
+	
+	# Handle auto-continue timer if active
+	if is_speaking and use_auto_continue and speech_auto_continue_timer > 0:
+		speech_auto_continue_timer -= delta
+		
+		if speech_auto_continue_timer <= 0:
+			# Time's up, continue dialogue
+			if debug_mode:
+				print("Auto-continue timer expired")
+			
+			# If waiting for input, simulate button press, otherwise just end speech
+			if waiting_for_input:
+				_on_continue_button_pressed()
+			else:
+				end_speech()
+			
+			# Reset timer
+			speech_auto_continue_timer = 0.0
+			use_auto_continue = false
 
 # Set NPC state
 func set_state(new_state):
@@ -163,21 +191,45 @@ func follow_patrol_path(delta):
 		velocity.x = direction * SPEED
 		movement_direction = direction
 
+# Reset auto-continue timer
+func reset_auto_continue():
+	speech_auto_continue_timer = 0.0
+	use_auto_continue = false
+	
+	if debug_mode:
+		print("Auto-continue timer reset")
+
 # ---- Speech Bubble System ----
 
-# Display speech bubble with text
-func say(text: String, duration: float = 0.0):
+# Delayed say function (called via timer to prevent rapid progression)
+func _delayed_say(text: String, show_continue_button: bool, duration: float):
+	say(text, show_continue_button, duration)
+
+func say(text: String, show_continue_button: bool = true, duration: float = 0.0):
 	# Only display speech bubble if player is in range
 	if not player_in_range:
-		speech_queue.append({"text": text, "duration": duration if duration > 0 else speech_bubble_duration})
+		speech_queue.append({
+			"text": text, 
+			"show_continue_button": show_continue_button,
+			"duration": duration
+		})
 		return
-		
-	if duration > 0:
-		speech_bubble_duration = duration
+	
+	# Only use an auto-continue timer if an explicit non-zero duration was provided
+	use_auto_continue = duration > 0
 	
 	if is_speaking:
-		speech_queue.append({"text": text, "duration": speech_bubble_duration})
+		speech_queue.append({
+			"text": text, 
+			"show_continue_button": show_continue_button,
+			"duration": duration
+		})
 		return
+	
+	# IMPORTANT FIX: Only reset auto-continue timer if we're not using auto-continue
+	# This prevents resetting the use_auto_continue flag that we just set above
+	if not use_auto_continue:
+		reset_auto_continue()
 	
 	# Create and display speech bubble
 	if speech_bubble:
@@ -195,26 +247,85 @@ func say(text: String, duration: float = 0.0):
 	
 	set_state(State.TALKING)
 	is_speaking = true
-	waiting_for_input = true
 	
-	# Create continue button
-	create_continue_button()
+	if show_continue_button:
+		waiting_for_input = true
+		create_continue_button()
+	
+	# If a duration is specified and greater than zero, setup auto-continue
+	if use_auto_continue:
+		# Set the auto-continue timer
+		speech_auto_continue_timer = duration
+		
+		if debug_mode:
+			print("Auto-continue timer set for: ", duration, " seconds")
+	else:
+		if debug_mode:
+			print("No auto-continue - waiting for player input or manual continue")
 	
 	if debug_mode:
 		print("Speech bubble created with text: " + text)
-
-# Create a speech bubble
+		print("Initial bubble position: bubble_is_below = ", bubble_is_below)
+		print("Show continue button: ", show_continue_button)
+		print("Auto-continue: ", use_auto_continue)
+		
+# Create a speech bubble with more reliable sizing
 func create_speech_bubble(text: String) -> Node2D:
 	var bubble = Node2D.new()
 	bubble.name = "SpeechBubble"
 	bubble.z_index = 10
 	
-	# Create background
-	var background = ColorRect.new()
+	# Vereinfachte und zuverlässigere Größenberechnung
+	# Berechne Approximation der Textgröße basierend auf Zeichen und Zeilenumbrüchen
+	var approx_chars_per_line = speech_bubble_max_width / (speech_font_size * 0.6)
+	var lines = 1
+	var current_line_chars = 0
+	
+	for char in text:
+		if char == '\n':
+			lines += 1
+			current_line_chars = 0
+		else:
+			current_line_chars += 1
+			if current_line_chars > approx_chars_per_line:
+				lines += 1
+				current_line_chars = 0
+	
+	# Minimale Größe garantieren
+	var min_width = 220 
+	var min_height = 100
+	
+	# Berechne Bubble-Größe basierend auf Text
+	var text_width = max(min_width, min(text.length() * speech_font_size * 0.6, speech_bubble_max_width))
+	var text_height = max(min_height, lines * (speech_font_size * 1.5) + speech_bubble_padding * 2)
+	
+	# Kleinere Breite für kurze Texte, größere für lange
+	if text.length() < 50:
+		text_width = min_width
+	
+	# Create properly sized background with better styling
+	var background = Panel.new()
 	background.name = "Background"
-	background.size = Vector2(220, 100)
-	background.position = Vector2(-110, 0)
-	background.color = Color(0, 0, 0, 0.8)
+	background.size = Vector2(text_width, text_height)
+	# Explizit centerieren auf x-Achse
+	background.position = Vector2(-text_width/2, 0)
+	
+	# Panel-Design wie im Popup-Dialog
+	var panel_style = StyleBoxFlat.new()
+	panel_style.bg_color = bubble_bg_color
+	panel_style.border_width_left = 2
+	panel_style.border_width_top = 2
+	panel_style.border_width_right = 2
+	panel_style.border_width_bottom = 2
+	panel_style.border_color = Color(0.6, 0.6, 1.0, 0.7)
+	panel_style.corner_radius_top_left = 10
+	panel_style.corner_radius_top_right = 10
+	panel_style.corner_radius_bottom_left = 10
+	panel_style.corner_radius_bottom_right = 10
+	panel_style.shadow_color = Color(0, 0, 0, 0.3)
+	panel_style.shadow_size = 4
+	background.add_theme_stylebox_override("panel", panel_style)
+	
 	bubble.add_child(background)
 	
 	# Add text
@@ -224,22 +335,38 @@ func create_speech_bubble(text: String) -> Node2D:
 	label.text = text
 	label.fit_content = true
 	label.scroll_active = false
-	label.custom_minimum_size = Vector2(200, 0)
-	label.size = Vector2(200, 80)
-	label.position = Vector2(-100, 10)
+	label.custom_minimum_size = Vector2(text_width - speech_bubble_padding * 2, 0)
+	label.size = Vector2(text_width - speech_bubble_padding * 2, text_height - speech_bubble_padding * 2)
+	# Explizit x- und y-Position setzen
+	label.position = Vector2(-text_width/2 + speech_bubble_padding, speech_bubble_padding)
+	
+	# Verbesserte Textdarstellung
 	label.add_theme_font_size_override("normal_font_size", speech_font_size)
-	label.add_theme_color_override("default_color", Color(1, 1, 1, 1))
+	label.add_theme_color_override("default_color", Color(0.9, 0.9, 0.9, 1))
+	label.add_theme_constant_override("line_separation", 2)
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	
+	# Verhindere Überlauffehler bei langen Wörtern
+	label.add_theme_constant_override("text_overrun_behavior", TextServer.OVERRUN_TRIM_ELLIPSIS)
+	
+	# Extra Pixel für Padding hinzufügen für Textumbruch-Sicherheit
+	label.size.x += 4
+	
+	# Antialiasing für Text aktivieren
+	if label.has_method("set_use_filter"):
+		label.use_filter = true
+	
 	bubble.add_child(label)
 	
 	# Add a pointer triangle
 	var point = Polygon2D.new()
 	point.name = "Point"
-	point.color = Color(0, 0, 0, 0.8)
+	point.color = bubble_bg_color  # Gleiche Farbe wie der Hintergrund
 	bubble.add_child(point)
 	
 	return bubble
 
-# Update speech bubble position - COMPLETELY SIMPLIFIED VERSION
+# Update speech bubble position with expliziten Koordinaten in beiden Fällen
 func update_speech_bubble_position():
 	if not speech_bubble:
 		return
@@ -251,16 +378,20 @@ func update_speech_bubble_position():
 	if not background or not point or not label:
 		return
 	
-	# SIMPLE LOGIC: If bubble_is_below is true, position bubble below NPC
+	# Hole explizit die größe des Backgrounds für korrekte Positionierung
+	var bg_width = background.size.x
+	var bg_height = background.size.y
+	
+	# If bubble_is_below is true, position bubble below NPC
 	if bubble_is_below:
 		# Position bubble below NPC
 		speech_bubble.position = Vector2(0, speech_bubble_margin)
 		
-		# Position background at origin
-		background.position = Vector2(-110, 0)
+		# Explizites Setzen von x und y für Background
+		background.position = Vector2(-bg_width/2, 0)
 		
-		# Position text inside background
-		label.position = Vector2(-100, 10)
+		# Explizites Setzen von x und y für Label
+		label.position = Vector2(-bg_width/2 + speech_bubble_padding, speech_bubble_padding)
 		
 		# Triangle pointing UP
 		point.polygon = PackedVector2Array([Vector2(0, -10), Vector2(-10, 0), Vector2(10, 0)])
@@ -269,15 +400,21 @@ func update_speech_bubble_position():
 		# Position bubble above NPC
 		speech_bubble.position = Vector2(0, -speech_bubble_margin)
 		
-		# Position background above origin point
-		background.position = Vector2(-110, -100)
+		# Explizites Setzen von x und y für Background
+		background.position = Vector2(-bg_width/2, -bg_height)
 		
-		# Position text inside background
-		label.position = Vector2(-100, -90)
+		# Explizites Setzen von x und y für Label
+		label.position = Vector2(-bg_width/2 + speech_bubble_padding, -bg_height + speech_bubble_padding)
 		
 		# Triangle pointing DOWN
 		point.polygon = PackedVector2Array([Vector2(0, 10), Vector2(-10, 0), Vector2(10, 0)])
 		point.position = Vector2(0, 0)
+	
+	# Debug-Ausgabe für Positionierung
+	if debug_mode:
+		print("Speech bubble positioned, bubble_is_below: ", bubble_is_below)
+		print("Background position: ", background.position)
+		print("Label position: ", label.position)
 	
 	# Update continue button position
 	position_continue_button()
@@ -290,11 +427,39 @@ func create_continue_button():
 	continue_button = Control.new()
 	continue_button.name = "ContinueButton"
 	
-	# Add button
+	# Add button with styled appearance
 	var button = Button.new()
 	button.text = "Weiter"
 	button.size = Vector2(100, 30)
-	button.add_theme_font_size_override("font_size", 14)
+	
+	# Button-Style vorbereiten
+	var button_style_normal = StyleBoxFlat.new()
+	button_style_normal.bg_color = Color(0.2, 0.2, 0.25, 0.85)  # Mit Transparenz
+	button_style_normal.corner_radius_top_left = 8
+	button_style_normal.corner_radius_top_right = 8
+	button_style_normal.corner_radius_bottom_left = 8
+	button_style_normal.corner_radius_bottom_right = 8
+	
+	var button_style_hover = StyleBoxFlat.new()
+	button_style_hover.bg_color = Color(0.25, 0.25, 0.3, 0.85)  # Mit Transparenz
+	button_style_hover.corner_radius_top_left = 8
+	button_style_hover.corner_radius_top_right = 8
+	button_style_hover.corner_radius_bottom_left = 8
+	button_style_hover.corner_radius_bottom_right = 8
+	
+	var button_style_pressed = StyleBoxFlat.new()
+	button_style_pressed.bg_color = Color(0.15, 0.15, 0.2, 0.85)  # Mit Transparenz
+	button_style_pressed.corner_radius_top_left = 8
+	button_style_pressed.corner_radius_top_right = 8
+	button_style_pressed.corner_radius_bottom_left = 8
+	button_style_pressed.corner_radius_bottom_right = 8
+	
+	# Stile anwenden
+	button.add_theme_font_size_override("font_size", 16)
+	button.add_theme_stylebox_override("normal", button_style_normal)
+	button.add_theme_stylebox_override("hover", button_style_hover)
+	button.add_theme_stylebox_override("pressed", button_style_pressed)
+	
 	button.connect("pressed", Callable(self, "_on_continue_button_pressed"))
 	continue_button.add_child(button)
 	
@@ -307,7 +472,7 @@ func create_continue_button():
 	if debug_mode:
 		print("Continue button created")
 
-# Position continue button below the speech bubble
+# Position continue button below the speech bubble - Verbesserte Version
 func position_continue_button():
 	if not continue_button or not speech_bubble:
 		return
@@ -316,20 +481,30 @@ func position_continue_button():
 	if not background:
 		return
 	
-	# ALWAYS position button below the speech bubble content
+	# Hole explizit die größe des Buttons für korrekte Positionierung
+	var button = continue_button.get_node("Button") if continue_button.has_node("Button") else continue_button.get_child(0)
+	var button_width = button.size.x if button else 100
+	
+	# Explizites Positionieren in beiden Fällen
 	if bubble_is_below:
 		# Bubble is below NPC, so put button below bubble
-		continue_button.position = Vector2(-50, speech_bubble.position.y + background.size.y + 10)
+		continue_button.position = Vector2(-button_width/2, speech_bubble.position.y + background.size.y + 10)
 	else:
 		# Bubble is above NPC, so put button below bubble
-		continue_button.position = Vector2(-50, speech_bubble.position.y + 10)
+		# Korrigierte Positionierung unter der Blase, wenn sie über dem NPC ist
+		continue_button.position = Vector2(-button_width/2, speech_bubble.position.y - background.size.y + background.size.y + 10)
+		# Vereinfachte Berechnung für oben positionierte Blasen
+		continue_button.position.y = speech_bubble.position.y + 10
 
 # Button click handler
 func _on_continue_button_pressed():
-	if waiting_for_input and is_speaking:
+	if is_speaking:
 		if debug_mode:
 			print("Continue button pressed")
 		waiting_for_input = false
+		
+		# Reset auto-continue timer 
+		reset_auto_continue()
 		
 		# End current speech to reset state properly
 		is_speaking = false
@@ -347,6 +522,7 @@ func _on_continue_button_pressed():
 		
 		# Call continue_dialog to progress the conversation
 		continue_dialog()
+
 # Continue dialog - should be overridden by child classes
 func continue_dialog():
 	end_speech()
@@ -355,6 +531,9 @@ func continue_dialog():
 func end_speech():
 	is_speaking = false
 	waiting_for_input = false
+	
+	# Reset auto-continue timer
+	reset_auto_continue()
 	
 	if continue_button:
 		continue_button.queue_free()
@@ -366,8 +545,14 @@ func end_speech():
 	
 	# Check if there are more messages in queue
 	if not speech_queue.is_empty() and player_in_range:
+		# Ensure proper timing gap between messages to prevent rapid auto-advancement
 		var next_speech = speech_queue.pop_front()
-		say(next_speech.text, next_speech.duration)
+		
+		# Use a short timer to create a slight delay between messages
+		# This prevents rapid auto-continuation cascades
+		var timer = get_tree().create_timer(0.1)
+		timer.timeout.connect(Callable(self, "_delayed_say").bind(
+			next_speech.text, next_speech.show_continue_button, next_speech.duration))
 	else:
 		# Return to previous state only if we're not in an ongoing dialogue
 		# This can be determined by the current_state
@@ -437,7 +622,7 @@ func _on_detection_area_body_entered(body):
 		# If there are queued messages, display them now
 		if not speech_queue.is_empty() and not is_speaking:
 			var next_speech = speech_queue.pop_front()
-			say(next_speech.text, next_speech.duration)
+			say(next_speech.text, next_speech.duration, next_speech.show_continue_button)
 			
 		if debug_mode:
 			print("Player entered detection area")
@@ -478,4 +663,8 @@ func set_wait_points(points: Dictionary):
 # Virtual method for interaction - to be overridden by child classes
 func interact():
 	# Override in child class
+	pass
+
+# Ensure all resources are properly cleaned up
+func _exit_tree():
 	pass

@@ -4076,7 +4076,7 @@ position = Vector2(1682, -91)
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(7, 31)
 offset = Vector2(0, -40)
-zoom = Vector2(2.5, 2.5)
+zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
@@ -4195,7 +4195,7 @@ position = Vector2(1122, -153)
 
 [node name="Burgturm" parent="." instance=ExtResource("25_kchqw")]
 z_index = -1
-position = Vector2(2118, -105)
+position = Vector2(2146, -77)
 
 [connection signal="body_entered" from="SetBackZone" to="." method="_on_set_back_zone_body_entered"]
 [connection signal="body_entered" from="water" to="." method="_on_water_body_entered"]

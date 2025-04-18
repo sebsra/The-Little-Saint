@@ -89,29 +89,34 @@ func check_donation_input():
 	if not Input.is_key_pressed(KEY_I):
 		i_pressed = false
 
-# Override continue_dialog to handle dialog sequence
+# Override continue_dialog to handle dialog sequence without showing continue button for all except first
 func continue_dialog():
 	if has_been_helped:
-		say("Danke für die Münzen! Jetzt kann ich mir bald was zu essen holen.", 3.0)
+		# Auto-progress, no continue button
+		say("Danke für die Münzen! Jetzt kann ich mir bald was zu essen holen.", false)
 		return
 		
 	match dialog_sequence:
 		0:
-			say("Hallo... hast du vielleicht ein paar Münzen für mich? Mein Bauch tut so weh vor Hunger...", 3.5)
+			# Only first message needs a continue button
+			say("Hallo... hast du vielleicht ein paar Münzen für mich? Mein Bauch tut so weh vor Hunger...", true)
 			dialog_sequence = 1
 		1:
-			say("Ich kann nicht laufen und hab seit Tagen nichts mehr gegessen. Bitte hilf mir.", 3.0)
+			# Second message with auto-progress
+			say("Ich kann nicht laufen und hab seit Tagen nichts mehr gegessen. Bitte hilf mir.", true)
 			dialog_sequence = 2
 		2:
-			say("Mit " + str(required_donation) + " Münzen könnte ich mir was zu essen kaufen. Drück einfach U+I wenn du mir helfen willst.", 3.5)
+			# Third message with auto-progress
+			say("Mit " + str(required_donation) + " Münzen könnte ich mir was zu essen kaufen. Drück einfach U+I, wenn du mir helfen willst.", true)
 			dialog_sequence = 0
 		_:
 			end_speech()
-
+			
 # Interaction override
 func interact():
 	if has_been_helped:
-		say("Danke nochmal für die Münzen! Ich hoffe, ich kann mir bald was zu essen kaufen.", 3.0)
+		# Auto-progress, no continue button
+		say("Danke nochmal für die Münzen! Ich hoffe, ich kann mir bald was zu essen kaufen.", 3.0, false)
 		return
 	
 	continue_dialog()
@@ -120,14 +125,12 @@ func interact():
 func prompt_donation():
 	if dialog_active:
 		return
-		
 	dialog_active = true
-	
 	if get_node_or_null("/root/PopupManager"):
 		PopupManager.confirm(
 			"Spende bestätigen",
-			"Möchtest du " + str(required_donation) + " Münzen an den kleinen Thomas geben?",
-			"Leider nein", "Ja, gerne"
+			"Wirklich " + str(required_donation) + " goldene Münzen verschenken?",
+			"Behalten", "Spenden"
 		)
 
 # Signal handler for dialog confirmation
@@ -138,14 +141,22 @@ func _on_dialog_confirmed(_dialog_id: String):
 # Signal handler for dialog cancellation
 func _on_dialog_canceled(_dialog_id: String):
 	dialog_active = false
-	say("Ich verstehe... Ich muss wohl weiter hungern.", 3.0)
+	
+	# Manuell den Sprechzustand zurücksetzen, damit die Nachricht sofort angezeigt wird
+	end_speech()
+	
+	# Jetzt die neue Nachricht anzeigen
+	say("Ich verstehe... Ich muss wohl weiter hungern.\n", false)
 
 # Process the donation if confirmed
 func process_donation():
 	# Check if player has enough coins
 	if get_node_or_null("/root/GlobalHUD"):
 		if GlobalHUD.coins < required_donation:
-			say("Oh... du hast nicht genug Münzen. Aber trotzdem danke, dass du helfen wolltest.", 3.0)
+			# Erst Sprechzustand zurücksetzen
+			end_speech()
+			# Auto-progress, no continue button
+			say("Oh... du hast nicht genug Münzen. Aber trotzdem danke, dass du helfen wolltest.", false)
 			return
 			
 		# Deduct coins
@@ -154,9 +165,11 @@ func process_donation():
 	# Mark as helped
 	has_been_helped = true
 	
-	# Thank the player
-	say("Vielen Dank! Jetzt kann ich mir bald was zu essen kaufen! Ich hab so einen Hunger!", 3.0)
+	# Erst Sprechzustand zurücksetzen
+	end_speech()
 	
+	# Thank the player - Auto-progress, no continue button
+	say("Vielen Dank! Jetzt kann ich mir bald was zu essen kaufen! Ich hab so einen Hunger!", false)
 	# Emit helped signal
 	helped.emit()
 
@@ -166,11 +179,15 @@ func _on_detection_area_body_entered(body):
 	
 	# Auto-start dialog when player gets close enough
 	if body.is_in_group("player") and not dialog_active:
+		# Sicherstellen, dass kein vorheriger Sprechzustand aktiv ist
+		end_speech()
+		
 		if not has_been_helped:
 			dialog_sequence = 0
 			continue_dialog()
 		else:
-			say("Danke nochmal für die Münzen! Bald kann ich mir was zu essen kaufen.", 3.0)
+			# Auto-progress, no continue button
+			say("Danke nochmal für die Münzen! Bald kann ich mir was zu essen kaufen.", 3.0, false)
 
 # Ensure signals are disconnected when node is removed
 func _exit_tree():

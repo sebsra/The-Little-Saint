@@ -8,6 +8,7 @@ var dialog_initiated = false
 var dialog_stage = 0
 var is_gate_open = false
 var player_entered_area = false
+var has_completed_dialog = false  # Flag to track if dialog was completed
 
 # Distance to move to center position for dialog
 var center_position_x = 0
@@ -40,6 +41,9 @@ var bible_quote_not_helped = "Was ihr getan habt einem von diesen meinen gerings
 
 # Approach speed when moving to player
 var APPROACH_SPEED = 150.0
+
+# Flag to track if we need to move to center
+var should_move_to_center = false
 
 
 func _ready():
@@ -99,7 +103,7 @@ func calculate_center_position():
 	if parent_burgturm:
 		center_position_x = parent_burgturm.global_position.x
 		if debug_mode:
-			("coming to tower position: " + str(center_position_x))
+			print("Coming to tower position: " + str(center_position_x))
 	else:
 		center_position_x = 0
 		if debug_mode:
@@ -119,50 +123,26 @@ func connect_to_detection_area():
 			print("TowerGuard connected to DetectionArea body_exited")
 
 func _physics_process(delta):
-	# Handle player interaction immediately if player is at gate
-	if player_in_range and not dialog_initiated and player_entered_area:
-		# Move directly to player/gate position at faster speed
-		go_to_player_immediately(delta)
+	# Apply gravity even when moving to center
+	if not is_on_floor():
+		velocity.y += GRAVITY * delta
+	
+	# Check if we need to move to center after initial dialog
+	if should_move_to_center:
+		move_to_center_for_dialog(delta)
+		# Move the character with gravity
+		move_and_slide()
 	else:
 		# Call parent physics process for normal behavior
 		super._physics_process(delta)
-
-# New function to immediately approach the player
-func go_to_player_immediately(delta):
-	if not player_reference:
-		return
-		
-	# Calculate distance to player/gate position
-	var target_x = center_position_x
-	var distance_to_target = target_x - global_position.x
-	
-	# If close enough, start dialog
-	if abs(distance_to_target) < center_position_tolerance:
-		player_entered_area = false
-		start_dialog()
-		return
-	
-	# Move towards player at faster speed
-	var direction = sign(distance_to_target)
-	velocity.x = direction * APPROACH_SPEED  # Use increased speed
-	movement_direction = direction
-	
-	# Update animation to show urgency
-	current_animation = "walking"
-	
-	# Apply velocity
-	move_and_slide()
-	
-	if debug_mode:
-		print("Moving directly to player: current=" + str(global_position.x) + 
-			  ", target=" + str(target_x) + ", distance=" + str(distance_to_target))
 
 # Move to center position for dialog
 func move_to_center_for_dialog(delta):
 	var distance_to_center = center_position_x - global_position.x
 	
-	if abs(distance_to_center) < center_position_tolerance:
-		# We're at the center, continue dialog
+	if abs(distance_to_center) < center_position_tolerance and is_on_floor():
+		# We're at the center and on the ground, continue dialog
+		should_move_to_center = false
 		dialog_stage = 2
 		continue_dialog()
 		return
@@ -171,25 +151,21 @@ func move_to_center_for_dialog(delta):
 	var direction = sign(distance_to_center)
 	velocity.x = direction * APPROACH_SPEED  # Use increased speed here too
 	movement_direction = direction
-
-# Check if Thomas has been helped - now gets data directly from beggar child
-func check_thomas_helped():
-	# Try to find the beggar child in the scene
-	var beggar_child = get_node_or_null("../BeggarChild")
-	if beggar_child and beggar_child.has_method("has_been_helped"):
-		return beggar_child.has_been_helped
-	else:
-		# For testing purposes, assuming true if beggar child not found
-		print("BeggarChild not found or has_been_helped method missing, defaulting to true")
-		return true
+	current_animation = "walking"
+	
+	# Note: We don't call move_and_slide() here anymore, it's handled in _physics_process
+	
+	if debug_mode:
+		print("Moving to center: current=" + str(global_position.x) + 
+			  ", target=" + str(center_position_x) + ", distance=" + str(distance_to_center))
 
 # Start dialog with player
 func start_dialog():
 	dialog_initiated = true
 	dialog_stage = 1
 	
-	# Initial greeting
-	say("Halt! Wer begehrt Einlass?", 2.0)
+	# Initial greeting - CORRECTED ORDER OF PARAMETERS
+	say("Halt! Wer begehrt Einlass?", true, 1.5)
 	
 	# Set state to talking
 	set_state(State.TALKING)
@@ -204,44 +180,42 @@ func continue_dialog():
 	
 	match dialog_stage:
 		1:
-			# Add handling for stage 1 - transition to next dialogue
-			dialog_stage = 2
-			# Move to center for continuing dialogue
-			calculate_center_position()
-			move_to_center_for_dialog(0)  # Call with minimal delta
-		2:
-			# Check if player helped Thomas and update the variable
-			has_player_helped_thomas = check_thomas_helped()
+			# After initial dialog, start moving to center
+			should_move_to_center = true
+			# Allow dialog to continue only when NPC reaches center and is on floor
+			# dialog_stage will be set to 2 when we reach center
 			
+		2:
 			# Dialog based on whether Thomas was helped
 			if has_player_helped_thomas:
-				say("Ich bin der Wächter dieses Tores. Ich sehe, du hast ein gutes Herz bewiesen. Das spricht für dich.", 4.0)
+				say("Ich bin der Wächter dieses Tores. Ich sehe, du hast ein gutes Herz bewiesen. Das spricht für dich.", true, 0)
 			else:
-				say("Ich bin der Wächter dieses Tores. Ich konnte von hier aus sehen, dass du kein Mitgefühl hattest.", 4.0)
+				say("Ich bin der Wächter dieses Tores. Ich konnte von hier aus sehen, dass du kein Mitgefühl hattest.", true, 0)
 			dialog_stage = 3
 		
 		3:
 			# Bible quote - more cryptic
 			if has_player_helped_thomas:
-				say("Die Barmherzigen finden selbst Barmherzigkeit. Du hast es verstanden.", 3.0)
+				say("Die Barmherzigen finden selbst Barmherzigkeit. Du hast es verstanden.", true, 0)
 			else:
-				say("Wer den Geringsten nicht hilft, hat den Weg nicht erkannt. Kehre zurück und öffne deine Augen.", 3.0)
+				say("Wer den Geringsten nicht hilft, hat den Weg nicht erkannt. Kehre zurück und öffne deine Augen.", true, 3.0)
 			dialog_stage = 4
 		
 		4:
 			# Final response
 			if has_player_helped_thomas:
-				say("Der Weg ist nun für dich geöffnet.", 2.0)
+				say("Der Weg ist nun für dich geöffnet.", false, 2.0)
 				# Schedule gate opening
 				get_tree().create_timer(2.5).connect("timeout", Callable(self, "open_gate"))
 			else:
-				say("Geh zurück und finde den wahren Weg der Nächstenliebe. Er liegt direkt vor dir.", 3.0)
+				say("Geh zurück und finde den wahren Weg der Nächstenliebe. Er liegt direkt vor dir.", true, 3.0)
 			dialog_stage = 5
 		
 		5:
 			# End dialog
 			dialog_initiated = false
 			dialog_stage = 0
+			has_completed_dialog = true  # Mark dialog as completed
 
 			# Only return to patrol if gate not opened and player helped Thomas
 			if not is_gate_open and not has_player_helped_thomas:
@@ -297,36 +271,24 @@ func interact():
 	else:
 		continue_dialog()
 
-# Override detection area signal for player interaction
-func _on_detection_area_body_entered(body):
-	super._on_detection_area_body_entered(body)
-	
-	# Auto-start dialog when player gets close enough
-	if player_in_range and not dialog_initiated:
-		start_dialog()
-
 # Handler for when player enters the Burgturm's DetectionArea or any other area
 func _on_area_body_entered(body):
 	if debug_mode:
 		print("Detection area body entered: " + str(body.name))
 		
-	if body.is_in_group("player") and not player_entered_area:
+	if body.is_in_group("player") and not has_completed_dialog:
 		player_entered_area = true
 		player_reference = body
 		player_in_range = true
 		
-		if debug_mode:
-			print("Player entered gate area, guard immediately stopping patrol to approach")
+		# Reset flags to ensure proper flow
+		should_move_to_center = false
 		
-		# Immediately switch to go_to_player_immediately
-		if not dialog_initiated:
-			# Stop current movement
-			velocity = Vector2.ZERO
-			# Set player_entered_area flag
-			player_entered_area = true
-			
-			# Debug info
-			print("Detection area triggered, player_entered_area set to true")
+		if debug_mode:
+			print("Player entered gate area, starting dialog immediately")
+		
+		# Immediately start dialog
+		start_dialog()
 
 # Override detection area signal for when player leaves
 func _on_detection_area_body_exited(body):
@@ -341,12 +303,16 @@ func _on_detection_area_body_exited(body):
 		if dialog_initiated:
 			dialog_initiated = false
 			dialog_stage = 0
+		
+		# Reset dialog completion status so it can be triggered again
+		has_completed_dialog = false
+		should_move_to_center = false
 			
-			# Return to patrol
-			set_state(State.WALKING)
-			
-			if debug_mode:
-				print("Player left during dialog, resetting dialog state")
+		# Return to patrol
+		set_state(State.WALKING)
+		
+		if debug_mode:
+			print("Player left area, resetting dialog state and completion status")
 
 # Set the status of Thomas being helped (for testing)
 func set_thomas_helped(helped: bool):
@@ -355,11 +321,10 @@ func set_thomas_helped(helped: bool):
 	if debug_mode:
 		print("Thomas helped status set to: ", helped)
 
-# Override to immediately respond when player is at gate
-func follow_patrol_path(delta):
-	# If player is at gate, immediately stop patrol and go to player
-	if player_entered_area and player_in_range:
-		go_to_player_immediately(delta)
-	else:
-		# Otherwise, follow normal patrol behavior
-		super.follow_patrol_path(delta)
+# Reset dialog completion status (for testing or when needed)
+func reset_dialog_status():
+	has_completed_dialog = false
+	dialog_initiated = false
+	dialog_stage = 0
+	if debug_mode:
+		print("Dialog status reset, can be triggered again")
