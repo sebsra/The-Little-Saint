@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cj15l5x85rbu"]
+[gd_scene load_steps=39 format=3 uid="uid://cj15l5x85rbu"]
 
 [ext_resource type="Script" uid="uid://ch53jgwhj72k7" path="res://scenes/levels/prince_levels/game_prince.gd" id="1_cv7fv"]
 [ext_resource type="Texture2D" uid="uid://blekbooony6ko" path="res://assets/sprites/Foresttiles/oak_woods_tileset.png" id="2_x4vc4"]
@@ -23,7 +23,6 @@
 [ext_resource type="PackedScene" uid="uid://bghwylog5wnec" path="res://scenes/core/enemies/goblin_mage.tscn" id="21_7i3hm"]
 [ext_resource type="PackedScene" uid="uid://ddgj1n6jn8im3" path="res://scenes/NPCs/beggar_child.tscn" id="22_dwcid"]
 [ext_resource type="PackedScene" uid="uid://dfdu5qaytkhqx" path="res://scenes/core/items/burgturm.tscn" id="23_shxjb"]
-[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/coins.tscn" id="24_2auuq"]
 [ext_resource type="PackedScene" uid="uid://257y6q30yw05" path="res://scenes/core/items/sword.tscn" id="25_elcuj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ndii1"]
@@ -4163,9 +4162,6 @@ shape = SubResource("RectangleShape2D_o3ar0")
 
 [node name="Goblin_Melee" parent="." instance=ExtResource("20_uociw")]
 position = Vector2(-4125, -619)
-rage_threshold = null
-rage_damage_bonus = null
-rage_speed_bonus = null
 
 [node name="Goblin_Mage" parent="." instance=ExtResource("21_7i3hm")]
 position = Vector2(-3946, -486)
@@ -4176,21 +4172,6 @@ position = Vector2(-579, 29)
 [node name="Burgturm" parent="." instance=ExtResource("23_shxjb")]
 z_index = -1
 position = Vector2(2146, -77)
-
-[node name="coins" parent="." instance=ExtResource("24_2auuq")]
-position = Vector2(669, -531)
-
-[node name="coins2" parent="." instance=ExtResource("24_2auuq")]
-position = Vector2(700, -526)
-
-[node name="coins3" parent="." instance=ExtResource("24_2auuq")]
-position = Vector2(686, -529)
-
-[node name="coins4" parent="." instance=ExtResource("24_2auuq")]
-position = Vector2(633, -532)
-
-[node name="coins5" parent="." instance=ExtResource("24_2auuq")]
-position = Vector2(656, -534)
 
 [node name="Sword" parent="." instance=ExtResource("25_elcuj")]
 position = Vector2(-4049, -435)

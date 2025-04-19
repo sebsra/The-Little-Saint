@@ -7,13 +7,15 @@ var remove_duration: float = 5.0
 
 func _init():
 	name = "Death"
-	
 func enter():
 	super.enter()
 	if enemy.collision_shape:
 		enemy.collision_shape.set_deferred("disabled", true)
 	play_animation("death")
-
+	
+	# Add this line to trigger item drops when enemy dies
+	if enemy.has_method("drop_item"):
+		enemy.drop_item()
 	
 	# Stop movement
 	enemy.velocity = Vector2.ZERO

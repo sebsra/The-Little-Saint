@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://brvsjhwye311q"]
+[gd_scene load_steps=11 format=3 uid="uid://brvsjhwye311q"]
 
 [ext_resource type="Script" uid="uid://c3aqe6tuh5mrl" path="res://scripts/ui/hud/hud_controller.gd" id="1_n00ko"]
 [ext_resource type="Texture2D" uid="uid://b8xa3n5e0qpwc" path="res://scenes/levels/ardit_levels/Coin_alone.png" id="2_yfuy3"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://dm67cqfufmwf" path="res://assets/sprites/unsorted/hud_heartFull.png" id="4_i601r"]
 [ext_resource type="Texture2D" uid="uid://knayw820n7j" path="res://assets/sprites/unsorted/hud_heartEmpty.png" id="5_eddrx"]
 [ext_resource type="Texture2D" uid="uid://twuadcsu8x6w" path="res://assets/sprites/unsorted/princefotos/Adler.webp" id="6_todbw"]
-[ext_resource type="Texture2D" uid="uid://ck3g4v2os2pnr" path="res://assets/sprites/unsorted/princefotos/D_Jumpicon.png" id="7_e7gie"]
 [ext_resource type="Texture2D" uid="uid://bga12qjbnk324" path="res://assets/sprites/unsorted/princefotos/ElixirEmpty.png" id="8_a660p"]
 [ext_resource type="Texture2D" uid="uid://bekobulslwnkl" path="res://assets/sprites/unsorted/princefotos/Füllstand.png" id="10_a660p"]
 
@@ -34,43 +33,10 @@ offset_right = 1229.0
 offset_bottom = 225.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_eh2a1")
 
-[node name="CoinSum" type="TextureRect" parent="."]
-anchors_preset = -1
-anchor_right = 0.031
-offset_left = 915.0
-offset_top = 55.0
-offset_right = 1092.0
-offset_bottom = 215.0
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("2_yfuy3")
-
-[node name="HeavenCoinSum" type="TextureRect" parent="."]
-visible = false
-anchors_preset = -1
-anchor_right = 0.031
-offset_left = 925.0
-offset_top = 58.0
-offset_right = 1038.32
-offset_bottom = 195.0
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_a660p")
-
 [node name="x" type="Label" parent="."]
-offset_left = 981.0
+offset_left = 977.0
 offset_top = 70.0
-offset_right = 1000.0
-offset_bottom = 121.0
-theme_override_colors/font_color = Color(1, 0.776471, 0, 1)
-theme_override_fonts/font = ExtResource("3_6xw86")
-theme_override_font_sizes/font_size = 22
-text = "x
-"
-
-[node name="x2" type="Label" parent="."]
-visible = false
-offset_left = 981.0
-offset_top = 70.0
-offset_right = 1000.0
+offset_right = 996.0
 offset_bottom = 121.0
 theme_override_colors/font_color = Color(1, 0.776471, 0, 1)
 theme_override_fonts/font = ExtResource("3_6xw86")
@@ -79,22 +45,9 @@ text = "x
 "
 
 [node name="LabelCoinSum" type="Label" parent="."]
-offset_left = 1003.0
+offset_left = 993.0
 offset_top = 65.0
-offset_right = 1067.0
-offset_bottom = 176.0
-theme_override_colors/font_color = Color(1, 0.776471, 0, 1)
-theme_override_fonts/font = ExtResource("3_6xw86")
-theme_override_font_sizes/font_size = 33
-text = "99
-
-"
-
-[node name="LabelHeavenCoinSum" type="Label" parent="."]
-visible = false
-offset_left = 1003.0
-offset_top = 65.0
-offset_right = 1067.0
+offset_right = 1062.0
 offset_bottom = 176.0
 theme_override_colors/font_color = Color(1, 0.776471, 0, 1)
 theme_override_fonts/font = ExtResource("3_6xw86")
@@ -124,28 +77,39 @@ flip_h = true
 
 [node name="Adler" type="TextureRect" parent="."]
 z_index = 1
-offset_left = 931.0
-offset_top = 125.0
-offset_right = 1004.0
-offset_bottom = 182.0
+offset_left = 952.0
+offset_top = 99.0
+offset_right = 1025.0
+offset_bottom = 156.0
 texture = ExtResource("6_todbw")
 expand_mode = 1
 
-[node name="DoubleJump" type="TextureRect" parent="Adler"]
-layout_mode = 0
-offset_left = 167.0
-offset_top = 13.0
-offset_right = 229.0
-offset_bottom = 65.0
-texture = ExtResource("7_e7gie")
-expand_mode = 1
+[node name="elixir" type="Sprite2D" parent="."]
+position = Vector2(962.37, 183.5)
+scale = Vector2(0.124179, 0.0950855)
+texture = ExtResource("10_a660p")
 
 [node name="bottle" type="Sprite2D" parent="."]
-position = Vector2(1047.37, 153.5)
+position = Vector2(962.37, 174.5)
 scale = Vector2(0.124179, 0.0895296)
 texture = ExtResource("8_a660p")
 
-[node name="elixir" type="Sprite2D" parent="."]
-position = Vector2(1047.37, 162.5)
-scale = Vector2(0.124179, 0.0950855)
-texture = ExtResource("10_a660p")
+[node name="HeavenCoin" type="TextureRect" parent="."]
+anchors_preset = -1
+anchor_right = 0.031
+offset_left = 925.0
+offset_top = 58.0
+offset_right = 1038.32
+offset_bottom = 195.0
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_a660p")
+
+[node name="Coin" type="TextureRect" parent="."]
+anchors_preset = -1
+anchor_right = 0.031
+offset_left = 915.0
+offset_top = 55.0
+offset_right = 1085.32
+offset_bottom = 215.0
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_yfuy3")

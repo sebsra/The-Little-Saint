@@ -11,6 +11,9 @@ var previous_state: Constants.GameState = Constants.GameState.MENU
 enum Difficulty {EASY, NORMAL, HARD, NIGHTMARE}
 var current_difficulty: Difficulty = Difficulty.HARD  # Default to EASY
 
+enum CoinType {NORMAL, HEAVENLY}
+var current_coin_type: CoinType = CoinType.NORMAL
+
 # Player reference
 var player: Player = null
 
@@ -40,6 +43,7 @@ signal game_loaded()
 signal resources_loading_progress(progress, total)
 signal resources_loaded()
 signal difficulty_changed(new_difficulty, old_difficulty)
+signal coin_type_changed(new_type)
 
 # Initialization
 func _ready():
@@ -94,24 +98,31 @@ func get_difficulty() -> int:
 
 func get_difficulty_name() -> String:
 	return Difficulty.keys()[current_difficulty]
+	
+func set_coin_type(type: CoinType) -> void:
+	if type != current_coin_type:
+		current_coin_type = type
+		emit_signal("coin_type_changed", current_coin_type)
+		print("Coin type changed to: ", CoinType.keys()[current_coin_type])
+		
+func get_coin_type() -> int:
+	return current_coin_type
 
-# Update save_game function to include difficulty
+func get_coin_type_name() -> String:
+	return CoinType.keys()[current_coin_type]
+
+# Update save_game function in game_manager.gd
 func save_game() -> void:
 	if SaveManager:
-		# Ensure your SaveManager saves the difficulty
-		SaveManager.game_data.difficulty = current_difficulty
 		SaveManager.save_game()
 		emit_signal("game_saved")
 
-# Update load_game function to load difficulty
+# Update load_game function in game_manager.gd
 func load_game() -> void:
 	if SaveManager:
 		SaveManager.load_game()
-		# Load difficulty from save
-		if "difficulty" in SaveManager.game_data:
-			set_difficulty(SaveManager.game_data.difficulty)
 		emit_signal("game_loaded")
-
+		
 # Resource preloading
 func preload_resources_for_level(level_name: String) -> void:
 	if is_preloading:

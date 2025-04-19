@@ -6,6 +6,8 @@ extends Node
 
 # Current save data instance
 var current_save_data: SaveData = null
+# Alias for GameManager compatibility
+var game_data: SaveData = null
 
 # Auto-save settings
 var auto_save_enabled: bool = false
@@ -25,6 +27,8 @@ func _ready():
 	print("Save Manager initialized")
 	# Create default save data at startup
 	current_save_data = SaveData.new()
+	# Set the game_data alias for GameManager compatibility
+	game_data = current_save_data
 	# Load settings immediately on startup
 	load_settings()
 	# Initialize auto-save
@@ -69,10 +73,26 @@ func perform_auto_save() -> bool:
 	emit_signal("auto_save_performed", success)
 	return success
 
+# Capture active scene state
+func capture_active_scene_state() -> Dictionary:
+	var scene_state = {}
+	var current_scene = get_tree().current_scene
+	
+	if current_scene:
+		# Store basic scene info
+		scene_state["scene_name"] = current_scene.name
+		scene_state["scene_path"] = current_scene.scene_file_path
+		
+		# Add additional scene-specific state here if needed
+		# This could be extended to save specific node states
+		
+	return scene_state
+
 # Save the full game state
 func save_game() -> bool:
 	if not current_save_data:
 		current_save_data = SaveData.new()
+		game_data = current_save_data
 
 	# Update data before saving
 	_update_save_data()
@@ -102,6 +122,7 @@ func load_game() -> bool:
 
 		if loaded_data is SaveData:
 			current_save_data = loaded_data
+			game_data = current_save_data
 
 			# Apply loaded data to game state
 			_apply_save_data()
@@ -126,6 +147,9 @@ func _update_save_data() -> void:
 
 	# Check if GlobalHUD exists
 	var global_hud = get_node_or_null("/root/GlobalHUD")
+
+	# Capture the active scene state
+	current_save_data.active_scene_state = capture_active_scene_state()
 
 	if player:
 		# Update player data
@@ -163,10 +187,19 @@ func _update_save_data() -> void:
 
 	# Add global game state
 	if get_node_or_null("/root/Global"):
-		current_save_data.collected_coins = get_node("/root/Global").collected_coins
-		current_save_data.collected_heaven_coins = get_node("/root/Global").collected_heaven_coins
-		current_save_data.unlocked_levels = get_node("/root/Global").unlocked_levels.duplicate()
-		current_save_data.completed_quests = get_node("/root/Global").completed_quests.duplicate()
+		var global = get_node("/root/Global")
+		current_save_data.collected_coins = global.collected_coins
+		current_save_data.collected_heaven_coins = global.collected_heaven_coins if "collected_heaven_coins" in global else 0
+		current_save_data.unlocked_levels = global.unlocked_levels.duplicate()
+		current_save_data.completed_quests = global.completed_quests.duplicate()
+		
+		# Save game difficulty and coin type
+		current_save_data.difficulty = global.current_difficulty
+		current_save_data.coin_type = global.current_coin_type
+	
+	# Save message history if GlobalHUD has it
+	if global_hud and "message_history" in global_hud:
+		current_save_data.message_history = global_hud.message_history.duplicate(true)
 		
 	# Update playtime
 	current_save_data.playtime_seconds += 1  # Add at least 1 second each time
@@ -178,11 +211,20 @@ func _apply_save_data() -> void:
 		
 	# Update GameManager data
 	if get_node_or_null("/root/Global"):
-		get_node("/root/Global").collected_coins = current_save_data.collected_coins
-		get_node("/root/Global").collected_heaven_coins = current_save_data.collected_heaven_coins
-		get_node("/root/Global").unlocked_levels = current_save_data.unlocked_levels.duplicate()
-		get_node("/root/Global").completed_quests = current_save_data.completed_quests.duplicate()
-		get_node("/root/Global").current_level = current_save_data.current_level
+		var global = get_node("/root/Global")
+		global.collected_coins = current_save_data.collected_coins
+		global.collected_heaven_coins = current_save_data.collected_heaven_coins
+		global.unlocked_levels = current_save_data.unlocked_levels.duplicate()
+		global.completed_quests = current_save_data.completed_quests.duplicate()
+		global.current_level = current_save_data.current_level
+		
+		# Set game difficulty and coin type
+		global.current_difficulty = current_save_data.difficulty
+		global.current_coin_type = current_save_data.coin_type
+		
+		# Emit signals for the changes
+		global.emit_signal("difficulty_changed", global.current_difficulty, global.current_difficulty)
+		global.emit_signal("coin_type_changed", global.current_coin_type)
 
 	# Update GlobalHUD if available
 	var global_hud = get_node_or_null("/root/GlobalHUD")
@@ -190,7 +232,13 @@ func _apply_save_data() -> void:
 		global_hud.current_health = current_save_data.health
 		global_hud.coins = current_save_data.coins
 		global_hud.heaven_coins = current_save_data.heaven_coins
-		global_hud.sync_hud_with_global()
+		
+		# Restore message history if available
+		if "message_history" in current_save_data and current_save_data.message_history.size() > 0:
+			global_hud.message_history = current_save_data.message_history.duplicate(true)
+		
+		# Notify the HUD about all values
+		global_hud.notify_hud_of_all_values()
 		
 # Apply save data to the player (called when player is instantiated)
 func apply_save_data_to_player(player) -> void:
@@ -216,14 +264,17 @@ func apply_save_data_to_player(player) -> void:
 		if player.current_outfit:
 			player.current_outfit.from_dictionary(current_save_data.player_outfit)
 
+	# Set position if available and valid
+	if current_save_data.player_position != Vector2.ZERO:
+		player.global_position = current_save_data.player_position
+
 	# Set HUD data if available
-	if GlobalHUD:
-		GlobalHUD.lifes = current_save_data.health
-		GlobalHUD.coins = current_save_data.coins
-		GlobalHUD.heaven_coins = current_save_data.heaven_coins
-		GlobalHUD.load_hearts()
-		GlobalHUD._update_coin_display()
-		GlobalHUD._update_heaven_coin_display()
+	var global_hud = get_node_or_null("/root/GlobalHUD")
+	if global_hud:
+		global_hud.current_health = current_save_data.health
+		global_hud.coins = current_save_data.coins
+		global_hud.heaven_coins = current_save_data.heaven_coins
+		global_hud.notify_hud_of_all_values()
 
 # Settings management - Using player defaults from Constants
 func save_settings() -> bool:
@@ -266,6 +317,11 @@ func save_settings() -> bool:
 		if current_save_data.player_outfit:
 			config.set_value(Constants.SECTION_SETTINGS, "outfit", current_save_data.player_outfit)
 
+	# Save game settings
+	if get_node_or_null("/root/Global"):
+		config.set_value(Constants.SECTION_SETTINGS, "difficulty", get_node("/root/Global").current_difficulty)
+		config.set_value(Constants.SECTION_SETTINGS, "coin_type", get_node("/root/Global").current_coin_type)
+
 	# Save audio settings
 	var master_bus_idx = AudioServer.get_bus_index("Master")
 	config.set_value(Constants.SECTION_SETTINGS, "master_volume", AudioServer.get_bus_volume_db(master_bus_idx))
@@ -301,6 +357,7 @@ func load_settings() -> bool:
 	# Create default save data if not already created
 	if not current_save_data:
 		current_save_data = SaveData.new()
+		game_data = current_save_data
 
 	# Load settings into current_save_data for future use
 	current_save_data.player_speed = config.get_value(Constants.SECTION_SETTINGS, "speed", Constants.PLAYER_DEFAULT_SPEED)
@@ -312,6 +369,19 @@ func load_settings() -> bool:
 	current_save_data.player_jump_counter = config.get_value(Constants.SECTION_SETTINGS, "jump_counter", 0)
 	current_save_data.player_ready_for_jump = config.get_value(Constants.SECTION_SETTINGS, "ready_for_jump", true)
 	current_save_data.player_allowed_jumps = config.get_value(Constants.SECTION_SETTINGS, "allowed_jumps", Constants.PLAYER_MAX_JUMPS)
+
+	# Load difficulty and coin type
+	current_save_data.difficulty = config.get_value(Constants.SECTION_SETTINGS, "difficulty", 1) # Default: NORMAL
+	current_save_data.coin_type = config.get_value(Constants.SECTION_SETTINGS, "coin_type", 0) # Default: NORMAL
+
+	# Apply game settings to Global if it exists
+	if get_node_or_null("/root/Global"):
+		get_node("/root/Global").current_difficulty = current_save_data.difficulty
+		get_node("/root/Global").current_coin_type = current_save_data.coin_type
+		
+		# Emit signals for the changes
+		get_node("/root/Global").emit_signal("difficulty_changed", current_save_data.difficulty, current_save_data.difficulty)
+		get_node("/root/Global").emit_signal("coin_type_changed", current_save_data.coin_type)
 
 	# Load outfit
 	var saved_outfit = config.get_value(Constants.SECTION_SETTINGS, "outfit", null)
@@ -390,6 +460,7 @@ func clear_save_data() -> void:
 			dir.remove(Constants.SAVE_FILE_PATH)
 			print("Save data cleared")
 	current_save_data = SaveData.new()
+	game_data = current_save_data
 
 # Return a fresh instance of SaveData
 func create_new_save_data() -> SaveData:

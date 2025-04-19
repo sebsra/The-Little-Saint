@@ -27,6 +27,14 @@ var state_machine = null
 var collision_shape = null
 var animated_sprite = null
 
+enum DropType {NONE, COIN, ELIXIR}
+var drop_chance: float = 0.5  # 50% chance to drop something
+var drop_type_chances = {
+	DropType.NONE: 0.3,   # 30% chance for no drop
+	DropType.COIN: 0.5,   # 50% chance for coin
+	DropType.ELIXIR: 0.2  # 20% chance for elixir
+}
+
 # Signals
 signal damaged(amount, attacker)
 signal died()
@@ -176,3 +184,44 @@ func die():
 func play_animation(anim_name: String):
 	if animated_sprite and animated_sprite.sprite_frames.has_animation(anim_name):
 		animated_sprite.play(anim_name)
+		
+# Add this function to the file:
+func drop_item():
+	# First roll to see if we drop anything
+	if randf() > drop_chance:
+		return
+	
+	# Determine what to drop
+	var drop_roll = randf()
+	var cumulative_chance = 0.0
+	var chosen_drop = DropType.NONE
+	
+	for drop_type in drop_type_chances.keys():
+		cumulative_chance += drop_type_chances[drop_type]
+		if drop_roll <= cumulative_chance:
+			chosen_drop = drop_type
+			break
+	
+	# If we're not dropping anything, exit
+	if chosen_drop == DropType.NONE:
+		return
+	
+	# Get the scene path based on drop type
+	var scene_path = ""
+	match chosen_drop:
+		DropType.COIN:
+			# Check Global for coin type
+			if Global and Global.current_coin_type == Global.CoinType.HEAVENLY:
+				scene_path = "res://scenes/core/items/heavenly coin.tscn"
+			else:
+				scene_path = "res://scenes/core/items/coin.tscn"
+		DropType.ELIXIR:
+			scene_path = "res://scenes/core/items/elixir.tscn"
+	
+	# Instantiate the drop if we have a valid scene path
+	if scene_path != "":
+		var scene = load(scene_path)
+		if scene:
+			var drop_instance = scene.instantiate()
+			get_parent().add_child(drop_instance)
+			drop_instance.global_position = global_position

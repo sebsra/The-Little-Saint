@@ -14,10 +14,12 @@ extends Resource
 # Player position and level
 @export var player_position: Vector2 = Vector2.ZERO
 @export var current_level: String = ""
+@export var active_scene_state: Dictionary = {}
 
 # Player stats
 @export var health: float = 3.0
 @export var coins: int = 0
+@export var heaven_coins: int = 0
 @export var player_speed: float = Constants.PLAYER_DEFAULT_SPEED
 @export var player_jump_velocity: float = Constants.PLAYER_DEFAULT_JUMP_VELOCITY
 @export var player_fly_velocity: float = Constants.PLAYER_DEFAULT_FLY_VELOCITY
@@ -30,13 +32,21 @@ extends Resource
 @export var player_ready_for_jump: bool = true
 @export var player_allowed_jumps: int = 1
 
+# Game settings
+@export var difficulty: int = 1  # Default to NORMAL
+@export var coin_type: int = 0   # Default to NORMAL coins
+
 # Player appearance
 @export var player_outfit: Dictionary = {}
 
 # Game progress
 @export var collected_coins: int = 0
+@export var collected_heaven_coins: int = 0
 @export var unlocked_levels: Array = []
 @export var completed_quests: Array = []
+
+# Message history
+@export var message_history: Array = []
 
 # Initialize with default values
 func _init():
@@ -87,8 +97,10 @@ func to_dict() -> Dictionary:
 		"playtime_seconds": playtime_seconds,
 		"player_position": {"x": player_position.x, "y": player_position.y},
 		"current_level": current_level,
+		"active_scene_state": active_scene_state,
 		"health": health,
 		"coins": coins,
+		"heaven_coins": heaven_coins,
 		"player_speed": player_speed,
 		"player_jump_velocity": player_jump_velocity,
 		"player_fly_velocity": player_fly_velocity,
@@ -98,10 +110,14 @@ func to_dict() -> Dictionary:
 		"player_jump_counter": player_jump_counter,
 		"player_ready_for_jump": player_ready_for_jump,
 		"player_allowed_jumps": player_allowed_jumps,
+		"difficulty": difficulty,
+		"coin_type": coin_type,
 		"player_outfit": player_outfit,
 		"collected_coins": collected_coins,
+		"collected_heaven_coins": collected_heaven_coins,
 		"unlocked_levels": unlocked_levels,
-		"completed_quests": completed_quests
+		"completed_quests": completed_quests,
+		"message_history": message_history
 	}
 
 # Return a string representation for debugging
@@ -129,8 +145,10 @@ func duplicate_data() -> SaveData:
 	new_data.playtime_seconds = playtime_seconds
 	new_data.player_position = player_position
 	new_data.current_level = current_level
+	new_data.active_scene_state = active_scene_state.duplicate(true)
 	new_data.health = health
 	new_data.coins = coins
+	new_data.heaven_coins = heaven_coins
 	new_data.player_speed = player_speed
 	new_data.player_jump_velocity = player_jump_velocity
 	new_data.player_fly_velocity = player_fly_velocity
@@ -140,10 +158,14 @@ func duplicate_data() -> SaveData:
 	new_data.player_jump_counter = player_jump_counter
 	new_data.player_ready_for_jump = player_ready_for_jump
 	new_data.player_allowed_jumps = player_allowed_jumps
+	new_data.difficulty = difficulty
+	new_data.coin_type = coin_type
 	new_data.player_outfit = player_outfit.duplicate(true)
 	new_data.collected_coins = collected_coins
+	new_data.collected_heaven_coins = collected_heaven_coins
 	new_data.unlocked_levels = unlocked_levels.duplicate()
 	new_data.completed_quests = completed_quests.duplicate()
+	new_data.message_history = message_history.duplicate(true)
 	
 	return new_data
 
