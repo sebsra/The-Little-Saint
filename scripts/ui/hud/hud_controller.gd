@@ -136,7 +136,7 @@ func show_message(text: String, duration: float = 5.0, color: Color = Color.WHIT
 	# Start displaying messages if not already showing
 	if !is_showing_message:
 		_process_next_message()
-
+		
 func _process_next_message() -> void:
 	if message_queue.size() == 0:
 		is_showing_message = false
@@ -145,40 +145,46 @@ func _process_next_message() -> void:
 	is_showing_message = true
 	var message_data = message_queue.pop_front()
 	
-	if message_display:
-		# Reset message position
+	# Get references to our nodes
+	var message_container = $MessageContainer
+	var message_display = $MessageContainer/MessageDisplay
+	
+	if message_container and message_display:
+		# Set text and color
 		message_display.text = message_data.text
 		message_display.add_theme_color_override("font_color", message_data.color)
 		
-		# Make sure it's visible
+		# Make sure everything is visible
+		message_container.visible = true
 		message_display.visible = true
 		
-		# Calculate full width for animation
-		var viewport_width = get_viewport().size.x
-		var message_width = message_display.size.x
+		# Reset scroll position
+		message_container.scroll_horizontal = 0
 		
-		# Set the initial position (off-screen right)
-		message_display.position.x = viewport_width
+		# Calculate scroll limits
+		var max_scroll = message_display.size.x - message_container.size.x
+		if max_scroll > 0:
+			# Create tween for scrolling
+			var tween = create_tween()
+			var scroll_duration = message_data.duration * 0.8
+			
+			# Scroll the container from left to right
+			tween.tween_property(message_container, "scroll_horizontal", max_scroll, scroll_duration)
+			
+			# Once complete, hide and process next message
+			await tween.finished
+		else:
+			# For short messages, just display for the duration
+			await get_tree().create_timer(message_data.duration).timeout
 		
-		# Create tween for scrolling animation
-		var tween = create_tween()
-		
-		# Move from right to left
-		var scroll_duration = message_data.duration * 0.8  # Use 80% of duration for scrolling
-		tween.tween_property(message_display, "position:x", -message_width, scroll_duration)
-		
-		# Once complete, process the next message
-		await tween.finished
-		
-		# Hide the message display
-		message_display.visible = false
+		# Hide the container
+		message_container.visible = false
 		
 		# Small delay before next message
 		await get_tree().create_timer(0.5).timeout
 		
 		# Process next message
 		_process_next_message()
-
 func clear_messages() -> void:
 	message_queue.clear()
 	if message_display:
