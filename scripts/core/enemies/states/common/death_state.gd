@@ -9,18 +9,19 @@ func _init():
 	name = "Death"
 func enter():
 	super.enter()
+	if enemy.has_method("drop_item"):
+		enemy.drop_item()
 	if enemy.collision_shape:
 		enemy.collision_shape.set_deferred("disabled", true)
 	play_animation("death")
 	
-	# Add this line to trigger item drops when enemy dies
-	if enemy.has_method("drop_item"):
-		enemy.drop_item()
+
 	
 	# Stop movement
 	enemy.velocity = Vector2.ZERO
 
 	timer = 0.0
+	enemy.show_random_defeat_message()
 	print(enemy.name + " entered death state")
 
 func physics_process(delta: float):

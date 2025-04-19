@@ -40,6 +40,41 @@ signal damaged(amount, attacker)
 signal died()
 signal attack_executed(target, damage)
 
+const DEFEAT_MESSAGES: PackedStringArray = [
+	"Der Schatten fiel, verbrannt im Strahl des Lichtes.",
+	"Ein weiterer Thron der Finsternis wurde gestürzt.",
+	"Dein Schwert sang – und Stille hüllte den Abgrund ein.",
+	"Die Fesseln des Bösen zersplitterten unter heiligem Stahl.",
+	"Ein Echo hallt: ‚Es ist vollbracht.‘",
+	"Die Nacht wich vor dem Wort, das stärker ist als Stahl.",
+	"Kein Dunkel trotzt dem Feuer des Glaubens.",
+	"Der Sturm der Verdammnis brach an deiner Festung.",
+	"Ein Siegel löste sich; das Licht strömte hervor.",
+	"Die Schlange verstummte vor dem Löwen Judahs.",
+	"Staub blieb, wo einst ein Schrecken thronte.",
+	"Die Mauern des Abgrunds erzitterten bei deinem Schritt.",
+	"Ein verlorener Name wurde aus dem Buch der Schatten getilgt.",
+	"Die Ketten klirrten – und fielen.",
+	"Die Glocken zogen Krieg, doch Frieden triumphierte.",
+	"Das Schwert des Geistes schnitt bis in Mark und Bein.",
+	"Die Flamme des Altars verschlang den letzten Zweifel.",
+	"Ein letztes Heulen – dann Stille zwischen den Sternen.",
+	"Die Himmel öffneten sich, während der Feind zerfiel.",
+	"Ewiges Licht überragt nun die gefallene Bastion."
+]
+
+@onready var _rng := RandomNumberGenerator.new()
+
+## Wählt zufällig eine Meldung aus, blendet die Münz‑Transition ein
+## und zeigt den Text auf dem GlobalHUD an.
+##
+## @param duration Sekunden, die der Text sichtbar bleibt (Standard 3 Sek.)
+func show_random_defeat_message(duration: float = 10.0) -> void:
+	var msg := DEFEAT_MESSAGES[_rng.randi() % DEFEAT_MESSAGES.size()]
+	var space = "          "
+	msg = space + msg + space
+	GlobalHUD.add_message(msg, duration)
+	
 func _ready():
 	# Get nodes
 	collision_shape = get_node_or_null("CollisionShape2D")
@@ -175,10 +210,6 @@ func die():
 		
 	is_dead = true
 	emit_signal("died")
-	
-	# Set appropriate state
-	if state_machine:
-		state_machine.change_state("Death")
 
 # Play animation if it exists
 func play_animation(anim_name: String):
@@ -212,7 +243,7 @@ func drop_item():
 		DropType.COIN:
 			# Check Global for coin type
 			if Global and Global.current_coin_type == Global.CoinType.HEAVENLY:
-				scene_path = "res://scenes/core/items/heavenly coin.tscn"
+				scene_path = "res://scenes/core/items/heavenly_coin.tscn"
 			else:
 				scene_path = "res://scenes/core/items/coin.tscn"
 		DropType.ELIXIR:

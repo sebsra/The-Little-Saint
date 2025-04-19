@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://cj15l5x85rbu"]
+[gd_scene load_steps=40 format=3 uid="uid://cj15l5x85rbu"]
 
 [ext_resource type="Script" uid="uid://ch53jgwhj72k7" path="res://scenes/levels/prince_levels/game_prince.gd" id="1_cv7fv"]
 [ext_resource type="Texture2D" uid="uid://blekbooony6ko" path="res://assets/sprites/Foresttiles/oak_woods_tileset.png" id="2_x4vc4"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://bghwylog5wnec" path="res://scenes/core/enemies/goblin_mage.tscn" id="21_7i3hm"]
 [ext_resource type="PackedScene" uid="uid://ddgj1n6jn8im3" path="res://scenes/NPCs/beggar_child.tscn" id="22_dwcid"]
 [ext_resource type="PackedScene" uid="uid://dfdu5qaytkhqx" path="res://scenes/core/items/burgturm.tscn" id="23_shxjb"]
+[ext_resource type="PackedScene" uid="uid://b4eyyu131yt6h" path="res://scenes/core/enemies/goblin_archer.tscn" id="25_cv7fv"]
 [ext_resource type="PackedScene" uid="uid://257y6q30yw05" path="res://scenes/core/items/sword.tscn" id="25_elcuj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ndii1"]
@@ -4071,10 +4072,10 @@ layer_2/tile_data = PackedInt32Array(327521, 851978, 3, 393057, 851978, 3, 45859
 
 [node name="Player" parent="." instance=ExtResource("9_cqfx1")]
 light_mask = 2
-position = Vector2(-4662, -691)
+position = Vector2(-4624, -722)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(7, 31)
+position = Vector2(10, 19)
 offset = Vector2(0, -40)
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
@@ -4161,10 +4162,10 @@ position = Vector2(-1709.09, 359.578)
 shape = SubResource("RectangleShape2D_o3ar0")
 
 [node name="Goblin_Melee" parent="." instance=ExtResource("20_uociw")]
-position = Vector2(-4125, -619)
+position = Vector2(-3205, -169)
 
 [node name="Goblin_Mage" parent="." instance=ExtResource("21_7i3hm")]
-position = Vector2(-3946, -486)
+position = Vector2(-2933, -239)
 
 [node name="BeggarChild" parent="." instance=ExtResource("22_dwcid")]
 position = Vector2(-579, 29)
@@ -4175,6 +4176,24 @@ position = Vector2(2146, -77)
 
 [node name="Sword" parent="." instance=ExtResource("25_elcuj")]
 position = Vector2(-4049, -435)
+
+[node name="Goblin_Archer" parent="." instance=ExtResource("25_cv7fv")]
+position = Vector2(-2560, -233)
+
+[node name="Goblin_Melee2" parent="." instance=ExtResource("20_uociw")]
+position = Vector2(-3365, -4)
+
+[node name="Goblin_Melee3" parent="." instance=ExtResource("20_uociw")]
+position = Vector2(-3133, 4)
+
+[node name="Goblin_Melee4" parent="." instance=ExtResource("20_uociw")]
+position = Vector2(-3414, 67)
+
+[node name="Goblin_Mage2" parent="." instance=ExtResource("21_7i3hm")]
+position = Vector2(-3242, 71)
+
+[node name="Goblin_Melee5" parent="." instance=ExtResource("20_uociw")]
+position = Vector2(-4253, -475)
 
 [connection signal="body_entered" from="SetBackZone" to="." method="_on_set_back_zone_body_entered"]
 [connection signal="body_entered" from="water" to="." method="_on_water_body_entered"]

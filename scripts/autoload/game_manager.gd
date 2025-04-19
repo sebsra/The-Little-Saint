@@ -9,13 +9,16 @@ var previous_state: Constants.GameState = Constants.GameState.MENU
 
 # Difficulty settings - simple enum and current level only
 enum Difficulty {EASY, NORMAL, HARD, NIGHTMARE}
-var current_difficulty: Difficulty = Difficulty.HARD  # Default to EASY
+var current_difficulty: Difficulty = Difficulty.NORMAL
 
 enum CoinType {NORMAL, HEAVENLY}
 var current_coin_type: CoinType = CoinType.NORMAL
 
 # Player reference
 var player: Player = null
+
+# markiert, ob der Spieler das Schwert hat
+var has_sword: bool = true
 
 # Current level
 var current_level: String = ""
@@ -32,6 +35,7 @@ var resource_preloader = null
 var is_preloading: bool = false
 var preload_progress: float = 0.0
 
+
 # Events
 signal state_changed(new_state, old_state)
 signal level_started(level_name)
@@ -44,6 +48,7 @@ signal resources_loading_progress(progress, total)
 signal resources_loaded()
 signal difficulty_changed(new_difficulty, old_difficulty)
 signal coin_type_changed(new_type)
+signal sword_collected 
 
 # Initialization
 func _ready():
@@ -215,6 +220,13 @@ func register_player(player_instance) -> void:
 func collect_coin() -> void:
 	collected_coins += 1
 	emit_signal("coin_collected", collected_coins)
+	
+func collect_sword() -> void:
+	has_sword = true
+	emit_signal("sword_collected")
+	PopupManager.info("Schwert aufgesammelt!", "Man nennt es auch das Wort Gottes. Keine Klinge Schärfer als diese. Benutze es über drücken von 'U'")
+	
+	print("Schwert eingesammelt!")
 
 func player_death() -> void:
 	change_state(Constants.GameState.GAME_OVER)

@@ -48,5 +48,4 @@ scale = Vector2(0.274673, 0.193994)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 position = Vector2(-2.8365, 41.7479)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_ksgn8")

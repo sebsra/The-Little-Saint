@@ -437,10 +437,6 @@ func animate_heavenly_coin_appearance() -> void:
 	switch_coin_type(true)
 	x_label.visible = true
 	coins_label.visible = true
-	
-	# Show a message about the coin type change
-	if get_node_or_null("/root/GlobalHUD"):
-		GlobalHUD.add_message("Heavenly Coins Activated!", 3.0, heaven_coin_color)
 
 # Function to handle the complete transition from normal to heavenly coins
 func transition_to_heavenly_coins() -> void:

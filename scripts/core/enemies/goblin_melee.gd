@@ -51,7 +51,6 @@ func _ready():
 	
 	# Connect signals to handle damage
 	damaged.connect(_on_damaged)
-	died.connect(_on_died)
 	
 	# EXPLICIT STATE MACHINE SETUP - new approach
 	setup_state_machine()
@@ -192,27 +191,3 @@ func enter_rage_mode():
 	emit_signal("entered_rage_mode")
 	
 	print(name + " entered rage mode!")
-
-# Handle death
-func _on_died():
-	_drop_loot()
-
-# Drop random loot
-func _drop_loot():
-	# Loot table
-	var loot_table = [
-		{"item": "res://scenes/core/items/heavennly_coins.tscn", "chance": 0.7},
-		{"item": "res://scenes/core/items/elixir.tscn", "chance": 0.1},
-		{"item": "res://scenes/core/items/power_attack.tscn", "chance": 0.05}
-	]
-	
-	randomize()
-	
-	for loot in loot_table:
-		if randf() <= loot.chance:
-			var item_scene = load(loot.item)
-			if item_scene:
-				var item = item_scene.instantiate()
-				item.global_position = global_position
-				get_tree().current_scene.add_child(item)
-				break

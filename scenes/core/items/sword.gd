@@ -2,9 +2,9 @@ extends Node2D
 
 # Variablen für den Leuchteffekt
 @export var glow_color: Color = Color(1.0, 0.9, 0.0, 0.8)  # Gelbes Leuchten
-@export var glow_intensity_min: float = 0.3  # Niedriger für stärkeren Kontrast
-@export var glow_intensity_max: float = 1.5  # Höher für stärkeres Leuchten
-@export var glow_speed: float = 2.5  # Schnelleres Pulsieren
+@export var glow_intensity_min: float = 0.1  # Niedriger für stärkeren Kontrast
+@export var glow_intensity_max: float = 0.8  # Höher für stärkeres Leuchten
+@export var glow_speed: float = 1.2  # Schnelleres Pulsieren
 
 # Referenz auf das Schwert-Sprite und den Tween
 var sword_sprite: Sprite2D
@@ -69,3 +69,10 @@ func create_pulsing_tween():
 	)
 	
 	return current_tween
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		# Schwert verschwindet
+		queue_free()  # oder sword_sprite.hide(), je nach Wunsch
+		Global.collect_sword()

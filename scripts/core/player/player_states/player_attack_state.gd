@@ -7,6 +7,8 @@ var has_checked_for_enemies: bool = false
 var attack_damage: float = 100.0  # Default damage - enough to kill most enemies
 
 func enter():
+	if not Global.has_sword:
+		return
 	player.current_animation = player.attack_animation
 	player.play_attack_animation = true
 	attack_timer = 0.0
@@ -18,7 +20,7 @@ func enter():
 
 func physics_process(delta: float):
 	# Only check for enemies once per attack
-	if not has_checked_for_enemies:
+	if not has_checked_for_enemies and Global.has_sword:
 		_check_for_enemies()
 		has_checked_for_enemies = true
 	
