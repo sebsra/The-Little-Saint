@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5phr3k12w4gl"]
+
+[ext_resource type="Script" uid="uid://jd65ii4bgf8m" path="res://scenes/levels/intro_level/tower_guard.gd" id="1_xywhk"]
+[ext_resource type="PackedScene" uid="uid://cubtrfejltu51" path="res://scenes/core/player/character_sprites.tscn" id="1_ycdme"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l53bs"]
+radius = 7.5
+height = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xywhk"]
+radius = 46.0435
+
+[node name="TowerGuard" type="CharacterBody2D"]
+collision_layer = 3
+script = ExtResource("1_xywhk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_l53bs")
+
+[node name="character_sprites" parent="." instance=ExtResource("1_ycdme")]
+scale = Vector2(2, 2)
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(1, 6)
+shape = SubResource("CircleShape2D_xywhk")

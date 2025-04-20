@@ -2,7 +2,6 @@ extends Node
 
 ## Global handles game state, scene transitions, and global events
 ## Serves as the central controller for the game
-
 # Game state
 var current_state: Constants.GameState = Constants.GameState.MENU
 var previous_state: Constants.GameState = Constants.GameState.MENU

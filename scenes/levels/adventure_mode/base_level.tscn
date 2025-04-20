@@ -1,7 +1,7 @@
-[gd_scene load_steps=38 format=4 uid="uid://ct8x24tqf8r7s"]
+[gd_scene load_steps=38 format=4 uid="uid://ca2jfd61re032"]
 
-[ext_resource type="Script" uid="uid://xntbldgvemkg" path="res://scripts/levels/base_level.gd" id="1_7c88c"]
-[ext_resource type="PackedScene" uid="uid://ds83orkh8d6l" path="res://scenes/core/character/player.tscn" id="1_t8cdm"]
+[ext_resource type="Script" uid="uid://xntbldgvemkg" path="res://scenes/levels/main_world/main_world_base.gd" id="1_7c88c"]
+[ext_resource type="PackedScene" uid="uid://ds83orkh8d6l" path="res://scenes/core/player/player.tscn" id="1_t8cdm"]
 [ext_resource type="Texture2D" uid="uid://c3mxcx7rri7b6" path="res://assets/sprites/unsorted/Bushes/Bush5_2.png" id="2_bjuji"]
 [ext_resource type="Texture2D" uid="uid://c2i0y2bptpphn" path="res://assets/sprites/unsorted/Bushes/Bush5_4.png" id="3_rg4kc"]
 [ext_resource type="Texture2D" uid="uid://cylks5t4gvcof" path="res://assets/sprites/environment/craftpix-net-965049-free-industrial-zone-tileset-pixel-art/1 Tiles/IndustrialTile_04.png" id="6_0csrx"]
@@ -17,9 +17,9 @@
 [ext_resource type="Texture2D" uid="uid://b5xrte16pdv00" path="res://assets/sprites/environment/craftpix-896753-village-pixel-art-environment-assets-pack/Village_environment_props_01.png" id="16_jupna"]
 [ext_resource type="Texture2D" uid="uid://pvcifviuoert" path="res://assets/sprites/environment/sunny-land-files/Sunny-land-files/Graphical Assets/environment/Background/back.png" id="17_x4a2u"]
 [ext_resource type="Texture2D" uid="uid://dyv5r2xd7lsa7" path="res://assets/sprites/environment/craftpix-net-481981-free-summer-pixel-art-backgrounds/PNG/summer5/4.png" id="18_knsch"]
-[ext_resource type="PackedScene" uid="uid://bvht273076lxf" path="res://scenes/ui/controls/gui.tscn" id="19_3lon5"]
+[ext_resource type="PackedScene" uid="uid://bvht273076lxf" path="res://scenes/ui/onscreen_controll/onscreen_controll.tscn" id="19_3lon5"]
 [ext_resource type="PackedScene" uid="uid://brvsjhwye311q" path="res://scenes/ui/hud/hud.tscn" id="20_74f61"]
-[ext_resource type="PackedScene" uid="uid://cubtrfejltu51" path="res://scenes/core/character/character_sprites.tscn" id="21_qnudb"]
+[ext_resource type="PackedScene" uid="uid://cubtrfejltu51" path="res://scenes/core/player/character_sprites.tscn" id="21_qnudb"]
 [ext_resource type="TileSet" uid="uid://c0m7nsbyu5twe" path="res://scenes/levels/adventure_mode/adventure_level.tres" id="25_cdvhh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_opnxn"]

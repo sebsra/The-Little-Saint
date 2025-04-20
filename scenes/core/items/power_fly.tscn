@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://x3juxjynguey"]
 
-[ext_resource type="Script" uid="uid://d3672dqpsdwnh" path="res://scripts/core/items/power_fly.gd" id="1_gynu6"]
-[ext_resource type="Texture2D" uid="uid://10d6xk2oif0q" path="res://scenes/levels/prince_levels/Tiles/fourSeasonsPlatformer/objects_/items_.png" id="2_7ejxt"]
+[ext_resource type="Script" uid="uid://d3672dqpsdwnh" path="res://old_stuff/power_fly.gd" id="1_gynu6"]
+[ext_resource type="Texture2D" uid="uid://10d6xk2oif0q" path="res://assets/tilemaps/Tiles/fourSeasonsPlatformer/objects_/items_.png" id="2_7ejxt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r8h5j"]
 radius = 5.7384

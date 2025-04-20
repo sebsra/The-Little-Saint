@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=3 uid="uid://dfkw3squ32gx8"]
 
-[ext_resource type="Script" uid="uid://dqb43iqv6hchw" path="res://scripts/core/enemies/goblin_melee.gd" id="1_27p86"]
+[ext_resource type="Script" uid="uid://dqb43iqv6hchw" path="res://scenes/core/enemies/goblin_melee.gd" id="1_27p86"]
 [ext_resource type="Texture2D" uid="uid://cmjn1ydnp4j1n" path="res://assets/sprites/enemies/3 Goblin_Melee/Goblin_Melee_Attack.png" id="1_rosh6"]
 [ext_resource type="Texture2D" uid="uid://c7gl4dy8xddiw" path="res://assets/sprites/enemies/3 Goblin_Melee/Goblin_Melee_death.png" id="2_bwo8x"]
 [ext_resource type="Texture2D" uid="uid://c1htal56dllp4" path="res://assets/sprites/enemies/3 Goblin_Melee/Goblin_Melee_Idle.png" id="3_jhxbm"]

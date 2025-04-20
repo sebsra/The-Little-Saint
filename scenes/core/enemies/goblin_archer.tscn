@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=3 uid="uid://b4eyyu131yt6h"]
 
-[ext_resource type="Script" uid="uid://ca3fywobdx14j" path="res://scripts/core/enemies/goblin_archer.gd" id="1_e1yp7"]
+[ext_resource type="Script" uid="uid://ca3fywobdx14j" path="res://scenes/core/enemies/goblin_archer.gd" id="1_e1yp7"]
 [ext_resource type="Texture2D" uid="uid://c2x2vfj6qdk6d" path="res://assets/sprites/enemies/4 Goblin_Range/Goblin_Range_attack.png" id="2_qmue5"]
 [ext_resource type="Texture2D" uid="uid://b4d6w7p4y285i" path="res://assets/sprites/enemies/4 Goblin_Range/Goblin_Range_Death.png" id="3_pofab"]
 [ext_resource type="Texture2D" uid="uid://c7qubslcnxoyl" path="res://assets/sprites/enemies/4 Goblin_Range/Goblin_Range_Idle.png" id="4_xdvix"]

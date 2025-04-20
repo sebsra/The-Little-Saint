@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://dh7t0n4nj8w4o"]
+
+[ext_resource type="Script" uid="uid://cmc7d5ql2dv3p" path="res://scenes/ui/menus/main_menu/main_menu.gd" id="1_ls6jq"]
+[ext_resource type="Script" uid="uid://2yn0xqretwbf" path="res://scenes/ui/menus/main_menu/menu_buttons.gd" id="2_fswj7"]
+[ext_resource type="PackedScene" uid="uid://cacipyxg6gu2d" path="res://scenes/ui/menus/main_menu/start_background.tscn" id="2_kaae1"]
+[ext_resource type="FontFile" uid="uid://ckqgohldi0pme" path="res://assets/fonts/special/copyduck/Copyduck.otf" id="4_kolhe"]
+
+[node name="StartBildschirm" type="Node2D"]
+script = ExtResource("1_ls6jq")
+
+[node name="start_background" parent="." instance=ExtResource("2_kaae1")]
+scroll_ignore_camera_zoom = false
+
+[node name="Exit_Button" type="Button" parent="."]
+offset_left = 414.0
+offset_top = 299.0
+offset_right = 862.0
+offset_bottom = 340.0
+text = "Exit"
+script = ExtResource("2_fswj7")
+
+[node name="Settings_Button" type="Button" parent="."]
+offset_left = 413.0
+offset_top = 245.0
+offset_right = 864.0
+offset_bottom = 288.0
+text = "Settings"
+script = ExtResource("2_fswj7")
+
+[node name="Start_Button" type="Button" parent="."]
+offset_left = 414.0
+offset_top = 193.0
+offset_right = 865.0
+offset_bottom = 236.0
+text = "Start"
+script = ExtResource("2_fswj7")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 462.0
+offset_top = 115.0
+offset_right = 596.0
+offset_bottom = 133.0
+scale = Vector2(2.66, 2.66)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_kolhe")
+text = "The Little Saint"
+
+[connection signal="pressed" from="Exit_Button" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="Settings_Button" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Start_Button" to="." method="_on_start_button_pressed"]

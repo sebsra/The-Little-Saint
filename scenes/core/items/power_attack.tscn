@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://biv236ny4gfgg"]
 
-[ext_resource type="Texture2D" uid="uid://10d6xk2oif0q" path="res://scenes/levels/prince_levels/Tiles/fourSeasonsPlatformer/objects_/items_.png" id="1_ajk25"]
-[ext_resource type="Script" uid="uid://u26u0i6o5m7o" path="res://scripts/core/items/power_attack.gd" id="1_b1785"]
+[ext_resource type="Texture2D" uid="uid://10d6xk2oif0q" path="res://assets/tilemaps/Tiles/fourSeasonsPlatformer/objects_/items_.png" id="1_ajk25"]
+[ext_resource type="Script" uid="uid://u26u0i6o5m7o" path="res://old_stuff/power_attack.gd" id="1_b1785"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rppnp"]
 height = 22.0

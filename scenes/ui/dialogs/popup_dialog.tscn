@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b7p3rojg1fmmc"]
 
-[ext_resource type="Script"  path="res://scripts/ui/dialogs/popup_dialog.gd" id="1_r3ysr"]
+[ext_resource type="Script" uid="uid://tk2owv7l4dic" path="res://scenes/ui/dialogs/popup_dialog.gd" id="1_r3ysr"]
 
 [node name="PopupDialog" type="Node2D"]
 script = ExtResource("1_r3ysr")

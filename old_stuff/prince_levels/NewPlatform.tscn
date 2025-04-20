@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://b3ethatdyb7gf"]
+
+[node name="AnimatableBody2D" type="AnimatableBody2D"]
+position = Vector2(-35, -6)

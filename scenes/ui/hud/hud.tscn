@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://brvsjhwye311q"]
 
-[ext_resource type="Script" uid="uid://c3aqe6tuh5mrl" path="res://scripts/ui/hud/hud_controller.gd" id="1_n00ko"]
-[ext_resource type="Texture2D" uid="uid://b8xa3n5e0qpwc" path="res://scenes/levels/ardit_levels/Coin_alone.png" id="2_yfuy3"]
+[ext_resource type="Script" uid="uid://c3aqe6tuh5mrl" path="res://scenes/ui/hud/hud_controller.gd" id="1_n00ko"]
+[ext_resource type="Texture2D" uid="uid://b8xa3n5e0qpwc" path="res://old_stuff/ardit_levels/Coin_alone.png" id="2_yfuy3"]
 [ext_resource type="FontFile" uid="uid://cjlr4oid6p4jb" path="res://assets/fonts/special/copyduck/Copyduck.ttf" id="3_6xw86"]
 [ext_resource type="Texture2D" uid="uid://csbni1gtdeuw2" path="res://assets/sprites/unsorted/princefotos/Heavenly_Coin_Single.png" id="3_a660p"]
 [ext_resource type="Texture2D" uid="uid://dm67cqfufmwf" path="res://assets/sprites/unsorted/hud_heartFull.png" id="4_i601r"]

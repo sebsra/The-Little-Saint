@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://dr7ntorp0cef"]
 
 [ext_resource type="Script" uid="uid://bdour4osjj6cu" path="res://scenes/levels/adventure_mode/main_map.gd" id="1_h2yiu"]
-[ext_resource type="PackedScene" uid="uid://ds83orkh8d6l" path="res://scenes/core/character/player.tscn" id="2_cd3bd"]
+[ext_resource type="PackedScene" uid="uid://ds83orkh8d6l" path="res://scenes/core/player/player.tscn" id="2_cd3bd"]
 [ext_resource type="Texture2D" uid="uid://pvcifviuoert" path="res://assets/sprites/environment/sunny-land-files/Sunny-land-files/Graphical Assets/environment/Background/back.png" id="5_3t8mi"]
 [ext_resource type="Texture2D" uid="uid://cfltej707mdlt" path="res://assets/sprites/environment/Industrial/bg.png" id="6_e7mkn"]
-[ext_resource type="PackedScene" uid="uid://bvht273076lxf" path="res://scenes/ui/controls/gui.tscn" id="7_3t8mi"]
+[ext_resource type="PackedScene" uid="uid://bvht273076lxf" path="res://scenes/ui/onscreen_controll/onscreen_controll.tscn" id="7_3t8mi"]
 [ext_resource type="Texture2D" uid="uid://crilrgk0gtkn8" path="res://assets/sprites/environment/Industrial/buildings.png" id="7_icxnx"]
 [ext_resource type="PackedScene" uid="uid://brvsjhwye311q" path="res://scenes/ui/hud/hud.tscn" id="8_e7mkn"]
 [ext_resource type="Texture2D" uid="uid://b71w2qavtssep" path="res://assets/sprites/environment/Industrial/skill-foreground.png" id="8_ka5f1"]

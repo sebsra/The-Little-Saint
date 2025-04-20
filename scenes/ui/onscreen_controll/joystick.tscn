@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpw4s060jjp1i"]
+
+[sub_resource type="GDScript" id="GDScript_17eq3"]
+script/source = "extends Sprite2D
+
+@export var speed : float = 100
+
+@export var joystick_left : VirtualJoystick
+
+@export var joystick_right : VirtualJoystick
+
+var move_vector := Vector2.ZERO
+
+func _process(delta: float) -> void:
+	## Movement using the joystick output:
+#	if joystick_left and joystick_left.is_pressed:
+#		position += joystick_left.output * speed * delta
+
+	## Movement using Input functions:
+	move_vector = Vector2.ZERO
+	move_vector = Input.get_vector(\"ui_left\",\"ui_right\",\"ui_up\",\"ui_down\")
+	position += move_vector * speed * delta
+
+	# Rotation:
+	if joystick_right and joystick_right.is_pressed:
+		rotation = joystick_right.output.angle()
+"
+
+[node name="Joystick" type="Sprite2D"]
+visible = false
+script = SubResource("GDScript_17eq3")

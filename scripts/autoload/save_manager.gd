@@ -371,8 +371,8 @@ func load_settings() -> bool:
 	current_save_data.player_allowed_jumps = config.get_value(Constants.SECTION_SETTINGS, "allowed_jumps", Constants.PLAYER_MAX_JUMPS)
 
 	# Load difficulty and coin type
-	current_save_data.difficulty = config.get_value(Constants.SECTION_SETTINGS, "difficulty", 1) # Default: NORMAL
-	current_save_data.coin_type = config.get_value(Constants.SECTION_SETTINGS, "coin_type", 0) # Default: NORMAL
+	#current_save_data.difficulty = config.get_value(Constants.SECTION_SETTINGS, "difficulty", 1) # Default: NORMAL
+	#current_save_data.coin_type = config.get_value(Constants.SECTION_SETTINGS, "coin_type", 0) # Default: NORMAL
 
 	# Apply game settings to Global if it exists
 	if get_node_or_null("/root/Global"):
