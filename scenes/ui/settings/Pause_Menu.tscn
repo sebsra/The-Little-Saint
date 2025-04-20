@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://c61ch4vtsxk23"]
+[gd_scene load_steps=3 format=3 uid="uid://brmmccgwcdeu1"]
 
 [ext_resource type="Script" uid="uid://wx1lofqgfuqp" path="res://scenes/ui/settings/pause_menu.gd" id="1_aqbx0"]
 [ext_resource type="FontFile" uid="uid://ckqgohldi0pme" path="res://assets/fonts/special/copyduck/Copyduck.otf" id="2_h1iwb"]
@@ -7,7 +7,7 @@
 script = ExtResource("1_aqbx0")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-modulate = Color(0, 0, 0, 0.00392157)
+modulate = Color(1, 1, 1, 0.211765)
 top_level = true
 offset_right = 1276.0
 offset_bottom = 726.0
