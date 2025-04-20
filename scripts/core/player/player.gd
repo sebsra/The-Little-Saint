@@ -309,3 +309,8 @@ func bounce() -> void:
 # Modified player death function
 func death():
 	state_machine.change_state("PlayerDeathState")
+
+
+func _on_town_popup_body_entered(body):
+	if body.name == "Player":
+		PopupManager.info("Das Dorf", "Hier wird es in Zukunft viele Möglichkeiten zum erkunden geben, sowohl auch ein Shop !!!")
