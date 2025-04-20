@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bs8upv8wmsybt"
-path="res://.godot/imported/[Free-Ver.]Tiles.png-de33cd64a597444901da7d524429acc5.ctex"
+uid="uid://b8xa3n5e0qpwc"
+path="res://.godot/imported/Coin_alone.png-57dbe28342bf4866724c027e72d73c70.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://old_stuff/ardit_levels/[Free-Version] The Lost Tomb - [24x24] Dungeon Asset pack/[Free-Ver.]Tiles.png"
-dest_files=["res://.godot/imported/[Free-Ver.]Tiles.png-de33cd64a597444901da7d524429acc5.ctex"]
+source_file="res://assets/sprites/items/Coin_alone.png"
+dest_files=["res://.godot/imported/Coin_alone.png-57dbe28342bf4866724c027e72d73c70.ctex"]
 
 [params]
 
