@@ -22,6 +22,9 @@ func _on_player_died() -> void:
 func _on_water_body_entered(body):
 	if body.name == "Player" or body.is_in_group("Player"):
 		body.state_machine.change_state("PlayerSwimState")
+	if body.is_in_group("enemy"):
+		body.take_damage(1000.0)
+		GlobalHUD.add_message("Ein Feind wurde im Wasser begraben")
 
 
 func _on_water_body_exited(body):

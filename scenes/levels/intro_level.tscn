@@ -1,6 +1,6 @@
-[gd_scene load_steps=41 format=3 uid="uid://cj15l5x85rbu"]
+[gd_scene load_steps=43 format=3 uid="uid://cj15l5x85rbu"]
 
-[ext_resource type="Script" uid="uid://ch53jgwhj72k7" path="res://scenes/levels/prince_levels/game_prince.gd" id="1_cv7fv"]
+[ext_resource type="Script" uid="uid://ch53jgwhj72k7" path="res://scenes/levels/prince_levels/intro_level.gd" id="1_cv7fv"]
 [ext_resource type="Texture2D" uid="uid://blekbooony6ko" path="res://assets/sprites/Foresttiles/oak_woods_tileset.png" id="2_x4vc4"]
 [ext_resource type="Texture2D" uid="uid://b7co7ebd78q3j" path="res://scenes/levels/prince_levels/Tiles/fourSeasonsPlatformer/midground_/winter_.png" id="3_o70gk"]
 [ext_resource type="Texture2D" uid="uid://bh0vtrt4hnr20" path="res://assets/sprites/Wassertiles/Tilemap/tilemap_packed.png" id="4_4f68i"]
@@ -25,7 +25,9 @@
 [ext_resource type="PackedScene" uid="uid://dfdu5qaytkhqx" path="res://scenes/core/items/burgturm.tscn" id="23_shxjb"]
 [ext_resource type="PackedScene" uid="uid://b4eyyu131yt6h" path="res://scenes/core/enemies/goblin_archer.tscn" id="25_cv7fv"]
 [ext_resource type="PackedScene" uid="uid://257y6q30yw05" path="res://scenes/core/items/sword.tscn" id="25_elcuj"]
-[ext_resource type="PackedScene" uid="uid://kfb6dx6luob4" path="res://scenes/core/items/heart.tscn" id="26_x4vc4"]
+[ext_resource type="PackedScene" uid="uid://cwltbuuif0nqd" path="res://scenes/core/items/elixir.tscn" id="26_x4vc4"]
+[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/coin.tscn" id="27_o70gk"]
+[ext_resource type="PackedScene" uid="uid://duv1dcx0sg3gc" path="res://scenes/core/items/sack_of_gold.tscn" id="28_4f68i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ndii1"]
 texture = ExtResource("2_x4vc4")
@@ -4140,10 +4142,10 @@ texture = ExtResource("17_r8pav")
 metadata/_edit_use_anchors_ = true
 
 [node name="NinePatchRect5" type="NinePatchRect" parent="ParallaxBackground/ParallaxLayer"]
-offset_left = -10.0
-offset_top = 74.0
-offset_right = 2410.0
-offset_bottom = 1330.0
+offset_left = -112.0
+offset_top = 107.0
+offset_right = 2308.0
+offset_bottom = 1363.0
 texture = ExtResource("18_7emo8")
 metadata/_edit_use_anchors_ = true
 
@@ -4185,19 +4187,67 @@ position = Vector2(-2560, -233)
 position = Vector2(-3365, -4)
 
 [node name="Goblin_Melee3" parent="." instance=ExtResource("20_uociw")]
-position = Vector2(-3133, 4)
+position = Vector2(-2900, -33)
 
 [node name="Goblin_Melee4" parent="." instance=ExtResource("20_uociw")]
 position = Vector2(-3414, 67)
 
-[node name="Goblin_Mage2" parent="." instance=ExtResource("21_7i3hm")]
-position = Vector2(-3242, 71)
+[node name="Goblin_Archer2" parent="." instance=ExtResource("25_cv7fv")]
+position = Vector2(-3128, 15)
 
 [node name="Goblin_Melee5" parent="." instance=ExtResource("20_uociw")]
-position = Vector2(-4253, -475)
+position = Vector2(-3201, 70)
 
-[node name="Heart" parent="." instance=ExtResource("26_x4vc4")]
-position = Vector2(-4554, -444)
+[node name="elixir" parent="." instance=ExtResource("26_x4vc4")]
+position = Vector2(-3246, -31)
+
+[node name="coins" parent="." instance=ExtResource("27_o70gk")]
+position = Vector2(-3225, -33)
+
+[node name="coins2" parent="." instance=ExtResource("27_o70gk")]
+position = Vector2(-3210, -29)
+
+[node name="coins3" parent="." instance=ExtResource("27_o70gk")]
+position = Vector2(-3214, -44)
+
+[node name="coins4" parent="." instance=ExtResource("27_o70gk")]
+position = Vector2(-3218, -32)
+
+[node name="Goblin_Mage2" parent="." instance=ExtResource("21_7i3hm")]
+position = Vector2(-3132, -44)
+
+[node name="Goblin_Archer3" parent="." instance=ExtResource("25_cv7fv")]
+position = Vector2(-3305, 79)
+
+[node name="Goblin_Archer4" parent="." instance=ExtResource("25_cv7fv")]
+position = Vector2(-2631, 37)
+
+[node name="Goblin_Melee6" parent="." instance=ExtResource("20_uociw")]
+position = Vector2(-2756, -28)
+
+[node name="coins5" parent="." instance=ExtResource("27_o70gk")]
+position = Vector2(-3787, -10)
+
+[node name="coins6" parent="." instance=ExtResource("27_o70gk")]
+position = Vector2(-3766, -8)
+
+[node name="coins7" parent="." instance=ExtResource("27_o70gk")]
+position = Vector2(-3744, -10)
+
+[node name="coins8" parent="." instance=ExtResource("27_o70gk")]
+position = Vector2(-4049, -134)
+
+[node name="coins9" parent="." instance=ExtResource("27_o70gk")]
+position = Vector2(-4157, -229)
+
+[node name="coins10" parent="." instance=ExtResource("27_o70gk")]
+position = Vector2(-4049, -321)
+
+[node name="coins11" parent="." instance=ExtResource("27_o70gk")]
+position = Vector2(-4076, -12)
+
+[node name="coins12" parent="." instance=ExtResource("28_4f68i")]
+position = Vector2(-2889, -108)
 
 [connection signal="body_entered" from="SetBackZone" to="." method="_on_set_back_zone_body_entered"]
 [connection signal="body_entered" from="water" to="." method="_on_water_body_entered"]
