@@ -13,6 +13,20 @@ var attack_radius: float = 50.0
 var patrol_distance: float = 100.0
 var has_been_initialized: bool = false
 
+# Patrol state variables 
+var patrol_points: Array = []
+var patrol_direction: int = 1
+var patrol_wait_time: float = 1.0
+var patrol_is_waiting: bool = false
+var patrol_timer: float = 0.0
+
+# Add these variables to the BaseEnemy class
+var bounce_strength: float = -250.0  # Stronger bounce to ensure separation
+var player_knockback: float = 200.0
+var hover_check_distance: float = 50.0  # Check further ahead for potential collisions
+var hover_check_timer: float = 0.0
+var hover_check_interval: float = 0.05  # Check more frequently
+
 # Cooldown tracking
 var can_attack: bool = true
 var attack_timer: float = 0.0
@@ -88,7 +102,8 @@ func _ready():
 	# Connect to difficulty changes
 	if Global:
 		Global.difficulty_changed.connect(_on_difficulty_changed)
-
+		
+# Modified _physics_process method
 func _physics_process(delta):
 	# Update attack cooldown
 	if not can_attack:
@@ -100,11 +115,25 @@ func _physics_process(delta):
 	# Handle physics based on gravity
 	if not is_on_floor() and "velocity" in self:
 		velocity.y += ProjectSettings.get_setting("physics/2d/default_gravity") * delta
+		
+		# Proactive check for player collision when falling
+		if velocity.y > 0:  # Only when falling downward
+			hover_check_timer += delta
+			if hover_check_timer >= hover_check_interval:
+				hover_check_timer = 0.0
+				prevent_player_landing()
 	
 	# Apply movement
 	if "velocity" in self:
 		move_and_slide()
-
+		
+		# Additional check immediately after movement
+		if not is_on_floor() and velocity.y > 0:
+			var player = get_player()
+			if player and is_overlapping_player(player):
+				# Force immediate bounce if overlapping
+				emergency_bounce(player)
+				
 # Create and setup state machine - called by child classes
 func setup_state_machine():
 	state_machine = EnemyStateMachine.new()
@@ -256,3 +285,63 @@ func drop_item():
 			var drop_instance = scene.instantiate()
 			get_parent().add_child(drop_instance)
 			drop_instance.global_position = global_position
+
+# Get player reference
+func get_player():
+	return get_tree().get_first_node_in_group("player")
+
+# Check if about to land on player using physics raycast
+func prevent_player_landing():
+	var player = get_player()
+	if not player:
+		return
+		
+	# Calculate potential landing spot
+	var space_state = get_world_2d().direct_space_state
+	var query = PhysicsRayQueryParameters2D.create(
+		global_position,  # Start from current position
+		global_position + Vector2(0, hover_check_distance),  # Check below
+		1,  # Collision mask (adjust to your collision layer setup)
+		[get_rid()]  # Exclude self from the check
+	)
+	
+	var result = space_state.intersect_ray(query)
+	
+	# If we're about to hit the player, bounce off
+	if result and result.collider == player:
+		# Determine horizontal direction away from player
+		var direction = sign(global_position.x - player.global_position.x)
+		if direction == 0:
+			direction = 1
+			
+		# Apply bounce with horizontal movement
+		velocity.y = bounce_strength * 1.2  # Extra bounce strength
+		velocity.x = direction * player_knockback * 1.5
+		
+		# Also apply knockback to player if possible
+		if "velocity" in player:
+			player.velocity.x = -direction * player_knockback * 0.5
+
+# Emergency handling for direct overlaps
+func is_overlapping_player(player):
+	# Simple AABB overlap check
+	var enemy_rect = Rect2(global_position - Vector2(10, 20), Vector2(20, 40))
+	var player_rect = Rect2(player.global_position - Vector2(10, 20), Vector2(20, 40))
+	return enemy_rect.intersects(player_rect)
+
+# Handle immediate bounce if already overlapping
+func emergency_bounce(player):
+	var direction = sign(global_position.x - player.global_position.x)
+	if direction == 0:
+		direction = 1
+		
+	# Strong bounce to force separation
+	velocity.y = bounce_strength * 1.5
+	velocity.x = direction * player_knockback * 2
+	
+	# Move the enemy up slightly to prevent getting stuck
+	global_position.y -= 5
+	
+	# Apply stronger knockback to player
+	if "velocity" in player:
+		player.velocity.x = -direction * player_knockback
