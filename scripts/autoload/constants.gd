@@ -63,7 +63,6 @@ const INPUT_UP: String = "up"
 const INPUT_DOWN: String = "down"
 const INPUT_ATTACK: String = "attack"
 const INPUT_DEFEND: String = "defend"
-const INPUT_MENU: String = "Menu"
 
 # Scene paths
 const MAIN_MENU_SCENE: String = "res://scenes/ui/main_menu/main_menu.tscn"

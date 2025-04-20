@@ -32,4 +32,4 @@ position = Vector2(537, -48)
 position = Vector2(399, -83)
 
 [node name="HeavenlyCoin4" parent="." instance=ExtResource("3_77x1v")]
-position = Vector2(298, -46)
+position = Vector2(298, -56)

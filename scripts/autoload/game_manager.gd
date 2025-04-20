@@ -269,12 +269,6 @@ func quit_game() -> void:
 	get_tree().quit()
 
 # Input handling
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed(Constants.INPUT_MENU):
-		if current_state == Constants.GameState.PLAYING:
-			change_state(Constants.GameState.PAUSED)
-		elif current_state == Constants.GameState.PAUSED:
-			change_state(Constants.GameState.PLAYING)
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:

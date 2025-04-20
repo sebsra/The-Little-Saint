@@ -1,0 +1,83 @@
+[gd_scene load_steps=3 format=3 uid="uid://c61ch4vtsxk23"]
+
+[ext_resource type="Script" uid="uid://wx1lofqgfuqp" path="res://scenes/ui/settings/pause_menu.gd" id="1_aqbx0"]
+[ext_resource type="FontFile" uid="uid://ckqgohldi0pme" path="res://assets/fonts/special/copyduck/Copyduck.otf" id="2_h1iwb"]
+
+[node name="Control" type="CanvasLayer"]
+script = ExtResource("1_aqbx0")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(0, 0, 0, 0.00392157)
+top_level = true
+offset_right = 1276.0
+offset_bottom = 726.0
+
+[node name="CloseButton" type="Button" parent="."]
+offset_left = 514.0
+offset_top = 400.0
+offset_right = 714.0
+offset_bottom = 445.0
+text = "Continue"
+
+[node name="MenuButton" type="Button" parent="."]
+offset_left = 515.0
+offset_top = 460.0
+offset_right = 715.0
+offset_bottom = 505.0
+text = "Quit"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 166.0
+offset_top = 104.0
+offset_right = 298.495
+offset_bottom = 122.0
+scale = Vector2(2.66, 2.66)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_h1iwb")
+text = "Difficulty"
+
+[node name="Difficulty_Label" type="Label" parent="."]
+offset_left = 131.0
+offset_top = 238.0
+offset_right = 263.495
+offset_bottom = 256.0
+scale = Vector2(1.93574, 2.06711)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_h1iwb")
+text = "Difficulty"
+
+[node name="DifficultySlider" type="HSlider" parent="."]
+modulate = Color(1, 0, 0, 1)
+offset_left = 59.0
+offset_top = 181.0
+offset_right = 354.565
+offset_bottom = 217.0
+scale = Vector2(1.605, 1.605)
+max_value = 3.0
+tick_count = 4
+ticks_on_borders = true
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 782.0
+offset_top = 96.0
+offset_right = 914.495
+offset_bottom = 114.0
+scale = Vector2(2.66, 2.66)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_h1iwb")
+text = "Audio-Settings"
+
+[node name="HSlider" type="HSlider" parent="."]
+modulate = Color(0.313726, 1, 0.317647, 1)
+offset_left = 718.0
+offset_top = 184.0
+offset_right = 1013.57
+offset_bottom = 220.0
+scale = Vector2(1.605, 1.605)
+min_value = -30.0
+max_value = 0.0
+
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="value_changed" from="DifficultySlider" to="." method="_on_difficulty_slider_value_changed"]
+[connection signal="value_changed" from="HSlider" to="." method="_on_ha_slider_value_changed"]

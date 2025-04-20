@@ -24,6 +24,7 @@ corner_detail = 20
 shadow_color = Color(0, 0, 0, 0.215686)
 
 [node name="HUD" type="CanvasLayer"]
+layer = 0
 script = ExtResource("1_n00ko")
 
 [node name="Panel" type="Panel" parent="."]

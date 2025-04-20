@@ -28,9 +28,17 @@ signal power_up_activated(power_up_name, duration) # Power-Up aktiviert
 signal power_up_deactivated(power_up_name) # Power-Up deaktiviert
 signal new_message(text, duration, color) # Neue Nachricht
 
+#Visibility
+var visible
+
 func _ready():
 	# Initialisierung mit Standardwerten
 	reset_to_defaults()
+	
+	# Initially set the HUD to visible
+	visible = true
+	# Connect to the scene's pause signal to toggle visibility when game is paused/unpaused
+	
 	
 	# Verbinde mit dem Spieler-Tod-Signal vom GameManager
 	if get_node_or_null("/root/Global"):
@@ -41,6 +49,19 @@ func register_hud(hud):
 	hud_instance = hud
 	notify_hud_of_all_values()
 
+# Function to hide the HUD
+func hide_hud():
+	if hud_instance:
+		hud_instance.visible = false
+		print("HUD is now hidden.")
+
+# Function to show the HUD
+func show_hud():
+	if hud_instance:
+		hud_instance.visible = true
+		print("HUD is now visible.")
+	else:
+		print("Error: HUD instance not found!")
 # Benachrichtige das HUD über alle aktuellen Werte
 func notify_hud_of_all_values():
 	if not hud_instance:
