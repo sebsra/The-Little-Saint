@@ -20,8 +20,9 @@ position = Vector2(18, -108)
 
 [node name="Camera2D" type="Camera2D" parent="Player/Player"]
 position = Vector2(7, 31)
+scale = Vector2(1, 0.998234)
 offset = Vector2(0, -40)
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(2.2, 2.2)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
@@ -52,11 +53,11 @@ motion_scale = Vector2(0.2, 1)
 
 [node name="NinePatchRect" type="NinePatchRect" parent="ParallaxBackground3/BackgroundGreen (far distance)2"]
 texture_repeat = 2
-offset_left = 34864.7
-offset_top = 6992.98
-offset_right = 37338.7
-offset_bottom = 7341.98
-rotation = 3.14159
+offset_left = -3841.05
+offset_top = 353.412
+offset_right = -1367.05
+offset_bottom = 702.412
+rotation = 6.28351
 scale = Vector2(15.6388, 19.6979)
 texture = ExtResource("6_e7mkn")
 region_rect = Rect2(0, 0, 384, 175)
