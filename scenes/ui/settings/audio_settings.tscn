@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://jdsqxwwc0a0a"]
 
-[ext_resource type="Script"  path="res://scripts/ui/settings/audio_settings.gd" id="1_v38ib"]
-[ext_resource type="Script"  path="res://scripts/ui/main_menu/menu_buttons.gd" id="2_mhwes"]
-[ext_resource type="PackedScene"  path="res://scenes/ui/main_menu/start_background.tscn" id="3_kci5j"]
-[ext_resource type="FontFile"  path="res://assets/fonts/special/copyduck/Copyduck.otf" id="4_hcyq3"]
+[ext_resource type="Script" uid="uid://crmxoftbkgfwj" path="res://scripts/ui/settings/audio_settings.gd" id="1_v38ib"]
+[ext_resource type="Script" uid="uid://2yn0xqretwbf" path="res://scripts/ui/main_menu/menu_buttons.gd" id="2_mhwes"]
+[ext_resource type="PackedScene" uid="uid://cacipyxg6gu2d" path="res://scenes/ui/main_menu/start_background.tscn" id="3_kci5j"]
+[ext_resource type="FontFile" uid="uid://ckqgohldi0pme" path="res://assets/fonts/special/copyduck/Copyduck.otf" id="4_hcyq3"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_v38ib")

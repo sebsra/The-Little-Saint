@@ -45,9 +45,9 @@ script = ExtResource("1_bq4oe")
 [node name="start_background" parent="." instance=ExtResource("3_4l1dq")]
 
 [node name="Label" type="Label" parent="."]
-offset_left = 454.0
+offset_left = 445.0
 offset_top = 116.0
-offset_right = 601.0
+offset_right = 592.0
 offset_bottom = 134.0
 scale = Vector2(2.66, 2.66)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
