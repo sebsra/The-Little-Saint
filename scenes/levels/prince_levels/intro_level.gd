@@ -8,6 +8,10 @@ var is_sack_dialog_active: bool = false
 var _current_player_body: Node2D = null
 var _current_dialog_id: String = ""
 
+# Variablen für die Plattformbewegung
+var platform_initial_position: Vector2
+var platform_top_position: Vector2
+
 func _ready() -> void:
 	# Verbinde mit dem player_died Signal aus dem Global Autoload in Godot 4.4 Syntax
 	Global.player_died.connect(_on_player_died)
@@ -20,6 +24,30 @@ func _ready() -> void:
 	
 	# Initialize blocker state
 	update_blocker()
+	
+	# Plattformbewegung einrichten
+	setup_platform_movement()
+
+# Funktion, um die Plattformbewegung einzurichten
+func setup_platform_movement() -> void:
+	if has_node("platform"):
+		var platform = get_node("platform")
+		# Speichere die Anfangsposition der Plattform
+		platform_initial_position = platform.position
+		# Setze die obere Position (gleiche x-Koordinate, aber y = -950)
+		platform_top_position = Vector2(platform.position.x, -950)
+		
+		# Starte die Bewegungssequenz für die Plattform
+		var tween = create_tween().set_loops()  # Endlose Wiederholung
+		
+		# Bewegung nach oben
+		tween.tween_property(platform, "position", platform_top_position, 2.0)
+		# Pause oben
+		tween.tween_interval(1.0)
+		# Bewegung nach unten
+		tween.tween_property(platform, "position", platform_initial_position, 2.0)
+		# Pause unten
+		tween.tween_interval(1.0)
 
 # Function to update blocker's collision layer based on whether player has sack
 func update_blocker():
