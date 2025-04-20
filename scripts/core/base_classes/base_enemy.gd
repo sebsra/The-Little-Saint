@@ -20,12 +20,16 @@ var patrol_wait_time: float = 1.0
 var patrol_is_waiting: bool = false
 var patrol_timer: float = 0.0
 
-# Add these variables to the BaseEnemy class
-var bounce_strength: float = -250.0  # Stronger bounce to ensure separation
+# Player collision handling
+var bounce_strength: float = -250.0
 var player_knockback: float = 200.0
-var hover_check_distance: float = 50.0  # Check further ahead for potential collisions
+var hover_check_distance: float = 50.0
 var hover_check_timer: float = 0.0
-var hover_check_interval: float = 0.05  # Check more frequently
+var hover_check_interval: float = 0.05
+var jump_off_player_strength: float = -350.0
+var on_player_check_interval: float = 0.05
+var on_player_check_timer: float = 0.0
+var player_head_detection_width: float = 30.0
 
 # Cooldown tracking
 var can_attack: bool = true
@@ -41,12 +45,12 @@ var state_machine = null
 var collision_shape = null
 var animated_sprite = null
 
-enum DropType {NONE, COIN, ELIXIR}
-var drop_chance: float = 0.5  # 50% chance to drop something
+enum DropType {NONE, COIN, ELIXIR, HEART}
+var drop_chance: float = 0.8 
 var drop_type_chances = {
-	DropType.NONE: 0.3,   # 30% chance for no drop
 	DropType.COIN: 0.5,   # 50% chance for coin
-	DropType.ELIXIR: 0.2  # 20% chance for elixir
+	DropType.ELIXIR: 5.25, # 20% chance for elixir
+	DropType.HEART: 0.25
 }
 
 # Signals
@@ -59,7 +63,7 @@ const DEFEAT_MESSAGES: PackedStringArray = [
 	"Ein weiterer Thron der Finsternis wurde gestürzt.",
 	"Dein Schwert sang – und Stille hüllte den Abgrund ein.",
 	"Die Fesseln des Bösen zersplitterten unter heiligem Stahl.",
-	"Ein Echo hallt: ‚Es ist vollbracht.‘",
+	"Ein Echo hallt: ‚Es ist vollbracht.'",
 	"Die Nacht wich vor dem Wort, das stärker ist als Stahl.",
 	"Kein Dunkel trotzt dem Feuer des Glaubens.",
 	"Der Sturm der Verdammnis brach an deiner Festung.",
@@ -82,7 +86,7 @@ const DEFEAT_MESSAGES: PackedStringArray = [
 ## Wählt zufällig eine Meldung aus, blendet die Münz‑Transition ein
 ## und zeigt den Text auf dem GlobalHUD an.
 ##
-## @param duration Sekunden, die der Text sichtbar bleibt (Standard 3 Sek.)
+## @param duration Sekunden, die der Text sichtbar bleibt (Standard 3 Sek.)
 func show_random_defeat_message(duration: float = 10.0) -> void:
 	var msg := DEFEAT_MESSAGES[_rng.randi() % DEFEAT_MESSAGES.size()]
 	var space = "          "
@@ -102,8 +106,7 @@ func _ready():
 	# Connect to difficulty changes
 	if Global:
 		Global.difficulty_changed.connect(_on_difficulty_changed)
-		
-# Modified _physics_process method
+
 func _physics_process(delta):
 	# Update attack cooldown
 	if not can_attack:
@@ -123,6 +126,12 @@ func _physics_process(delta):
 				hover_check_timer = 0.0
 				prevent_player_landing()
 	
+	# Check if we're standing on player's head
+	on_player_check_timer += delta
+	if on_player_check_timer >= on_player_check_interval:
+		on_player_check_timer = 0.0
+		check_if_on_player_head()
+	
 	# Apply movement
 	if "velocity" in self:
 		move_and_slide()
@@ -133,7 +142,102 @@ func _physics_process(delta):
 			if player and is_overlapping_player(player):
 				# Force immediate bounce if overlapping
 				emergency_bounce(player)
-				
+
+# Get player reference
+func get_player():
+	return get_tree().get_first_node_in_group("player")
+
+# Check if about to land on player using physics raycast
+func prevent_player_landing():
+	var player = get_player()
+	if not player:
+		return
+		
+	# Calculate potential landing spot
+	var space_state = get_world_2d().direct_space_state
+	var query = PhysicsRayQueryParameters2D.create(
+		global_position,  # Start from current position
+		global_position + Vector2(0, hover_check_distance),  # Check below
+		1,  # Collision mask (adjust to your collision layer setup)
+		[get_rid()]  # Exclude self from the check
+	)
+	
+	var result = space_state.intersect_ray(query)
+	
+	# If we're about to hit the player, bounce off
+	if result and result.collider == player:
+		# Determine horizontal direction away from player
+		var direction = sign(global_position.x - player.global_position.x)
+		if direction == 0:
+			direction = 1
+			
+		# Apply bounce with horizontal movement
+		velocity.y = bounce_strength * 1.2  # Extra bounce strength
+		velocity.x = direction * player_knockback * 1.5
+		
+		# Also apply knockback to player if possible
+		if "velocity" in player:
+			player.velocity.x = -direction * player_knockback * 0.5
+
+# Emergency handling for direct overlaps
+func is_overlapping_player(player):
+	# Simple AABB overlap check
+	var enemy_rect = Rect2(global_position - Vector2(10, 20), Vector2(20, 40))
+	var player_rect = Rect2(player.global_position - Vector2(10, 20), Vector2(20, 40))
+	return enemy_rect.intersects(player_rect)
+
+# Handle immediate bounce if already overlapping
+func emergency_bounce(player):
+	var direction = sign(global_position.x - player.global_position.x)
+	if direction == 0:
+		direction = 1
+		
+	# Strong bounce to force separation
+	velocity.y = bounce_strength * 1.5
+	velocity.x = direction * player_knockback * 2
+	
+	# Move the enemy up slightly to prevent getting stuck
+	global_position.y -= 5
+	
+	# Apply stronger knockback to player
+	if "velocity" in player:
+		player.velocity.x = -direction * player_knockback
+
+# New function to detect standing on player's head
+func check_if_on_player_head():
+	var player = get_player()
+	if not player:
+		return
+		
+	# Check if we're approximately on the player's head
+	var horizontal_distance = abs(global_position.x - player.global_position.x)
+	var vertical_distance = global_position.y - player.global_position.y
+	
+	# Conditions for being on player's head:
+	if horizontal_distance < player_head_detection_width and vertical_distance < -30 and vertical_distance > -50 and is_on_floor():
+		jump_off_player_head(player)
+		
+	# Additionally, check for almost direct overlap regardless of floor status
+	if horizontal_distance < 15 and vertical_distance < -20 and vertical_distance > -45:
+		jump_off_player_head(player)
+
+# Function to jump off player's head
+func jump_off_player_head(player):
+	# Strong jump upward
+	velocity.y = jump_off_player_strength
+	
+	# Also move horizontally away from player
+	var direction = sign(global_position.x - player.global_position.x)
+	if direction == 0:
+		direction = 1  # Default direction if perfectly aligned
+	
+	velocity.x = direction * 150  # Horizontal movement away
+	
+	# Restart collision checks
+	on_player_check_timer = 0.0
+	
+	print(name + " jumped off player's head")
+
 # Create and setup state machine - called by child classes
 func setup_state_machine():
 	state_machine = EnemyStateMachine.new()
@@ -276,7 +380,10 @@ func drop_item():
 			else:
 				scene_path = "res://scenes/core/items/coin.tscn"
 		DropType.ELIXIR:
-			scene_path = "res://scenes/core/items/elixir.tscn"
+			scene_path = "res://scenes/core/items/elixir.tscn"			
+		DropType.HEART:
+			scene_path = "res://scenes/core/items/heart.tscn"
+			
 	
 	# Instantiate the drop if we have a valid scene path
 	if scene_path != "":
@@ -285,63 +392,3 @@ func drop_item():
 			var drop_instance = scene.instantiate()
 			get_parent().add_child(drop_instance)
 			drop_instance.global_position = global_position
-
-# Get player reference
-func get_player():
-	return get_tree().get_first_node_in_group("player")
-
-# Check if about to land on player using physics raycast
-func prevent_player_landing():
-	var player = get_player()
-	if not player:
-		return
-		
-	# Calculate potential landing spot
-	var space_state = get_world_2d().direct_space_state
-	var query = PhysicsRayQueryParameters2D.create(
-		global_position,  # Start from current position
-		global_position + Vector2(0, hover_check_distance),  # Check below
-		1,  # Collision mask (adjust to your collision layer setup)
-		[get_rid()]  # Exclude self from the check
-	)
-	
-	var result = space_state.intersect_ray(query)
-	
-	# If we're about to hit the player, bounce off
-	if result and result.collider == player:
-		# Determine horizontal direction away from player
-		var direction = sign(global_position.x - player.global_position.x)
-		if direction == 0:
-			direction = 1
-			
-		# Apply bounce with horizontal movement
-		velocity.y = bounce_strength * 1.2  # Extra bounce strength
-		velocity.x = direction * player_knockback * 1.5
-		
-		# Also apply knockback to player if possible
-		if "velocity" in player:
-			player.velocity.x = -direction * player_knockback * 0.5
-
-# Emergency handling for direct overlaps
-func is_overlapping_player(player):
-	# Simple AABB overlap check
-	var enemy_rect = Rect2(global_position - Vector2(10, 20), Vector2(20, 40))
-	var player_rect = Rect2(player.global_position - Vector2(10, 20), Vector2(20, 40))
-	return enemy_rect.intersects(player_rect)
-
-# Handle immediate bounce if already overlapping
-func emergency_bounce(player):
-	var direction = sign(global_position.x - player.global_position.x)
-	if direction == 0:
-		direction = 1
-		
-	# Strong bounce to force separation
-	velocity.y = bounce_strength * 1.5
-	velocity.x = direction * player_knockback * 2
-	
-	# Move the enemy up slightly to prevent getting stuck
-	global_position.y -= 5
-	
-	# Apply stronger knockback to player
-	if "velocity" in player:
-		player.velocity.x = -direction * player_knockback

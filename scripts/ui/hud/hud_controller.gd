@@ -25,6 +25,9 @@ var heaven_coin_color = Color(0, 0.5, 1, 1)       # Blue color for heavenly coin
 # Message variables
 var message_queue = []
 var is_showing_message = false
+var message_tween: Tween = null
+var current_message_timer: SceneTreeTimer = null
+
 
 signal coin_removal_completed
 
@@ -124,26 +127,14 @@ func hide_power_up_display(power_up_name: String) -> void:
 		ability_timer_display.hide_timer(power_up_name)
 
 # --- MESSAGE DISPLAY SYSTEM ---
-
 func show_message(text: String, duration: float = 5.0, color: Color = Color.WHITE) -> void:
-	# Add message to queue
-	message_queue.append({
-		"text": text,
-		"duration": duration,
-		"color": color
-	})
+	# Bestehenden Tween abbrechen, falls vorhanden
+	if message_tween != null:
+		message_tween.kill()
+		message_tween = null
 	
-	# Start displaying messages if not already showing
-	if !is_showing_message:
-		_process_next_message()
-		
-func _process_next_message() -> void:
-	if message_queue.size() == 0:
-		is_showing_message = false
-		return
-	
-	is_showing_message = true
-	var message_data = message_queue.pop_front()
+	# Timer abbrechen (indirekt durch Null-Setzen)
+	current_message_timer = null
 	
 	# Get references to our nodes
 	var message_container = $MessageContainer
@@ -151,8 +142,8 @@ func _process_next_message() -> void:
 	
 	if message_container and message_display:
 		# Set text and color
-		message_display.text = message_data.text
-		message_display.add_theme_color_override("font_color", message_data.color)
+		message_display.text = text
+		message_display.add_theme_color_override("font_color", color)
 		
 		# Make sure everything is visible
 		message_container.visible = true
@@ -161,35 +152,62 @@ func _process_next_message() -> void:
 		# Reset scroll position
 		message_container.scroll_horizontal = 0
 		
+		# Flag that we're showing a message
+		is_showing_message = true
+		
 		# Calculate scroll limits
 		var max_scroll = message_display.size.x - message_container.size.x
 		if max_scroll > 0:
 			# Create tween for scrolling
-			var tween = create_tween()
-			var scroll_duration = message_data.duration * 0.8
+			message_tween = create_tween()
+			var scroll_duration = duration * 0.8
 			
 			# Scroll the container from left to right
-			tween.tween_property(message_container, "scroll_horizontal", max_scroll, scroll_duration)
+			message_tween.tween_property(message_container, "scroll_horizontal", max_scroll, scroll_duration)
 			
-			# Once complete, hide and process next message
-			await tween.finished
+			# Once complete, hide the message
+			message_tween.tween_callback(func(): 
+				message_container.visible = false
+				is_showing_message = false
+			)
 		else:
 			# For short messages, just display for the duration
-			await get_tree().create_timer(message_data.duration).timeout
-		
-		# Hide the container
-		message_container.visible = false
-		
-		# Small delay before next message
-		await get_tree().create_timer(0.5).timeout
-		
-		# Process next message
-		_process_next_message()
+			var new_timer = get_tree().create_timer(duration)
+			current_message_timer = new_timer
+			
+			# Warte auf das Timeout
+			await new_timer.timeout
+			
+			# Nur ausblenden, wenn der Timer nicht abgebrochen wurde
+			if current_message_timer == new_timer:
+				message_container.visible = false
+				is_showing_message = false
+				current_message_timer = null
+
+# Diese Funktion wird nicht mehr benötigt und sollte leer gelassen werden
+func _process_next_message() -> void:
+	pass
+
+# Angepasste clear_messages-Funktion
 func clear_messages() -> void:
+	# Bestehenden Tween abbrechen, falls vorhanden
+	if message_tween != null:
+		message_tween.kill()
+		message_tween = null
+	
+	# Timer abbrechen, falls vorhanden
+	current_message_timer = null
+	
+	# Warteschlange leeren
 	message_queue.clear()
-	if message_display:
-		message_display.visible = false
+	
+	# Display verstecken
+	if $MessageContainer and $MessageContainer/MessageDisplay:
+		$MessageContainer.visible = false
+	
+	# Status-Flag zurücksetzen
 	is_showing_message = false
+
 
 # --- VISUAL EFFECTS ---
 

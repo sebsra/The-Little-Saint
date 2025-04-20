@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://kfb6dx6luob4"]
+
+[ext_resource type="Texture2D" uid="uid://dm67cqfufmwf" path="res://assets/sprites/unsorted/hud_heartFull.png" id="1_1mrx8"]
+[ext_resource type="Script" uid="uid://dygtmcipkpsit" path="res://scenes/core/items/heart.gd" id="1_mxqna"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1mrx8"]
+radius = 28.0179
+
+[node name="Heart" type="Area2D"]
+script = ExtResource("1_mxqna")
+
+[node name="HeartsFull" type="Sprite2D" parent="."]
+position = Vector2(-0.0499997, -6.25)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_1mrx8")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+scale = Vector2(0.3, 0.3)
+shape = SubResource("CircleShape2D_1mrx8")

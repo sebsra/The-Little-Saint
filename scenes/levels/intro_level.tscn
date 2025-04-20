@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cj15l5x85rbu"]
+[gd_scene load_steps=41 format=3 uid="uid://cj15l5x85rbu"]
 
 [ext_resource type="Script" uid="uid://ch53jgwhj72k7" path="res://scenes/levels/prince_levels/game_prince.gd" id="1_cv7fv"]
 [ext_resource type="Texture2D" uid="uid://blekbooony6ko" path="res://assets/sprites/Foresttiles/oak_woods_tileset.png" id="2_x4vc4"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://dfdu5qaytkhqx" path="res://scenes/core/items/burgturm.tscn" id="23_shxjb"]
 [ext_resource type="PackedScene" uid="uid://b4eyyu131yt6h" path="res://scenes/core/enemies/goblin_archer.tscn" id="25_cv7fv"]
 [ext_resource type="PackedScene" uid="uid://257y6q30yw05" path="res://scenes/core/items/sword.tscn" id="25_elcuj"]
+[ext_resource type="PackedScene" uid="uid://kfb6dx6luob4" path="res://scenes/core/items/heart.tscn" id="26_x4vc4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ndii1"]
 texture = ExtResource("2_x4vc4")
@@ -4150,9 +4151,9 @@ metadata/_edit_use_anchors_ = true
 
 [node name="NinePatchRect" type="NinePatchRect" parent="ParallaxBackground/ParallaxLayer2"]
 offset_left = 2466.0
-offset_top = -467.0
+offset_top = -446.0
 offset_right = 9135.0
-offset_bottom = 1824.0
+offset_bottom = 1845.0
 texture = ExtResource("19_jr2lp")
 
 [node name="water" type="Area2D" parent="."]
@@ -4194,6 +4195,9 @@ position = Vector2(-3242, 71)
 
 [node name="Goblin_Melee5" parent="." instance=ExtResource("20_uociw")]
 position = Vector2(-4253, -475)
+
+[node name="Heart" parent="." instance=ExtResource("26_x4vc4")]
+position = Vector2(-4554, -444)
 
 [connection signal="body_entered" from="SetBackZone" to="." method="_on_set_back_zone_body_entered"]
 [connection signal="body_entered" from="water" to="." method="_on_water_body_entered"]

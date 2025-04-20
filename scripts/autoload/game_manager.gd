@@ -9,7 +9,7 @@ var previous_state: Constants.GameState = Constants.GameState.MENU
 
 # Difficulty settings - simple enum and current level only
 enum Difficulty {EASY, NORMAL, HARD, NIGHTMARE}
-var current_difficulty: Difficulty = Difficulty.NORMAL
+var current_difficulty: Difficulty = Difficulty.EASY
 
 enum CoinType {NORMAL, HEAVENLY}
 var current_coin_type: CoinType = CoinType.NORMAL
