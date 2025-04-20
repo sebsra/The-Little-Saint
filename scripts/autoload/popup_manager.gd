@@ -175,7 +175,7 @@ func _on_popup_canceled(dialog_id: String):
 
 # Erstellt eine neue Popup-Instanz
 func _create_popup():
-	var popup_script = load("res://scripts/ui/dialogs/popup_dialog.gd")
+	var popup_script = load("res://scenes/ui/dialogs/popup_dialog.gd")
 	# Wir erstellen einen CanvasLayer
 	var popup_instance = CanvasLayer.new()
 	popup_instance.set_script(popup_script)
