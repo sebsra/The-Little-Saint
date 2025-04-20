@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://cj15l5x85rbu"]
+[gd_scene load_steps=45 format=3 uid="uid://cj15l5x85rbu"]
 
 [ext_resource type="Script" uid="uid://ch53jgwhj72k7" path="res://scenes/levels/prince_levels/intro_level.gd" id="1_cv7fv"]
 [ext_resource type="Texture2D" uid="uid://blekbooony6ko" path="res://assets/sprites/Foresttiles/oak_woods_tileset.png" id="2_x4vc4"]
@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://duiycg4tadqtw" path="res://scenes/levels/prince_levels/Tiles/fourSeasonsPlatformer/background_/sky_.png" id="7_3bwwa"]
 [ext_resource type="Texture2D" uid="uid://dpdm8ykleb7ch" path="res://assets/sprites/WasserTileset/RPGMAKER-100/tf_B_atlantisB.png" id="8_pkno2"]
 [ext_resource type="PackedScene" uid="uid://ds83orkh8d6l" path="res://scenes/core/character/player.tscn" id="9_cqfx1"]
-[ext_resource type="PackedScene" uid="uid://die4yhtyawe6w" path="res://scenes/levels/prince_levels/NewPlatform.tscn" id="10_4f68i"]
+[ext_resource type="PackedScene" path="res://scenes/levels/prince_levels/NewPlatform.tscn" id="10_4f68i"]
 [ext_resource type="PackedScene" uid="uid://bvodoquin8gd6" path="res://scenes/core/items/power_jump.tscn" id="11_bpca3"]
 [ext_resource type="PackedScene" uid="uid://bvht273076lxf" path="res://scenes/ui/controls/gui.tscn" id="12_gu1x4"]
 [ext_resource type="PackedScene" uid="uid://brvsjhwye311q" path="res://scenes/ui/hud/hud.tscn" id="13_ei38a"]
@@ -26,7 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://b4eyyu131yt6h" path="res://scenes/core/enemies/goblin_archer.tscn" id="25_cv7fv"]
 [ext_resource type="PackedScene" uid="uid://257y6q30yw05" path="res://scenes/core/items/sword.tscn" id="25_elcuj"]
 [ext_resource type="PackedScene" uid="uid://cwltbuuif0nqd" path="res://scenes/core/items/elixir.tscn" id="26_x4vc4"]
-[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/heavenly_coin.tscn" id="27_o70gk"]
+[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/coin.tscn" id="27_o70gk"]
 [ext_resource type="PackedScene" uid="uid://duv1dcx0sg3gc" path="res://scenes/core/items/sack_of_gold.tscn" id="28_4f68i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ndii1"]
@@ -4024,6 +4024,21 @@ sources/9 = SubResource("TileSetAtlasSource_ub6dr")
 sources/10 = SubResource("TileSetAtlasSource_8ty67")
 sources/0 = SubResource("TileSetAtlasSource_ndii1")
 
+[sub_resource type="Animation" id="Animation_tjb1a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(7045, 1245)]
+}
+
 [sub_resource type="Animation" id="Animation_7ohcd"]
 resource_name = "new_animation"
 length = 2.5
@@ -4041,21 +4056,6 @@ tracks/0/keys = {
 "values": [Vector2(7045, 267), Vector2(7045, 1247)]
 }
 
-[sub_resource type="Animation" id="Animation_tjb1a"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(7045, 1245)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3bwwa"]
 _data = {
 &"RESET": SubResource("Animation_tjb1a"),
@@ -4064,6 +4064,12 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cy6ot"]
 size = Vector2(67020.9, 189.813)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4f68i"]
+size = Vector2(128.25, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ohcd"]
+size = Vector2(89, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o3ar0"]
 size = Vector2(1652.19, 547.156)
@@ -4074,6 +4080,7 @@ script = ExtResource("1_cv7fv")
 
 [node name="TileMap" type="TileMap" parent="."]
 show_behind_parent = true
+z_index = -2
 position = Vector2(3, 1)
 scale = Vector2(0.996, 1.26)
 tile_set = SubResource("TileSet_2uh8n")
@@ -4090,7 +4097,7 @@ layer_2/tile_data = PackedInt32Array(327521, 851978, 3, 393057, 851978, 3, 45859
 
 [node name="Player" parent="." instance=ExtResource("9_cqfx1")]
 light_mask = 2
-position = Vector2(-4624, -722)
+position = Vector2(-2878, -183)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(10, 19)
@@ -4170,6 +4177,21 @@ offset_right = 10373.0
 offset_bottom = -389.0
 texture = ExtResource("19_jr2lp")
 
+[node name="sack_detector" type="Area2D" parent="."]
+position = Vector2(12, -16)
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sack_detector"]
+position = Vector2(-1401, 344)
+shape = SubResource("RectangleShape2D_4f68i")
+
+[node name="blocker" type="StaticBody2D" parent="."]
+position = Vector2(12, -16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="blocker"]
+position = Vector2(-1399, 192)
+shape = SubResource("RectangleShape2D_7ohcd")
+
 [node name="water" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="water"]
@@ -4247,7 +4269,7 @@ position = Vector2(-2631, 37)
 position = Vector2(-2631, 37)
 
 [node name="Goblin_Melee6" parent="." instance=ExtResource("20_uociw")]
-position = Vector2(-1770, 19)
+position = Vector2(-1733, -39)
 
 [node name="Goblin_Melee7" parent="." instance=ExtResource("20_uociw")]
 position = Vector2(-1719, -759)
@@ -4256,7 +4278,7 @@ position = Vector2(-1719, -759)
 position = Vector2(-1494, -747)
 
 [node name="Goblin_Melee9" parent="." instance=ExtResource("20_uociw")]
-position = Vector2(-2059, 31)
+position = Vector2(-2100, 18)
 
 [node name="coins5" parent="." instance=ExtResource("27_o70gk")]
 position = Vector2(-3787, -10)
@@ -4279,9 +4301,6 @@ position = Vector2(-4049, -321)
 [node name="coins11" parent="." instance=ExtResource("27_o70gk")]
 position = Vector2(-4076, -12)
 
-[node name="coins12" parent="." instance=ExtResource("28_4f68i")]
-position = Vector2(-2889, -108)
-
 [node name="coins13" parent="." instance=ExtResource("27_o70gk")]
 position = Vector2(-2005, -140)
 
@@ -4298,11 +4317,23 @@ position = Vector2(-1405, -745)
 position = Vector2(-1768, -738)
 
 [node name="coins18" parent="." instance=ExtResource("27_o70gk")]
-position = Vector2(-1662, -738)
+position = Vector2(-1581, -739)
+
+[node name="coins20" parent="." instance=ExtResource("27_o70gk")]
+position = Vector2(-5746.2, -109.4)
+scale = Vector2(0.49, 0.49)
+
+[node name="coins12" parent="." instance=ExtResource("27_o70gk")]
+position = Vector2(-7743.44, -115.28)
+scale = Vector2(0.343, 0.343)
 
 [node name="coins19" parent="." instance=ExtResource("27_o70gk")]
 position = Vector2(-1906, -435)
 
+[node name="sack_of_gold" parent="." instance=ExtResource("28_4f68i")]
+position = Vector2(-2893, -101)
+
 [connection signal="body_entered" from="SetBackZone" to="." method="_on_set_back_zone_body_entered"]
+[connection signal="body_entered" from="sack_detector" to="." method="_on_sack_detector_body_entered"]
 [connection signal="body_entered" from="water" to="." method="_on_water_body_entered"]
 [connection signal="body_exited" from="water" to="." method="_on_water_body_exited"]
