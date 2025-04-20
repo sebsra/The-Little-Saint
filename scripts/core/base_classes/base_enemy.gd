@@ -46,10 +46,10 @@ var collision_shape = null
 var animated_sprite = null
 
 enum DropType {NONE, COIN, ELIXIR, HEART}
-var drop_chance: float = 0.8 
+var drop_chance: float = 0.8 #Chance to drop anything
 var drop_type_chances = {
 	DropType.COIN: 0.5,   # 50% chance for coin
-	DropType.ELIXIR: 5.25, # 20% chance for elixir
+	DropType.ELIXIR: 0.25, # 25% chance for elixir
 	DropType.HEART: 0.25
 }
 
