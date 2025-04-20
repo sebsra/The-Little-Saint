@@ -92,11 +92,16 @@ func resume_previous_state() -> void:
 
 # Difficulty management - simple getters and setters
 func set_difficulty(difficulty: int) -> void:
+	# Clamp the difficulty value to ensure it's between 0 and 3
+	difficulty = clamp(difficulty, 0, Difficulty.values().size() - 1)
+
 	if difficulty != current_difficulty:
 		var old_difficulty = current_difficulty
-		current_difficulty = difficulty
+		current_difficulty = difficulty  # Assign the valid difficulty
 		emit_signal("difficulty_changed", current_difficulty, old_difficulty)
 		print("Game difficulty changed to: ", Difficulty.keys()[current_difficulty])
+
+
 
 func get_difficulty() -> int:
 	return current_difficulty

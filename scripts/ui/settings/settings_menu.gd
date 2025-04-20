@@ -22,3 +22,7 @@ func _on_audio_button_pressed():
 
 func _on_customizer_button_pressed():
 	get_tree().change_scene_to_file("res://scenes/ui/character_customizer/customizer.tscn")
+
+
+func _on_settings_button_pressed():
+	get_tree().change_scene_to_file("res://scenes/ui/settings/difficulty_settings.tscn")
