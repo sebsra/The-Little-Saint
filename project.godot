@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="The Little Saint"
-run/main_scene="uid://dh7t0n4nj8w4o"
+run/main_scene="uid://whrx38mfqxo2"
 config/features=PackedStringArray("4.4", "Mobile")
 
 [autoload]
