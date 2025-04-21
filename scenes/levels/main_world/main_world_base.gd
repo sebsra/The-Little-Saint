@@ -5,7 +5,8 @@ var boss_music = load("res://assets/audio/music/Tracks/the-epic-2-by-rafael-krux
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	AudioManager.play_track(boss_music)
-
+	if get_node_or_null("/root/Global"):
+		Global.set_coin_type(Global.CoinType.HEAVENLY)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass

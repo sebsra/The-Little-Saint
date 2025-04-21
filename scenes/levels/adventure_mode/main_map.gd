@@ -10,7 +10,7 @@ extends Node2D
 @onready var start_room = preload("res://scenes/levels/adventure_mode/Starting_Room.tscn")
 @onready var end_room = preload("res://scenes/levels/adventure_mode/End_Room.tscn")
 @onready var ExitBlock = preload("res://scenes/levels/adventure_mode/exit_block.tscn")
-
+var boss_music = load("res://assets/audio/music/Tracks/the-epic-2-by-rafael-krux(chosic.com).mp3")
 # Constants for room dimensions and number of rooms
 const ROOM_WIDTH = 960  # Room width
 const ROOM_HEIGHT = 480  # Room height
@@ -19,6 +19,8 @@ const HIGH_EXIT_OFFSET = 320  # Vertical offset for high exit (move up)
 const LOW_EXIT_OFFSET = -320  # Vertical offset for low exit (move down)
 
 func _ready():
+	
+	Global.player_died.connect(_on_player_died)
 	var previous_position = Vector2(960, 0)  # Starting position for the first room
 	var start_Initial_Room = start_room.instantiate()
 	add_child(start_Initial_Room)
@@ -122,3 +124,8 @@ func _ready():
 						var Exit_Pos3 = previous_position + Vector2(-32,288 )
 						Exit_Barricade3.position = Exit_Pos3
 						add_child(Exit_Barricade3)
+						
+func _on_player_died() -> void:
+	await get_tree().create_timer(3.0).timeout
+	GlobalHUD.change_life(3.0)
+	get_tree().change_scene_to_file("res://scenes/levels/adventure_mode/base_level.tscn")

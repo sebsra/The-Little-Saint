@@ -12,6 +12,7 @@ func _on_settings_button_pressed():
 
 func _on_start_button_pressed():
 	if SaveManager.FirstRun == 0:
+		Global.set_coin_type(Global.CoinType.NORMAL)
 		get_tree().change_scene_to_file("res://scenes/levels/intro_level/intro_level.tscn")
 	elif SaveManager.FirstRun == 1:
 		get_tree().change_scene_to_file("res://scenes/levels/adventure_mode/base_level.tscn")

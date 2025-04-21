@@ -132,9 +132,9 @@ func collect_sack_of_gold(player):
 # Funktion zum Ablegen des Goldsacks
 func drop_sack(drop_position: Vector2 = Vector2.ZERO, target_parent: Node = null):
 	# Überprüfen ob der Sack eingesammelt wurde
+	print(GlobalHUD.coins)
 	if not is_collected:
 		return
-	GlobalHUD.set_coins(GlobalHUD.coins -100)
 	# Den Spieler (aktuellen Elternknoten) referenzieren
 	var player = get_parent()
 	if not player:

@@ -361,7 +361,9 @@ func _on_coins_dissolved():
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(dialog_panel, "modulate:a", 1.0, 0.5)
 	tween.parallel().tween_property(dialog_panel, "position:y", dialog_panel.position.y + 125, 0.5)
-
+	await get_tree().create_timer(8.0).timeout
+	SaveManager.FirstRun = 1
+	get_tree().change_scene_to_file("res://scenes/levels/adventure_mode/base_level.tscn")
 # Zeige die Miniatur-Erinnerungen im Level
 func show_memory_miniatures():
 	current_state = HeavenSceneState.EXPLORING

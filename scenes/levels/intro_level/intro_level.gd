@@ -7,14 +7,19 @@ var is_sack_dialog_active: bool = false
 # Variablen für die Dialogverwaltung
 var _current_player_body: Node2D = null
 var _current_dialog_id: String = ""
-
 # Variablen für die Plattformbewegung
 var platform_initial_position: Vector2
 var platform_top_position: Vector2
-
+var boss_music = load("res://assets/audio/music/Tracks/the-epic-2-by-rafael-krux(chosic.com).mp3")
 func _ready() -> void:
+	AudioManager.play_track(boss_music)
 	# Verbinde mit dem player_died Signal aus dem Global Autoload in Godot 4.4 Syntax
 	Global.player_died.connect(_on_player_died)
+	$BeggarChild.has_been_helped = false
+	if get_node_or_null("/root/Global"):
+		Global.set_coin_type(Global.CoinType.NORMAL)
+		await get_tree().create_timer(4.0).timeout
+		GlobalHUD.set_coins(0)
 	# Verbinde mit den Signalen des Goldsacks
 	if has_node("sack_of_gold"):
 		var sack = get_node("sack_of_gold")
@@ -71,21 +76,18 @@ func _on_set_back_zone_body_entered(body: Node2D) -> void:
 
 # Diese Funktion wird aufgerufen, wenn das player_died Signal emittiert wird
 func _on_player_died() -> void:
-	$Player.state_machine.change_state("PlayerDeathState")
-	
-	# Falls der Spieler den Sack trägt, diesen fallen lassen
 	if player_has_sack and $Player.has_node("sack_of_gold"):
 		var sack = $Player.get_node("sack_of_gold")
 		sack.drop_sack($Player.global_position + Vector2(0, -50), self)
 	
 	await get_tree().create_timer(3.0).timeout
 	$Player.position = Vector2(-4611.0, -485.0)
+	GlobalHUD.change_life(3.0)
 	$Player.state_machine.change_state("PlayerIdleState")
 	
 func _on_water_body_entered(body):
 	if body.name == "Player" or body.is_in_group("Player"):
 		body.state_machine.change_state("PlayerSwimState")
-		
 		# Wir legen den Sack NICHT automatisch im Wasser ab
 		# Der Sack soll nur durch den Dialog-Mechanismus abgelegt werden
 	
@@ -110,7 +112,8 @@ func _on_sack_of_gold_collected(sack, player):
 # Signal-Handler für das Ablegen des Goldsacks
 func _on_sack_of_gold_dropped(sack, position):
 	player_has_sack = false
-	GlobalHUD.add_message("-100 Goldmünzen. Du hast den Goldsack abgelegt")
+	GlobalHUD.set_coins(15)
+	GlobalHUD.add_message("Du hast den Goldsack abgelegt")
 	update_blocker()  # Update blocker collision layer
 	
 	# Hier kannst du weitere Aktionen ausführen, wenn der Spieler den Sack ablegt
@@ -144,7 +147,7 @@ func _on_sack_detector_body_entered(body: Node2D) -> void:
 		# Dialog erstellen und anzeigen
 		_current_dialog_id = PopupManager.confirm(
 			"Ballast im Wasser entsorgen", 
-			"Du trägst einen schwern Goldsack.... Mancher Ballast muss im Wasser begraben werden, um weiterzukommen.",
+			"Du trägst einen schwern Goldsack.... Mancher Ballast muss im Wasser begraben werden, leider kannst du nur 15 Münzen tragen.",
 			"Abbrechen",
 			"Okay, Sack ablegen"
 		)
