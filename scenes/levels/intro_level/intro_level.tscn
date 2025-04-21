@@ -27,7 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://duv1dcx0sg3gc" path="res://scenes/core/items/sack_of_gold.tscn" id="28_4f68i"]
 [ext_resource type="Texture2D" uid="uid://xmoaxjo3iq33" path="res://assets/tilemaps/Tiles/fourSeasonsPlatformer/midground_/summer_.png" id="28_7ohcd"]
 [ext_resource type="PackedScene" uid="uid://ddgj1n6jn8im3" path="res://scenes/levels/intro_level/beggar_child.tscn" id="28_63y5d"]
-[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/heavenly_coin.tscn" id="29_qwfni"]
+[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/coin.tscn" id="29_qwfni"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ndii1"]
 texture = ExtResource("2_x4vc4")

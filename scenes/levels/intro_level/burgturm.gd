@@ -14,7 +14,7 @@ var gate_animation_distance = -100  # Negative value to move up
 var is_gate_open = false
 
 # Scene transition parameters
-var scene_transition_delay = 3.0
+var scene_transition_delay = 1.0
 var next_scene_path = "res://scenes/levels/intro_level/intro_heavenly_realm.tscn"
 
 func _ready():
