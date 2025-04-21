@@ -21,7 +21,7 @@ var gate_original_position = Vector2.ZERO
 
 # Scene transition parameters
 var scene_transition_delay = 3.0
-var next_scene_path = "res://scenes/levels/heavenly_realm/heavenly_realm/heavenly_realm.tscn"
+var next_scene_path = "res://scenes/levels/intro_level/intro_heavenly_realm.tscn"
 
 # Patrol limits and jump positions (now relative offsets from parent position)
 var patrol_left_offset = -207
