@@ -55,7 +55,6 @@ func _ready():
 	# Warte einen Frame, damit Viewport-Größe korrekt initialisiert ist
 	await get_tree().process_frame
 	setup_intro_phase()
-	
 	# Debug-Informationen ausgeben
 	print("HeavenlyRealm wurde initialisiert")
 	print("Viewport-Größe: ", get_viewport_rect().size)
@@ -209,7 +208,7 @@ func setup_intro_phase():
 	dialog_panel.modulate.a = 0
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(dialog_panel, "modulate:a", 1.0, 0.5)
-	tween.parallel().tween_property(dialog_panel, "position:y", dialog_panel.position.y - 20, 0.5)
+	tween.parallel().tween_property(dialog_panel, "position:y", dialog_panel.position.y + 125, 0.5)
 
 # Starte die Coin-Dissolve-Animation
 func start_coin_dissolve():
@@ -361,7 +360,7 @@ func _on_coins_dissolved():
 	dialog_panel.modulate.a = 0
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(dialog_panel, "modulate:a", 1.0, 0.5)
-	tween.parallel().tween_property(dialog_panel, "position:y", dialog_panel.position.y - 20, 0.5)
+	tween.parallel().tween_property(dialog_panel, "position:y", dialog_panel.position.y + 125, 0.5)
 
 # Zeige die Miniatur-Erinnerungen im Level
 func show_memory_miniatures():
@@ -693,7 +692,7 @@ func show_memory_fullscreen(area):
 	content_panel.position.y -= 50
 	var panel_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	panel_tween.tween_property(content_panel, "modulate:a", 1.0, 0.5)
-	panel_tween.parallel().tween_property(content_panel, "position:y", content_panel.position.y + 50, 0.5)
+	panel_tween.parallel().tween_property(content_panel, "position:y", content_panel.position.y +100, 0.5)
 
 # Wenn der "Schatz empfangen"-Button gedrückt wird
 func _on_receive_treasure_pressed(canvas_layer, category):
@@ -794,6 +793,7 @@ func check_all_memories_completed():
 				break
 	
 	if all_completed:
+		await get_tree().create_timer(5.0).timeout
 		show_completion_message()
 
 # Zeige eine Abschlussnachricht an
@@ -816,10 +816,16 @@ func show_completion_message():
 	bg_tween.tween_property(bg_effect, "color", Color(0.2, 0.3, 0.5, 0.7), 2.0)
 	bg_tween.tween_property(bg_effect, "color", Color(0.1, 0.2, 0.4, 0.7), 2.0)
 	
+	# Verwende ein MarginContainer mit einem negativen oberen Rand
+	var margin_container = MarginContainer.new()
+	margin_container.set_anchors_preset(Control.PRESET_FULL_RECT)
+	margin_container.add_theme_constant_override("margin_top", -150)  # Negativer oberer Rand
+	canvas_layer.add_child(margin_container)
+	
 	# Hauptcontainer - nutzt CenterContainer für garantierte Zentrierung
 	var center_container = CenterContainer.new()
 	center_container.set_anchors_preset(Control.PRESET_FULL_RECT)
-	canvas_layer.add_child(center_container)
+	margin_container.add_child(center_container)
 	
 	# Panel für die Abschlussnachricht - wird durch CenterContainer automatisch zentriert
 	var final_panel = PanelContainer.new()
@@ -912,7 +918,8 @@ func show_completion_message():
 	var panel_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	panel_tween.tween_property(final_panel, "scale", Vector2(1, 1), 0.7)
 	panel_tween.parallel().tween_property(final_panel, "modulate:a", 1.0, 0.5)
-
+	
+	
 # Wenn der "Weiter zur himmlischen Welt"-Button gedrückt wird
 func _on_continue_to_main_world():
 		# Fallback, falls Global nicht verfügbar ist
