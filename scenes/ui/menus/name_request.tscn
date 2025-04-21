@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://whrx38mfqxo2"]
+
+[ext_resource type="Script" uid="uid://dqt6dmjsjrsh4" path="res://scenes/ui/menus/name_request.gd" id="1_xr0qc"]
+[ext_resource type="PackedScene" uid="uid://cacipyxg6gu2d" path="res://scenes/ui/menus/main_menu/start_background.tscn" id="2_fis0x"]
+[ext_resource type="FontFile" uid="uid://ckqgohldi0pme" path="res://assets/fonts/special/copyduck/Copyduck.otf" id="3_ej24g"]
+
+[node name="NameRequest" type="Node2D"]
+script = ExtResource("1_xr0qc")
+
+[node name="start_background" parent="." instance=ExtResource("2_fis0x")]
+scroll_ignore_camera_zoom = false
+
+[node name="Label" type="Label" parent="."]
+offset_left = 439.0
+offset_top = 133.0
+offset_right = 594.0
+offset_bottom = 172.0
+scale = Vector2(2.66, 2.66)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ej24g")
+text = "Was ist dein Name ?"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 328.0
+offset_top = 67.0
+offset_right = 591.0
+offset_bottom = 106.0
+scale = Vector2(2.66, 2.66)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ej24g")
+text = "Wilkommen zu the Little Saint"
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 200.0
+offset_top = 309.0
+offset_right = 463.0
+offset_bottom = 348.0
+scale = Vector2(2.66, 2.66)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ej24g")
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="."]
+offset_left = 318.0
+offset_top = 215.0
+offset_right = 581.0
+offset_bottom = 254.0
+scale = Vector2(2.66, 2.66)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ej24g")
+horizontal_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="."]
+offset_left = 395.0
+offset_top = 223.0
+offset_right = 931.0
+offset_bottom = 305.0
+
+[connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]
