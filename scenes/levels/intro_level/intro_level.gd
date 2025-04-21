@@ -15,7 +15,6 @@ var platform_top_position: Vector2
 func _ready() -> void:
 	# Verbinde mit dem player_died Signal aus dem Global Autoload in Godot 4.4 Syntax
 	Global.player_died.connect(_on_player_died)
-	
 	# Verbinde mit den Signalen des Goldsacks
 	if has_node("sack_of_gold"):
 		var sack = get_node("sack_of_gold")
@@ -77,12 +76,11 @@ func _on_player_died() -> void:
 	# Falls der Spieler den Sack trägt, diesen fallen lassen
 	if player_has_sack and $Player.has_node("sack_of_gold"):
 		var sack = $Player.get_node("sack_of_gold")
-		sack.drop_sack($Player.global_position + Vector2(0, 50), self)
+		sack.drop_sack($Player.global_position + Vector2(0, -50), self)
 	
 	await get_tree().create_timer(3.0).timeout
-	$Player.position = Vector2(100, -100)
+	$Player.position = Vector2(-4611.0, -485.0)
 	$Player.state_machine.change_state("PlayerIdleState")
-	GlobalHUD.reset_to_defaults()
 	
 func _on_water_body_entered(body):
 	if body.name == "Player" or body.is_in_group("Player"):

@@ -7,6 +7,7 @@ func enter():
 	var velocity = get_velocity()
 	velocity.x = 0
 	set_velocity(velocity)
+	player.get_node("CollisionShape2D").disabled = false
 	
 	if player.debug_mode:
 		print("Entered Idle State")
