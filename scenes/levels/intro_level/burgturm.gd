@@ -15,7 +15,7 @@ var is_gate_open = false
 
 # Scene transition parameters
 var scene_transition_delay = 3.0
-var next_scene_path = "res://scenes/levels/heavenly_realm/heavenly_realm/heavenly_realm.tscn"
+var next_scene_path = "res://scenes/levels/intro_level/intro_heavenly_realm.tscn"
 
 func _ready():
 	# Initialize components if they exist
