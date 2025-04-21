@@ -16,6 +16,9 @@ var current_coin_type: CoinType = CoinType.NORMAL
 # Player reference
 var player: Player = null
 
+# Player Name
+var player_name = ""
+
 # markiert, ob der Spieler das Schwert hat
 var has_sword: bool = true
 

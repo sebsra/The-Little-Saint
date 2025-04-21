@@ -9,6 +9,7 @@ var current_save_data: SaveData = null
 # Alias for GameManager compatibility
 var game_data: SaveData = null
 
+var FirstRun = 0
 # Auto-save settings
 var auto_save_enabled: bool = false
 var auto_save_interval: float = 300.0  # Default: save every 5 minutes
