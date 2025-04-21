@@ -23,6 +23,7 @@ Global="*res://scripts/autoload/game_manager.gd"
 PopupManager="*res://scripts/autoload/popup_manager.gd"
 GlobalHUD="*res://scripts/autoload/global_hud.gd"
 PauseMenu="*res://scenes/ui/menus/Pause_Menu.tscn"
+ScreenshotManager="*res://scripts/autoload/screenshot_manager.gd"
 
 [display]
 

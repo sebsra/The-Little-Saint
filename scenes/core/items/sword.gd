@@ -73,6 +73,15 @@ func create_pulsing_tween():
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
+		# Take a screenshot before the sword disappears
+		var screenshot_id = "sword_collected_" + str(Time.get_unix_time_from_system())
+		ScreenshotManager.take_screenshot(screenshot_id, 0.1)
+		
+		# Add to memorable screenshots
+		if not "sword_collections" in Global.memorable_screenshots:
+			Global.memorable_screenshots["sword_collections"] = []
+		Global.memorable_screenshots["sword_collections"].append(screenshot_id)
+		
 		# Schwert verschwindet
 		queue_free()  # oder sword_sprite.hide(), je nach Wunsch
 		Global.collect_sword()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://cj15l5x85rbu"]
+[gd_scene load_steps=44 format=3 uid="uid://cj15l5x85rbu"]
 
 [ext_resource type="Script" uid="uid://ch53jgwhj72k7" path="res://scenes/levels/intro_level/intro_level.gd" id="1_cv7fv"]
 [ext_resource type="Texture2D" uid="uid://blekbooony6ko" path="res://assets/sprites/Foresttiles/oak_woods_tileset.png" id="2_x4vc4"]
@@ -24,10 +24,11 @@
 [ext_resource type="PackedScene" uid="uid://b4eyyu131yt6h" path="res://scenes/core/enemies/goblin_archer.tscn" id="25_cv7fv"]
 [ext_resource type="PackedScene" uid="uid://257y6q30yw05" path="res://scenes/core/items/sword.tscn" id="25_elcuj"]
 [ext_resource type="PackedScene" uid="uid://cwltbuuif0nqd" path="res://scenes/core/items/elixir.tscn" id="26_x4vc4"]
-[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/heavenly_coin.tscn" id="27_o70gk"]
 [ext_resource type="PackedScene" uid="uid://duv1dcx0sg3gc" path="res://scenes/core/items/sack_of_gold.tscn" id="28_4f68i"]
 [ext_resource type="Texture2D" uid="uid://xmoaxjo3iq33" path="res://assets/tilemaps/Tiles/fourSeasonsPlatformer/midground_/summer_.png" id="28_7ohcd"]
 [ext_resource type="PackedScene" uid="uid://ddgj1n6jn8im3" path="res://scenes/levels/intro_level/beggar_child.tscn" id="28_63y5d"]
+[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/heavenly_coin.tscn" id="29_cg0xv"]
+[ext_resource type="PackedScene" uid="uid://c5usa30swnhit" path="res://scenes/core/items/coin.tscn" id="29_qwfni"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ndii1"]
 texture = ExtResource("2_x4vc4")
@@ -4062,7 +4063,7 @@ layer_2/tile_data = PackedInt32Array(327521, 851978, 3, 393057, 851978, 3, 45859
 
 [node name="Player" parent="." instance=ExtResource("9_cqfx1")]
 light_mask = 2
-position = Vector2(-172, -48)
+position = Vector2(397, -184)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(10, 19)
@@ -4190,16 +4191,16 @@ position = Vector2(-3246, -31)
 [node name="elixir2" parent="." instance=ExtResource("26_x4vc4")]
 position = Vector2(-3246, -31)
 
-[node name="coins" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-3225, -33)
 
-[node name="coins2" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins2" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-3210, -29)
 
-[node name="coins3" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins3" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-3214, -44)
 
-[node name="coins4" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins4" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-3218, -32)
 
 [node name="Goblin_Mage2" parent="." instance=ExtResource("21_7i3hm")]
@@ -4232,54 +4233,54 @@ position = Vector2(-1494, -747)
 [node name="Goblin_Melee9" parent="." instance=ExtResource("20_uociw")]
 position = Vector2(-2100, 18)
 
-[node name="coins5" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins5" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-3787, -10)
 
-[node name="coins6" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins6" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-3766, -8)
 
-[node name="coins7" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins7" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-3744, -10)
 
-[node name="coins8" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins8" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-4049, -134)
 
-[node name="coins9" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins9" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-4157, -229)
 
-[node name="coins10" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins10" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-4049, -321)
 
-[node name="coins11" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins11" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-4076, -12)
 
-[node name="coins13" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins13" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-2005, -140)
 
-[node name="coins14" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins14" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-1079, -191)
 
-[node name="coins15" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins15" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-1430, -744)
 
-[node name="coins16" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins16" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-1405, -745)
 
-[node name="coins17" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins17" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-1768, -738)
 
-[node name="coins18" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins18" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-1581, -739)
 
-[node name="coins20" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins20" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-5746.2, -109.4)
 scale = Vector2(0.49, 0.49)
 
-[node name="coins12" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins12" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-7743.44, -115.28)
 scale = Vector2(0.343, 0.343)
 
-[node name="coins19" parent="." instance=ExtResource("27_o70gk")]
+[node name="coins19" parent="." instance=ExtResource("29_cg0xv")]
 position = Vector2(-1906, -435)
 
 [node name="sack_of_gold" parent="." instance=ExtResource("28_4f68i")]
@@ -4300,6 +4301,21 @@ shape = SubResource("RectangleShape2D_tjb1a")
 
 [node name="BeggarChild" parent="." instance=ExtResource("28_63y5d")]
 position = Vector2(371, -129)
+
+[node name="coins21" parent="." instance=ExtResource("29_qwfni")]
+position = Vector2(2875, -429)
+
+[node name="coins22" parent="." instance=ExtResource("29_qwfni")]
+position = Vector2(2896, -446)
+
+[node name="coins23" parent="." instance=ExtResource("29_qwfni")]
+position = Vector2(2914, -411)
+
+[node name="coins24" parent="." instance=ExtResource("29_qwfni")]
+position = Vector2(2940, -432)
+
+[node name="coins25" parent="." instance=ExtResource("29_qwfni")]
+position = Vector2(2937, -459)
 
 [connection signal="body_entered" from="SetBackZone" to="." method="_on_set_back_zone_body_entered"]
 [connection signal="body_entered" from="sack_detector" to="." method="_on_sack_detector_body_entered"]

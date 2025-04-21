@@ -21,7 +21,7 @@ func _ready() -> void:
 		var sack = get_node("sack_of_gold")
 		sack.sack_of_gold_collected.connect(_on_sack_of_gold_collected)
 		sack.sack_of_gold_dropped.connect(_on_sack_of_gold_dropped)
-	
+
 	# Initialize blocker state
 	update_blocker()
 	
@@ -171,7 +171,12 @@ func _on_dialog_confirmed(dialog_id: String):
 			
 			# Nachricht anzeigen
 			GlobalHUD.add_message("Der Goldsack wurde im Wasser versenkt")
-
+			
+			# Screenshot mit 0.5 Sekunden Verzögerung erstellen
+			# Dies gibt Zeit für die visuelle Änderung nach dem Ablegen des Sacks
+			var screenshot_id = "sack_drop_" + str(Time.get_unix_time_from_system())
+			ScreenshotManager.take_screenshot(screenshot_id, 0.5)
+			
 # Generischer Handler für Dialog-Abbruch
 func _on_dialog_canceled(dialog_id: String):
 	# Prüfen, ob es unser aktuelles Dialog ist

@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://c5usa30swnhit"]
 
 [ext_resource type="Script" uid="uid://clo67crjfkmbk" path="res://scenes/core/items/coins.gd" id="1_17fm3"]
-[ext_resource type="Texture2D" uid="uid://cr7jvj5pf3qvb" path="res://old_stuff/ardit_levels/GameItemsAnims-Sheet.png" id="2_6tilb"]
+[ext_resource type="Texture2D" uid="uid://c8k4854qfwtjt" path="res://assets/sprites/items/GameItemsAnims-Sheet.png" id="2_6tilb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rqm4w"]
 radius = 18.0278

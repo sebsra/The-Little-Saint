@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dfdu5qaytkhqx"]
 
-[ext_resource type="Script" uid="uid://b5x38aya7vwlx" path="res://scenes/core/items/burgturm.gd" id="1_c5b1e"]
+[ext_resource type="Script" uid="uid://b5x38aya7vwlx" path="res://scenes/levels/intro_level/burgturm.gd" id="1_c5b1e"]
 [ext_resource type="Texture2D" uid="uid://brbt7higd80wn" path="res://assets/sprites/environment/tower.png" id="1_w1ecy"]
 [ext_resource type="Texture2D" uid="uid://vlqsr6lrjr7w" path="res://assets/sprites/environment/portcullis.png" id="2_qxdjr"]
 [ext_resource type="PackedScene" uid="uid://b5phr3k12w4gl" path="res://scenes/levels/intro_level/tower_guard.tscn" id="5_qxdjr"]

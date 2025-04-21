@@ -48,6 +48,11 @@ extends Resource
 # Message history
 @export var message_history: Array = []
 
+# Screenshot storage
+@export var memorable_screenshots: Dictionary = {}
+@export var last_sack_drop_screenshot: String = ""  # NEU: Speichern des letzten Sack-Screenshots
+
+
 # Initialize with default values
 func _init():
 	save_date = Time.get_datetime_string_from_system(false, true)
@@ -117,7 +122,9 @@ func to_dict() -> Dictionary:
 		"collected_heaven_coins": collected_heaven_coins,
 		"unlocked_levels": unlocked_levels,
 		"completed_quests": completed_quests,
-		"message_history": message_history
+		"message_history": message_history,
+		"memorable_screenshots": memorable_screenshots,
+		"last_sack_drop_screenshot": last_sack_drop_screenshot  # NEU: In der Debug-Ausgabe
 	}
 
 # Return a string representation for debugging
@@ -166,6 +173,8 @@ func duplicate_data() -> SaveData:
 	new_data.unlocked_levels = unlocked_levels.duplicate()
 	new_data.completed_quests = completed_quests.duplicate()
 	new_data.message_history = message_history.duplicate(true)
+	new_data.memorable_screenshots = memorable_screenshots.duplicate(true)
+	new_data.last_sack_drop_screenshot = last_sack_drop_screenshot  # NEU: Deep Copy
 	
 	return new_data
 

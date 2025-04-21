@@ -83,6 +83,15 @@ func _on_beggar_child_helped():
 	if tower_guard:
 		tower_guard.set_thomas_helped(true)
 		print("Notified tower guard that Thomas was helped")
+		
+		# Take a screenshot when the beggar child is helped
+		var screenshot_id = "child_helped_" + str(Time.get_unix_time_from_system())
+		ScreenshotManager.take_screenshot(screenshot_id, 0.1)
+		
+		# Add to memorable screenshots
+		if not "child_helped" in Global.memorable_screenshots:
+			Global.memorable_screenshots["child_helped"] = []
+		Global.memorable_screenshots["child_helped"].append(screenshot_id)
 
 # Open the gate
 func open_gate():

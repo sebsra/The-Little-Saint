@@ -184,6 +184,8 @@ func _update_save_data() -> void:
 
 		# Update timestamp
 		current_save_data.save_date = Time.get_datetime_string_from_system(false, true)
+		
+		current_save_data.memorable_screenshots = Global.memorable_screenshots
 
 	# Add global game state
 	if get_node_or_null("/root/Global"):
@@ -217,6 +219,7 @@ func _apply_save_data() -> void:
 		global.unlocked_levels = current_save_data.unlocked_levels.duplicate()
 		global.completed_quests = current_save_data.completed_quests.duplicate()
 		global.current_level = current_save_data.current_level
+		global.memorable_screenshots = current_save_data.memorable_screenshots
 		
 		# Set game difficulty and coin type
 		global.current_difficulty = current_save_data.difficulty
@@ -275,6 +278,7 @@ func apply_save_data_to_player(player) -> void:
 		global_hud.coins = current_save_data.coins
 		global_hud.heaven_coins = current_save_data.heaven_coins
 		global_hud.notify_hud_of_all_values()
+
 
 # Settings management - Using player defaults from Constants
 func save_settings() -> bool:
@@ -369,7 +373,7 @@ func load_settings() -> bool:
 	current_save_data.player_jump_counter = config.get_value(Constants.SECTION_SETTINGS, "jump_counter", 0)
 	current_save_data.player_ready_for_jump = config.get_value(Constants.SECTION_SETTINGS, "ready_for_jump", true)
 	current_save_data.player_allowed_jumps = config.get_value(Constants.SECTION_SETTINGS, "allowed_jumps", Constants.PLAYER_MAX_JUMPS)
-
+	
 	# Load difficulty and coin type
 	#current_save_data.difficulty = config.get_value(Constants.SECTION_SETTINGS, "difficulty", 1) # Default: NORMAL
 	#current_save_data.coin_type = config.get_value(Constants.SECTION_SETTINGS, "coin_type", 0) # Default: NORMAL

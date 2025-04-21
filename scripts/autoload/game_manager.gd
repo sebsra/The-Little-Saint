@@ -49,6 +49,7 @@ signal difficulty_changed(new_difficulty, old_difficulty)
 signal coin_type_changed(new_type)
 signal sword_collected 
 
+
 # Initialization
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS # Game manager should run even when paused
@@ -63,6 +64,31 @@ func _ready():
 	resource_preloader.loading_progress.connect(_on_loading_progress)
 	resource_preloader.all_resources_loaded.connect(_on_all_resources_loaded)
 
+# Variable zum Speichern des letzten Goldsack-Screenshot-IDs
+var last_sack_drop_screenshot: String = ""
+
+# Dictionary für verschiedene Screenshot-Arten
+var memorable_screenshots = {
+	"sack_drops": [],
+	"deaths": [],
+	"victories": [],
+	"special_moments": []
+}
+
+# Funktion zum Hinzufügen eines Screenshots zum Dictionary
+func add_memorable_screenshot(category: String, screenshot_id: String) -> void:
+	if memorable_screenshots.has(category):
+		if not screenshot_id in memorable_screenshots[category]:
+			memorable_screenshots[category].append(screenshot_id)
+	else:
+		memorable_screenshots[category] = [screenshot_id]
+
+# Funktion zum Abrufen aller Screenshots einer Kategorie
+func get_memorable_screenshots(category: String) -> Array:
+	if memorable_screenshots.has(category):
+		return memorable_screenshots[category]
+	return []
+	
 # State management
 func change_state(new_state: Constants.GameState) -> void:
 	if new_state == current_state:
